@@ -1,0 +1,107 @@
+<div class="Order">
+  <div class="order_container   min-width">
+    <!-- <div class="order_title">我的订单</div> -->
+    <div class="order_conduct">
+      <div class="flex-row order_conduct_tabs">
+        <div class="order_conduct_tab tab-item-first " :class="order_tab == 1 && 'order_conduct_tab_active'"
+          @click="ORDER_TAB(1)">
+          进行中
+        </div>
+        <div class="order_conduct_tab " :class="order_tab == 2 && 'order_conduct_tab_active'" @click="ORDER_TAB(2)">
+          已完成
+        </div>
+        <div class="order_conduct_tab " :class="order_tab == 3 && 'order_conduct_tab_active'" @click="ORDER_TAB(3)">
+          已取消
+        </div>
+        <div class="order_conduct_tab  tab-item-last" :class="order_tab == 4 && 'order_conduct_tab_active'"
+          @click="ORDER_TAB(4)">
+          全部
+        </div>
+        <!-- <div class="order_search border_radius">
+          <input class="input_search" type="text" name="" v-model="order_search" placeholder="订单号">
+          <span class="icon_search" @click="SEARCH_ORDER"></span> -->
+          <!-- <button class="button_search" @click="SEARCH_ORDER">搜索</button> -->
+        <!-- </div> -->
+        <!--搜索弹窗 -->
+        <!-- <div class="popup-windows">
+          <ul>
+            <li>
+			  <p>日期</p>
+
+			  <el-date-picker
+			  v-model="value1"
+			  type="daterange"
+			  range-separator="--"
+			  start-placeholder="开始日期"
+			  end-placeholder="结束日期">
+			</el-date-picker>
+
+						</li>
+						
+
+
+            <li>
+				  <p>订单编号</p>
+			 	 <input type="text" placeholder="请输入订单编号">
+						</li>
+						
+
+
+            <li>
+			  <p>交易类型</p>
+			  
+			  <el-select v-model="value" placeholder="请选择">
+					<el-option
+					  v-for="item in options"
+					  :key="item.value"
+					  :label="item.label"
+					  :value="item.value">
+					</el-option>
+				  </el-select>
+            </li>
+          </ul>
+		  	<div>
+				<button>重置</button>
+				<button>取消</button>
+				<button>搜索</button>
+			</div>
+        </div> -->
+
+      </div>
+    </div>
+    <div class="order_conduct_container">
+      <router-view />
+    </div>
+  </div>
+</div>
+
+<!-- 原代码 -->
+<!-- <div class="Order">
+	<div class="order_container box_shadow border_radius min-width">
+		<div class="order_title">我的订单</div>
+		<div class="order_conduct">
+			<div class="flex-row order_conduct_tabs">
+				<div class="order_conduct_tab tab-item-first box_shadow" :class="order_tab == 1 && 'order_conduct_tab_active'" @click="ORDER_TAB(1)">
+					进行中
+				</div>
+				<div class="order_conduct_tab box_shadow" :class="order_tab == 2 && 'order_conduct_tab_active'" @click="ORDER_TAB(2)">
+					已完成
+				</div>
+				<div class="order_conduct_tab box_shadow" :class="order_tab == 3 && 'order_conduct_tab_active'" @click="ORDER_TAB(3)">
+					已取消
+				</div>
+				<div class="order_conduct_tab box_shadow tab-item-last" :class="order_tab == 4 && 'order_conduct_tab_active'" @click="ORDER_TAB(4)">
+					其他
+				</div>
+				<div class="order_search border_radius">
+					<span class="icon_search"></span>
+					<input class="input_search" type="text" name="" v-model="order_search" placeholder="输入单号">
+					<button class="button_search" @click="SEARCH_ORDER">搜索</button>
+				</div>
+			</div>
+		</div>
+		<div class="order_conduct_container">
+			<router-view/>
+		</div>
+	</div>
+</div> -->

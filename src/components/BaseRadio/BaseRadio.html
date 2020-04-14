@@ -1,0 +1,12 @@
+<div class="radio_box">
+  <label class="radio_label" @change="CHNAGE_RADIO">
+    <em class="check_radio" :class="model == value_arr[0] && 'selected'"></em>
+    <input class="input_radio" type="radio" name="pay_type" :value="value_arr[0]" v-model="model">
+    {{text_list[0]}}
+  </label>
+  <label class="radio_label" @change="CHNAGE_RADIO">
+    <em class="check_radio" :class="model == value_arr[1] && 'selected'"></em>
+    <input class="input_radio" type="radio" name="pay_type" :value="value_arr[1]" v-model="model">
+    {{text_list[1]}}
+  </label>
+</div>

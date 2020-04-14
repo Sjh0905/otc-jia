@@ -1,0 +1,246 @@
+<div class="header_body_container relative">
+
+<!--  <div class="header min-width relative">-->
+    <div class="header min-width ">
+    <div class="header-container min-width">
+
+
+
+      <!-- pc端头部logo -->
+      <template >
+
+        <!--导航条 begin-->
+        <div class="navigation-container flex"
+             :class="{'navigation-container-en':lang!=='CH'}"
+        >
+          <!--左侧内容 begin-->
+          <div class="header-left-container flex">
+
+
+            <div class="index-header-logo">
+               <img src="./assets/PC首页导航-欧联.png" class="navigation-logo" @click="goBackIndex">
+            </div>
+            <!--logo end-->
+
+            <!--左侧导航条 begin-->
+            <ul class="navigation-left-container flex" :class="lang != 'CH' && 'en'">
+              <!--币币交易 begin-->
+              <li class="navigation-item-container flex">
+                <div class="navigation-item-router flex" active-class="navigation-item-router-selected " @click="goToTradingHall">
+                  币币交易
+                </div>
+              </li>
+              <!-- 法币交易 -->
+<!--&lt;!&ndash;              active-class="navigation-item-router-selected "&ndash;&gt;下拉选框-->
+              <li class="navigation-item-container flex">
+                <router-link
+                  :to="{name:'Transaction'}"
+                  class="navigation-item-router flex"
+
+                  :class="isRoute=='Transaction'?'navigation-item-router-yellow':''"
+                >
+                  <span class="langfont">法币交易</span>
+<!--                  <div class="language-jt-down"></div>-->
+                </router-link>
+
+                <!-- 隐藏的标签-->
+<!--                <ul class="flex navigation-item-hidden-list"-->
+<!--                    :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',-->
+<!--                    'navigation-item-hidden-list-black':isBlack}"-->
+<!--                >-->
+<!--                  <li class="navigation-item-hidden-list-item">-->
+<!--                    <div-->
+<!--                      class="navigation-item-hidden-list-item-router text_blue"-->
+<!--                      active-class="item_selected">-->
+<!--                      C2C交易-->
+<!--                    </div>-->
+<!--                  </li>-->
+
+<!--                  <li class="navigation-item-hidden-list-item">-->
+<!--                    <div-->
+<!--                      class="navigation-item-hidden-list-item-router text_blue "-->
+<!--                      active-class="item_selected"-->
+<!--                    >-->
+<!--                      OTC交易-->
+<!--                    </div>-->
+<!--                  </li>-->
+<!--                </ul>-->
+              </li>
+              <!--订单 begin-->
+              <li class="navigation-item-container flex">
+                <router-link
+                  :to="{name:'Order'}"
+                  class="navigation-item-router flex"
+                  active-class="navigation-item-router-selected"
+                  :class="isRoute=='Order'?'navigation-item-router-yellow':''"
+                >
+                  <span class="langfont">法币订单</span>
+<!--                  <div class="language-jt-down"></div>-->
+                </router-link>
+                <!-- 隐藏的标签-->
+
+
+
+              </li>
+              <!--订单 end-->
+
+              <!--资产 begin-->
+              <li class="navigation-item-container flex"  @click="goToRechargeAndWithdrawals"><!-- @mouseenter="enter()" @mouseleave="leave()"-->
+                <div class="navigation-item-router flex"
+                  active-class="navigation-item-router-selected"
+                >
+                  <span class="langfont">资产</span>
+                  <div class="language-jt-down"></div>
+                </div>
+                <!--隐藏的标签 begin-->
+                <ul class="flex navigation-item-hidden-list"
+                    :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',
+                    'navigation-item-hidden-list-black':isBlack}"
+                >
+                  <li class="navigation-item-hidden-list-item"  @click="goToRechargeAndWithdrawals">
+                    <div
+                      class="navigation-item-hidden-list-item-router text_blue"
+                      active-class="item_selected">
+                      充值提现
+                    </div>
+                  </li>
+                  <li class="navigation-item-hidden-list-item"   @click="goToRechargeRecord">
+                    <div
+                      class="navigation-item-hidden-list-item-router text_blue"
+                      active-class="item_selected"
+                    >
+                      充值记录
+                    </div>
+                  </li>
+                  <li class="navigation-item-hidden-list-item"   @click="goToWithdrawalsRecord">
+                    <div
+                      class="navigation-item-hidden-list-item-router text_blue "
+                      active-class="item_selected"
+                    >
+                      提现记录
+                    </div>
+                  </li>
+                </ul>
+                <!--隐藏的标签 end-->
+              </li>
+              <!--资产 end-->
+               <!-- 法币交易 -->
+               <li class="navigation-item-container flex">
+                <router-link
+                  :to="{name: 'Business'}"
+                  class="navigation-item-router flex"
+                  active-class="navigation-item-router-selected "
+                  :class="isRoute=='Business'?'navigation-item-router-yellow':''"
+                >
+                商家
+                </router-link>
+              </li>
+
+
+              <!--币币交易 end-->
+
+            </ul>
+            <!--左侧导航条 end-->
+          </div>
+          <!--左侧内容 end-->
+
+
+          <!--右侧内容 begin-->
+          <div class="header-right-container flex">
+
+            <ul class="navigation-right-container flex">
+
+              <!--APP下载 begin-->
+              <li class="navigation-item-container flex"  style="padding-right: 0px;"  @mouseenter="enter()" @mouseleave="leave()" v-if="isLogin">
+
+                <span
+                  class="navigation-item-router flex"
+                  active-class="navigation-item-router-selected text_blue"
+                  :class="isRoute=='PersonCenter'?'navigation-item-router-yellow':''"
+                >
+                  <div :class="jtval=='white'?'phone-icon_white':'phone-icon_yellow'"></div>
+                  法币账户
+                </span>
+                <!--隐藏的标签 begin-->
+                <ul class="flex navigation-item-hidden-list fabizh">
+                  <li class="navigation-item-hidden-list-item">
+                    <div
+                      class="navigation-item-hidden-list-item-router"
+                      active-class="item_selected"
+                    >
+                      <router-link class="text_blue navigation-item-hidden-list-item-router" :to="{name: 'PaymentSet'}">
+                      收款方式
+                      </router-link>
+                    </div>
+                  </li>
+                  <li class="navigation-item-hidden-list-item"  @click="LOGIN_OUT">
+                    <div
+                      class="navigation-item-hidden-list-item-router "
+                      active-class="item_selected"
+                    >
+                      退出登录
+                    </div>
+                  </li>
+                </ul>
+                <!--隐藏的标签 end-->
+              </li>
+              <!--APP下载 end-->
+
+              <!--登录注册 begin-->
+<!--              <li class="login-register-container flex" v-if="!isLogin">-->
+<!--                <router-link-->
+<!--                  :to="{name:'login'}"-->
+<!--                  class="navigation-item-router login-register-item flex"-->
+<!--                  active-class="navigation-item-router-selected text_blue"-->
+<!--                >-->
+<!--                  登录-->
+<!--                </router-link>-->
+<!--                <router-link-->
+<!--                  :to="{name:'register'}"-->
+<!--                  class="navigation-item-router login-register-item-re flex"-->
+<!--                  active-class="navigation-item-router-selected text_blue"-->
+<!--                >-->
+<!--                  <span class="zcfont">注册</span>-->
+<!--                </router-link>-->
+<!--              </li>-->
+              <!--登录注册 end-->
+
+
+              <!--登录后 begin-->
+<!--              <li class="navigation-item-container flex" v-if="isLogin">-->
+<!--                <router-link-->
+<!--                  :to="{name:'authentication'}"-->
+<!--                  class="navigation-item-router flex"-->
+<!--                  active-class="navigation-item-router-selected text_blue"-->
+<!--                >-->
+<!--                  &lt;!&ndash; <img src="../../assets/geren.png" alt=""class="login-header-name flex-center personal-icon"  > &ndash;&gt;-->
+<!--                </router-link>-->
+<!--                &lt;!&ndash;隐藏的标签 begin&ndash;&gt;-->
+<!--                <ul-->
+<!--                  class="flex navigation-item-hidden-list-c navigation-item-hidden-list-personal-center"-->
+<!--                  :class="{'navigation-item-hidden-list-black':isBlack}"-->
+<!--                >-->
+<!--                  <li class="navigation-item-hidden-list-item navigation-item-hidden-list-item-personal-center">-->
+<!--                    <IndexHeaderAssets v-if="isLogin" :black="isBlack"/>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--                &lt;!&ndash;隐藏的标签 end&ndash;&gt;-->
+<!--              </li>-->
+              <!--登录后 end-->
+
+            </ul>
+
+
+          </div>
+          <!--右侧内容 end-->
+        </div>
+        <!--导航条 begin-->
+
+      </template>
+    </div>
+
+    <div class="clear"></div>
+
+  </div>
+
+</div>

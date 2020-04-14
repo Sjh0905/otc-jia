@@ -1,0 +1,861 @@
+<div class="paymentSet">
+  <Loading v-if="loading"/>
+  <template v-else>
+    <!--支付设置 title begin-->
+    <div class="title flex">
+      <span class="title-block"></span>
+      收款方式
+    </div>
+    <!--支付设置 title end-->
+
+    <!--&lt;!&ndash;支付宝 begin&ndash;&gt;-->
+    <!--<div class="aLiPay-container">-->
+    <!--&lt;!&ndash;支付宝 标题 begin&ndash;&gt;-->
+    <!--<div class="aLiPay-title-container payment-title-container flex">-->
+    <!--<div class="payment-title ">支付宝</div>-->
+    <!--<template v-if="!aLiPayEmpty">-->
+    <!--<Toggle class="toggle-container" :switchFunc="switchALiPayToggle" :toggleOpen="aLiPayToggle"/>-->
+    <!--<div class="aLiPay-release release-txt" @click="clickReleaseALiPay">解绑</div>-->
+    <!--<div class="aLiPay-change change-txt " @click="clickChangeALiPay">修改</div>-->
+    <!--</template>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;支付宝 标题 end&ndash;&gt;-->
+
+    <!--&lt;!&ndash;支付宝 内容 begin&ndash;&gt;-->
+    <!--<div class="aLiPay-content-container">-->
+    <!--&lt;!&ndash;已经绑定的支付宝账号 begin&ndash;&gt;-->
+    <!--<div class="aLiPay-content border_radius shadow flex" v-if="!aLiPayEmpty">-->
+    <!--<div class="aLiPay-user-name">-->
+    <!--账户名：-->
+    <!--<span class="strong">{{aLiPayInfo.username}}</span>-->
+    <!--</div>-->
+    <!--<div class="aLiPay-user-account">-->
+    <!--支付宝账号：-->
+    <!--<span class="strong">{{aLiPayInfo.cardNumber}}</span>-->
+    <!--</div>-->
+    <!--<div class="aLiPay-receipt-code flex">-->
+    <!--<span class="strong">收款码</span>-->
+    <!--<div class="aLiPay-receipt-code-img pointer">-->
+    <!--<div class="aLiPay-receipt-code-detail-container">-->
+    <!--<img :src="aLiPayInfo.url" alt="" class="aLiPay-receipt-code-detail">-->
+    <!--<div class="aLiPay-receipt-code-detail-arrow"></div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;已经绑定的支付宝账号 end&ndash;&gt;-->
+
+    <!--&lt;!&ndash;没绑定的支付宝 begin&ndash;&gt;-->
+    <!--<div class="empty-aLiPay-content white-shadow border_radius flex" v-if="aLiPayEmpty" @click="clickAddALiPay">-->
+    <!--<div class="aLiPay-please-add-img"></div>-->
+    <!--<div class="aLiPay-please-add">请添加支付宝</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;没绑定的支付宝 end&ndash;&gt;-->
+
+    <!--</div>-->
+    <!--&lt;!&ndash;支付宝 内容 end&ndash;&gt;-->
+
+    <!--</div>-->
+    <!--&lt;!&ndash;支付宝 end&ndash;&gt;-->
+
+    <!--银行转账 begin-->
+    <div class="bank-container">
+      <!--银行转账 标题 begin-->
+      <div class="bank-container-title-container payment-title-container flex">
+        <div class="payment-title ">银行转账</div>
+        <!--<template v-if="bankList.length>0">-->
+          <!--<Toggle class="toggle-container" :switchFunc="switchBankPayToggle" :toggleOpen="bankPayToggle"/>-->
+        <!--</template>-->
+      </div>
+      <!--银行转账 标题 end-->
+
+      <!--银行转账 内容 begin-->
+      <ul class="bank-content-container">
+        <!--默认行 begin-->
+        <li class="bank-default-row bank-content-row flex">
+          <!--默认银行卡 begin-->
+          <div class="bank-default-item bank-item-container" v-if="defaultBankId">
+            <div class="bank-label bank-label-blue"
+                 :class="{'bank-label-blue':defaultBank.bankStyle==1,'bank-label-green':defaultBank.bankStyle==2,'bank-label-yellow':defaultBank.bankStyle==3}"
+            >
+              <div class="bank-label-title ">
+                <div class="bank-logo-icon-container flex-center">
+                  <img :src="'https://logo.btcdo.com/'+defaultBank.bankICO+'.png'" alt="" class="bank-logo-icon">
+                  <!--<img src="./assets/bank-logo-1.png" alt="" class="bank-logo-icon">-->
+                </div>
+                <div class="bank-label-name-container flex">
+                  <div class="bank-label-ch-name">
+                    {{defaultBank.bankNameCN}}
+                  </div>
+                  <div class="bank-label-en-name">
+                    {{defaultBank.bankNameEN}}
+                  </div>
+                </div>
+              </div>
+              <div class="bank-label-card-number strong">
+                {{changeBankCard(defaultBank.cardNumber)}}
+              </div>
+            </div>
+            <div class="bank-operation-container flex">
+              <div class="chose-default-bank-card flex pointer">
+                <Radio class="chose-default-bank-card-radio" :select="defaultBankId==defaultBank.id"/>
+                <span class="strong">默认银行卡</span>
+              </div>
+              <div class="operate-bank-card flex">
+                <div class="release-txt bank-release-txt" @click="clickReleaseBank(defaultBank)">解绑</div>
+                <div class="change-txt bank-change-txt" @click="clickModifyBankPay(defaultBank)">修改</div>
+              </div>
+            </div>
+          </div>
+          <!--默认银行卡 end-->
+
+          <!--添加银行卡 begin-->
+            <div class="add-new-bank-card-container bank-item-container flex">
+            <div class="bank-label flex add-new-bank-card-label white-shadow border_radius pointer"
+                 @click="clickAddBankPay">
+              <div class="add-new-bank-card-img"></div>
+              <div class="add-new-bank-card">请添加银行卡</div>
+            </div>
+          </div>
+          <!--添加银行卡 end-->
+          <!--空 占位的 begin-->
+          <div class="bank-item-container flex"></div>
+          <!--空 占位的 end-->
+        </li>
+        <!--默认行 end-->
+        <!--列表 begin-->
+        <li class="bank-content-row flex" v-for="row in bankRow">
+          <!--银行卡 item begin-->
+          <div class="bank-item-container flex" v-for="i in 3">
+            <!--银行卡 begin-->
+            <div class="bank-default-item bank-item-container" v-if="removeDefaultBankCardList[(row-1)*3+i-1]">
+              <div class="bank-label bank-label-blue"
+                   :class="{'bank-label-blue':removeDefaultBankCardList[(row-1)*3+i-1].bankStyle==1,'bank-label-green':removeDefaultBankCardList[(row-1)*3+i-1].bankStyle==2,'bank-label-yellow':removeDefaultBankCardList[(row-1)*3+i-1].bankStyle==3}"
+              >
+                <div class="bank-label-title">
+                  <div class="bank-logo-icon-container flex-center">
+                    <img :src="'https://logo.btcdo.com/'+removeDefaultBankCardList[(row-1)*3+i-1].bankICO+'.png'" alt=""
+                         class="bank-logo-icon">
+                  </div>
+                  <div class="bank-label-name-container flex">
+                    <div class="bank-label-ch-name">{{removeDefaultBankCardList[(row-1)*3+i-1].bankNameCN}}</div>
+                    <div class="bank-label-en-name">{{removeDefaultBankCardList[(row-1)*3+i-1].bankNameEN}}</div>
+                  </div>
+                </div>
+                <div class="bank-label-card-number strong">
+                  {{changeBankCard(removeDefaultBankCardList[(row-1)*3+i-1].cardNumber)}}
+                </div>
+              </div>
+              <div class="bank-operation-container flex">
+                <div class="chose-default-bank-card flex pointer"
+                     @click="clickToChoseDefaultBank(removeDefaultBankCardList[(row-1)*3+i-1])">
+                  <Radio class="chose-default-bank-card-radio"
+                         :select="defaultBankId===removeDefaultBankCardList[(row-1)*3+i-1].id"
+                         @click="clickToChoseDefaultBank(removeDefaultBankCardList[(row-1)*3+i-1])"
+                  />
+                  <span class="">默认银行卡</span>
+                </div>
+                <div class="operate-bank-card flex">
+                  <div class="release-txt bank-release-txt"
+                       @click="clickReleaseBank(removeDefaultBankCardList[(row-1)*3+i-1])">解绑
+                  </div>
+                  <div class="change-txt bank-change-txt"
+                       @click="clickModifyBankPay(removeDefaultBankCardList[(row-1)*3+i-1])">修改
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--银行卡 end-->
+          </div>
+          <!--银行卡 item end-->
+        </li>
+        <!--列表 end-->
+      </ul>
+
+
+      <!--银行转账 内容 end-->
+    </div>
+
+    <!--绑定支付宝 begin-->
+    <PopupWindow :open="bindALiPayPopupWindowOpen" :close="closeBindALiPayPopupWindow">
+
+      <!--绑定支付宝 第一步 输入 begin-->
+      <template v-if="bindALiPayPopupWindowStep==1">
+        <div slot="header" class="bind-ALiPay-header">
+          <span v-if="aLiPayType==0">绑定支付宝</span>
+          <span v-if="aLiPayType==1">修改支付宝</span>
+        </div>
+        <div slot="article" class="bind-ALiPay-article flex">
+          <!--姓名 begin-->
+          <div class="input-item-container flex">
+            <div class="input-item-title">姓名：</div>
+            <div class="input-item-input-container">
+              <input type="text" placeholder="请绑定本人持有的支付宝账号"
+                     class="input-item-input input_padding input_border border_radius"
+                     :class="{'wrong-msg-border':aLiPayNameWrong}"
+                     v-model="aLiPayName"
+                     @blur="testALiPayName"
+              >
+            </div>
+          </div>
+          <!--姓名 end-->
+
+          <!--姓名错误提示 begin-->
+          <div class="input-item-container wrong-msg-container flex" v-if="aLiPayNameWrong">
+            <div class="input-item-title"></div>
+            <div class="input-item-input-container ">
+              {{aLiPayNameWrong}}
+            </div>
+          </div>
+          <!--姓名错误提示 end-->
+
+
+          <!--支付宝账号 begin-->
+          <div class="input-item-container flex">
+            <div class="input-item-title">支付宝账号：</div>
+            <div class="input-item-input-container">
+              <input type="text" placeholder="请输入支付宝账号"
+                     class="input-item-input input_padding input_border border_radius"
+                     v-model="aLiPayAccount"
+                     :class="{'wrong-msg-border':aLiPayAccountWrong}"
+                     @blur="testALiPayAccount"
+              >
+            </div>
+          </div>
+          <!--支付宝账号 end-->
+
+          <!--支付宝账号错误提示 begin-->
+          <div class="input-item-container wrong-msg-container flex" v-if="aLiPayAccountWrong">
+            <div class="input-item-title"></div>
+            <div class="input-item-input-container ">
+              {{aLiPayAccountWrong}}
+            </div>
+          </div>
+          <!--支付宝账号错误提示 end-->
+
+          <!--收款码 begin-->
+          <div class="input-item-container input-item-container-aLiPay-code flex">
+            <div class="input-item-title">收款码：</div>
+            <div class="input-item-input-container flex">
+              <div class="input-aLiPay-code border_radius input_border flex pointer"
+                   :class="{'wrong-msg-border':aLiPayCodeImgWrong}"
+                   @click="clickFileInput">
+                <template v-if="!echoImgResult">
+                  <div class="input-aLiPay-code-icon"></div>
+                  <div class="input-aLiPay-code-prompt">请点击上传</div>
+                  <div class="input-aLiPay-code-prompt">支付宝收款码</div>
+                </template>
+                <img :src="echoImgResult" alt="" v-else class="input-aLiPay-echo-img" id="file-input">
+              </div>
+              <input type="file" ref="fileInput" class="display-none" @change="getFileInput">
+              <div class="input-aLiPay-prompt">
+                支付宝收款码获取方法：打开<span class="text_blue">支付宝APP</span>,在首页点击<span
+                class="text_blue">收钱</span>，在打开的个人收钱二维码点击<span
+                class="text_blue">保存图片</span>即可
+              </div>
+            </div>
+          </div>
+          <!--收款码 end-->
+
+
+          <!--收款码错误提示 begin-->
+          <div class="input-item-container wrong-msg-container flex" v-if="aLiPayCodeImgWrong">
+            <div class="input-item-title"></div>
+            <div class="input-item-input-container ">
+              {{aLiPayCodeImgWrong}}
+            </div>
+          </div>
+          <!--收款码错误提示 end-->
+
+          <!--备注信息 begin-->
+          <div class="input-item-container input-item-container-remarks flex">
+            <div class="input-item-title">备注信息：</div>
+            <div class="input-item-input-container relative">
+          <textarea class="input-item-remarks input_border border_radius input_padding input-item-input"
+                    :class="{'wrong-msg-border':aLiPayPromptWrong}"
+                    placeholder="请输入备注信息"
+                    v-model="aLiPayPrompt"
+                    @blur="testALiPayPrompt"
+                    maxlength="50"
+          >
+          </textarea>
+              <div class="input-item-remarks-number">{{aLiPayPromptLength}}/50</div>
+            </div>
+          </div>
+          <!--备注信息 end-->
+
+          <!--备注信息错误提示 begin-->
+          <div class="input-item-container wrong-msg-container flex" v-if="aLiPayPromptWrong">
+            <div class="input-item-title"></div>
+            <div class="input-item-input-container ">
+              {{aLiPayPromptWrong}}
+            </div>
+          </div>
+          <!--备注信息错误提示 end-->
+
+        </div>
+
+        <div slot="footer" class="bind-ALiPay-footer flex">
+          <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="closeBindALiPayPopupWindow">取消</button>
+          <button class="btn_blue btn_blue_box_shadow text_white aLiPay-btn aLiPay-commit-btn pointer"
+                  @click="goToALiPayStep2">
+                  提交
+          </button>
+        </div>
+      </template>
+      <!--绑定支付宝 第一步 输入 end-->
+
+      <!--绑定支付宝 第二步 确认 begin-->
+      <template v-else>
+        <div slot="header" class="bind-ALiPay-confirm-header">
+          <!--确定绑定支付宝-->
+          <span v-if="aLiPayType==0">确定绑定支付宝</span>
+          <span v-if="aLiPayType==1">确定修改支付宝</span>
+        </div>
+        <div slot="article" class="bind-ALiPay-confirm-article flex">
+          <!--姓名 begin-->
+          <div class="input-item-container flex">
+            <div class="input-item-conform-title">姓名：</div>
+            <div class="input-item-input-confirm-container">
+              {{aLiPayName}}
+            </div>
+          </div>
+          <!--姓名 end-->
+
+          <!--支付宝账号 begin-->
+          <div class="input-item-container flex">
+            <div class="input-item-conform-title">支付宝账号：</div>
+            <div class="input-item-input-confirm-container">
+              {{aLiPayAccount}}
+            </div>
+          </div>
+          <!--支付宝账号 end-->
+
+          <!--收款码 begin-->
+          <div class="input-item-container input-item-container-confirm-aLiPay-code flex">
+            <div class="input-item-conform-title">收款码：</div>
+            <div class="input-item-input-confirm-container flex">
+              <div class="input-aLiPay-code border_radius input_border flex">
+                <img :src="echoImgResult" alt="" class="input-aLiPay-echo-img">
+              </div>
+            </div>
+          </div>
+          <!--收款码 end-->
+
+          <!--备注信息 begin-->
+          <div class="input-item-container input-item-container-confirm-remarks flex">
+            <div class="input-item-conform-title">备注信息：</div>
+            <div class="input-item-input-confirm-container relative">
+              {{aLiPayPrompt}}
+            </div>
+          </div>
+          <!--备注信息 end-->
+        </div>
+        <div slot="footer" class="bind-ALiPay-footer flex">
+
+          <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="goToALiPayStep1">
+            返回修改
+          </button>
+          <button class="btn_blue btn_blue_box_shadow text_white aLiPay-btn aLiPay-commit-btn pointer"
+                  @click="beginVerify(0)"
+                  v-if="aLiPayType==0"
+          >
+            确认绑定
+          </button>
+          <button class="btn_blue btn_blue_box_shadow text_white aLiPay-btn aLiPay-commit-btn pointer"
+                  @click="beginVerify(1)"
+                  v-if="aLiPayType==1"
+          >
+            确认修改
+          </button>
+        </div>
+      </template>
+      <!--绑定支付宝 第二步 确认 end-->
+      <!--<Loading v-if="aLiPayBinding" slot="other"/>-->
+
+
+    </PopupWindow>
+    <!--绑定支付宝 end-->
+
+    <!--绑定银行卡 begin-->
+    <PopupWindow :open="bindBankPopupWindowOpen" :close="closeBindBankPopupWindow">
+      <!--绑定银行卡 第一步 输入 begin-->
+      <template v-if="bindBankPopupWindowStep==1">
+        <div slot="header" class="bind-bank-header">
+          <!--绑定银行卡-->
+          <span v-if="bankType==0">绑定银行卡</span>
+          <span v-if="bankType==1">修改银行卡</span>
+        </div>
+        <div slot="article" class="bind-bank-article flex">
+          <!--账户名 begin-->
+          <div class="input-item-container flex">
+            <div class="input-item-title zi">账户名：</div>
+            <div class="input-item-input-container">
+              <input type="text" placeholder="请输入您的姓名"
+                     class="input-item-input input_padding input_border border_radius"
+                     v-model="bankAccount"
+                     :class="{'wrong-msg-border':bankAccountWrong}"
+                     @blur="testBankAccount"
+              >
+            </div>
+          </div>
+          <!--账户名 end-->
+
+          <!--账户名错误提示 begin-->
+          <div class="input-item-container wrong-msg-container flex" v-if="bankAccountWrong">
+            <div class="input-item-title"></div>
+            <div class="input-item-input-container ">
+              {{bankAccountWrong}}
+            </div>
+          </div>
+          <!--账户名错误提示 end-->
+
+          <!--开户行 begin-->
+          <div class="input-item-container flex">
+            <div class="input-item-title zi">开户行：</div>
+            <div class="input-item-input-container">
+              <!--<input type="text" placeholder="选择" class="input-item-input input_padding input_border border_radius">-->
+              <v-select v-model="bankName" :label="selectBankName" :options="bankSelectList"
+                        :disabled="!bankSelectListReady"
+                        :class="{'wrong-msg-border':bankNameWrong}"
+                        class="border_radius"
+                        placeholder="请选择开户行"
+                        :onChange="clickSelectBankName"
+              ></v-select>
+            </div>
+          </div>
+          <!--开户行 end-->
+
+          <!--开户行错误提示 begin-->
+          <div class="input-item-container wrong-msg-container flex" v-if="bankNameWrong">
+            <div class="input-item-title"></div>
+            <div class="input-item-input-container ">
+              {{bankNameWrong}}
+            </div>
+          </div>
+          <!--开户行错误提示 end-->
+
+          <!--开户支行 begin-->
+          <div class="input-item-container flex">
+            <div class="input-item-title">开户支行：</div>
+            <div class="input-item-input-container flex">
+              <input type="text" placeholder="请输入开户支行" class="input-item-input input_padding input_border border_radius"
+                     v-model="bankBranchName"
+                     :class="{'wrong-msg-border':bankBranchNameWrong}"
+                     @blur="testBankBranchName"
+              >
+            </div>
+          </div>
+          <!--开户支行 end-->
+
+          <!--开户支行错误提示 begin-->
+          <div class="input-item-container wrong-msg-container flex" v-if="bankBranchNameWrong">
+            <div class="input-item-title"></div>
+            <div class="input-item-input-container ">
+              {{bankBranchNameWrong}}
+            </div>
+          </div>
+          <!--开户支行错误提示 end-->
+
+
+          <!--银行卡号 begin-->
+          <div class="input-item-container flex">
+            <div class="input-item-title">银行卡号：</div>
+            <div class="input-item-input-container flex">
+              <input type="text" placeholder="请输入银行卡号" class="input-item-input input_padding input_border border_radius"
+                     v-model="bankCard"
+                     :class="{'wrong-msg-border':bankCardWrong}"
+                     @blur="testBankCard"
+              >
+            </div>
+          </div>
+          <!--银行卡号 end-->
+
+          <!--银行卡号错误提示 begin-->
+          <div class="input-item-container wrong-msg-container flex" v-if="bankCardWrong">
+            <div class="input-item-title"></div>
+            <div class="input-item-input-container ">
+              {{bankCardWrong}}
+            </div>
+          </div>
+          <!--银行卡号错误提示 end-->
+
+
+          <!--默认收款银行卡 begin-->
+          <div class="input-item-container input-item-container-default-bank-card flex">
+            <div class="input-item-title"></div>
+            <div class="input-item-input-container flex ">
+              <!--<input type="text" placeholder="请输入银行卡号" class="input-item-input input_padding input_border border_radius">-->
+              <span @click="addChoseDefaultBank" class="pointer flex input-item-default-bank-card-radio-container">
+              <Radio :select="bankDefault" class="input-item-default-bank-card-radio"/>
+              默认收款银行卡
+            </span>
+            </div>
+          </div>
+          <!--默认收款银行卡 end-->
+
+          <!--默认收款银行卡错误提示 begin-->
+          <div class="input-item-container wrong-msg-container flex" v-if="bankDefaultWrong">
+            <div class="input-item-title"></div>
+            <div class="input-item-input-container ">
+              {{bankDefaultWrong}}
+            </div>
+          </div>
+          <!--默认收款银行卡错误提示 end-->
+
+
+          <!--备注信息 begin-->
+          <div class="input-item-container input-item-container-remarks flex">
+            <div class="input-item-title">备注信息：</div>
+            <div class="input-item-input-container relative">
+          <textarea class="input-item-remarks input_border border_radius input_padding input-item-input"
+                    placeholder="请输入备注信息"
+                    v-model="bankMark"
+                    :class="{'wrong-msg-border':bankMarkWrong}"
+                    maxlength="50"
+                    @blur="testBankMark"
+          >
+          </textarea>
+              <div class="input-item-remarks-number">{{bankPromptLength}}/50</div>
+            </div>
+          </div>
+          <!--备注信息 end-->
+
+          <!--备注信息错误提示 begin-->
+          <div class="input-item-container wrong-msg-container flex" v-if="bankMarkWrong">
+            <div class="input-item-title"></div>
+            <div class="input-item-input-container ">
+              {{bankMarkWrong}}
+            </div>
+          </div>
+          <!--备注信息错误提示 end-->
+
+        </div>
+
+        <div slot="footer" class="bind-bank-footer flex">
+          <button class="btn_white_blue text_blue aLiPay-btn pointer"
+                  @click="closeBindBankPopupWindow"
+          >
+            取消
+          </button>
+          <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer"
+                  @click="goToBankStep2"
+          >
+            提交
+          </button>
+        </div>
+      </template>
+      <!--绑定银行卡 第一步 输入 end-->
+
+      <!--绑定银行卡 第二步 确认 begin-->
+      <template v-if="bindBankPopupWindowStep==2">
+        <div slot="header" class="bind-bank-confirm-header">
+          <!--确认绑定银行卡-->
+          <span v-if="bankType==0">确认绑定银行卡</span>
+          <span v-if="bankType==1">确认修改银行卡</span>
+        </div>
+        <div slot="article" class="bind-bank-confirm-article flex">
+          <!--账户名 begin-->
+          <div class="input-item-container flex">
+            <div class="input-item-conform-title zi">账户名：</div>
+            <div class="input-item-input-confirm-container">
+              {{bankAccount}}
+            </div>
+          </div>
+          <!--账户名 end-->
+
+          <!--开户行 begin-->
+          <div class="input-item-container flex">
+            <div class="input-item-conform-title zi">开户行：</div>
+            <div class="input-item-input-confirm-container">
+              {{selectedBankName}}
+            </div>
+          </div>
+          <!--开户行 end-->
+
+          <!--开户支行 begin-->
+          <div class="input-item-container flex">
+            <div class="input-item-conform-title">开户支行：</div>
+            <div class="input-item-input-confirm-container flex">
+              {{bankBranchName}}
+            </div>
+          </div>
+          <!--开户支行 end-->
+
+          <!--银行卡号 begin-->
+          <div class="input-item-container flex">
+            <div class="input-item-conform-title">银行卡号：</div>
+            <div class="input-item-input-confirm-container flex">
+              {{bankCard}}
+            </div>
+          </div>
+          <!--银行卡号 end-->
+
+          <!--默认收款银行卡 begin-->
+          <div class="input-item-container input-item-container-default-bank-card flex">
+            <div class="input-item-conform-title"></div>
+            <div class="input-item-input-confirm-container flex">
+              <!--<input type="text" placeholder="请输入银行卡号" class="input-item-input input_padding input_border border_radius">-->
+              <Radio :select="bankDefault" class="input-item-default-bank-card-radio"/>
+              默认收款银行卡
+            </div>
+          </div>
+          <!--默认收款银行卡 end-->
+
+          <!--备注信息 begin-->
+          <div class="input-item-container input-item-container-confirm-remarks flex">
+            <div class="input-item-conform-title">备注信息：</div>
+            <div class="input-item-input-confirm-container relative">
+              {{bankMark}}
+            </div>
+          </div>
+          <!--备注信息 end-->
+
+        </div>
+
+        <div slot="footer" class="bind-bank-footer flex">
+          <!--绑定 begin-->
+          <template v-if="bankType==0">
+            <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="goToBankStep1">
+              返回修改
+            </button>
+            <button class="btn_blue btn_blue_box_shadow text_white aLiPay-btn aLiPay-commit-btn pointer"
+                    @click="beginVerify(3)">
+              确认绑定
+            </button>
+          </template>
+          <!--绑定 end-->
+
+          <!--修改 begin-->
+          <template v-if="bankType==1">
+            <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="goToBankStep1">
+              返回修改
+            </button>
+            <button class="btn_blue btn_blue_box_shadow text_white aLiPay-btn aLiPay-commit-btn pointer"
+                    @click="beginVerify(4)">
+              确认修改
+            </button>
+          </template>
+          <!--修改 end-->
+        </div>
+      </template>
+      <!--绑定银行卡 第二步 确认 end-->
+
+
+    </PopupWindow>
+    <!--绑定银行卡 end-->
+
+
+    <!--确认删除支付宝 begin-->
+    <PopupWindow :open="confirmDeleteALiPay" :close="closeConfirmDeleteALiPay" :headerBorder="false">
+      <div slot="header" class="delete-header">
+        是否解绑
+      </div>
+      <div slot="article">
+        <div class="delete-row flex">
+          <div class="delete-title">支付宝账号：</div>
+          <div class="delete-detail">{{deleteALiPayName}}</div>
+        </div>
+        <div class="delete-row flex">
+          <div class="delete-title">账户名：</div>
+          <div class="delete-detail">{{deleteALiPayAccount}}</div>
+        </div>
+      </div>
+      <div slot="footer" class="delete-footer flex">
+        <template v-if="!deleteALiPayIng">
+          <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="closeConfirmDeleteALiPay">
+            取消
+          </button>
+          <button class="btn_blue btn_blue_box_shadow text_white aLiPay-btn aLiPay-commit-btn pointer"
+                  @click="confirmReleaseALiPay">
+            确定解绑
+          </button>
+        </template>
+        <template v-else>
+          <button class="btn_white_blue text_blue aLiPay-btn pointer">
+            取消
+          </button>
+          <button class="btn_blue btn_blue_box_shadow text_white aLiPay-btn aLiPay-commit-btn pointer">
+            解绑中
+          </button>
+        </template>
+      </div>
+    </PopupWindow>
+    <!--确认删除支付宝 end-->
+
+    <!--确认删除银行卡 begin-->
+    <PopupWindow :open="confirmDeleteBank" :close="closeConfirmDeleteBank" :headerBorder="false">
+      <div slot="header" class="delete-header">
+        是否解绑
+      </div>
+      <div slot="article">
+        <div class="delete-row delete-bank-row flex">
+          <div class="delete-title delete-bank-title">银行：</div>
+          <div class="delete-detail delete-bank-detail">{{deleteBankName}}</div>
+        </div>
+        <div class="delete-row delete-bank-row flex">
+          <div class="delete-title delete-bank-title">卡号：</div>
+          <div class="delete-detail delete-bank-detail">{{deleteBankCard}}</div>
+        </div>
+        <div class="delete-row delete-bank-row flex">
+          <div class="delete-title delete-bank-title">账户：</div>
+          <div class="delete-detail delete-bank-detail">{{deleteBankAccount}}</div>
+        </div>
+      </div>
+      <div slot="footer" class="delete-footer flex">
+        <template v-if="!deleteBankIng">
+          <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="closeConfirmDeleteBank">
+            取消
+          </button>
+          <button class="btn_blue btn_blue_box_shadow text_white aLiPay-btn aLiPay-commit-btn pointer"
+                  @click="confirmReleaseBank">
+            确定解绑
+          </button>
+        </template>
+        <template v-else>
+          <button class="btn_white_blue text_blue aLiPay-btn pointer">
+            取消
+          </button>
+          <button class="btn_blue btn_blue_box_shadow text_white aLiPay-btn aLiPay-commit-btn pointer">
+            解绑中
+          </button>
+        </template>
+      </div>
+    </PopupWindow>
+    <!--确认删除银行卡 end-->
+
+    <!--二次验证 begin-->
+    <PopupWindow :open="secondVerifyOpen" :close="closeSecondVerify">
+      <template v-if="verifyStep==1">
+
+<!--        <div class="ga_sms_body_close cursor" @click="CLOSE_GA_SMS_DIALOG">×</div>-->
+
+        <div slot="header">
+          <div class="ga_sms_body_close cursor" @click="CLOSE_GA_SMS_DIALOG">×</div>
+          安全验证
+        </div>
+        <div slot="article" class="verify-article">
+          <!--选择 begin-->
+          <div class="flex unit-input-container pick-one-type verify-row" v-if="showPicked">
+            <div>
+              <input type="radio" class="pointer" name="identify-type" id="ga" value="bindGA" v-model="picked">
+              <label for="ga" class="pointer">谷歌验证</label>
+            </div>
+            <div>
+              <input type="radio" class="pointer" name="identify-type" id="bindMobile" value="bindMobile"
+                     v-model="picked">
+              <label for="bindMobile" class="pointer">手机验证</label>
+            </div>
+          </div>
+          <!--选择 end-->
+
+          <!--谷歌验证码 begin-->
+          <template v-if="picked==='bindGA'">
+            <div class="flex unit-input-container container-ga verify-row"
+                 :class="{'wrong-msg':GACodeWA!==''}"
+            >
+            <span class="flex-center unit-input-container-title">
+              <img src="./assets/谷歌验证码.png" alt="">
+            </span>
+              <input type="text" placeholder='请输入验证码' class="unit-input input-ga"
+                     v-model="GACode" @blur="testGACode">
+            </div>
+            <div class="unit-input-interval txt-red">
+              <span v-if="GACodeWA!==''">{{GACodeWA}}</span>
+            </div>
+          </template>
+          <!--谷歌验证码 end-->
+
+
+          <!--手机验证码 begin-->
+          <template v-if="picked==='bindMobile'">
+            <div class="flex unit-input-container double-input-container verify-row"
+                 :class="{'wrong-msg':verificationCodeWA!==''}"
+            >
+              <span class="flex-center unit-input-container-title">
+                <img src="./assets/手机.png" alt="">
+              </span>
+              <input type="text" placeholder='请输入验证码'
+                     class="unit-input" v-model="verificationCode"
+                     @blur="testVerificationCode">
+              <span class="flex-center btn_blue identifying-code-button" v-if="!getVerificationCode"
+                    @click="click_getVerificationCode">获取</span>
+              <span class="flex-center identifying-code-button-close btn_grey identifying-code-button"
+                    v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+            </div>
+            <div class="unit-input-interval txt-red">
+              <span v-if="verificationCodeWA!==''">{{verificationCodeWA}}</span>
+            </div>
+          </template>
+          <!--手机验证码 end-->
+        </div>
+
+        <div slot="footer" class="verify-footer">
+          <!--确定-->
+          <div class="unit-input-container container-button">
+            <button class="set-button btn_blue btn_blue_box_shadow" @click="click_send" v-if="!sending">
+              确定
+            </button>
+            <button class="set-button btn_blue btn_blue_box_shadow" v-else>
+              发送中
+            </button>
+          </div>
+        </div>
+      </template>
+    </PopupWindow>
+    <!--二次验证 end-->
+
+    <!--未绑定 弹框提示 begin-->
+    <PopupWindow :open="authStatePopupWindow" :close="closeAuthStatePopupWindow">
+      <div slot="header" class="auth-state-header">
+        安全提示
+      </div>
+      <div slot="article" class="auth-state-article">
+        <template v-if="authStatePopupType==1">
+          <div class="auth-state-row flex">
+            请先进行实名认证
+          </div>
+        </template>
+        <template v-if="authStatePopupType==2">
+          <div class="auth-state-row flex">
+            请绑定手机或者谷歌验证
+          </div>
+        </template>
+
+      </div>
+      <div slot="footer" class="auth-state-footer">
+        <div class="unit-input-container container-button">
+          <template v-if="authStatePopupType==1">
+            <button v-if="isMobile" class="set-button btn_blue btn_blue_box_shadow"
+                    @click="goToAuth"
+                    style="letter-spacing: 0"
+            >
+              去 app 认证
+            </button>
+            <button v-else class="set-button btn_blue btn_blue_box_shadow"
+                    @click="goToAuth"
+            >
+              去认证
+            </button>
+          </template>
+          <template v-if="authStatePopupType==2">
+            <button class="set-button btn_blue btn_blue_box_shadow"
+                    @click="goToBind"
+            >
+              去绑定
+            </button>
+          </template>
+          <!--<button class="set-button btn_blue btn_blue_box_shadow" @click="closeAuthStatePopupWindow">-->
+          <!--知道了-->
+          <!--</button>-->
+        </div>
+      </div>
+    </PopupWindow>
+    <!--未绑定 弹窗提示 end-->
+
+
+    <!--提示 begin-->
+    <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText" :waitTime="waitTime"/>
+    <!--提示 end-->
+  </template>
+</div>

@@ -1,0 +1,162 @@
+<div>
+	<div class="business_order">
+		<div class="business_order_table">
+			<!-- table 头 start -->
+			<div class="business_order_table_title flex-center ">
+        <div class="type">类型</div>
+        
+				<div class="price">单价(CNY)</div>
+				<!-- <div class="amount"></div> -->
+        <div class="amount">数量(USDT)</div>
+        <div class="complete">已成交(USDT)</div>
+        <!-- <div class="money">已取消(USDT)</div> -->
+        <div class="clock">冻结(USDT)</div>
+        <div class="num">限额(CNY)</div>
+        <div class="create">创建时间</div>
+        <div class="pay_type payment_icon">支付方式</div>
+        <div class="option text_center">操作</div>
+				<!-- <div class="money">总金额(CNY)</div> -->
+        <!-- <div class="complete">交易对象</div> -->
+        <!-- <div class="clock">冻结(USDT)</div> -->
+				<!-- <div class="num">限额(CNY)</div> -->
+
+
+				<!-- <div class="create">时间</div> -->
+				<!-- <div class="pay_type text_center">支付方式</div> -->
+				<!-- <div class="option text_center">操作</div> -->
+			</div>
+			<!-- table 头 end -->
+			<!-- table tbody start -->
+			<div class="business_order_table_tbody text_block">
+				<Loading v-if="loading" />
+				<div class="business_order_table_tr flex-center text_dark" v-if="!loading && pageList.length!= 0" v-for="(item,index) in pageList" :key="index">
+<!--					<div class="order">{{item.id}}</div>-->
+					<div class="type" :class="item.postersType === 'BUY_ORDER' ? 'text_green' : 'text_red'">{{item.postersType === 'BUY_ORDER' ? '购买' : '出售'}}</div>
+					<div class="price" :class="item.postersType === 'BUY_ORDER' ? 'text_green' : 'text_green'">{{toFixed(item.price,2)}}</div>
+					<div class="amount">{{toFixed(item.total,2)}}</div>
+<!--					<div class="money">{{toFixed(accMul(item.total,item.price),2)}}</div>-->
+          <div class="complete">{{toFixed(item.deal,2)}}</div>
+          <!-- <div class="money">已取消(USDT)</div> -->
+          <div class="clock">{{toFixed(item.locking,2)}}</div>
+					<div class="num">{{toFixed(accMul(item.minLimit,item.price),2)}} - {{toFixed(accMul(item.total,item.price),2)}}</div>
+
+
+					<div class="create">{{formatDateUitl(item.createdAt)}}</div>
+					<div class="pay_type payment_icon">
+<!--						<span class="icon card_icon"></span>-->
+          	<!--<span class="icon alipay_cion"></span>-->
+            银行卡
+					</div>
+					<div class="option text_center">
+						<div class="btn border_radius text_yellow" @click="openCancelBox(item)">
+							撤单
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- table tbody end -->
+		</div>
+		<!-- 分页插件 start  v-if="maxPage > 1" -->
+	  <BasePageBar  v-if="maxPage > 1" :maxPage='maxPage'
+		           :selectIndex="selectIndex"
+		           :clickChangePage="clickChangePage"
+		           :currentDisplay=2
+		           :initDisplay=2></BasePageBar>
+	  <!-- 分页插件 end -->
+
+    <!--撤单弹框-->
+    <!--撤销弹框-->
+    <div v-if="cancelBuyBoxFlag" class="submit-buy-window">
+      <div class="submit-buy-box border_radius">
+        <div class="submit-buy-title strong text_dark" >确定撤单</div>
+        <div class="submit-buy-list">
+<!--          <div class="submit-buy-item">-->
+<!--            <div class="submit-buy-item-left text_grey_8 strong">价格设置：</div>-->
+<!--            <div class="submit-buy-item-right text_dark strong">-->
+<!--              <img class="submit-buy-item-right-img" src="../../assets/c2c_common/select_choise.png" alt="">-->
+<!--              固定价格-->
+<!--            </div>-->
+<!--          </div>-->
+
+          <div class="submit-buy-item">
+            <div class="submit-buy-item-left text_grey_8 strong">价格：</div>
+            <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+              <span class="margin_right" :class="itemContainer.postersType==='SELL_ORDER'?'text_red':'text_green'">{{toFixed(itemContainer.price,2)}}</span>
+              <span class="text_absolute text_grey_8">CNY</span>
+            </div>
+          </div>
+
+          <div class="submit-buy-item margin_top">
+            <div class="submit-buy-item-left text_grey_8 strong">数量：</div>
+            <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+              <span class="text_dark margin_right">{{toFixed(itemContainer.total,2)}}</span>
+              <span class="text_absolute text_grey_8">USDT</span>
+            </div>
+          </div>
+
+          <div class="submit-buy-item margin_top">
+            <div class="submit-buy-item-left text_grey_8 strong">金额：</div>
+            <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+              <span class="margin_right" :class="itemContainer.postersType==='SELL_ORDER'?'text_red':'text_green'">{{toFixed(accMul(itemContainer.amount,itemContainer.price),2)}}</span>
+              <span class="text_absolute text_grey_8">CNY</span>
+            </div>
+          </div>
+
+          <div class="submit-buy-item margin_top">
+            <div class="submit-buy-item-left text_grey_8 strong">成交数量：</div>
+            <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+              <span class="text_dark margin_right">{{toFixed(itemContainer.deal,2)}}</span>
+              <span class="text_absolute text_grey_8">USDT</span>
+            </div>
+          </div>
+          <div class="submit-buy-item margin_top">
+            <div class="submit-buy-item-left text_grey_8 strong">锁定数量：</div>
+            <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+              <span class="text_dark margin_right">{{toFixed(itemContainer.locking,2)}}</span>
+              <span class="text_absolute text_grey_8">USDT</span>
+            </div>
+          </div>
+          <div class="submit-buy-item margin_top">
+            <div class="submit-buy-item-left text_grey_8 strong">可撤回数量：</div>
+            <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+              <span class="text_dark margin_right">{{toFixed(itemContainer.amount,2)}}</span>
+              <span class="text_absolute text_grey_8">USDT</span>
+            </div>
+          </div>
+
+          <div class="submit-buy-item">
+            <div class="submit-buy-item-left text_grey_8 strong"></div>
+            <div class="submit-buy-item-right">
+              <!-- <span class="text_red">将撤回至您的账户</span> -->
+            </div>
+          </div>
+
+
+
+          <div class="submit-buy-item">
+            <div class="submit-buy-item-left text_grey_8 strong">支付方式：</div>
+            <div class="submit-buy-item-right">
+<!--              <img class="submit-buy-item-right-img-zfb" src="../../assets/c2c_center_buy/bank_icon.png" alt="">-->
+              银行转账
+              <span class="text_red">（须本人账户支付）</span>
+            </div>
+          </div>
+
+<!--          <div class="submit-buy-item">-->
+<!--            <div class="submit-buy-item-left text_grey_8 strong">手续费：</div>-->
+<!--            <div class="submit-buy-item-right">-->
+<!--              <span class="text_blue">{{toFixed(accMul(itemContainer.fee,100),2)}}%</span>（成交后收取）-->
+<!--            </div>-->
+<!--          </div>-->
+        </div>
+        <div class="submit-btn-box">
+          <div class="submit-btn border_radius" :class="itemContainer.postersType==='SELL_ORDER'?'text_red submit-sell-cancel':'text_green submit-btn-cancel'" @click="closeCancelBox">取消</div>
+
+          <div class="submit-btn border_radius text_white" :class="itemContainer.postersType==='SELL_ORDER'?'submit-sell-confirm':'submit-btn-confirm'" @click="submitCancelPosterOrder()">{{ajaxFlag===true?'撤单中':'确定撤单'}}</div>
+        </div>
+      </div>
+    </div>
+	</div>
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+</div>

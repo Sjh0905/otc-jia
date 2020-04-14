@@ -1,0 +1,136 @@
+<div class="personBusinessCenter">
+  <!--商家中心 title begin-->
+  <div class="title flex">
+    <span class="title-block"></span>
+    商家中心
+  </div>
+  <!--商家中心 title end-->
+
+  <!--商家信息 begin-->
+  <div class="personal-info-container flex">
+    <!--头像等 begin-->
+    <div class="personal-info-left-container flex">
+      <div class="personal-head-img box_shadow"></div>
+      <div class="personal-info-box flex">
+        <div class="personal-name">1******2@345.com</div>
+        <div class="personal-register-time">注册时间：2017-11-04 </div>
+        <!--认证状态 begin-->
+      <ul class="auth-state-container flex">
+        <li class="auth-state-item flex auth-state-item-true">
+          <a href="">
+          <span class="auth-state-img"></span>
+          实名认证
+          </a>
+        </li>
+        <li class="auth-state-item flex auth-state-item-false">
+          <a href="">
+          <span class="auth-state-img"></span>
+          手机认证
+          </a>
+        </li>
+        <li class="auth-state-item flex auth-state-item-false">
+          <a href="">
+          <span class="auth-state-img"></span>
+          邮箱认证
+          </a>
+        </li>
+        <li class="auth-state-item flex auth-state-item-false">
+          <a href="">
+          <span class="auth-state-img"></span>
+          谷歌认证
+          </a>
+        </li>
+      </ul>
+      <!--认证状态 end-->
+      </div>
+      
+    </div>
+    <!--头像等 end-->
+
+    <!--完成率 等 begin-->
+    <ul class="personal-info-right-container flex">
+      <!--完成率 begin-->
+      <li class="personal-info-item flex">
+        <div class="number">100%</div>
+        <div class="prompt">完成率</div>
+      </li>
+      <!--完成率 end-->
+      <!--总成交 begin-->
+      <li class="personal-info-item flex">
+        <div class="number">3333333次</div>
+        <div class="prompt">总成交</div>
+      </li>
+      <!--总成交 end-->
+      <!--30日成交 begin-->
+      <li class="personal-info-item flex">
+        <div class="number">12345次</div>
+        <div class="prompt">30日成交</div>
+      </li>
+      <!--30日成交 end-->
+    </ul>
+    <ul class="personal-info-right-container-i flex">
+      <!--申诉 begin-->
+      <li class="personal-info-item flex">
+        <div class="number">101次</div>
+        <div class="prompt">申诉</div>
+      </li>
+      <!--申诉 end-->
+      <!--胜诉 begin-->
+      <li class="personal-info-item flex">
+        <div class="number">100次</div>
+        <div class="prompt">胜诉</div>
+      </li>
+      <!--胜诉 end-->
+      <!--平均处理时长 begin-->
+      <li class="personal-info-item flex">
+        <div class="number">1.02分钟</div>
+        <div class="prompt">平均处理时长</div>
+      </li>
+      <!--平均处理时长 begin-->
+    </ul>
+    <!--完成率 等 end-->
+
+  </div>
+  <!--商家信息 end-->
+
+
+
+  <!-- 我的商家订单 start -->
+  <div class="busniess_order_list">
+    <div class="order_title">
+      我的订单
+      <!-- <router-link :to="{name:'PaymentSet'}">修改支付方式</router-link> -->
+    </div>
+    <!-- 页签 start -->
+    <div class="order_tab">
+      <div class="flex-row order_conduct_tabs">
+        <div class="order_conduct_tab tab-item-first " :class="order_tab == 1 && 'order_conduct_tab_active'"
+          @click="ORDER_TAB(1)">
+          进行中
+        </div>
+        <div class="order_conduct_tab " :class="order_tab == 2 && 'order_conduct_tab_active'"
+          @click="ORDER_TAB(2)">
+          已完成
+        </div>
+        <div class="order_conduct_tab  tab-item-last" :class="order_tab == 3 && 'order_conduct_tab_active'"
+          @click="ORDER_TAB(3)">
+          已撤单
+        </div>
+      </div>
+    </div>
+    <!-- 页签 end -->
+    <!-- 页签内容 start -->
+    <div class="order_table">
+      <!-- 进行中 -->
+      <BusinessOrderConduct v-if="order_tab == 1" />
+      <!-- 已完成 -->
+      <BusinessOrderComplete v-if="order_tab == 2" />
+      <!-- 已撤单 -->
+      <BusinessOrderCannel v-if="order_tab == 3" />
+    </div>
+    <!-- 页签内容 end -->
+  </div>
+  <!-- 我的商家订单 end -->
+
+
+</div>

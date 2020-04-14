@@ -1,0 +1,43 @@
+<transition name="popWindow">
+  <div class="popWindow-container" v-if="show">
+
+    <!--遮罩层 begin-->
+    <div class="background"></div>
+    <!--遮罩层 begin-->
+
+
+    <!--弹窗主体 begin-->
+    <div class="popup-window-box box1" @touchmove.prevent>
+
+      <div class="popWindow-title" :class="{'popWindow-title-no-border':!headerBorder}">
+        <slot name="header">
+          <span>绑定银行卡</span>
+        </slot>
+      </div>
+
+
+      <div class="popWindow-article">
+        <slot name="article">
+
+        </slot>
+      </div>
+
+
+      <!--footer 部分 begin-->
+      <slot name="footer">
+
+      </slot>
+      <!--footer 部分 end-->
+
+
+      <!--如果有其他要加的东西-->
+      <slot name="other">
+
+      </slot>
+
+    </div>
+    <!--弹窗主体 end-->
+
+
+  </div>
+</transition>

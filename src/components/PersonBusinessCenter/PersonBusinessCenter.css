@@ -1,0 +1,280 @@
+.personBusinessCenter {
+  padding: 0 50px;
+}
+
+/*商家中心 title begin*/
+.title {
+  font-size: 16px;
+  line-height: 16px;
+  color: #333;
+  margin-top: 16px;
+}
+
+.title-block {
+  display: block;
+  width: 4px;
+  height: 16px;
+  background: #C43E4E;
+  margin-right: 7px;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #252525;
+  letter-spacing: 0;
+}
+
+/*商家中心 title end*/
+
+/*  商家信息 begin*/
+.personal-info-container {
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.05); */
+  /* padding: 20px 0; */
+  margin-top: 10px;
+  justify-content: space-between;
+  align-items: center;
+  background: #F7F7FB;
+  width: 910px;
+  height: 150px;
+}
+
+/*  左侧 begin*/
+.personal-info-left-container {
+  /*justify-content: center;*/
+  align-items: center;
+}
+
+/*    头像 begin*/
+.personal-head-img {
+  width: 60px;
+  height: 60px;
+  display: block;
+  background-image: url("./assets/header-icon.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  margin: 40px 0 50px 40px;
+}
+
+/*    头像 end*/
+
+/*    用户信息 begin*/
+.personal-info-box {
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
+  height: 60px;
+  margin-left: 13px;
+  /* display: inline; */
+}
+
+.personal-name {
+  font-size: 16px;
+  line-height: 2px;
+  /* color: #333; */
+  font-family: PingFangSC-Medium;
+  color: #252525;
+  line-height: 18px;
+  display: inline;
+}
+
+.personal-register-time {
+  font-size: 14px;
+  /* line-height: 14px; */
+  color: #666;
+  display: inline;
+  padding-left: 10px;
+  /* position: absolute;
+  left: 0px; */
+}
+
+/*    用户信息 end*/
+/*  左侧 end*/
+
+/*  右侧 begin*/
+.personal-info-right-container {
+  position: absolute;
+  right: 90px;
+  top: 85px;
+  text-align: right;
+}
+
+.personal-info-right-container-i {
+  position: absolute;
+  right: 90px;
+  top: 135px;
+  text-align: right;
+}
+
+
+.personal-info-item {
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 40px;
+  padding: 0 20px;
+  width: 110px;
+  /* text-align: right; */
+}
+
+.number {
+  color: #333;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.prompt {
+  color: #999;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+/*  右侧 end*/
+
+/*商家信息 end*/
+
+/*认证状态 begin*/
+.auth-state-container {
+  /* width: 100%; */
+  /* justify-content: flex-start; */
+  position: absolute;
+  margin-top: 38px;
+}
+
+.auth-state-item {
+  /*justify-content: center;*/
+  /* align-items: center; */
+  /* font-size: 14px; */
+  /* margin-right: 20px;
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  color: #C43E4E;
+  line-height: 14px; */
+}
+
+.auth-state-item a {
+  /* align-items: center; */
+  /* font-size: 14px; */
+  margin-right: 20px;
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  color: #C43E4E;
+  line-height: 14px;
+  width: 68px;
+  text-align: end;
+}
+
+.auth-state-item:hover .auth-state-img {
+  display: none;
+  background-color: #fff;
+  width: 12px;
+  height: 12px;
+  background-size: contain;
+  /* margin-right: 4px; */
+}
+
+.auth-state-item:hover a {
+  opacity: 0.7;
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  color: #C43E4E;
+  line-height: 14px;
+}
+
+
+.auth-state-item:last-of-type {
+  margin-right: 0;
+}
+
+.auth-state-item-true {
+  color: #C43E4E;
+}
+
+.auth-state-item-false {
+  color: #C43E4E;
+}
+
+.auth-state-img {
+  display: inline-block;
+  background-repeat: no-repeat;
+  width: 12px;
+  height: 12px;
+  background-size: contain;
+  margin-right: 4px;
+}
+
+.auth-state-item-true .auth-state-img {
+  background-image: url("./assets/auth-state-yellow.png");
+}
+
+.auth-state-item-false .auth-state-img {
+  background-image: url("./assets/auth-state-yellow.png");
+}
+
+/*认证状态 end*/
+
+.busniess_order_list {
+  min-height: 300px;
+  margin-bottom: 50px;
+}
+
+.order_title {
+  /* line-height: 50px; */
+  /* font-size: 16px; */
+  padding: 50px 0 40px 0;
+  font-family: PingFangSC-Semibold;
+  font-size: 20px;
+  color: #333333;
+  letter-spacing: 0;
+  margin-left: -5px;
+}
+
+.order_title a {
+  font-size: 14px;
+  color: #C43E4E;
+  margin-left: 10px;
+}
+
+.order_conduct_tabs {
+  position: relative;
+}
+
+.order_conduct_tab {
+  /* width: 8%; */
+  height: 34px;
+  line-height: 34px;
+  text-align: left;
+  /* background: #fafafa; */
+  cursor: pointer;
+  /* -webkit-box-shadow: 0 7px 20px 3px rgba(118, 125, 127, 0.08); */
+  /* box-shadow: 0 7px 20px 3px rgba(118, 125, 127, 0.08); */
+  z-index: 100;
+  /* font-size: 14px; */
+  /* color: #666; */
+  font-family: PingFangSC-Semibold;
+  font-size: 16px;
+  color: #333333;
+  letter-spacing: 0;
+  margin-left: -3px;
+  margin-right: 40px;
+}
+
+.order_conduct_tab_active {
+  z-index: 200;
+  background-color: #fff;
+  z-index: 200;
+  font-weight: bold;
+  color: #C43E4E;
+  border-bottom: 2px solid #C43E4E;
+}
+
+.tab-item-first {
+  border-top-left-radius: 6px;
+}
+
+.tab-item-last {
+  border-top-right-radius: 6px;
+}
+
+.order_conduct_container {
+  position: relative;
+  z-index: 300;
+  background-color: #fff;
+}

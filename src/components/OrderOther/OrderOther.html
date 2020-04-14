@@ -1,0 +1,68 @@
+<div class="OrderOther">
+  <div class="order_conduct">
+    <div class="order_conduct_title border_bottom flex-center">
+      <div class="numbers">
+        单号
+      </div>
+      <div class="type">
+        类型
+      </div>
+      <div class="price">
+        单价(CNY)
+      </div>
+      <div class="amount">
+        数量(USDT)
+      </div>
+      <div class="money">
+        总金额(CNY)
+      </div>
+      <div class="cannel_time">
+        交易状态
+      </div>
+      <div class="create_time">
+        时间
+      </div>
+    </div>
+    <div class="order_conduct_tbody">
+      <Loading v-if="loading" />
+      <!--  @click="GO_DETAIL(item.id, item.type)" -->
+      <div class="order_conduct_content border_bottom flex-center" v-else v-for="(item, i) in list" @click="GO_DETAIL(item.id, item.type)">
+        <div class="numbers">
+          {{item.orderId}}
+        </div>
+          <div class="type" :class="item.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+              {{item.type == 'SELL_ORDER' ? '卖出' : '买入'}}
+          </div>
+        <div class="price" :class="item.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+          {{$globalFunc.accFixed(item.price,2)}}
+        </div>
+        <div class="amount">
+          {{$globalFunc.accFixed(item.amount,2)}}
+        </div>
+        <div class="money" :class="item.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+          {{$globalFunc.accFixed(item.amount * item.price,2)}}
+        </div>
+        <div class="cannel_time" :class="item.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+          <span v-if="item.orderStatus == 'EXPIRE1'">确认付款超时</span>
+          <span v-if="item.orderStatus == 'EXPIRE2'">确认收款超时</span>
+          <span v-if="item.orderStatus == 'ABNORMAL'">订单异常</span>
+          <span v-if="item.orderStatus == 'APPEAL'">申诉订单</span>
+          <span v-if="item.orderStatus == 'PROCESSING'">进行中</span>
+          <span v-if="item.orderStatus == 'COMPLETE'">已完成</span>
+          <span v-if="item.orderStatus == 'CANCEL'">已取消</span>
+          <span v-if="item.orderStatus == 'ROBFAIL'">已取消</span>
+        </div>
+        <div class="create_time">
+          {{$globalFunc.formatDateUitl(item.createdAt, 'YYYY-MM-DD hh:mm:ss')}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 分页插件 start  v-if="maxPage > 1" -->
+  <BasePageBar v-if="maxPage > 1" :maxPage='maxPage'
+               :selectIndex="selectIndex"
+               :clickChangePage="clickChangePage"
+               :currentDisplay=2
+               :initDisplay=2></BasePageBar>
+  <!-- 分页插件 end -->
+</div>

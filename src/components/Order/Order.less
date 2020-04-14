@@ -1,0 +1,134 @@
+.Order{
+	/* padding: 50px 0px; */
+}
+.order_container{
+	width: 1200px;
+	margin: 0 auto;
+	/* padding: 30px; */
+}
+.order_title{
+	line-height: 40px;
+	font-size: 18px;
+	color: #333333;
+}
+.order_conduct{
+	margin-top: 35px;
+}
+.order_conduct_tabs{
+	position: relative;
+}
+.order_conduct_tab{
+    /* width: px; */
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    /* background: #fafafa; */
+    cursor: pointer;
+    /* -webkit-box-shadow: 0 7px 20px 3px rgba(118, 125, 127, 0.08); */
+    /* box-shadow: 0 7px 20px 3px rgba(118, 125, 127, 0.08); */
+    z-index: 100;
+	opacity: 0.7;
+	font-family: PingFangSC-Semibold;
+	font-size: 16px;
+	color: #333333;
+	letter-spacing: 0;
+	margin-right: 60px;
+	margin-bottom: 80px;
+}
+.order_conduct_tab_active{
+ 	z-index: 200;
+    background-color: #fff;
+    z-index: 200;
+    font-weight: bold;
+	color: #C43E4E;
+	border-bottom: 2px solid  #C43E4E;
+}
+.tab-item-first{
+	border-top-left-radius: 6px;
+}
+.tab-item-last{
+	border-top-right-radius: 6px;
+}
+
+.order_conduct_container{
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+}
+
+.order_search{
+	position: absolute;
+	right: 0;
+	/* border: 1px solid #e8e7ec; */
+	height: 40px;
+	line-height: 40px;
+}
+.icon_search{
+	position: absolute;
+	right: 0;
+	top: 6px;
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	background: url('./assets/搜索.png') no-repeat center;
+	background-size: 50%;
+}
+.input_search{
+	/* border: 0; */
+	padding-left: 10px;
+	/* width: 200; */
+	/* padding-left: 25px; */
+	border: 1px solid #C5CFD5;
+	border-radius: 3px;
+	width: 225px;
+	height: 32px;
+	padding-right: 25px;
+}
+.button_search{
+	position: absolute;
+	top: -1px;
+	right: -1px;
+	border: 0;
+	height: 25px;
+	line-height: 25px;
+	background: #C43E4E;
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+	padding: 0px 15px;
+	font-size: 14px;
+	color: #fff;
+	outline: 0;
+	cursor: pointer;
+}
+.border_radius{
+    // position: relative;
+    right: 0;
+}
+.popup-windows{
+    right: 0;
+    top: 50%;
+    position: absolute;
+    width: 330px;
+    height: 293px;
+    background: #FFFFFF;
+    box-shadow: 0 0 15px 0 rgba(0,0,0,0.12);
+    border-radius: 3px;
+    z-index:999;
+    ul{
+        padding-top: 30px;
+        li{
+            height: 40px;
+            line-height: 40px;
+        }
+    }
+}
+.popup-windows::after{
+    position: absolute;
+    top: -10px;
+    left: 80%;
+    content: '';
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #FFFFFF;
+    // box-shadow: 0 0 10px 0 rgba(0,0,0,0.12);
+}

@@ -1,0 +1,338 @@
+<div class="OrderConduct">
+  <div class="order_conduct">
+    <div class="order_conduct_title border_bottom flex-center">
+      <div class="order_conduct_list flex-center">
+        <div class="numbers">
+          单号
+        </div>
+        <div class="type">
+          类型
+        </div>
+        <div class="price">
+          单价(CNY)
+        </div>
+        <div class="amount">
+          数量(USDT)
+        </div>
+        <div class="money">
+          总金额(CNY)
+        </div>
+        <div class="status">
+          交易状态
+        </div>
+        <div class="create_time">
+          时间
+        </div>
+      </div>
+      <div class="cannel_time">
+        操作
+      </div>
+    </div>
+    <div class="order_conduct_tbody">
+      <Loading v-if="loading" />
+      <div class="order_conduct_content border_bottom flex-center" v-else v-for="(item, i) in list">
+        <div class="order_conduct_list flex-center" @click="GO_DETAIL(item.id, item.type)">
+          <div class="numbers">
+            {{item.orderId}}
+          </div>
+          <div class="type" :class="item.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+            {{item.type == 'SELL_ORDER' ? '卖出' : '买入'}}
+          </div>
+          <div class="price" :class="item.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+            {{$globalFunc.accFixed(item.price,2)}}
+          </div>
+          <div class="amount">
+            {{$globalFunc.accFixed(item.amount,2)}}
+          </div>
+          <div class="money" :class="item.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+            {{$globalFunc.accFixed(item.amount * item.price,2)}}
+          </div>
+          <!-- UNCONFIRMED, // 未确认
+                    BUYER_CONFIRM, // 买方确认
+                    SELLER_CONFIRM, // 卖方确认
+                    SELLER_ONCE_CONFIRM // 在买方未确认情况下的卖方确认 -->
+          <div class="status">
+            <span v-if="item.confirmStatus == 'UNCONFIRMED'">未确认</span>
+            <span v-if="item.confirmStatus == 'BUYER_CONFIRM'">买方确认</span>
+            <span v-if="item.confirmStatus == 'SELLER_CONFIRM'">卖方确认</span>
+            <span v-if="item.confirmStatus == 'SELLER_ONCE_CONFIRM'">未确认</span>
+          </div>
+          <div class="create_time">
+            {{$globalFunc.formatDateUitl(item.createdAt, 'YYYY-MM-DD hh:mm:ss')}}
+          </div>
+          </div>
+        <div class="cannel_time">
+          <button class="cannel_time_btn border_radius" v-if="item.type == 'SELL_ORDER' && (item.confirmStatus == 'UNCONFIRMED' || item.confirmStatus == 'BUYER_CONFIRM')" @click="COMFIRM_BTN(item)">
+            确认已收款
+          </button>
+          <button class="cannel_time_btn border_radius" v-if="item.type == 'BUY_ORDER' && item.confirmStatus == 'UNCONFIRMED'" @click="COMFIRM_BTN(item)">
+            确认已付款
+          </button>
+          <!-- 买单确认收付款 start -->
+          <button class="cannel_time_btn border_radius disabled" v-if="item.type == 'BUY_ORDER' && item.confirmStatus != 'UNCONFIRMED'">
+            处理中
+          </button>
+          <!-- 买单确认收付款 end -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 提示弹框 start -->
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText" />
+  <!-- 提示弹框 end -->
+
+  <!-- 分页插件 start  v-if="maxPage > 1" -->
+  <BasePageBar v-if="maxPage > 1" :maxPage='maxPage'
+               :selectIndex="selectIndex"
+               :clickChangePage="clickChangePage"
+               :currentDisplay=2
+               :initDisplay=2></BasePageBar>
+  <!-- 分页插件 end -->
+
+  <!-- 确认付款，取消，提示 start -->
+  <PopupWindow :open="show_dialog" :close="CLOSE_DIALOG">
+    <template v-if="show_buy_dialog">
+      <div slot="header">
+        确认已付款
+      </div>
+      <div slot="article">
+        <div class="user_info">
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:</div>
+            <div class="user_info_item_detail">{{order_detail.orderId}}</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:</div>
+            <div class="user_info_item_detail">{{order_detail.type == 'SELL_ORDER' ? '卖出' : '买入'}}</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格:</div>
+            <div class="user_info_item_detail">{{$globalFunc.accFixed(order_detail.price,2)}} CNY</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量;</div>
+            <div class="user_info_item_detail">{{$globalFunc.accFixed(order_detail.amount,2)}} USDT</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额:</div>
+            <div class="user_info_item_detail">{{$globalFunc.accFixed(order_detail.amount * order_detail.price,2)}} CNY</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">{{order_detail.type == 'SELL_ORDER' ? '卖家姓名' : '卖家姓名'}}：</div>
+            <div class="user_info_item_detail">{{user_info.name}}</div>
+          </div>
+        </div>
+        <div class="user_notice">
+          <!--<p>重要提示：</p>-->
+          <p class="notice_padding_right">重要提示：<span style="color: #c43e4e;">未付款时点击确认付款属于恶意点击，一经查处，系统将暂时封锁账户，请谨慎操作。</span></p>
+          <!--<p class="notice_padding_left">一经查处，系统将暂时封锁账户，请谨慎操作。</p>-->
+
+        </div>
+      </div>
+      <div slot="footer" class="bind-bank-footer flex">
+        <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="CLOSE_DIALOG">取消</button>
+        <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="COMFIRM_PAYMENT">确认已付款</button>
+      </div>
+    </template>
+    <template v-if="show_sell_dialog">
+      <div slot="header">
+        确认已收款
+      </div>
+      <div slot="article">
+        <div class="user_info">
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</div>
+            <div class="user_info_item_detail">{{order_detail.orderId}}</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</div>
+            <div class="user_info_item_detail">{{order_detail.type == 'SELL_ORDER' ? '卖出' : '买入'}}</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格：</div>
+            <div class="user_info_item_detail">{{$globalFunc.accFixed(order_detail.price,2)}} CNY</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量：</div>
+            <div class="user_info_item_detail">{{$globalFunc.accFixed(order_detail.amount,2)}} USDT</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额：</div>
+            <div class="user_info_item_detail">{{$globalFunc.accFixed(order_detail.amount * order_detail.price,2)}} CNY</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">{{order_detail.type == 'SELL_ORDER' ? '买家姓名' : '卖家姓名'}}：</div>
+            <div class="user_info_item_detail">{{user_info.name}}</div>
+          </div>
+        </div>
+        <div class="user_notice">
+          <p class="notice_padding_right ">重要提示：<span style="color: #c43e4e;">请确认已收到对方本人账户转账，若非买家本人支付，请原路退回。确认收款后资产将直接划转至对方账户，有不可追回风险，请谨慎操作。</span></p>
+          <!--<p class="notice_padding_left">将直接打给对方账户，有不可追回风险，请慎重操作。</p>-->
+        </div>
+      </div>
+      <div slot="footer" class="bind-bank-footer flex">
+        <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="CLOSE_DIALOG">取消</button>
+        <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="COMFIRM_RECEIVABLES">确认已收款</button>
+      </div>
+    </template>
+  </PopupWindow>
+  <!-- 确认付款，取消，提示 end -->
+      <!--未绑定 弹框提示 begin-->
+      <PopupWindow :open="authStatePopupWindow" :close="closeAuthStatePopupWindow">
+        <div slot="header" class="auth-state-header">
+          安全提示
+        </div>
+        <div slot="article" class="auth-state-article">
+          <template v-if="authStatePopupType==1">
+            <div class="auth-state-row flex">
+              请先进行实名认证
+            </div>
+          </template>
+          <template v-if="authStatePopupType==2">
+            <div class="auth-state-row flex">
+              请绑定手机或者谷歌验证
+            </div>
+          </template>
+
+        </div>
+        <div slot="footer" class="auth-state-footer">
+          <div class="unit-input-container container-button">
+            <template v-if="authStatePopupType==1">
+              <button v-if="isMobile" class="set-button btn_blue btn_blue_box_shadow"
+                      @click="goToAuth"
+                      style="letter-spacing: 0"
+              >
+                去 app 认证
+              </button>
+              <button v-else class="set-button btn_blue btn_blue_box_shadow"
+                      @click="goToAuth"
+              >
+                去认证
+              </button>
+            </template>
+            <template v-if="authStatePopupType==2">
+              <button class="set-button btn_blue btn_blue_box_shadow"
+                      @click="goToBind"
+              >
+                去绑定
+              </button>
+            </template>
+            <!--<button class="set-button btn_blue btn_blue_box_shadow" @click="closeAuthStatePopupWindow">-->
+            <!--知道了-->
+            <!--</button>-->
+          </div>
+        </div>
+      </PopupWindow>
+      <!--未绑定 弹窗提示 end-->
+
+
+  <!-- 邮箱验证码 start -->
+  <div class="ga_sms_container box_shadow" v-if="show_mail">
+    <div class="ga_sms_bg"></div>
+    <div class="ga_sms_body">
+      <div class="ga_sms_body_close cursor" @click="CLOSE_GA_SMS_DIALOG">×</div>
+      <div class="unit-title flex-center">
+        <span class="unit-title-line"></span>
+        <span class="unit-title-text">邮箱验证</span>
+        <span class="unit-title-line"></span>
+      </div>
+      <div class="flex unit-input-container double-input-container">
+				<span class="flex-center unit-input-container-title">
+			      <img src="./assets/邮件.png" alt="">
+			    </span>
+        <input type="text" placeholder='请输入验证码'
+               class="unit-input input-mobile" v-model="mailCode">
+        <span class="flex-center btn_blue" v-if="!getMailCode" @click="GET_MAIL_CODE">获取</span>
+        <span class="flex-center identifying-code-button-close btn_grey"
+              v-if="getMailCode">{{getMailCodeCountdown}}</span>
+      </div>
+
+      <div class="unit-input-interval txt-red">
+        <span v-if="mailCodeWA!==''">{{mailCodeWA}}</span>
+      </div>
+
+
+      <!--确定-->
+      <div class="unit-input-container container-button">
+        <button class="set-button btn_blue" v-if="!sending" @click="VALID_EMAIL">
+          确定
+        </button>
+        <button class="set-button btn_grey" v-if="sending" disabled>验证中</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 邮箱验证码 end -->
+
+
+  <!-- 谷歌/短信验证 start -->
+  <div class="ga_sms_container box_shadow" v-if="show_ga_sms_dialog">
+    <div class="ga_sms_bg"></div>
+    <div class="ga_sms_body">
+      <div class="ga_sms_body_close cursor" @click="CLOSE_GA_SMS_DIALOG">×</div>
+      <div class="unit-title flex-center">
+        <span class="unit-title-line"></span>
+        <span class="unit-title-text">安全验证</span>
+        <span class="unit-title-line"></span>
+      </div>
+      <!--选择-->
+      <div class="flex unit-input-container pick-one-type" v-if="showPicker">
+        <div>
+          <input type="radio" name="identify-type" id="ga" value="bindGA" v-model="picked">
+          <label for="ga">谷歌验证</label>
+        </div>
+        <div>
+          <input type="radio" name="identify-type" id="bindMobile" value="bindMobile" v-model="picked">
+          <label for="bindMobile">手机验证</label>
+        </div>
+      </div>
+      <!--<div class="unit-input-interval"></div>-->
+
+      <!--谷歌验证码-->
+      <div class="flex unit-input-container container-ga" v-if="picked==='bindGA'"
+           :class="{'wrong-msg':GACodeWA!==''}"
+      >
+		    <span class="flex-center unit-input-container-title">
+		      <img src="./assets/谷歌验证码.png" alt="">
+		    </span>
+        <input type="text" placeholder='请输入验证码' class="unit-input input-ga"
+               v-model="GACode" @blur="testGACode">
+      </div>
+      <div class="unit-input-interval txt-red" v-if="picked==='bindGA'">
+        <span v-if="GACodeWA!==''">{{GACodeWA}}</span>
+      </div>
+
+      <!--手机验证码-->
+      <div class="flex unit-input-container double-input-container" v-if="picked==='bindMobile'"
+           :class="{'wrong-msg':verificationCodeWA!==''}"
+      >
+		    <span class="flex-center unit-input-container-title">
+		      <img src="./assets/手机.png" alt="">
+		    </span>
+        <input type="text" placeholder='请输入验证码'
+               class="unit-input input-mobile" v-model="verificationCode"
+               @blur="testVerificationCode">
+        <span class="flex-center btn_blue" v-if="!getVerificationCode" @click="click_getVerificationCode">获取</span>
+        <span class="flex-center identifying-code-button-close btn_grey"
+              v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+      </div>
+      <div class="unit-input-interval txt-red" v-if="picked==='bindMobile'">
+        <span v-if="verificationCodeWA!==''">{{verificationCodeWA}}</span>
+      </div>
+
+
+      <!--确定-->
+      <div class="unit-input-container container-button">
+        <button class="set-button btn_blue" v-if="!sending" @click="click_send">
+          确定
+        </button>
+        <button class="set-button btn_grey" v-if="sending" disabled>放币中</button>
+      </div>
+    </div>
+  </div>
+  <!-- 谷歌/短信验证 end -->
+
+
+
+</div>

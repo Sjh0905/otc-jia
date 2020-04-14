@@ -1,0 +1,499 @@
+<div class="OrderDetails">
+
+	<div class="order_container border_radius min-width box1">
+		<div class="order_title"><span class="imgs"><img src="../../assets/c2c_transaction/USDT.png" alt=""></span>
+      <span class="cursor go_history go_history1 ">购买USDT</span>  <div class="numbers" >
+        单号:	{{ctc_order.orderId}}
+      </div></div>
+		<Loading v-show="loading" />
+		<div class="order_detail border_radius" v-show="!loading">
+			<div class="border_radius_top">
+				<div class="order_conduct_title border_bottom flex-wrap">
+<!--					<div class="numbers" >-->
+<!--						单号-->
+<!--					</div>-->
+<!--					<div class="type">-->
+<!--						类型-->
+<!--					</div>-->
+<!--					<div class="type">-->
+<!--						{{ctc_order.type == 'SELL_ORDER' ? '买家姓名' : '卖家姓名'}}-->
+<!--					</div>-->
+					<div class="price">
+						价格
+					</div>
+					<div class="amount">
+						数量
+					</div>
+					<div class="money">
+						总价
+					</div>
+					<div class="status">
+						付款码
+					</div>
+				</div>
+
+				<div class="order_conduct_content order_conduct_title  border_bottom flex-wrap" @click='GET_ORDER_DETAIL()'>
+<!--					<div class="numbers">-->
+<!--						{{ctc_order.orderId}}-->
+<!--					</div>-->
+<!--					<div class="type" :class="ctc_order.type == 'SELL_ORDER' ? 'sell' : 'buy'">-->
+<!--						{{ctc_order.type == 'SELL_ORDER' ? '卖出' : '买入'}}-->
+<!--					</div>-->
+<!--					<div class="type" >-->
+<!--						{{ctc_order.type == 'SELL_ORDER' ? user_info.name : user_info.name}}-->
+<!--					</div>-->
+					<div class="price" :class="ctc_order.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+						{{$globalFunc.accFixed(ctc_order.price,2)}}
+					</div>
+					<div class="amount">
+						{{$globalFunc.accFixed(ctc_order.amount,2)}}
+					</div>
+					<div class="money" :class="ctc_order.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+						<font ref="money_copy">{{$globalFunc.accFixed(ctc_order.amount * ctc_order.price,2)}}</font>
+<!--						<span class="copy_btn border_radius" @click="COPY('money_copy')">复制</span>-->
+					</div>
+					<div class="status">
+						<font ref="num_copy">{{ctc_order.randomStr || '无'}}</font>
+						<span class="copy_btn border_radius" @click="COPY('num_copy')">复制</span>
+					</div>
+				</div>
+
+			</div>
+
+      <div class="order_conduct_container  border_radius_bottom">
+        <div class="order_detail_container">
+          <div class="user_content">
+            <!-- <div class="user_name user_detail font_color">
+              <div class="seller" v-if="ctc_order.type == 'BUY_ORDER'">卖家信息:</div>
+              <div class="seller" v-if="ctc_order.type == 'SELL_ORDER'">买家信息:</div>
+              <div class="name">
+                <span class="font_color">姓名:</span>
+                <span v-if="detail_type == 2 || detail_type == 3">{{changeName(user_info.name)}}</span>
+                <span v-else>{{user_info.name}}</span>
+              </div>
+              <div class="phone">
+                <span class="font_color">电话:</span>
+                <span v-if="detail_type == 2 || detail_type == 3">{{changePhone(user_info.mobile)}}</span>
+                <span v-else>{{user_info.mobile}}</span>
+              </div>
+               <div class="contact font_color">
+                <span>
+                </span>
+                联系卖家
+              </div> -->
+            <div class="appeal font_color cursor" @click="GO_APPEAL" v-if="appealTime == 1 && !appeal">
+								<span>
+								</span>
+              申诉请联系客服
+            </div>
+            <!--							<div class="appeal font_color cursor" v-if="appealTime == 1 && !!appeal">-->
+            <!--								<span>-->
+            <!--								</span>-->
+            <!--								胜诉人: {{ctc_order.winnerId == ctc_order.userId ? '用户胜诉' : '商家胜诉'}}-->
+            <!--							</div>-->
+
+            <!-- </div> -->
+            <!-- <div class="user_detail">
+
+            </div> -->
+          </div>
+          <div class="card_content">
+            <!-- <div class="user_name font_color">
+              <span v-if="ctc_order.type == 'BUY_ORDER'">卖家收款信息:</span>
+              <span v-else>我的收款信息</span>
+            </div> -->
+            <div class="card_list">
+              <div class="card_detail" v-for="(item, i) in pay_info">
+                <div class="card_title font_color">
+                  <!-- <span v-if="item.type == 'BANKCARD'">银行转账:</span> -->
+                  <span v-if="item.type == 'ALIPAY'">支付宝:</span>
+                </div>
+                <!-- <div class="border_radius" :class="item.type == 'BANKCARD' ? 'card' : 'alipay'"> -->
+                <div class="border_radius card" :class="item.bankStyle == 1 ? 'blue' : (item.bankStyle == 2 ? 'green' : 'yellow')">
+                  <div class="card_item" v-show="item.type == 'BANKCARD'">
+                    <span v-if="ctc_order.type == 'BUY_ORDER'">卖家姓名: </span>
+                    <span v-if="ctc_order.type == 'SELL_ORDER'">姓名: </span>
+                    <font ref="name">
+                      <span v-if="detail_type == 2 || detail_type == 3">{{item.username}}</span>
+                      <span v-else>{{changeName(item.username)}}</span>
+                    </font>
+                    <span class="copy_btn border_radius" @click="COPY('name')">复制</span>
+                  </div>
+                  <div class="card_item" v-show="item.type == 'ALIPAY'">
+                    账号姓名: <font ref="alipay_name">{{item.username}}</font>
+                    <span class="copy_btn border_radius" @click="COPY('alipay_name')">复制</span>
+                  </div>
+                  <div class="card_item" v-show="item.type == 'BANKCARD'">
+                    银行: <font ref="card">{{item.bankName}}</font>
+                    <span class="copy_btn border_radius" @click="COPY('card')">复制</span>
+                  </div>
+                  <div class="card_item" v-show="item.type == 'ALIPAY'">
+                    支付号账号: <font ref="alipay">{{item.cardNumber}}</font>
+                    <span class="copy_btn border_radius" @click="COPY('alipay')">复制</span>
+                  </div>
+                  <div class="card_item" v-show="item.type == 'BANKCARD'">
+                    <p  class="card_item_p">支行:</p>
+                    <div ref="address" class="card_item_item">{{item.bankAddr}}</div>
+                    <!-- <font ref="address">
+                     {{item.bankAddr}}
+                     中国民生银行股份有限公司北京望京啊啊啊晕支行
+                   </font> -->
+                    <span class="copy_btn border_radius" @click="COPY('address')">复制</span>
+                  </div>
+                  <div class="card_item" v-show="item.type == 'ALIPAY'">
+                    支付宝收款码:
+                    <span class="card_qrcode cursor" @click="SHOW_RECEIPT_CODE(item.url)"></span>
+                  </div>
+                  <div class="card_item" v-show="item.type == 'BANKCARD'">
+                    卡号: <font ref="card_num" v-if="detail_type == 2 || detail_type == 3">{{changeBankCard(item.cardNumber)}}</font>
+                    <font ref="card_num" v-else>{{item.cardNumber}}</font>
+                    <span class="copy_btn border_radius" @click="COPY('card_num')">复制</span>
+                  </div>
+                  <div class="card_item" v-show="item.type == 'ALIPAY'">
+                    &nbsp;
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="card_detail">
+                <div class="card_title font_color">
+                  支付宝:
+                </div>
+                <div class="alipay border_radius">
+                  <div class="card_item">
+                    账号姓名: <font ref="alipay_name">小灰灰</font>
+                    <span class="copy_btn border_radius" @click="COPY('alipay_name')">复制</span>
+                  </div>
+                  <div class="card_item">
+                    支付号账号: <font ref="alipay">153234567898</font>
+                    <span class="copy_btn border_radius" @click="COPY('alipay')">复制</span>
+                  </div>
+                  <div class="card_item">
+                    支付宝收款码:
+                    <span class="card_qrcode cursor" @click="SHOW_RECEIPT_CODE"></span>
+                  </div>
+                  <div class="card_item">
+                    &nbsp;
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <div class="no_btc_eth_tips">
+            付款时请备注付款码，请不要备注比特币、以太坊、BTC、ETH、USDT、数字货币、区块链等敏感词汇，否则银行卡会有被冻结风险，请谨慎操作。
+
+            <div class="order_tips">
+              <div class="order_times">
+                <!-- 收付款详情界面 start -->
+                <!-- 卖单，但是买家没有付款 -->
+<!--                paying: false-->
+                <span class="order_status" v-if="(detail_type == 1 || detail_type == 4) && paying==false && order_status != 1">待付款</span>
+<!--                <span class="order_status" v-if="paying=false">待付款</span>-->
+<!--                <span class="order_status" v-if="paying=true">已付款</span>-->
+                <!-- 卖单，但是买家已经付款 -->
+                <span class="order_status" v-if="(detail_type == 1) && paying==true && order_status == 1">已付款</span>
+                <!-- 买单，并且已经花钱了 -->
+                <span class="order_status" v-if="(detail_type == 1) && paying==true && !canneling">已付款</span>
+
+                <span class="order_status" v-if="(detail_type == 1 || detail_type == 4) && paying==false && canneling">已撤单</span>
+                <span class="order_status" v-if="detail_type == 2">已完成</span>
+                <span class="order_status" v-if="detail_type == 3">已取消</span>
+
+                <em class="order_status" v-if="this.ctc_order.orderStatus == 'EXPIRE1' && detail_type == 4">确认付款超时</em>
+                <em class="order_status" v-if="this.ctc_order.orderStatus == 'EXPIRE2' && detail_type == 4">确认收款超时</em>
+                <em class="order_status" v-if="this.ctc_order.orderStatus == 'ABNORMAL' && detail_type == 4">订单异常</em>
+                <em class="order_status" v-if="this.ctc_order.orderStatus == 'APPEAL' && detail_type == 4">申诉订单</em>
+                <em class="order_status" v-if="this.ctc_order.orderStatus == 'COMPLETE' && detail_type == 4">已完成</em>
+                <em class="order_status" v-if="this.ctc_order.orderStatus == 'CANCEL' && detail_type == 4">已取消</em>
+
+                <span class="clock" v-if="detail_type <= 4"></span>
+
+                <!-- 倒计时 start -->
+                <span v-if="(detail_type !== 1 || detail_type !== 4) && !paying && order_status != 1">剩余</span>
+                <span id="times" v-if="(detail_type == 1 || detail_type == 4) && !paying && order_status != 2"></span>
+                <!-- 倒计时 end -->
+
+
+                <!--完成/取消时间 start -->
+                <span v-if="!!order_detail_time && detail_type <= 4 && paying">
+								{{$globalFunc.formatDateUitl(order_detail_time, 'YYYY-MM-DD hh:mm:ss')}}
+<!--                {{$globalFunc.formatDateUitl(item.createdAt, 'YYYY-MM-DD hh:mm:ss')}}-->
+
+							</span>
+                <!-- 完成/取消时间 end -->
+                <!-- 收付款详情界面 end -->
+
+                <!-- 其他订单详情界面 start -->
+
+<!--                <em class="clock" v-if="detail_type == 4"></em>-->
+
+                <!-- 倒计时 start -->
+<!--                <span v-if="detail_type == 4 && !paying && order_status != 1">剩余</span>-->
+<!--                <span id="times" v-if="detail_type == 4 && !paying && order_status != 2"></span>-->
+                <!-- 倒计时 end -->
+
+                <!-- 完成/取消时间 start -->
+<!--								aaa{{$globalFunc.formatDateUitl(order_detail_time, 'YYYY-MM-DD hh:mm:ss')}} -->
+<!--							</span>-->
+                <!-- 其他订单详情界面 end -->
+              </div>
+              <div class="order_btns" v-if="detail_type == 1">
+                <button class="btns order_cannel border_radius" @click="ORDER_CANNEL" v-if="ctc_order.type == 'BUY_ORDER' && !paying">取消订单</button>
+                <!-- 有无付款 start -->
+                <button class="btns order_complete border_radius box_shadow" @click="SHOW_COMPELETE" v-if="ctc_order.type == 'BUY_ORDER' && show_buy_sell_btn && !paying">确认已付款</button>
+                <!-- <button class="btns order_complete border_radius disabled box_shadow" v-if="ctc_order.type == 'BUY_ORDER' && show_buy_sell_btn && paying && !canneling">已付款</button> -->
+                <!-- <button class="btns order_complete border_radius disabled box_shadow" v-if="ctc_order.type == 'BUY_ORDER' && show_buy_sell_btn && paying && canneling">已撤单</button> -->
+                <!-- 有无付款 end -->
+                <!-- 有无收款 start -->
+                <button class="btns order_complete border_radius box_shadow" @click="SHOW_COMPELETE" v-if="ctc_order.type == 'SELL_ORDER' && show_buy_sell_btn && !paying">确认已收款</button>
+                <!-- <button class="btns order_complete border_radius disabled box_shadow" v-if="ctc_order.type == 'SELL_ORDER' && show_buy_sell_btn && paying">已收款</button> -->
+                <!-- 有无收款 end -->
+              </div>
+            </div>
+          </div>
+
+          <!-- 支付宝收款码 start -->
+          <div class="receipt_code" v-if="show_receipt_code">
+            <div class="receipt_code_bg"></div>
+            <div class="receipt_code_body">
+              <img class="receipt_code_img" :src="alipay_url">
+              <span class="receipt_code_close cursor" @click="HIDE_RECEIPT_CODE">✕</span>
+            </div>
+          </div>
+          <!-- 支付宝收款码 end -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 提示弹框 start -->
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText" />
+  <!-- 提示弹框 end -->
+
+  <!-- 确认付款，取消，提示 start -->
+  <PopupWindow :open="show_dialog" :close="CLOSE_DIALOG">
+    <!-- 撤单 start -->
+    <template v-if="show_revoke">
+      <div slot="header">
+        确认撤单
+      </div>
+      <div slot="article">
+        <div class="user_info">
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</div>
+            <div class="user_info_item_detail">{{ctc_order.id}}</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</div>
+            <div class="user_info_item_detail">{{ctc_order.type == 'SELL_ORDER' ? '卖出' : '买入'}}</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格：</div>
+            <div class="user_info_item_detail">{{$globalFunc.accFixed(ctc_order.price,2)}} CNY</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量：</div>
+            <div class="user_info_item_detail">{{$globalFunc.accFixed(ctc_order.amount,2)}} USDT</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额：</div>
+            <div class="user_info_item_detail">{{$globalFunc.accFixed(ctc_order.amount * ctc_order.price,2)}} CNY</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">卖家姓名：</div>
+            <div class="user_info_item_detail">{{user_info.name}}</div>
+          </div>
+        </div>
+        <div class="user_agree">
+          <label for="checked">
+            <input id="checked" v-model="no_pay_agree" type="checkbox" name="">
+            我确定没有付款
+          </label>
+        </div>
+        <div class="user_notice">
+          重要提示：<span style="color: #c43e4e;">撤销订单后本交易将被取消，请勿再付款。</span>
+        </div>
+      </div>
+      <div slot="footer" class="bind-bank-footer flex">
+        <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="CLOSE_DIALOG">取消</button>
+        <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="CANCEL_CTC_ORDER">确认撤单</button>
+      </div>
+    </template>
+    <!-- 撤单 end -->
+    <!-- 确认付款 start -->
+    <template v-if="show_compelete">
+      <div slot="header">
+        <span v-if="ctc_order.type == 'BUY_ORDER'">确认付款</span>
+        <span v-if="ctc_order.type == 'SELL_ORDER'">确认收款</span>
+      </div>
+      <div slot="article">
+        <div class="user_info">
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</div>
+            <div class="user_info_item_detail">{{ctc_order.orderId}}</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</div>
+            <div class="user_info_item_detail">{{ctc_order.type == 'SELL_ORDER' ? '卖出' : '买入'}}</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格：</div>
+            <div class="user_info_item_detail">{{$globalFunc.accFixed(ctc_order.price,2)}} CNY</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量：</div>
+            <div class="user_info_item_detail">{{$globalFunc.accFixed(ctc_order.amount,2)}} USDT</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额：</div>
+            <div class="user_info_item_detail">{{$globalFunc.accFixed(ctc_order.amount * ctc_order.price,2)}} CNY</div>
+          </div>
+          <div class="user_info_item flex">
+            <div class="user_info_item_label">{{ctc_order.type == 'SELL_ORDER' ? '买家姓名:' : '卖家姓名:'}}</div>
+            <div class="user_info_item_detail">{{ctc_order.type == 'SELL_ORDER'?user_info.name:pay_info[0].username}}</div>
+          </div>
+        </div>
+        <div class="user_notice" v-if="ctc_order.type == 'BUY_ORDER'">
+          <p>重要提示：<span style="color: #c43e4e;">未付款时点击确认付款属于恶意点击，</span></p>
+          <p class="notice_padding_left"><span style="color: #c43e4e;">一经查处，系统将暂时封锁账户，请谨慎操作。</span></p>
+        </div>
+        <div class="user_notice" v-if="ctc_order.type == 'SELL_ORDER'">
+          <p>重要提示：<span style="color: #c43e4e;">请确认已收到对方本人账户转账，若非买家本人支付，请原路退回。确认收款后资产将直接划转至对方账户，有不可追回风险，请谨慎操作。</span></p>
+          <p class="notice_padding_left"></p>
+        </div>
+      </div>
+      <div slot="footer" class="bind-bank-footer flex">
+        <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="CLOSE_DIALOG">取消</button>
+        <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="COMPLETE_BTN" v-if="ctc_order.type == 'SELL_ORDER'">确认收款</button>
+        <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="COMPLETE_BTN" v-if="ctc_order.type == 'BUY_ORDER'">确认付款</button>
+      </div>
+    </template>
+    <!-- 确认付款 end -->
+    <!-- 温馨提示 start -->
+    <template v-if="show_notice">
+      <div slot="header">
+        温馨提示
+      </div>
+      <div slot="article">
+        <div class="user_info">
+          卖家的支付方式可能发生变动，请务必在付款时确认对方账号信息。
+        </div>
+        <div class="user_notice">
+          恶意点击，将会暂时封锁账号!
+        </div>
+      </div>
+      <div slot="footer" class="bind-bank-footer flex">
+        <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="CLOSE_DIALOG">我知道了</button>
+      </div>
+    </template>
+    <!-- 温馨提示 end -->
+  </PopupWindow>
+  <!-- 确认付款，取消，提示 end -->
+
+
+  <!-- 谷歌/短信验证 start -->
+  <div class="ga_sms_container box_shadow" v-if="show_ga_sms_dialog">
+    <div class="ga_sms_bg"></div>
+    <div class="ga_sms_body">
+      <div class="ga_sms_body_close cursor" @click="CLOSE_GA_SMS_DIALOG">×</div>
+      <div class="unit-title flex-center">
+        <span class="unit-title-line"></span>
+        <span class="unit-title-text">安全验证</span>
+        <span class="unit-title-line"></span>
+      </div>
+      <!--选择-->
+      <div class="flex unit-input-container pick-one-type" v-if="showPicker">
+        <div>
+          <input type="radio" name="identify-type" id="ga" value="bindGA" v-model="picked">
+          <label for="ga">谷歌验证</label>
+        </div>
+        <div>
+          <input type="radio" name="identify-type" id="bindMobile" value="bindMobile" v-model="picked">
+          <label for="bindMobile">手机验证</label>
+        </div>
+      </div>
+      <!--<div class="unit-input-interval"></div>-->
+
+      <!--谷歌验证码-->
+      <div class="flex unit-input-container container-ga" v-if="picked==='bindGA'"
+           :class="{'wrong-msg':GACodeWA!==''}"
+      >
+		    <span class="flex-center unit-input-container-title">
+		      <img src="./assets/谷歌验证码.png" alt="">
+		    </span>
+        <input type="text" placeholder='请输入验证码' class="unit-input input-ga"
+               v-model="GACode" @blur="testGACode">
+      </div>
+      <div class="unit-input-interval txt-red" v-if="picked==='bindGA'">
+        <span v-if="GACodeWA!==''">{{GACodeWA}}</span>
+      </div>
+
+      <!--手机验证码-->
+      <div class="flex unit-input-container double-input-container" v-if="picked==='bindMobile'"
+           :class="{'wrong-msg':verificationCodeWA!==''}"
+      >
+		    <span class="flex-center unit-input-container-title">
+		      <img src="./assets/手机.png" alt="">
+		    </span>
+        <input type="text" placeholder='请输入验证码'
+               class="unit-input input-mobile" v-model="verificationCode"
+               @blur="testVerificationCode">
+        <span class="flex-center btn_blue" v-if="!getVerificationCode" @click="click_getVerificationCode">获取</span>
+        <span class="flex-center identifying-code-button-close btn_grey"
+              v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+      </div>
+      <div class="unit-input-interval txt-red" v-if="picked==='bindMobile'">
+        <span v-if="verificationCodeWA!==''">{{verificationCodeWA}}</span>
+      </div>
+
+
+      <!--确定-->
+      <div class="unit-input-container container-button">
+        <button class="set-button btn_blue" v-if="!sending" @click="click_send">
+          确定
+        </button>
+        <button class="set-button btn_grey" v-if="sending" disabled>放币中</button>
+      </div>
+    </div>
+  </div>
+  <!-- 谷歌/短信验证 end -->
+
+
+  <!-- 邮箱验证码 start -->
+  <div class="ga_sms_container box_shadow" v-if="show_mail">
+    <div class="ga_sms_bg"></div>
+    <div class="ga_sms_body">
+      <div class="ga_sms_body_close cursor" @click="CLOSE_GA_SMS_DIALOG">×</div>
+      <div class="unit-title flex-center">
+        <span class="unit-title-line"></span>
+        <span class="unit-title-text">邮箱验证</span>
+        <span class="unit-title-line"></span>
+      </div>
+      <div class="flex unit-input-container double-input-container">
+				<span class="flex-center unit-input-container-title">
+			      <img src="./assets/邮件.png" alt="">
+			    </span>
+        <input type="text" placeholder='请输入验证码'
+               class="unit-input input-mobile" v-model="mailCode">
+        <span class="flex-center btn_blue" v-if="!getMailCode" @click="GET_MAIL_CODE">获取</span>
+        <span class="flex-center identifying-code-button-close btn_grey"
+              v-if="getMailCode">{{getMailCodeCountdown}}</span>
+      </div>
+
+      <div class="unit-input-interval txt-red">
+        <span v-if="mailCodeWA!==''">{{mailCodeWA}}</span>
+      </div>
+
+
+      <!--确定-->
+      <div class="unit-input-container container-button">
+        <button class="set-button btn_blue" v-if="!sending" @click="VALID_EMAIL">
+          确定
+        </button>
+        <button class="set-button btn_grey" v-if="sending" disabled>验证中</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 邮箱验证码 end -->
+
+</div>

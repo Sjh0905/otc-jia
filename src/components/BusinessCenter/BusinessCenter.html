@@ -1,0 +1,530 @@
+
+<div class="BusinessCenter min-width max-width">
+  <div class="shangjiagd">
+    <div class="sjgd">商家挂单</div>
+    <div class="sjchongz">
+      <div class="transaction-header-right flex-center">
+        <div class="transaction-header-right-img-box">
+          <img class="transaction-header-right-img" src="../../assets/c2c_transaction/USDT.png" alt="">
+        </div>
+        <div class="transaction-header-right-currency strong">USDT</div>
+        <div class="transaction-header-right-amount-box flex-center">
+          <div class="transaction-header-right-amount-title">余额：</div>
+          <div class="transaction-header-right-amount-num strong">{{toFixed(account*1,8)}}</div>
+          <div class="transaction-header-right-amount-unit">USDT</div>
+        </div>
+        <div class="transaction-header-right-btn " @click="goToRecharge">充值</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="business-header flex-between">
+    <Loading v-if="headerLoading" />
+    <!-- 买入 start -->
+    <div v-if="!headerLoading" class="business-header-buy">
+      <div class="business-header-title txt-dark">商家购买</div>
+<!--      <div class="business-header-item flex-center">-->
+<!--        <div class="business-header-item-title text_light_dark">参考价：</div>-->
+<!--        <div class="business-header-item-input">-->
+<!--          <span class="text_green strong business-header-item-input-first">{{toFixed(lowestBuyPrice,2)}}</span>-->
+<!--          <span class="text_light_dark">CNY</span>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="business-header-list business-header-list-buy flex-colum flex-between">
+        <div class="business-header-item flex-center flex-between">
+          <div class="business-header-item-title text_light_dark">价格：</div>
+          <div class="business-header-item-input buy input_border">
+            <input class="business-input" v-model="buyInputPrice" @input="changeBuyInputPrice" type="text" @focus="FOCUS($event)" @blur="blurBuyInputPrice($event)">
+            <div class="business-redon">CNY</div>
+          </div>
+        </div>
+        <div class="business-header-item flex-center flex-between">
+          <div class="business-header-item-title text_light_dark">数量：</div>
+          <div class="business-header-item-input buy input_border">
+            <input class="business-input" v-model="buyInputNum" @input="changeBuyInputPrice" type="text" @focus="FOCUS($event)" @blur="blurBuyInputNum($event)">
+            <div class="business-redon">USDT</div>
+          </div>
+        </div>
+        <div class="business-header-item flex-center flex-between">
+          <div class="business-header-item-title text_light_dark">金额：</div>
+          <div class="business-header-item-input buy input_border">
+            <input class="business-input" v-model="buyInputMoney" type="text" @input="changeBuyInputNum" @focus="FOCUS($event)" @blur="blurBuyInputMoney($event)">
+            <div class="business-redon">CNY</div>
+          </div>
+        </div>
+        <div class="business-header-item flex-center flex-between">
+          <div class="business-header-item-title text_light_dark">单笔最小购买数量：</div>
+          <div class="business-header-item-input buy input_border">
+            <input class="business-input" type="text" v-model="buyInputMinNum" @input="changeBuyInputMinNum" @focus="FOCUS($event)" @blur="blurBuyInputMinNum($event)">
+            <div class="business-redon">USDT</div>
+          </div>
+        </div>
+        <div class="business-header-item flex-center flex-between">
+          <div class="business-header-item-title text_light_dark">单笔最大购买数量：</div>
+          <div class="business-header-item-input buy input_border">
+            <input class="business-input" type="text" v-model="buyInputMaxNum" @input="changeBuyInputMaxNum" @focus="FOCUS($event)" @blur="blurBuyInputMaxNum($event)">
+            <div class="business-redon">USDT</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="business-header-item pay_type margin_top flex-center flex-between">
+        <div class="business-header-item-title text_light_dark">支付方式：</div>
+        <div class="business-header-item-input pay_type">
+          <div class="business-header-item-checkbox-box">
+            <!--支付宝-->
+<!--            <div v-if="aliPay" class="business-header-item-checkbox-item" @click="changeBuyCheckboxAliPay">-->
+<!--              <BaseSimpleRadio :select="buyCheckboxAliPay"></BaseSimpleRadio>-->
+<!--              <span class="business-header-item-checkbox-item-text">支付宝</span>-->
+<!--            </div>-->
+            <!--银行卡-->
+            <div v-if="bankPay" class="business-header-item-checkbox-item" @click="changeBuyCheckboxBankPay">
+<!--              <BaseSimpleRadio :select="buyCheckboxBankPay"></BaseSimpleRadio>-->
+              <span class="business-header-item-checkbox-item-text">银行卡</span>
+            </div>
+
+            <span class="text_light_dark">（须本人账户支付）</span>
+          </div>
+        </div>
+      </div>
+
+<!--      <div class="business-header-item pay_type flex-center flex-between">-->
+<!--        <div class="business-header-item-title text_light_dark">手续费：</div>-->
+<!--        <div class="business-header-item-input pay_type">-->
+<!--           <span class="text_light_dark">{{ctcFee}}%（成交后收取）</span>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <div class="business-header-item pay_type flex-center flex-between">
+        <div class="business-header-item-title text_light_dark"></div>
+        <div class="business-header-item-input pay_type">
+           <button class="btn border_radius btn_buy" @click="goToBuy">
+             购买USDT
+           </button>
+        </div>
+      </div>
+    </div>
+    <!-- 买入 end -->
+
+    <!-- 卖出 start -->
+    <div v-if="!headerLoading" class="business-header-sell">
+      <div class="business-header-title txt-dark">
+        商家出售
+
+      </div>
+
+<!--      <div class="business-header-item flex-center">-->
+<!--        <div class="business-header-item-title text_light_dark">参考价：</div>-->
+<!--        <div class="business-header-item-input">-->
+<!--          <span class="text_red strong business-header-item-input-first">{{toFixed(lowestSellPrice,2)}}</span>-->
+<!--          <span class="text_light_dark">CNY</span>-->
+<!--          <span class="business_balance">USDT余额 <font>{{toFixed(account*1,8)}}</font></span>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <div class="business-header-list flex-colum flex-between">
+        <div class="business-header-item flex-center flex-between">
+          <div class="business-header-item-title text_light_dark">价格：</div>
+          <div class="business-header-item-input input_border">
+            <input class="business-input" type="text" v-model="sellInputPrice" @input="changeSellInputPrice" @focus="FOCUS($event)" @blur="blurSellInputPrice($event)">
+            <div class="business-redon">CNY</div>
+          </div>
+        </div>
+        <div class="business-header-item flex-center flex-between">
+          <div class="business-header-item-title text_light_dark">数量：</div>
+          <div class="business-header-item-input input_border">
+            <input class="business-input" type="text" v-model="sellInputNum" @input="changeSellInputPrice" @focus="FOCUS($event)" @blur="blurSellInputNum($event)">
+            <div class="business-redon">USDT</div>
+          </div>
+        </div>
+        <div class="business-header-item flex-center flex-between">
+          <div class="business-header-item-title text_light_dark">金额：</div>
+          <div class="business-header-item-input input_border">
+            <input class="business-input" type="text" v-model="sellInputMoney" @input="changeSellInputNum" @focus="FOCUS($event)" @blur="blurSellInputMoney($event)">
+            <div class="business-redon">CNY</div>
+          </div>
+        </div>
+        <div class="business-header-item flex-center flex-between">
+          <div class="business-header-item-title text_light_dark">单笔最小卖出数量：</div>
+          <div class="business-header-item-input input_border">
+            <input class="business-input" type="text" v-model="sellInputMinNum" @input="changeSellInputMinNum" @focus="FOCUS($event)" @blur="blurSellInputMinNum($event)">
+            <div class="business-redon">USDT</div>
+          </div>
+        </div>
+        <div class="business-header-item flex-center flex-between">
+          <div class="business-header-item-title text_light_dark">单笔最大卖出数量：</div>
+          <div class="business-header-item-input input_border">
+            <input class="business-input" type="text" v-model="sellInputMaxNum" @input="changeSellInputMaxNum"  @focus="FOCUS($event)" @blur="blurSellInputMaxNum($event)">
+            <div class="business-redon">USDT</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="business-header-item pay_type margin_top flex-center flex-between">
+        <div class="business-header-item-title text_light_dark">支付方式：</div>
+        <div class="business-header-item-input pay_type">
+          <div class="business-header-item-checkbox-box">
+            <!--支付宝-->
+<!--            <div v-if="aliPay" class="business-header-item-checkbox-item" @click="changeSellCheckboxAliPay">-->
+<!--              <BaseSimpleRadio :select="sellCheckboxAliPay"></BaseSimpleRadio>-->
+<!--              <span class="business-header-item-checkbox-item-text">支付宝</span>-->
+<!--            </div>-->
+            <!--银行卡-->
+            <div v-if="bankPay" class="business-header-item-checkbox-item" @click="changeSellCheckboxBankPay">
+<!--              <BaseSimpleRadio :select="sellCheckboxBankPay"></BaseSimpleRadio>-->
+              <span class="business-header-item-checkbox-item-text">银行卡</span>
+            </div>
+
+            <span class="text_light_dark">（须本人账户收款）</span>
+          </div>
+        </div>
+      </div>
+
+<!--      <div class="business-header-item pay_type flex-center flex-between">-->
+<!--        <div class="business-header-item-title text_light_dark">手续费：</div>-->
+<!--        <div class="business-header-item-input pay_type">-->
+<!--           <span class="text_light_dark">{{ctcFee}}%（成交后收取）</span>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <div class="business-header-item pay_type flex-center flex-between">
+        <div class="business-header-item-title text_light_dark"></div>
+        <div class="business-header-item-input pay_type">
+           <button class="btn border_radius btn_sell" @click="goToSell()">
+             出售USDT
+           </button>
+        </div>
+      </div>
+    </div>
+    <!-- 卖出 end -->
+  </div>
+  <!-- 部分市场挂单 start -->
+<!--  <div class="business_market_list">-->
+<!--      <div class="market_list_title">-->
+<!--        部分市场挂单-->
+<!--      </div>-->
+
+<!--      <div class="market_list_table border_radius box_shadow">-->
+<!--        <div class="market_table_title flex-center border_bottom text_grey_8">-->
+<!--          <div class="type">类型</div>-->
+<!--          <div class="user">用户</div>-->
+<!--          <div class="deals">成交单数</div>-->
+<!--          <div class="length_time">成交率</div>-->
+<!--          <div class="amount">数量(USDT)</div>-->
+<!--          <div class="total">总计(CNY)</div>-->
+<!--          <div class="quota">限额(CNY)</div>-->
+<!--          <div class="payment text_center">付款方式</div>-->
+<!--          <div class="price text_right">价格(CNY)</div>-->
+<!--        </div>-->
+
+<!--        <div class="market_table_body text_dark">-->
+<!--          <Loading v-if="getPartPosterOrderListLoading" />-->
+<!--          <div v-else>-->
+<!--            <div class="market_table_title flex-center border_bottom text_dark" v-for="(item,index) in sectionPendingList" :key="index">-->
+<!--              <div class="type" :class="item.postersType === 'BUY_ORDER' ? 'text_green' : 'text_red'">{{item.postersType === 'BUY_ORDER'?'买入':'卖出'}}</div>-->
+<!--              <div class="user">{{item.userName}}</div>-->
+<!--              <div class="deals">{{item.transactions}}</div>-->
+<!--              <div class="length_time">{{toFixed(accDiv(accMul(accMinus(item.total,item.amount),100),item.total),2)}}%</div>-->
+<!--              <div class="amount">{{toFixed(item.total,2)}}</div>-->
+<!--              <div class="total">{{toFixed(accMul(item.total,item.price),2)}}</div>-->
+<!--              <div class="quota">{{toFixed(accMul(item.minLimit,item.price),2)}} - {{toFixed(accMul(item.total,item.price),2)}}</div>-->
+<!--              <div class="payment payment_icon">-->
+<!--                <span v-if='item.payType==="BANKCARD" || item.payType==="BANKCARD|ALIPAY" || item.payType==="ALIPAY|BANKCARD"' class="icon card_icon"></span>-->
+<!--                <span v-if='item.payType==="ALIPAY" || item.payType==="BANKCARD|ALIPAY" || item.payType==="ALIPAY|BANKCARD"' class="icon alipay_cion"></span>-->
+<!--              </div>-->
+<!--              <div class="price text_right" :class="item.postersType === 'BUY_ORDER' ? 'text_green' : 'text_red'">{{toFixed(item.price,2)}}</div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--        </div>-->
+
+<!--      </div>-->
+
+<!--  </div>-->
+  <!-- 部分市场挂单 end -->
+
+  <!-- 我的商家订单 start -->
+  <div class="busniess_order_list">
+    <div class="order_title">
+      <div class="order_title_left">
+        我的订单
+<!--        <router-link to="/index/PersonCenter/PaymentSet">修改支付方式</router-link>-->
+      </div>
+<!--      <a class="order_title_right text_blue" href="https://www.btcdo.com/index/notice/noticeDetail?id=100328" target="_blank">商家操作说明</a>-->
+
+    </div>
+    <!-- 页签 start -->
+    <div class="order_tab">
+      <div class="flex-row order_conduct_tabs">
+        <div class="order_conduct_tab tab-item-first " :class="order_tab == 1 && 'order_conduct_tab_active'" @click="ORDER_TAB(1)">
+          进行中
+          <div class="transaction-header-left-item-bottom"></div>
+        </div>
+        <div class="order_conduct_tab " :class="order_tab == 2 && 'order_conduct_tab_active'" @click="ORDER_TAB(2)">
+          已完成
+          <div class="transaction-header-left-item-bottom"></div>
+        </div>
+        <div class="order_conduct_tab  tab-item-last" :class="order_tab == 3 && 'order_conduct_tab_active'" @click="ORDER_TAB(3)">
+          已撤单
+          <div class="transaction-header-left-item-bottom"></div>
+        </div>
+      </div>
+    </div>
+    <!-- 页签 end -->
+    <!-- 页签内容 start -->
+    <div class="order_table">
+      <!-- 进行中 -->
+      <BusinessOrderConduct v-if="order_tab == 1 " />
+      <!-- 已完成 -->
+      <BusinessOrderComplete v-if="order_tab == 2" />
+      <!-- 已撤单 -->
+      <BusinessOrderCannel v-if="order_tab == 3" />
+    </div>
+    <!-- 页签内容 end -->
+
+  </div>
+
+  <!--确认购买弹框-->
+  <div v-if="submitBuyBoxFlag" class="submit-buy-window">
+    <div class="submit-buy-box border_radius">
+      <div class="submit-buy-title strong text_dark" >确定买入</div>
+      <div class="submit-buy-list">
+<!--        <div class="submit-buy-item">-->
+<!--          <div class="submit-buy-item-left text_grey_8 strong">价格设置：</div>-->
+<!--          <div class="submit-buy-item-right text_dark strong">-->
+<!--            <img class="submit-buy-item-right-img" src="../../assets/c2c_common/select_choise.png" alt="">-->
+<!--            固定价格-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="submit-buy-item">-->
+<!--          <div class="submit-buy-item-left text_grey_8 strong">参考价：</div>-->
+<!--          <div class="submit-buy-item-right">-->
+<!--            <span class="text_green margin_right">{{lowestBuyPrice}} CNY</span>-->
+<!--            <span class="text_grey_8">(以实际价格为准)</span>-->
+<!--          </div>-->
+<!--        </div>-->
+
+        <div class="submit-buy-item">
+          <div class="submit-buy-item-left text_grey_8 strong">价格：</div>
+          <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+            <span class="text_green margin_right">{{buyInputPrice}}</span>
+            <span class="text_absolute text_grey_8">CNY</span>
+          </div>
+        </div>
+
+        <div class="submit-buy-item margin_top">
+          <div class="submit-buy-item-left text_grey_8 strong">数量：</div>
+          <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+            <span class="text_dark margin_right">{{buyInputNum}}</span>
+            <span class="text_absolute text_grey_8">USDT</span>
+          </div>
+        </div>
+
+        <div class="submit-buy-item margin_top">
+          <div class="submit-buy-item-left text_grey_8 strong">金额：</div>
+          <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+            <span class="text_green margin_right">{{buyInputMoney}}</span>
+            <span class="text_absolute text_grey_8">CNY</span>
+          </div>
+        </div>
+
+        <div class="submit-buy-item margin_top">
+          <div class="submit-buy-item-left text_grey_8 strong">单笔最小买入数量：</div>
+          <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+            <span class="text_dark margin_right">{{buyInputMinNum}}</span>
+            <span class="text_absolute text_grey_8">USDT</span>
+          </div>
+        </div>
+
+        <div class="submit-buy-item margin_top">
+          <div class="submit-buy-item-left text_grey_8 strong">单笔最大买入数量：</div>
+          <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+            <span class="text_dark margin_right">{{buyInputMaxNum}}</span>
+            <span class="text_absolute text_grey_8">USDT</span>
+          </div>
+        </div>
+
+        <div class="submit-buy-item">
+          <div class="submit-buy-item-left text_grey_8 strong">支付方式：</div>
+          <div class="submit-buy-item-right">
+<!--            <img class="submit-buy-item-right-img-zfb" src="../../assets/c2c_center_buy/bank_icon.png" alt="">-->
+            {{bankName}}
+            <span class="text_red">（须本人账户支付）</span>
+          </div>
+        </div>
+
+<!--        <div class="submit-buy-item">-->
+<!--          <div class="submit-buy-item-left text_grey_8 strong">手续费：</div>-->
+<!--          <div class="submit-buy-item-right">-->
+<!--            <span class="text_blue">{{ctcFee}}%</span>-->
+<!--            <span class="text_grey_8">（成交后收取）</span>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+      <div class="submit-btn-box">
+        <div class="submit-btn submit-btn-cancel border_radius text_green" @click="closeBuyBox">取消</div>
+
+        <div class="submit-btn submit-btn-confirm border_radius text_white" @click="submitToBuy">{{submitBuyAjaxFlag === true?'下单中':'确定下单'}}</div>
+      </div>
+    </div>
+  </div>
+  <!--确认删除弹框-->
+  <div v-if="submitSellBoxFlag" class="submit-buy-window">
+    <div class="submit-buy-box border_radius">
+      <div class="submit-buy-title strong text_dark" >确定卖出</div>
+      <div class="submit-buy-list">
+<!--        <div class="submit-buy-item">-->
+<!--          <div class="submit-buy-item-left text_grey_8 strong">价格设置：</div>-->
+<!--          <div class="submit-buy-item-right text_dark strong">-->
+<!--            <img class="submit-buy-item-right-img" src="../../assets/c2c_common/select_choise.png" alt="">-->
+<!--            固定价格-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="submit-buy-item">-->
+<!--          <div class="submit-buy-item-left text_grey_8 strong">参考价：</div>-->
+<!--          <div class="submit-buy-item-right">-->
+<!--            <span class="text_red margin_right">{{lowestBuyPrice}} CNY</span>-->
+<!--            <span class="text_grey_8">(以实际价格为准)</span>-->
+<!--          </div>-->
+<!--        </div>-->
+
+        <div class="submit-buy-item">
+          <div class="submit-buy-item-left text_grey_8 strong">价格：</div>
+          <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+            <span class="text_red margin_right">{{sellInputPrice}}</span>
+            <span class="text_absolute text_grey_8">CNY</span>
+          </div>
+        </div>
+
+        <div class="submit-buy-item margin_top">
+          <div class="submit-buy-item-left text_grey_8 strong">数量：</div>
+          <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+            <span class="text_dark margin_right">{{sellInputNum}}</span>
+            <span class="text_absolute text_grey_8">USDT</span>
+          </div>
+        </div>
+
+        <div class="submit-buy-item margin_top">
+          <div class="submit-buy-item-left text_grey_8 strong">金额：</div>
+          <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+            <span class="text_red margin_right">{{sellInputMoney}}</span>
+            <span class="text_absolute text_grey_8">CNY</span>
+          </div>
+        </div>
+
+        <div class="submit-buy-item margin_top">
+          <div class="submit-buy-item-left text_grey_8 strong">单笔最小卖出数量：</div>
+          <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+            <span class="text_dark margin_right">{{sellInputMinNum}}</span>
+            <span class="text_absolute text_grey_8">USDT</span>
+          </div>
+        </div>
+
+        <div class="submit-buy-item margin_top">
+          <div class="submit-buy-item-left text_grey_8 strong">单笔最大卖出数量：</div>
+          <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
+            <span class="text_dark margin_right">{{sellInputMaxNum}}</span>
+            <span class="text_absolute text_grey_8">USDT</span>
+          </div>
+        </div>
+
+        <div class="submit-buy-item">
+          <div class="submit-buy-item-left text_grey_8 strong">支付方式：</div>
+          <div class="submit-buy-item-right">
+<!--            <img class="submit-buy-item-right-img-zfb" src="../../assets/c2c_center_buy/bank_icon.png" alt="">-->
+            {{bankName}}
+            <span class="text_red">（须本人账户收款）</span>
+          </div>
+        </div>
+
+<!--        <div class="submit-buy-item">-->
+<!--          <div class="submit-buy-item-left text_grey_8 strong">手续费：</div>-->
+<!--          <div class="submit-buy-item-right">-->
+<!--            <span class="text_blue">{{ctcFee}}%</span>-->
+<!--            <span class="text_grey_8">（成交后收取）</span>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+      <div class="submit-btn-box">
+        <div class="submit-btn submit-sell-cancel border_radius text_red" @click="closeSellBox">取消</div>
+
+        <div class="submit-btn submit-sell-confirm border_radius text_white" @click="submitToSell">
+          {{submitSellAjaxFlag === true?'下单中':'确定下单'}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 我的商家订单 end -->
+
+  <!--socket超时 弹框提示 begin-->
+  <BasePopupWindow :open="refreshPageFlag" :close="refreshPageFunc">
+    <div slot="header" class="time-out-header">
+      提示信息
+    </div>
+    <div slot="article" class="time-out-article">
+      <div class="time-out-row flex">
+        需点击刷新
+      </div>
+    </div>
+    <div slot="footer" class="time-out-footer">
+      <div class="unit-input-container container-button">
+        <button class="set-button btn_blue btn_blue_box_shadow" style="cursor: pointer" @click="refreshPageFunc">
+          知道了
+        </button>
+      </div>
+    </div>
+  </BasePopupWindow>
+  <!--socket超时 弹窗提示 end-->
+      <!--未绑定 弹框提示 begin-->
+    <BasePopupWindow :open="authStatePopupWindow" :close="closeAuthStatePopupWindow">
+      <div slot="header" class="auth-state-header">
+        安全提示
+      </div>
+      <div slot="article" class="auth-state-article">
+        <template v-if="authStatePopupType==1">
+          <div class="auth-state-row flex">
+            请先进行实名认证
+          </div>
+        </template>
+        <template v-if="authStatePopupType==2">
+          <div class="auth-state-row flex">
+            请绑定手机或者谷歌验证
+          </div>
+        </template>
+
+      </div>
+      <div slot="footer" class="auth-state-footer">
+        <div class="unit-input-container container-button">
+          <template v-if="authStatePopupType==1">
+            <button v-if="isMobile" class="set-button btn_blue btn_blue_box_shadow"
+                    @click="goToAuth"
+                    style="letter-spacing: 0"
+            >
+              去 app 认证
+            </button>
+            <button v-else class="set-button btn_blue btn_blue_box_shadow"
+                    @click="goToAuth"
+            >
+              去认证
+            </button>
+          </template>
+          <template v-if="authStatePopupType==2">
+            <button class="set-button btn_blue btn_blue_box_shadow"
+                    @click="goToBind"
+            >
+              去绑定
+            </button>
+          </template>
+          <!--<button class="set-button btn_blue btn_blue_box_shadow" @click="closeAuthStatePopupWindow">-->
+          <!--知道了-->
+          <!--</button>-->
+        </div>
+      </div>
+    </BasePopupWindow>
+    <!--未绑定 弹窗提示 end-->
+
+  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+</div>

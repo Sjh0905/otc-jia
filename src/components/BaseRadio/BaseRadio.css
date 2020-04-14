@@ -1,0 +1,27 @@
+/*radio*/
+.radio_box{
+  display: inline-block;
+  width: auto;
+}
+.radio_label{
+  margin-right: 10px;
+  cursor: pointer;
+}
+.check_radio{
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: url('./assets/select_no_choise.png') center center no-repeat;
+  background-size: 100%;
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-right: 2px;
+}
+.check_radio.selected {
+  background: url('./assets/select_choise.png') center center no-repeat;
+  background-size: 100%;
+}
+.input_radio{
+  display: none;
+}
+

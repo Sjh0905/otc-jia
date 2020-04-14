@@ -1,0 +1,9 @@
+.popup-windows ul li p {
+  display: inline-block;
+}
+.popup-windows ul li .el-range-editor.el-input__inner {
+  width: 174px;
+  height: 32px;
+  right: 0;
+  top: 30%;
+}

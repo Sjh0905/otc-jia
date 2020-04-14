@@ -1,0 +1,48 @@
+<div>
+	<div class="business_order">
+		<div class="business_order_table">
+			<!-- table 头 start -->
+			<div class="business_order_table_title flex-center ">
+<!--				<div class="order">单号</div>-->
+				<div class="type">订单号</div>
+        <div class="orderstatus">类型</div>
+				<div class="price">单价(CNY)</div>
+				<div class="amount">数量(USDT)</div>
+				<div class="money">总金额(CNY)</div>
+<!--				<div class="num">交易限额(CNY)</div>-->
+<!--				<div class="create">创建时间</div>-->
+        <div class="jyobject">交易对象</div>
+				<div class="update">时间</div>
+<!--				<div class="pay_type text_center">支付方式</div>-->
+			</div>
+			<!-- table 头 end -->
+			<!-- table tbody start -->
+			<div class="business_order_table_tbody text_block">
+				<Loading v-if="loading" />
+				<div class="business_order_table_tr flex-center text_dark" v-else v-for="(item,index) in pageList" :key="index">
+<!--					<div class="order">{{item.id}}</div>-->
+					<div class="type" >{{item.id}}</div>
+          <div class="orderstatus" :class="item.postersType === 'BUY_ORDER' ? 'text_green' : 'text_red'">{{item.postersType === 'BUY_ORDER' ? '购买' : '出售'}}</div> 
+          <div class="price" :class="item.postersType === 'BUY_ORDER' ? 'text_green' : 'text_green'">{{toFixed(item.price,2)}}</div>
+					<div class="amount">{{toFixed(item.deal,2)}}</div>
+					<div class="money">{{toFixed(accMul(item.total,item.price),2)}}</div>
+<!--					<div class="num">{{toFixed(accMul(item.minLimit,item.price),2)}} - {{toFixed(accMul(item.total,item.price),2)}}</div>-->
+<!--					<div class="create">{{formatDateUitl(item.createdAt)}}</div>-->
+          <div class="jyobject"></div>
+					<div class="update">{{formatDateUitl(item.updatedAt)}}</div>
+<!--					<div class="pay_type payment_icon">-->
+<!--						<span class="icon card_icon"></span>-->
+<!--					</div>-->
+				</div>
+			</div>
+			<!-- table tbody end -->
+		</div>
+		<!-- 分页插件 start  v-if="maxPage > 1" -->
+	  	<BasePageBar v-if="maxPage > 1" :maxPage='maxPage'
+		           :selectIndex="selectIndex"
+		           :clickChangePage="clickChangePage"
+		           :currentDisplay=2
+		           :initDisplay=2></BasePageBar>
+	  	<!-- 分页插件 end -->
+	</div>
+</div>

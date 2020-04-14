@@ -1,0 +1,431 @@
+<div class="TransactionSell">
+<!--  <div class="usdtprice2">-->
+<!--    <span class="usdtpriceaaa1">价格</span>-->
+<!--    <span class="usdtpriceaaa2"> 7.02 CNY/USDT</span>-->
+<!--    <span class="usdtpriceaaa3">限额 100.00-10000.00CNY</span>-->
+<!--  </div>-->
+
+<!--  <div class="usdtprice">-->
+<!--    <div class="buymoney01">-->
+<!--      <div class="buytt">出售金额</div>-->
+<!--      <div class="buywrite">-->
+<!--        <div class="buywrite01">-->
+<!--          <input class="inputbuyje" placeholder="请输入出售金额"/>-->
+
+<!--        </div>-->
+<!--        <div class="buywrite02">-->
+<!--          CNY-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="tuu">-->
+<!--      <img src="../../assets/c2c_center_buy/dengh.png" alt="">-->
+<!--    </div>-->
+<!--    <div class="buymoney02">-->
+<!--      <div class="buytt">出售数量</div>-->
+<!--      <div class="buywrite">-->
+<!--        <div class="buywrite01">-->
+<!--          <input class="inputbuyje" placeholder="请输入出售数量"/>-->
+<!--        </div>-->
+<!--        <div class="buywrite02">-->
+<!--          USDT-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--    <div class="buutton">-->
+<!--      出售USDT-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+  <div class="usdtprice" >
+    <div class="usdtprice2">
+      <span class="usdtpriceaaa1">一键卖币</span>
+      <!-- <span class="usdtpriceaaa2"> 7.02 CNY/USDT</span> -->
+      <span class="usdtpriceaaa3">小额快速交易，0手续费</span>
+    </div>
+    <div>
+
+      <div class="buymoney02">
+        <el-select v-model="value" placeholder="请选择" class="buymoney03">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <!-- <div class="buytt">购买金额</div> -->
+        <div class="buywrite" v-if="value=='选项1'">
+          <div class="buywrite01">
+            <input class="inputbuyje" placeholder="请输入出售金额"  @input="abindInputCNY" v-model="inputCNY" type="text" />
+            <!-- <input class="buy-toast-item-input border_radius text_green strong" @input="bindInputCNY" v-model="inputCNY" type="text"> -->
+          </div>
+          <div class="buywrite02">
+            CNY
+          </div>
+        </div>
+        <div class="buywrite" v-if="value=='选项2'">
+          <div class="buywrite01">
+            <!-- <input class="buy-toast-item-input border_radius strong" @input="bindInputNum" v-model="inputNum" type="text"> -->
+            <input class="inputbuyje"  placeholder="请输入出售数量" @input="abindInputNum" v-model="inputNum" type="text"/>
+          </div>
+          <div class="buywrite02">
+            USDT
+          </div>
+        </div>
+
+      </div>
+      <button class="buutton" @click="aKeyToBuy(); clickToConfirmSell()">
+        <img class="imgs" src="../../assets/c2c_form_icon/bolt.png" alt="">
+        出售USDT
+      </button>
+    </div>
+    <!-- <div class="buutton">
+        购买USDT
+    </div> -->
+  </div>
+
+ <div class="shichanggd">自由卖币</div>
+  <div class="business_order">
+    <div class="business_order_table">
+      <!-- table 头 start -->
+      <div class="business_order_table_title flex-center  flex-between">
+        <div class="ordertitle">商家</div>
+        <div class="type">成交单数</div>
+        <div class="price">成交率</div>
+        <div class="unit">单价(CNY)</div>
+        <div class="amount">数量(USDT)</div>
+<!--        <div class="money">金额(CNY)</div>-->
+        <div class="num">限额(CNY)</div>
+        <div class="pay_type">支付方式</div>
+
+        <div class="option">交易</div>
+      </div>
+      <!-- table 头 end -->
+      <div v-if="loading" class="pending-body-no-pending-box">
+        <Loading/>
+      </div>
+
+
+      <!-- table tbody start -->
+<!--      <div v-if="pendingList.length != 0 && !loading" class="business_order_table_tbody text_block">-->
+<!--        <Loading v-if="loading" />-->
+<!--        <div class="business_order_table_tr flex-center flex-between" v-else v-for="(item,index) in pendingList" :key="index">-->
+<!--          <div class="order">{{item.name}}</div>-->
+      <div v-if="pendingList.length != 0 && !loading" class="business_order_table_tbody text_block">
+        <Loading v-if="loading" />
+
+      <div class="business_order_table_tr flex-center flex-between" v-else v-for="(item,index) in pendingList" :key="index">
+        <div class="order text_dark flex-row">
+          <div style="height:70px;position: relative">
+            <div :class="'yansebj'+Math.round(Math.random()*3)">{{item.name.substring(0,1)}}</div>
+            <div style="width: 52px;position: absolute;bottom: -1px;background: #fff;height: 1px;"></div>
+          </div>
+          <div>
+            {{item.name}}
+          </div>
+        </div>
+          <div class="type text_dark">{{item.sum}}</div>
+          <div class="price text_dark">{{toFixed(accMul(item.rate,100),2)}}%</div>
+          <div class="unit text_green">{{toFixed(item.price,2)}}</div>
+          <div class="amount text_dark">{{toFixed(item.amount,2)}}</div>
+<!--          <div class="money">{{toFixed(accMul(item.amount,item.price),2)}}</div>-->
+          <div class="num text_dark">{{toFixed(accMul(item.minLimit,item.price),2)}} - {{toFixed(accMul(item.amount,item.price),2)}}</div>
+          <div class="pay_type text_dark">
+<!--            <span v-if="item.payMethod === 'BANKCARD' || item.payMethod === 'ALIPAY|BANKCARD' || item.payMethod === 'BANKCARD|ALIPAY'" class="icon card_icon"></span>-->
+<!--            <span v-if="item.payMethod === 'ALIPAY' || item.payMethod === 'ALIPAY|BANKCARD' || item.payMethod === 'BANKCARD|ALIPAY'" class="icon alipay_cion"></span>-->
+            银行卡
+          </div>
+
+          <div class="option text_center">
+            <button class="btn btn_sell btn-can" @click="clickToSellSelf(item)">
+              出售USDT
+            </button>
+          </div>
+        </div>
+      </div>
+      <div v-if="pendingList.length === 0 && !loading" class="pending-body-no-pending-box">
+        <img class="pending-body-no-pending-img" src="../../assets/c2c_transaction/no_pending_notice_img.png" alt="">
+        <div class="pending-body-no-pending-text">暂无挂单</div>
+      </div>
+      <!-- table tbody end -->
+    </div>
+    <!-- 分页插件 start  v-if="maxPage > 1" -->
+    <BasePageBar v-if="maxPage > 1 && pendingList.length != 0" :maxPage='maxPage'
+                 :selectIndex="selectIndex"
+                 :clickChangePage="clickChangePage"
+                 :currentDisplay=2
+                 :initDisplay=2></BasePageBar>
+    <!-- 分页插件 end -->
+
+    <!--首次进入此页 弹框提示 begin-->
+    <BasePopupWindow :open="popWindowOpen" :close="popWindowGoAhead">
+      <div slot="header" class="pop-header">
+        {{popWindowTitle}}
+      </div>
+      <div slot="article" class="pop-article" :class="popWindowContentAllCenter?'pop-article-all-center':''">
+        <div class="pop-article-text text_light_dark" :class="popWindowContentAllCenter?'pop-article-text-all-center':''">
+          <div v-for="(item,index) in popWindowContent" :key="index" class="pop-article-text-detail" :class="popWindowContentCenter?'pop-article-text-detail-center':''">
+            {{item}}
+          </div>
+        </div>
+        <div class="pop-btn-container flex">
+          <button class="pop-btn btn btn_blue " @click="clickToSell(item)">
+            {{popWindowBtnText}}
+          </button>
+          <button class="pop-btn btn btn-cancel" @click="popWindowCloseForBindMobile">
+            {{popWindowOpen? '下次再说':''}}
+          </button>
+        </div>
+      </div>
+    </BasePopupWindow>
+    <!--首次进入此页 弹窗提示 end-->
+
+    <!--卖出USDT初次弹框 start-->
+    <div v-if="sellToastOpen" class="sell-toast-box">
+      <div class="sell-toast-window">
+        <img src="../../assets/c2c_common/popup_close_btn.png" alt="" class="sell-toast-box-close" @click="closeSellBox">
+        <div class="sell-toast-title text_red">卖出USDT</div>
+        <div class="sell-toast-list">
+          <div class="sell-toast-item">
+            <div class="sell-toast-item-title text_grey_8">商家：</div>
+            <div class="sell-toast-item-first-content strong text_dark">{{sellItem.name}}</div>
+          </div>
+          <div class="sell-toast-item">
+            <div class="sell-toast-item-title text_grey_8">类型：</div>
+            <div class="sell-toast-item-first-content text_red strong">卖出</div>
+          </div>
+          <div class="sell-toast-item">
+            <div class="sell-toast-item-title text_grey_8">价格：</div>
+            <div class="sell-toast-item-first-content text_red strong">{{sellItem.price}} CNY</div>
+          </div>
+          <div class="sell-toast-item">
+            <div class="sell-toast-item-title text_grey_8">数量：</div>
+            <div class="sell-toast-item-input-box input_border border_radius">
+              <input class="sell-toast-item-input border_radius strong" @input="bindInputNum" v-model="inputNum" type="text">
+              <div class="sell-toast-item-input-currency text_grey_8">USDT</div>
+            </div>
+          </div>
+          <div class="sell-toast-item sell-toast-item-margin-top">
+            <div class="sell-toast-item-title text_grey_8">金额：</div>
+            <div class="sell-toast-item-input-box input_border border_radius">
+              <input class="sell-toast-item-input border_radius text_red strong" @input="bindInputCNY" v-model="inputCNY" type="text">
+              <div class="sell-toast-item-input-currency text_grey_8">CNY</div>
+            </div>
+          </div>
+          <div class="sell-toast-item">
+            <div class="sell-toast-item-title text_grey_8">限额：</div>
+            <div class="sell-toast-item-first-content text_dark strong">{{sellItem.minLimit}}~{{sellItem.maxLimit}} USDT</div>
+          </div>
+          <div class="sell-toast-item sell-toast-item-special">
+            <div class="sell-toast-item-title text_grey_8">收款方式：</div>
+            <div class="sell-toast-item-pay-mode">
+              <div class="sell-toast-item-pay-mode-line">
+                <div v-if="sellItem.payMethod === 'ALIPAY' || sellItem.payMethod === 'ALIPAY|BANKCARD' || sellItem.payMethod === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">
+                  支付宝
+                </div>
+                <div v-if="sellItem.payMethod === 'BANKCARD' || sellItem.payMethod === 'ALIPAY|BANKCARD' || sellItem.payMethod === 'BANKCARD|ALIPAY'" class="buy-toast-item-first-content-bank-item text_dark strong">
+                  银行转账 <span style="color:#E54146">(需本人账户收款)</span>
+                </div>
+                <div v-if="sellItem.payType === 'ALIPAY' || sellItem.payType === 'ALIPAY|BANKCARD' || sellItem.payType === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">
+                  支付宝
+                </div>
+                <div v-if="sellItem.payType === 'BANKCARD' || sellItem.payType === 'ALIPAY|BANKCARD' || sellItem.payType === 'BANKCARD|ALIPAY'" class="buy-toast-item-first-content-bank-item text_dark strong">
+                  银行转账 <span style="color:#E54146">(需本人账户收款)</span>
+                </div>
+              </div>
+              <!-- <div class="sell-toast-item-pay-mode-info text_blue">(需本人账户收款)</div> -->
+            </div>
+
+          </div>
+        </div>
+        <div class="sell-toast-btn-box">
+          <button class="sell-toast-btn btn btn_base btn_white_red text_red"  @click="closeSellBox">取消</button>
+          <button class="sell-toast-btn btn btn_base btn_red" @click="clickToConfirmSell">卖出</button>
+        </div>
+      </div>
+    </div>
+    <!--卖出USDT初次弹框 end-->
+
+    <!--卖出USDT确认弹框 start-->
+    <div v-if="sellCommitToastOpen" class="sell-toast-box">
+      <div class="sell-toast-window">
+        <img src="../../assets/c2c_common/popup_close_btn.png" alt="" class="sell-toast-box-close" @click="closeSellComfirmBox">
+        <div class="sell-toast-title text_red">确定卖出</div>
+        <div class="sell-toast-list">
+          <div class="sell-toast-item" v-if='!aKeyUserName'>
+            <div class="sell-toast-item-title text_grey_8">商家：</div>
+            <div class="sell-toast-item-first-content strong text_dark">{{pay_info.username}}</div>
+          </div>
+          <div class="sell-toast-item" v-if='!aKeyUserName'>
+            <div class="sell-toast-item-title text_grey_8">单号：</div>
+            <div class="sell-toast-item-first-content text_dark strong">{{sellItem.id}}</div>
+          </div>
+          <div class="sell-toast-item">
+            <div class="sell-toast-item-title text_grey_8">类型：</div>
+            <div class="sell-toast-item-first-content text_red strong">卖出</div>
+          </div>
+          <div class="sell-toast-item">
+            <div class="sell-toast-item-title text_grey_8">价格：</div>
+            <div class="sell-toast-item-first-content text_red strong">{{sellItem.price}} CNY</div>
+          </div>
+          <div class="sell-toast-item">
+            <div class="sell-toast-item-title text_grey_8">数量：</div>
+            <div class="sell-toast-item-first-content text_dark strong">{{inputNum}}</div>
+            <div class="sell-toast-item-unit text_grey_8">USDT</div>
+          </div>
+          <div class="sell-toast-item">
+            <div class="sell-toast-item-title text_grey_8">金额估值：</div>
+            <div class="sell-toast-item-first-content text_red strong">{{inputCNY}} CNY</div>
+            <div class="sell-toast-item-unit text_grey_8">（以实际订单为准）</div>
+          </div>
+          <div class="sell-toast-item sell-toast-item-special">
+            <div class="sell-toast-item-title text_grey_8">收款方式：</div>
+            <!-- <div class="sell-toast-item-pay-mode">
+              <div class="sell-toast-item-pay-mode-line">
+                <div class="sell-toast-item-first-content-bank-item text_dark strong">
+                  支付宝
+                </div>
+                <div class="sell-toast-item-first-content-bank-item text_dark strong">
+                  银行转账  <span style="color:#E54146">(需本人账户收款)</span>
+                </div>
+              </div>
+              <div class="sell-toast-item-pay-mode-info text_blue">(需本人账户收款)</div>
+            </div> -->
+          <div class="sell-toast-item-pay-mode">
+            <div class="sell-toast-item-pay-mode-line">
+              <div v-if="sellItem.payMethod === 'ALIPAY' || sellItem.payMethod === 'ALIPAY|BANKCARD' || sellItem.payMethod === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">
+                支付宝
+              </div>
+          <div v-if="sellItem.payMethod === 'BANKCARD' || sellItem.payMethod === 'ALIPAY|BANKCARD' || sellItem.payMethod === 'BANKCARD|ALIPAY'" class="buy-toast-item-first-content-bank-item text_dark strong">
+                银行转账 <span style="color:#E54146">(需本人账户收款)</span>
+              </div>
+              <div v-if="sellItem.payType === 'ALIPAY' || sellItem.payType === 'ALIPAY|BANKCARD' || sellItem.payType === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">
+                支付宝
+              </div>
+              <div v-if="sellItem.payType === 'BANKCARD' || sellItem.payType === 'ALIPAY|BANKCARD' || sellItem.payType === 'BANKCARD|ALIPAY'" class="buy-toast-item-first-content-bank-item text_dark strong">
+                银行转账 <span style="color:#E54146">(需本人账户收款)</span>
+              </div>
+          </div>
+              <!-- <div class="sell-toast-item-pay-mode-info text_blue">(需本人账户收款)</div> -->
+            </div>
+          </div>
+          <div class="sell-toast-item"  v-if='!!sellItemPay'>
+            <div class="sell-toast-item-title text_grey_8">收款银行卡：</div>
+            <div class="sell-toast-item-first-content text_dark strong">
+<!--              {{pay_info.username}},-->
+              {{sellItemPay.bankName}},
+              {{sellItemPay.cardNumber}},
+            </div>
+            <!-- <div class="buy-toast-item-unit text_grey_8">USDT</div> -->
+          </div>
+        </div>
+<!--        <div  class="sell-toast-item" v-if='!!pay_info'>-->
+<!--          <div class="sell-toast-item-first-content-i text_dark strong"> {{pay_info.bankName}},{{ pay_info.cardNumber}}-->
+
+<!--          </div>-->
+<!--          </div>-->
+        <div class="sell-toast-btn-box">
+          <button class="sell-toast-btn btn btn_base btn_white_red text_red" @click="closeSellComfirmBox">取消</button>
+          <button class="sell-toast-btn btn btn_base btn_red" @click="clickConfirmBtn">{{submitBtnAjaxFlag===false?'确定下单':'下单中'}}</button>
+        </div>
+      </div>
+    </div>
+    <!--卖出USDT确认弹框 end-->
+
+
+    <!-- 谷歌/短信验证 start -->
+    <div class="ga_sms_container box_shadow" v-if="verificationToastOpen">
+      <div class="ga_sms_bg"></div>
+      <div class="ga_sms_body">
+        <img src="../../assets/c2c_common/popup_close_btn.png" alt="" class="sell-toast-box-close">
+        <!--选择-->
+        <div class="flex unit-input-container pick-one-type" v-if="showPicker">
+          <div>
+            <input type="radio" name="identify-type" id="ga" value="bindGA" v-model="picked">
+            <label for="ga">谷歌认证</label>
+          </div>
+          <div>
+            <input type="radio" name="identify-type" id="bindMobile" value="bindMobile" v-model="picked">
+            <label for="bindMobile">手机认证</label>
+          </div>
+        </div>
+        <!--<div class="unit-input-interval"></div>-->
+
+        <!--谷歌验证码-->
+        <div class="flex unit-input-container container-ga" v-if="picked==='bindGA'"
+             :class="{'wrong-msg':GACodeWA!==''}"
+        >
+		    <span class="flex-center unit-input-container-title">
+		      <img src="../../assets/c2c_form_icon/google.png" alt="">
+		    </span>
+          <input type="text" placeholder='请输入谷歌验证码' class="unit-input input-ga"
+                 v-model="GACode"
+          <!--@blur="testGACode"-->
+          >
+        </div>
+        <div class="unit-input-interval txt-red" v-if="picked==='bindGA'">
+          <span v-if="GACodeWA!==''">{{GACodeWA}}</span>
+        </div>
+
+        <!--手机验证码-->
+        <div class="flex unit-input-container double-input-container" v-if="picked==='bindMobile'"
+             :class="{'wrong-msg':verificationCodeWA!==''}"
+        >
+		    <span class="flex-center unit-input-container-title">
+		      <img src="../../assets/c2c_form_icon/mobile.png" alt="">
+		    </span>
+          <input type="text" placeholder='请输入手机验证码'
+                 class="unit-input input-mobile" v-model="verificationCode"
+          <!--@blur="testVerificationCode"-->
+          >
+          <span class="flex-center btn_blue" v-if="!getVerificationCode"
+          <!--@click="click_getVerificationCode"-->
+          >{{$t("signPageResetPassword.achieve")}}</span>
+          <span class="flex-center identifying-code-button-close btn_grey"
+                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
+        </div>
+        <div class="unit-input-interval txt-red" v-if="picked==='bindMobile'">
+          <span v-if="verificationCodeWA!==''">{{verificationCodeWA}}</span>
+        </div>
+
+
+        <!--确定-->
+        <div class="unit-input-container container-button">
+          <button class="set-button btn_blue" v-if="!sending"
+          <!--@click="click_send"-->
+          >
+          {{$t("signPageResetPassword.confirm")}}
+          </button>
+          <button class="set-button btn_grey" v-if="sending" disabled>{{$t('coinBaby.Locking')}}</button>
+        </div>
+      </div>
+    </div>
+    <!-- 谷歌/短信验证 end -->
+
+    <!--socket超时 弹框提示 begin-->
+<!--    <BasePopupWindow :open="refreshPageFlag" :close="refreshPageFunc">-->
+<!--      <div slot="header" class="time-out-header">-->
+<!--        提示信息-->
+<!--      </div>-->
+<!--      <div slot="article" class="time-out-article">-->
+<!--        <div class="time-out-row flex">-->
+<!--          网络异常，请稍后重试-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div slot="footer" class="time-out-footer">-->
+<!--        <div class="unit-input-container container-button">-->
+<!--          <button class="set-button btn_blue btn_blue_box_shadow" style="cursor: pointer" @click="refreshPageFunc">-->
+<!--            知道了-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </BasePopupWindow>-->
+    <!--socket超时 弹窗提示 end-->
+
+
+    <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+  </div>
+</div>

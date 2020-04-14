@@ -1,0 +1,825 @@
+.paymentSet {
+  padding: 0 50px;
+  position: relative;
+  min-height: 500px;
+}
+
+/*title begin*/
+.title {
+  font-size: 16px;
+  line-height: 16px;
+  color: #172A4D;
+  margin-top: 16px;
+}
+
+.title-block {
+  display: block;
+  width: 4px;
+  height: 16px;
+  background: #C43E4E;
+  margin-right: 7px;
+}
+
+/*title end*/
+
+/*base begin*/
+.shadow {
+  box-shadow: 0 3px 15px 3px #cde8fa;
+}
+
+.white-shadow {
+  /*box-shadow: 0 3px 15px 3px rgba(229, 229, 229, 0.85);*/
+  border: 1px solid rgba(229, 229, 229, 0.5);
+}
+
+/*base end*/
+
+/*支付宝 begin*/
+/*  支付宝标题 begin*/
+.payment-title-container {
+  align-items: flex-end;
+}
+
+.aLiPay-title-container {
+  margin-top: 25px;
+  height: 22px;
+}
+
+.payment-title {
+  color: #172A4D;
+  font-size: 16px;
+  line-height: 16px;
+  margin-right: 22px;
+}
+
+.aLiPay-container .toggle-container {
+  width: 44px;
+  height: 22px;
+  align-self: center;
+  margin-right: 44px;
+}
+
+.release-txt {
+  color: #C43E4E;
+  font-size: 14px;
+  line-height: 14px;
+  cursor: pointer;
+}
+
+.change-txt {
+  color: #C43E4E;
+  font-size: 14px;
+  line-height: 14px;
+  cursor: pointer;
+  padding-right: 20px;
+}
+
+.aLiPay-release {
+  margin-right: 21px;
+}
+
+/*  支付宝标题 end*/
+
+/*  支付宝内容 begin*/
+.aLiPay-content-container {
+  margin-top: 22px;
+}
+
+/*    已经绑定的账号内容 begin*/
+.aLiPay-content {
+  width: 230px;
+  height: 112px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, from(#45c2fc), to(#58aeff));
+  padding: 15px;
+  white-space: nowrap;
+  justify-content: space-between;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 14px;
+  color: #fff;
+  position: relative;
+}
+
+.aLiPay-receipt-code {
+  align-items: center;
+}
+
+.aLiPay-receipt-code-img {
+  display: block;
+  width: 17px;
+  height: 16px;
+  background-image: url("./assets/pay-code.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-left: 9px;
+}
+
+.aLiPay-receipt-code-detail-container {
+  position: absolute;
+  top: 0;
+  right: -127px;
+  display: none;
+}
+
+.aLiPay-receipt-code-img:hover .aLiPay-receipt-code-detail-container {
+  display: block;
+}
+
+.aLiPay-receipt-code-detail {
+  width: 111px;
+  z-index: 200;
+  position: relative;
+}
+
+.aLiPay-receipt-code-detail-arrow {
+  display: block;
+  position: absolute;
+  background-image: url("./assets/pay-code-arrow.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 24px;
+  height: 36px;
+  top: 50%;
+  left: -15px;
+  z-index: 100;
+}
+
+/*    已经绑定的账号内容 end*/
+
+/*    没绑定的支付宝 begin*/
+.empty-aLiPay-content {
+  width: 230px;
+  height: 112px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.aLiPay-please-add-img {
+  display: block;
+  background: url("./assets/add-icon.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 48px;
+  height: 48px;
+}
+
+.aLiPay-please-add {
+  font-size: 16px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 5px;
+}
+
+/*    没绑定的支付宝 end*/
+
+/*  支付宝内容 end*/
+
+/*支付宝 end*/
+
+/*银行列表 begin*/
+.bank-container {
+
+}
+
+.bank-container-title-container {
+  margin-top: 40px;
+}
+
+/*  银行内容 begin*/
+.bank-content-container {
+  margin-top: 30px;
+}
+
+.bank-content-row {
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 36px;
+}
+
+/*    银行卡 begin*/
+.bank-item-container {
+  width: 316px;
+}
+
+.bank-label {
+  width: 93%;
+  height: 130px;
+  display: block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 6px;
+}
+
+.bank-label-title {
+  padding: 27px 0 0 20px;
+  align-items: center;
+}
+
+.bank-logo-icon-container {
+  width: 35px;
+}
+
+.bank-label-name-container {
+  color: white;
+  /*padding-left: 6px;*/
+  flex-direction: column;
+  justify-content: space-between;
+  height: 28px;
+}
+
+.bank-label-ch-name {
+  font-size: 20px;
+  line-height: 14px;
+  margin-bottom: 10px;
+}
+
+.bank-label-en-name {
+  font-size: 12px;
+  line-height: 10px;
+}
+
+.bank-label-card-number {
+  font-size: 18px;
+  color: white;
+  /* text-align: center; */
+  margin-top: 34px;
+  white-space: nowrap;
+  letter-spacing: 2px;
+  margin-left: 20px;
+}
+
+.bank-logo-icon {
+  width: 35px;
+}
+
+.bank-label-blue {
+  background-image: url("./assets/bank-label-blue.png");
+  /*box-shadow: 0 3px 15px 3px #c0e0ed;*/
+}
+
+.bank-label-yellow {
+  background-image: url("./assets/bank-label-yellow.png");
+  /*box-shadow: 0 3px 15px 3px #ffd3bd;*/
+}
+
+.bank-label-green {
+  background-image: url("./assets/bank-label-green.png");
+  /*box-shadow: 0 3px 15px 3px #b8e3dd;*/
+}
+
+/*      银行卡操作 begin*/
+.bank-operation-container {
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 23px;
+  padding: 0 2px;
+}
+
+.chose-default-bank-card {
+  font-size: 14px;
+  color: #172A4D;
+  justify-content: center;
+  align-items: center;
+}
+
+.chose-default-bank-card-radio {
+  margin-right: 11px;
+}
+
+.bank-release-txt {
+  margin-right: 20px;
+}
+
+.bank-change-txt {
+
+}
+
+/*      银行卡操作 end*/
+/*    银行卡 end*/
+
+/*    添加银行卡 begin*/
+.add-new-bank-card-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+.add-new-bank-card-img {
+  display: block;
+  background: url("./assets/add-icon1.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* width: 77px;
+  height: 77px; */
+  width: 28px;
+  height: 28px;
+  margin-bottom: 10px;
+}
+
+.add-new-bank-card {
+  font-size: 16px;
+  line-height: 16px;
+  color: #172A4D;
+}
+
+/*    添加银行卡 end*/
+
+/*  银行列表 end*/
+/*银行列表 end*/
+
+/*绑定支付宝弹窗 begin*/
+.bind-ALiPay-header {
+  width: 722px;
+}
+
+.bind-ALiPay-article {
+  /*align-items: center;*/
+  /*justify-items: center;*/
+  flex-direction: column;
+}
+
+.input-item-container {
+  justify-items: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.input-item-title {
+  width: 210px;
+  text-align: right;
+  font-size: 14px;
+  color: #8994A5;
+  padding-right: 20px;
+  white-space: nowrap;
+}
+
+.ga_sms_body_close{
+  position: absolute;
+  right: 10px;
+  top: -15px;
+  width: 20px;
+  cursor: pointer;
+  height: 20px;
+  color: #ccc;
+  font-size: 20px;
+}
+
+.zi{
+  letter-spacing: 4px;
+}
+
+.input-item-input-container {
+  width: 350px;
+  box-sizing: border-box;
+}
+
+.wrong-msg-container {
+  color: red;
+  padding-left: 10px;
+  font-size: 12px;
+  line-height: 20px;
+  height: 20px;
+  margin-bottom: -20px;
+  margin-top: 0;
+}
+
+.wrong-msg-border {
+  border-color: red !important;
+}
+
+.input-item-input {
+  width: 100%;
+  height: 37px;
+  line-height: 37px;
+  font-size: 14px;
+  color: #C5CFD5;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+
+
+/*  点击上传支付宝收款码 begin*/
+.input-item-container-aLiPay-code {
+  align-items: flex-start;
+}
+
+.input-item-container-aLiPay-code .input-item-input-container {
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.input-item-container-aLiPay-code .input-item-title {
+  padding-top: 10px;
+}
+
+.input-aLiPay-code {
+  width: 120px;
+  height: 124px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.input-aLiPay-code-icon {
+  display: block;
+  background: url("./assets/add-icon.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 50px;
+  height: 50px;
+}
+
+.input-aLiPay-echo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.input-aLiPay-code-prompt {
+  color: #888;
+  font-size: 14px;
+  line-height: 14px;
+  margin-top: 5px;
+}
+
+.input-aLiPay-prompt {
+  width: 225px;
+}
+
+.display-none {
+  display: none;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/*  点击上传支付宝收款码 end*/
+
+/*  备注信息 begin*/
+.input-item-container-remarks {
+  align-items: flex-start;
+}
+
+.input-item-container-remarks .input-item-title {
+  padding-top: 10px;
+}
+
+.input-item-remarks {
+  resize: none;
+  width: 274px;
+  height: 111px;
+  outline:none;
+}
+
+.input-item-remarks-number {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  color: #989898;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+/*  备注信息 end*/
+
+/*  弹窗按钮 begin*/
+.bind-ALiPay-footer {
+  justify-content: center;
+  align-items: center;
+  padding: 27px 0 33px 0;
+}
+
+.aLiPay-btn {
+  width: 120px;
+  height: 35px;
+  outline:none;
+}
+
+.aLiPay-btn:first-of-type {
+  margin-right: 28px;
+}
+
+.aLiPay-commit-btn {
+  border: 0;
+}
+
+/*  弹窗按钮 end*/
+
+.input-item-input::-webkit-input-placeholder {
+  color: #8994A5;
+  font-weight: normal;
+}
+
+.input-item-input::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #8994A5;
+  font-weight: normal;
+}
+
+.input-item-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #8994A5;
+  font-weight: normal;
+}
+
+.input-item-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #8994A5;
+  font-weight: normal;
+}
+
+/*  绑定支付宝第二步 确认 begin*/
+.bind-ALiPay-confirm-header {
+  width: 448px;
+}
+
+.bind-ALiPay-confirm-article {
+  flex-direction: column;
+}
+
+.input-item-conform-title {
+  width: 175px;
+  text-align: right;
+  font-size: 14px;
+  color: #888;
+  padding-right: 20px;
+  white-space: nowrap;
+}
+
+.input-item-input-confirm-container {
+  font-weight: bold;
+  max-width: 200px;
+  align-items: center;
+}
+
+/*  点击上传支付宝收款码 begin*/
+.input-item-container-confirm-aLiPay-code {
+  align-items: flex-start;
+}
+
+.input-item-container-confirm-aLiPay-code .input-item-input-container {
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+/*  备注信息 begin*/
+.input-item-container-confirm-remarks {
+  align-items: flex-start;
+}
+
+/*  绑定支付宝第二步 确认 end*/
+
+/*绑定支付宝弹窗 end*/
+
+/*绑定银行卡弹窗 begin*/
+/*  绑定银行卡弹窗标题 begin*/
+.bind-bank-header {
+  width: 722px;
+}
+
+/*  绑定银行卡弹窗标题 end*/
+/*  绑定银行卡弹窗内容 begin*/
+.bind-bank-article {
+  flex-direction: column;
+}
+
+.input-item-container-default-bank-card .input-item-input-container {
+  align-items: center;
+  /*justify-content: center;*/
+}
+
+.input-item-default-bank-card-radio-container {
+  align-items: center;
+}
+
+.input-item-default-bank-card-radio {
+  margin-right: 10px;
+}
+
+/*  绑定银行卡弹窗内容 end*/
+/*  绑定银行卡弹窗footer begin*/
+.bind-bank-footer {
+  justify-content: center;
+  align-items: center;
+  padding: 27px 0 33px 0;
+}
+
+/*  绑定银行卡弹窗footer end*/
+/*  确认绑定银行卡弹窗 begin*/
+.bind-bank-confirm-header {
+  width: 500px;
+}
+
+.bind-bank-confirm-article {
+  flex-direction: column;
+}
+
+/*  确认绑定银行卡弹窗 end*/
+
+/*绑定银行卡弹窗 end*/
+
+/*删除支付宝账号弹窗 begin*/
+.delete-row {
+  margin-top: 18px;
+  font-size: 14px;
+  line-height: 14px;
+  width: 364px;
+}
+
+.delete-bank-row {
+  width: 442px;
+}
+
+.delete-title {
+  width: 170px;
+  text-align: right;
+  color: #888;
+}
+
+.delete-bank-title {
+  width: 117px;
+}
+
+.delete-detail {
+  color: #333;
+  padding-left: 5px;
+}
+
+.delete-footer {
+  justify-content: center;
+  padding: 30px 0;
+}
+
+/*删除支付宝账号弹窗 end*/
+
+/*二次验证 begin*/
+.verify-article {
+  width: 400px;
+  padding: 0 30px;
+}
+
+.verify-footer {
+  padding: 10px 30px 30px 30px;
+}
+
+.verify-row {
+  align-items: center;
+  /*padding: 20px 0;*/
+  margin-top: 10px;
+}
+
+/*Input板块*/
+.unit-input-container {
+  /*width: 87.5%;*/
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  margin-left: 34px;
+}
+
+/*Input标题*/
+.unit-input-container-title {
+  width: 12%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/*Input标签*/
+.unit-input {
+  border: 0 solid transparent;
+  width: 88%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.unit-input-interval {
+  height: 20px;
+  line-height: 20px;
+  width: 80%;
+  text-align: left;
+  padding-left: 12%;
+}
+
+.double-input-container {
+  justify-content: space-between;
+  /*box-sizing: border-box;*/
+}
+
+.identifying-code-button {
+  margin-right: -1px;
+}
+
+/*获取手机验证码*/
+.double-input-container > span:nth-of-type(2) {
+  width: 20%;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #25ced9;
+  border-radius: 0 5px 5px 0;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/*获取手机验证码的input*/
+.double-input-container > input {
+  border: 0 solid transparent;
+  width: 69%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+/*确定按钮*/
+.container-button {
+  border: 0;
+}
+
+.set-button {
+  width: 90%;
+  height: 100%;
+  font-size: 1.4rem;
+  background-color: #25ced6;
+  color: #ffffff;
+  border-radius: 5px;
+  letter-spacing: 10px;
+  border: 0;
+}
+
+.wrong-msg {
+  border: 1px solid red;
+}
+
+.pick-one-type {
+  border: 0;
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+  align-items: center;
+  -webkit-align-items: center;
+}
+
+.unit-title {
+  padding-top: 0;
+}
+
+/*验证码发送中*/
+.identifying-code-button-close {
+  background-color: #cccccc !important;
+}
+
+/*二次验证 end*/
+
+/*未绑定 弹框提示 begin*/
+.auth-state-header {
+  width: 400px;
+}
+
+.auth-state-article {
+  /*padding: 20px;*/
+  margin-top: 20px;
+}
+
+.auth-state-row {
+  justify-content: center;
+}
+
+.auth-state-footer {
+  padding: 20px;
+}
+
+/*未绑定 弹框提示 end*/
+@media screen and (max-width: 768px) {
+  .bind-bank-header{
+    width: auto;
+  }
+  .input-item-remarks{
+    resize: none;
+    height: 124px;
+    width: auto;
+
+  }
+  .input-item-conform-title {
+    width: 95px;
+    text-align: right;
+    font-size: 14px;
+    color: #888;
+    padding-right: 20px;
+    white-space: nowrap;
+  }
+  .bind-bank-confirm-header{
+    width: auto;
+  }
+  .delete-bank-title{
+    width: 50px;
+  }
+  .verify-article {
+     width: auto;
+     padding: 0px;
+  }
+  .auth-state-header {
+    width: auto;
+  }
+}

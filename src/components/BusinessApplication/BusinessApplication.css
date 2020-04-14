@@ -1,0 +1,173 @@
+.BusinessApplication{
+	padding: 50px;
+  padding-top: 100px;
+}
+.bussiness_apply_container{
+    width: 620px;
+    margin: 0 auto;
+    height: 520px;
+    position: relative;
+}
+.bussiness_apply_body{
+	/*width: 55%;*/
+	width: 100%;
+	margin: 0 auto;
+}
+.text_block{
+	color: #333;
+}
+.text_small{
+	color: #666;
+}
+.text_blue{
+	color: #C43E4E;
+}
+.text_grey{
+	color: #787878;
+}
+.bussiness_apply_title{
+  opacity: 0.7;
+  font-family: PingFangSC-Medium;
+  font-size: 20px;
+  color: #000000;
+  text-align: center;
+  line-height: 60px;
+}
+.huit{
+  width: 100%;
+  height: 1px;
+  background: #E7EBEE;
+}
+.bussiness_apply_title_small{
+  width: 100%;
+  line-height: 120px;
+  margin-left: 60px;
+}
+.bussiness_apply_title_small_aa{
+  font-family: PingFangSC-Medium;
+  font-size: 16px;
+  color: #4C4C4C;
+}
+.bussiness_apply_title_small_bb{
+  font-family: PingFangSC-Medium;
+  font-size: 16px;
+  color: #C43E4E;
+}
+.bussiness_apply_title_small2{
+  opacity: 0.7;
+  font-family: PingFangSC-Medium;
+  font-size: 16px;
+  color: #000000;
+  line-height: 60px;
+  margin-left: 60px;
+}
+.bussiness_small3{
+  opacity: 0.5;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #000000;
+  letter-spacing: 0;
+  margin-left: 60px;
+  line-height: 30px;
+  width: 100%;
+  height: 30px;
+}
+.bussiness_small3 .bussiness_apply_title_small3_aa{
+  float: left;
+}
+.bussiness_small3 .bussiness_apply_title_small3_bb{
+  float: right;
+  margin-right: 120px;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  color: #C43E4E;
+  letter-spacing: 0;
+}
+
+.bussiness_small4{
+  width: 300px;
+  height: 40px;
+  line-height: 40px;
+  background: #C43E4E;
+  border-radius: 3px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: PingFangSC-Medium;
+  font-size: 16px;
+  color: #F7F7FB;
+  margin-top: 40px;
+  cursor: pointer;
+}
+
+.bussiness_apply_rules_item{
+	position: relative;
+	/*width: 60%;*/
+	line-height: 25px;
+}
+.text_bolder{
+	font-weight: 500;
+}
+.bussiness_apply_pay_type{
+	padding-left: 17px;
+	margin-top: 5px;
+}
+.bussiness_apply_pay_type label{
+	cursor: pointer;
+}
+.bussiness_apply_pay_type font{
+	margin: 0 10px;
+}
+.bussiness_apply_agree{
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+.bussiness_apply_submit{
+	/*width: 70%;*/
+	text-align: center;
+	margin-top: 30px;
+}
+.btn{
+	width: 80%;
+	border: none;
+	background: #C43E4E;
+	color: #fff;
+	padding: 7px 0px;
+	font-size: 15px;
+	letter-spacing: 1px;
+}
+.btn.disabled {
+	background: #acdce8;
+	cursor: inherit;
+}
+
+.tips{
+	position: absolute;
+	color: #dedede;
+	left: 70%;
+}
+.tips_filter{
+	margin: 0 5px;
+}
+
+.check_radio{
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	background: url('./assets/select_no_choise.png') center center no-repeat;
+	background-size: 100%;
+	vertical-align: middle;
+	margin-top: -2px;
+	margin-right: 2px;
+}
+.check_radio.selected {
+	background: url('./assets/select_choise.png') center center no-repeat;
+	background-size: 100%;
+}
+.input_radio{
+	display: none;
+}
+
+.bdiphone{
+  cursor: pointer;
+}

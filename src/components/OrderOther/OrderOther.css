@@ -1,0 +1,83 @@
+.order_conduct{
+  margin-bottom: 20px;
+}
+.border_bottom{
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.order_conduct_tbody{
+  position: relative;
+  min-height: 150px;
+}
+.order_conduct_title, .order_conduct_content{
+  line-height: 56px;
+}
+.order_conduct_content:hover{
+    background: #F7F8FA ;
+}
+.order_conduct_title > div{
+  /* color: #888888; */
+  /*opacity: 0.4;*/
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #8994A5;
+  letter-spacing: 0;
+}
+.order_conduct_content > div{
+  /* color: #333333;
+  cursor: pointer; */
+  cursor: pointer;
+  font-family: PingFangSC-Medium;
+  font-size: 14px;
+  color: #172A4D;
+  letter-spacing: 0;
+}
+.numbers{
+  width: 25%;
+  /* padding-left: 3%; */
+}
+.type{
+  width: 15%;
+}
+.price{
+  width: 15%;
+}
+.order_conduct_content > div>.buy{
+  display: inline;
+  color: #6FBF48;
+}
+.order_conduct_content > div>.sell{
+  color: #EC6555;
+  display: inline;
+}
+.order_conduct_content > div.buy{
+  /* display: inline; */
+  color: #02987D;
+}
+.order_conduct_content > div.sell{
+  color: #C43E4E;
+  /* display: inline; */
+}
+.amount{
+  width: 20%;
+}
+.money{
+  width: 20%;
+}
+.status{
+  width: 20%;
+}
+.create_time{
+  width: 20%;
+  text-align: right;
+}
+.cannel_time{
+  width: 20%;
+}
+.cannel_time_btn{
+  border: 0;
+  padding: 5px 10px;
+  background: #C43E4E;
+  color: #fff;
+  outline: 0;
+  cursor: pointer;
+}
