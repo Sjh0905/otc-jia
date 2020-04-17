@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/c2c': {
-        target: 'https://otc.highdefi.com/',
+        target: 'https://www.jiuniu.io/',
         changeOrigin: true,
         // pathRewrite: {//TODO:连接测试用这个
         //   '^/c2c': ''
