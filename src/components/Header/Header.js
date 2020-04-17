@@ -82,7 +82,7 @@ root.methods.LOGIN_OUT = function () {
 			// window.location.reload();
       // this.$router.push('index/home')
 			// window.location.replace(replace_url);
-			window.location.replace('https://www.815ex.com');
+			window.location.replace('https://www.2020.exchange');
 		}
 	}).catch((err) => {
 

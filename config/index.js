@@ -12,19 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/c2c': {
-        // target: 'http://192.168.2.166:8080/', //欧
-        // target: 'http://192.168.2.166:8090/', //欧二号
-        // target: 'http://192.168.2.131:8100/',  //玉光
-        // target: 'http://192.168.2.147:8090/', //晓东
-        // target: 'http://192.168.2.157:8090/', //海潮
-        // target: 'http://52.195.14.223:8090/', //测试环境
-        // target:'http://192.168.0.97:8090', //中秋本机测试环境
-        // target:'http://10.111.12.42:8090', //中秋本机测试环境
         target: 'https://otc.highdefi.com/',
-        // target: 'https://otc.815ex.com/',
-        // target: 'https://valuepay.815ex.com/',
-        // target:'http://47.90.18.189:8090', //本地测试环境
-          //  target:'https://52.195.14.223:8090', //正式环境
         changeOrigin: true,
         // pathRewrite: {//TODO:连接测试用这个
         //   '^/c2c': ''

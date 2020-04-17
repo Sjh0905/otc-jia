@@ -7,12 +7,12 @@ store.state.test = ''
 store.state.lang = 'CH'
 
 // 跳转域名
-// store.state.domain_url = 'http://www.815ex.com/';
-store.state.domain_url = process.env.DOMAIN || 'https://www.815ex.com/'
-// store.state.domain_url = process.env.DOMAIN || 'http://sss.815ex.com:8085/'
+// store.state.domain_url = 'http://www.2020.exchange/';
+store.state.domain_url = process.env.DOMAIN || 'https://www.2020.exchange/'
+// store.state.domain_url = process.env.DOMAIN || 'http://sss.2020.exchange:8085/'
 
 
-store.state.download_app = process.env.DOWN_APP || 'https://download.815ex.com'
+store.state.download_app = process.env.DOWN_APP || 'https://download.2020.exchange'
 // 是否登录 false
 store.state.isLogin = false;
 //是否是移动端

@@ -12,7 +12,7 @@ export default function ($route, $event, $store, $http, $cookies) {
 			let isLogin = $store.state.isLogin
 			// console.log(isLogin,'aaa')
 		// if(!isLogin){
-		// 	window.location.replace('https://www.815ex.com/index/sign/login');
+		// 	window.location.replace('https://www.2020.exchange/index/sign/login');
 		// 	next();
 		// }
 		next();

@@ -935,10 +935,10 @@ root.methods.clickToastBtn = function () {
 root.methods.setPopWindowContentForJoin = function () {
 // <<<<<<< HEAD
 //   this.popWindowTitle= '参与C2C交易需要满足以下条件：';
-//   this.popWindowContent= ['1、注册中秋，并完成实名认证','2、绑定您本人手机号或谷歌','3、至少绑定一张本人银行卡'];
+//   this.popWindowContent= ['1、注册二零二零，并完成实名认证','2、绑定您本人手机号或谷歌','3、至少绑定一张本人银行卡'];
 // =======
   this.popWindowTitle= '参与OTC交易需要满足以下条件：';
-  this.popWindowContent= ['1、注册中秋，并完成实名认证','2、绑定您本人手机号或谷歌','3、至少绑定一张本人银行卡'];
+  this.popWindowContent= ['1、注册二零二零，并完成实名认证','2、绑定您本人手机号或谷歌','3、至少绑定一张本人银行卡'];
 // >>>>>>> 2e1f9a079c7bcdeb6ea8f876f91c91f9f2073ae6
   this.popWindowBtnText= '去设置';
   this.popWindowContentCenter = false;
