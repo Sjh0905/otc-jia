@@ -109,6 +109,11 @@ root.methods.goToTradingHall = function () {
   window.location.replace(this.$store.state.domain_url + 'index/tradingHall?symbol=JADE_USDT');
 }
 
+//跳转到行情页面
+root.methods.goToIndexHomeMarket = function () {
+  window.location.replace(this.$store.state.domain_url + 'index/indexHomeMarket');
+}
+
 //跳转到充值提现页面
 root.methods.goToRechargeAndWithdrawals = function () {
   window.location.replace(this.$store.state.domain_url + 'index/asset/rechargeAndWithdrawals');

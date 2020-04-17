@@ -17,13 +17,19 @@
           <div class="header-left-container flex">
 
 
-            <div class="index-header-logo">
-               <img src="./assets/PC首页导航-欧联.png" class="navigation-logo" @click="goBackIndex">
+            <div class="baobao-logo">
+               <img src="../../assets/indexHeader/2020_web_logo@2x.png" class="navigation-logo" @click="goBackIndex">
             </div>
             <!--logo end-->
 
             <!--左侧导航条 begin-->
             <ul class="navigation-left-container flex" :class="lang != 'CH' && 'en'">
+              <!--  行情 -->
+              <li class="navigation-item-container flex">
+                <div class="navigation-item-router flex" active-class="navigation-item-router-selected " @click="goToIndexHomeMarket">
+                  行情
+                </div>
+              </li>
               <!--币币交易 begin-->
               <li class="navigation-item-container flex">
                 <div class="navigation-item-router flex" active-class="navigation-item-router-selected " @click="goToTradingHall">
@@ -39,7 +45,8 @@
 
                   :class="isRoute=='Transaction'?'navigation-item-router-yellow':''"
                 >
-                  <span class="langfont">法币交易</span>
+<!--                  <span class="langfont">法币交易</span>-->
+                  法币交易
 <!--                  <div class="language-jt-down"></div>-->
                 </router-link>
 
@@ -66,78 +73,82 @@
 <!--                  </li>-->
 <!--                </ul>-->
               </li>
+
+          <!--  sss 4.17-->
               <!--订单 begin-->
-              <li class="navigation-item-container flex">
-                <router-link
-                  :to="{name:'Order'}"
-                  class="navigation-item-router flex"
-                  active-class="navigation-item-router-selected"
-                  :class="isRoute=='Order'?'navigation-item-router-yellow':''"
-                >
-                  <span class="langfont">法币订单</span>
+<!--              <li class="navigation-item-container flex">-->
+<!--                <router-link-->
+<!--                  :to="{name:'Order'}"-->
+<!--                  class="navigation-item-router flex"-->
+<!--                  active-class="navigation-item-router-selected"-->
+<!--                  :class="isRoute=='Order'?'navigation-item-router-yellow':''"-->
+<!--                >-->
+<!--&lt;!&ndash;                  <span class="langfont">法币订单</span>&ndash;&gt;-->
+<!--                 法币订单-->
+<!--&lt;!&ndash;                  <div class="language-jt-down"></div>&ndash;&gt;-->
+<!--                </router-link>-->
+<!--                &lt;!&ndash; 隐藏的标签&ndash;&gt;-->
+
+
+
+<!--              </li>-->
+<!--              &lt;!&ndash;订单 end&ndash;&gt;-->
+
+<!--              &lt;!&ndash;资产 begin&ndash;&gt;-->
+<!--              <li class="navigation-item-container flex"  @click="goToRechargeAndWithdrawals">&lt;!&ndash; @mouseenter="enter()" @mouseleave="leave()"&ndash;&gt;-->
+<!--                <div class="navigation-item-router flex"-->
+<!--                  active-class="navigation-item-router-selected"-->
+<!--                >-->
+<!--&lt;!&ndash;                  <span class="langfont">资产</span>&ndash;&gt;-->
+<!--                  资产-->
 <!--                  <div class="language-jt-down"></div>-->
-                </router-link>
-                <!-- 隐藏的标签-->
-
-
-
-              </li>
-              <!--订单 end-->
-
-              <!--资产 begin-->
-              <li class="navigation-item-container flex"  @click="goToRechargeAndWithdrawals"><!-- @mouseenter="enter()" @mouseleave="leave()"-->
-                <div class="navigation-item-router flex"
-                  active-class="navigation-item-router-selected"
-                >
-                  <span class="langfont">资产</span>
-                  <div class="language-jt-down"></div>
-                </div>
-                <!--隐藏的标签 begin-->
-                <ul class="flex navigation-item-hidden-list"
-                    :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',
-                    'navigation-item-hidden-list-black':isBlack}"
-                >
-                  <li class="navigation-item-hidden-list-item"  @click="goToRechargeAndWithdrawals">
-                    <div
-                      class="navigation-item-hidden-list-item-router text_blue"
-                      active-class="item_selected">
-                      充值提现
-                    </div>
-                  </li>
-                  <li class="navigation-item-hidden-list-item"   @click="goToRechargeRecord">
-                    <div
-                      class="navigation-item-hidden-list-item-router text_blue"
-                      active-class="item_selected"
-                    >
-                      充值记录
-                    </div>
-                  </li>
-                  <li class="navigation-item-hidden-list-item"   @click="goToWithdrawalsRecord">
-                    <div
-                      class="navigation-item-hidden-list-item-router text_blue "
-                      active-class="item_selected"
-                    >
-                      提现记录
-                    </div>
-                  </li>
-                </ul>
-                <!--隐藏的标签 end-->
-              </li>
-              <!--资产 end-->
-               <!-- 法币交易 -->
-               <li class="navigation-item-container flex">
-                <router-link
-                  :to="{name: 'Business'}"
-                  class="navigation-item-router flex"
-                  active-class="navigation-item-router-selected "
-                  :class="isRoute=='Business'?'navigation-item-router-yellow':''"
-                >
-                商家
-                </router-link>
-              </li>
-
-
+<!--                </div>-->
+<!--                &lt;!&ndash;隐藏的标签 begin&ndash;&gt;-->
+<!--                <ul class="flex navigation-item-hidden-list"-->
+<!--                    :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',-->
+<!--                    'navigation-item-hidden-list-black':isBlack}"-->
+<!--                >-->
+<!--                  <li class="navigation-item-hidden-list-item"  @click="goToRechargeAndWithdrawals">-->
+<!--                    <div-->
+<!--                      class="navigation-item-hidden-list-item-router text_blue"-->
+<!--                      active-class="item_selected">-->
+<!--                      充值提现-->
+<!--                    </div>-->
+<!--                  </li>-->
+<!--                  <li class="navigation-item-hidden-list-item"   @click="goToRechargeRecord">-->
+<!--                    <div-->
+<!--                      class="navigation-item-hidden-list-item-router text_blue"-->
+<!--                      active-class="item_selected"-->
+<!--                    >-->
+<!--                      充值记录-->
+<!--                    </div>-->
+<!--                  </li>-->
+<!--                  <li class="navigation-item-hidden-list-item"   @click="goToWithdrawalsRecord">-->
+<!--                    <div-->
+<!--                      class="navigation-item-hidden-list-item-router text_blue "-->
+<!--                      active-class="item_selected"-->
+<!--                    >-->
+<!--                      提现记录-->
+<!--                    </div>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--                &lt;!&ndash;隐藏的标签 end&ndash;&gt;-->
+<!--              </li>-->
+<!--              &lt;!&ndash;资产 end&ndash;&gt;-->
+<!--               &lt;!&ndash; 法币交易 &ndash;&gt;-->
+<!--               <li class="navigation-item-container flex">-->
+<!--                <router-link-->
+<!--                  :to="{name: 'Business'}"-->
+<!--                  class="navigation-item-router flex"-->
+<!--                  active-class="navigation-item-router-selected "-->
+<!--                  :class="isRoute=='Business'?'navigation-item-router-yellow':''"-->
+<!--                >-->
+<!--                商家-->
+<!--                </router-link>-->
+<!--              </li>-->
               <!--币币交易 end-->
+
+              <!--  sss 4.17-->
 
             </ul>
             <!--左侧导航条 end-->
