@@ -3,6 +3,9 @@
     <!-- <div class="order_title">我的订单</div> -->
     <div class="order_conduct">
       <div class="flex-row order_conduct_tabs">
+        <div class="order_conduct_tab fsize tab-item-first ">
+          法币订单
+        </div>
         <div class="order_conduct_tab tab-item-first " :class="order_tab == 1 && 'order_conduct_tab_active'"
           @click="ORDER_TAB(1)">
           进行中
@@ -37,19 +40,19 @@
 			</el-date-picker>
 
 						</li>
-						
+
 
 
             <li>
 				  <p>订单编号</p>
 			 	 <input type="text" placeholder="请输入订单编号">
 						</li>
-						
+
 
 
             <li>
 			  <p>交易类型</p>
-			  
+
 			  <el-select v-model="value" placeholder="请选择">
 					<el-option
 					  v-for="item in options"

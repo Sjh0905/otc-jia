@@ -64,7 +64,7 @@ root.routes.push({
     	name: 'Order',
     	redirect: 'Order/OrderConduct',
     	meta: {
-	      	requireLogin: true,
+	      	requireLogin: false,
       	},
       	component: resolve => require(['@/components/Order/Order.vue'], resolve),
       	children: [
@@ -73,7 +73,7 @@ root.routes.push({
 	      		path: 'OrderConduct',
 	      		name: 'OrderConduct',
 	      		meta: {
-	      			requireLogin: true,
+	      			requireLogin: false,
 	      		},
 	      		component: resolve => require(['@/components/OrderConduct/OrderConduct.vue'], resolve),
 	      	},
@@ -82,7 +82,7 @@ root.routes.push({
 	      		path: 'OrderComplete',
 	      		name: 'OrderComplete',
 	      		meta: {
-	      			requireLogin: true,
+	      			requireLogin: false,
 	      		},
 	      		component: resolve => require(['@/components/OrderComplete/OrderComplete.vue'], resolve),
 	      	},
@@ -91,7 +91,7 @@ root.routes.push({
 	      		path: 'OrderCancel',
 	      		name: 'OrderCancel',
 	      		meta: {
-	      			requireLogin: true,
+	      			requireLogin: false,
 	      		},
 	      		component: resolve => require(['@/components/OrderCancel/OrderCancel.vue'], resolve),
 	      	},
@@ -100,7 +100,7 @@ root.routes.push({
             path: 'OrderOther',
             name: 'OrderOther',
             meta: {
-              requireLogin: true,
+              requireLogin: false,
             },
             component: resolve => require(['@/components/OrderOther/OrderOther.vue'], resolve),
           },
