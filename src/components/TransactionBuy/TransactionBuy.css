@@ -63,7 +63,7 @@
 .usdtpriceaaa3{
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #9FA7B8;
+  color: #6B7DA2;
   letter-spacing: 0;
   margin-left: 20px;
 }
@@ -127,7 +127,7 @@
 .usdtprice .buytt{
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #9FA7B8;
+  color: #6B7DA2;
   letter-spacing: 0;
   margin-bottom: 12px;
 }
@@ -142,7 +142,7 @@
 
 .buywrite01 .inputbuyje{
   width: 240px;
-  height: 44px;
+  height: 42px;
   /*background: #F7F7FB;*/
   border:none;
   float: left;
@@ -151,7 +151,7 @@
 .buywrite01 .inputbuyje::-webkit-input-placeholder{
   font-family: PingFangSC-Regular;
   font-size: 16px;
-  color: #9FA7B8;
+  color: #6B7DA2;
   line-height: 16px;
 }
 .buywrite02{
@@ -170,6 +170,7 @@
   right: 33px;
   border: 1px solid #C5CFD5;
   border-radius: 3px;
+  height: 44px;
 }
 .buywrite01 .inputbuyje:focus .buywrite{
   border: 1px solid #C43E4E;
