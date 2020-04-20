@@ -102,7 +102,7 @@
   height:44px;
   float: right;
   position: absolute;
-  background: #02987d;
+  background: #39B496;
   border-radius: 3px;
   right: 0;
   margin-top: 32px;
@@ -267,12 +267,12 @@
   border-radius: 2px;
   border: 1px solid #E7EBEE;
 /*=======*/
-/*  background: #02987d;*/
+/*  background: #39B496;*/
 /*  border-radius: 2px !important;*/
 /*>>>>>>> 4b30c9b37fd9923eaf4a2e531e51b3ceb3ba2a1e*/
 }
 .btn_buy{
-  background: #02987d;
+  background: #39B496;
 }
 .btn-can {
   padding:7px 10px;

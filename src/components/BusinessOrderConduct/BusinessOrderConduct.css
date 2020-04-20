@@ -124,10 +124,10 @@
 }
 
 .btn_buy {
-  /*background: #02987d;*/
+  /*background: #39B496;*/
   /*-webkit-box-shadow: 0px 2px 5px #a4e2b4;*/
   /*box-shadow: 0px 2px 5px #a4e2b4;*/
-  color: #02987d;
+  color: #39B496;
 }
 
 .btn_sell {
@@ -242,12 +242,12 @@
 }
 
 .submit-btn-cancel {
-  border: 1px solid #02987d;
+  border: 1px solid #39B496;
 }
 
 .submit-btn-confirm {
-  border: 1px solid #02987d;
-  background: #02987d;
+  border: 1px solid #39B496;
+  background: #39B496;
 }
 
 .submit-sell-cancel {

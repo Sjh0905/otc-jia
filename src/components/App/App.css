@@ -202,7 +202,7 @@ body {
 }
 
 .m-txt-green {
-  color: #02987d;
+  color: #39B496;
 }
 
 .txt-green {
@@ -211,7 +211,7 @@ body {
 
 .txt-green2 {
   /*color: #52c23c;*/
-  color: #02987d
+  color: #39B496
 }
 
 .txt-greena2 {
@@ -317,7 +317,7 @@ input {
 /* ===============字体颜色================ */
 /* 绿色字体 */
 .text_green {
-  color: #02987d !important;
+  color: #39B496 !important;
 }
 
 /* 红色字体 */
@@ -405,13 +405,13 @@ input {
 
 /* 绿色按钮 */
 .btn_green {
-  background-color: #02987d !important;
+  background-color: #39B496 !important;
   border-radius: 6px;
 
 }
 
 .btn_green_no_hover {
-  background-color: #02987d !important;
+  background-color: #39B496 !important;
   border-radius: 6px;
 }
 
@@ -443,7 +443,7 @@ input {
 .btn_white_green {
   box-sizing: border-box;
   background-color: #fff !important;
-  border: 1px solid #02987d !important;
+  border: 1px solid #39B496 !important;
   border-radius: 6px;
   margin-left: 42px;
   margin-right: 96px;
