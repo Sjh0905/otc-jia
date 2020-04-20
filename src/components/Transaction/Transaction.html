@@ -1,11 +1,11 @@
-<div class="Transaction max-width">
+<div class="Transaction">
 
 
 
   <!--顶部选择买卖-->
   <div class="transaction-header flex-center flex-between">
-    <Loading v-if="loading" />
-    <div v-if="!loading" class="transaction-header-left flex-center">
+<!--    <Loading v-if="loading" />-->
+    <div v-if="" class="transaction-header-left flex">
       <div class="transaction-header-left-buy">
         <!--<div class="transaction-header-left-title" :class="buyOrSell === 'BUY'?'selected text_green':''">-->
           <!--&lt;!&ndash;<div class="transaction-header-left-title-bar"></div>&ndash;&gt;-->
@@ -34,27 +34,50 @@
       </div>
 
 
-    </div>
-    <div v-if="!loading" class="transaction-header-right flex-center">
       <div class="transaction-header-right-img-box">
-        <img class="transaction-header-right-img" src="../../assets/c2c_transaction/USDT.png" alt="">
+        <div class="transaction-header-right-currency">
+          <img class="transactionicon" src="../../assets/OTransaction_icon.png" alt="">
+          法币设置
+        </div>
+        <div class="transaction-header-right-currency">
+          <img class="transactionicon" src="../../assets/OMerchant_icon.png" alt="">
+          发布广告
+        </div>
+        <div class="transaction-header-right-currency">
+          <img class="transactionicon" src="../../assets/OOrder_icon.png" alt="">
+          订单
+        </div>
+<!--        <div class="transaction-header-right-amount-box flex-center">-->
+<!--          <div class="transaction-header-right-amount-title">余额：</div>-->
+<!--          <div class="transaction-header-right-amount-num strong">{{isLogin? account :'-&#45;&#45;'}}</div>-->
+<!--          <div class="transaction-header-right-amount-unit">USDT</div>-->
+<!--        </div>-->
+<!--        <div class="transaction-header-right-btn " @click="goToRecharge()">充值</div>-->
       </div>
-      <div class="transaction-header-right-currency strong">USDT</div>
-      <div class="transaction-header-right-amount-box flex-center">
-        <div class="transaction-header-right-amount-title">余额：</div>
-        <div class="transaction-header-right-amount-num strong">{{isLogin? account :'---'}}</div>
-        <div class="transaction-header-right-amount-unit">USDT</div>
-      </div>
-      <div class="transaction-header-right-btn " @click="goToRecharge()">充值</div>
     </div>
+<!--    <div v-if="" class="transaction-header-right flex-center">-->
+<!--      <div class="transaction-header-right-img-box">-->
+<!--        <img class="transaction-header-right-img" src="../../assets/c2c_transaction/USDT.png" alt="">-->
+<!--      </div>-->
+<!--      <div class="transaction-header-right-currency strong">USDT</div>-->
+<!--      <div class="transaction-header-right-amount-box flex-center">-->
+<!--        <div class="transaction-header-right-amount-title">余额：</div>-->
+<!--        <div class="transaction-header-right-amount-num strong">{{isLogin? account :'-&#45;&#45;'}}</div>-->
+<!--        <div class="transaction-header-right-amount-unit">USDT</div>-->
+<!--      </div>-->
+<!--      <div class="transaction-header-right-btn " @click="goToRecharge()">充值</div>-->
+<!--    </div>-->
+
+
 
   </div>
   <!--买卖路由页-->
-  <div class="router-view-box">
+  <div class="Transactions max-width">
+    <div class="router-view-box">
     <router-view/>
   </div>
   <!--底部info说明内容-->
-  <div class="transaction-info">
+    <div class="transaction-info">
     <div class="transaction-info-title flex-between">
       <div class="transaction-info-title-left flex">
         <div class="transaction-info-title-text flex-center flex-between strong text_dark">
@@ -76,7 +99,7 @@
   </div>
 
   <!--首次进入此页 弹框提示 begin-->
-  <BasePopupWindow :showClose="false" :open="isLogin && popWindowOpenForFirst" :close="popWindowGoAheadForFirst">
+    <BasePopupWindow :showClose="false" :open="isLogin && popWindowOpenForFirst" :close="popWindowGoAheadForFirst">
     <div slot="header" class="pop-header-first">
       法币交易风险提示
     </div>
@@ -116,6 +139,7 @@
   </BasePopupWindow>
   <!--首次进入此页 弹窗提示 end-->
 
-  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+    <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
 
+  </div>
 </div>
