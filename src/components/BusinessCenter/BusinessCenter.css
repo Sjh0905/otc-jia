@@ -240,8 +240,8 @@
   border: 1px solid #02987d;
 }
 .btn_sell{
-  background: #E54146;
-  border: 1px solid #E54146;
+  background: #EF5656;
+  border: 1px solid #EF5656;
 }
 
 .market_table_body{
@@ -462,7 +462,7 @@
   border-color: #02987d !important;
 }
 .input_border.sell_border{
-  border-color: #E54146 !important;
+  border-color: #EF5656 !important;
 }
 
 .submit-buy-window {
@@ -579,12 +579,12 @@
 }
 
 .submit-sell-cancel {
-  border: 1px solid #E54146;
+  border: 1px solid #EF5656;
 }
 
 .submit-sell-confirm {
-  border: 1px solid #E54146;
-  background: #E54146;
+  border: 1px solid #EF5656;
+  background: #EF5656;
 }
 /*Input板块*/
 .unit-input-container {

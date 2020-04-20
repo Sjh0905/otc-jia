@@ -28,12 +28,13 @@
 
 .usdtprice2{
   position: relative;
-  height: 50px;
-  line-height: 50px;
+  height: 44px;
+  line-height: 44px;
 }
 .usdtprice{
   position: relative;
-  height: 120px;
+  height: 44px;
+  margin-bottom: 55px;
 }
 
 .shichanggd{
@@ -98,7 +99,7 @@
 
 .usdtprice .buutton{
   width: 160px;
-  height:42px;
+  height:44px;
   float: right;
   position: absolute;
   background: #02987d;
@@ -109,7 +110,7 @@
   font-size: 16px;
   color: #FFFFFF;
   text-align: center;
-  line-height:42px;
+  line-height:44px;
   cursor: pointer;
   border:0;
   top:-32px;
@@ -135,13 +136,13 @@
 
 .buywrite01{
   float: left;
-  height: 42px;
+  height: 44px;
   border-radius: 3px;
 }
 
 .buywrite01 .inputbuyje{
   width: 240px;
-  height: 42px;
+  height: 44px;
   /*background: #F7F7FB;*/
   border:none;
   float: left;
@@ -156,8 +157,8 @@
 .buywrite02{
   float: left;
   width: 60px;
-  height: 42px;
-  line-height: 42px;
+  height: 44px;
+  line-height: 44px;
   text-align: center;
   /*background: #F7F7FB;*/
   font-family: ArialMT;
@@ -176,7 +177,7 @@
 
 
 .text_grey{
-  color: #8994A5;
+  color: #6B7DA2;
 }
 .text_block{
   color: #555;
@@ -277,7 +278,7 @@
   padding:7px 10px;
 }
 .btn_sell{
-  background: #E54146;
+  background: #EF5656;
 }
 
 .pop-header {
@@ -316,7 +317,7 @@ width: 440px;
   font-size: 14px;
 }
 .btn-cancel {
-  color: #8994A5;
+  color: #6B7DA2;
   margin-left: 10px;
 }
 
@@ -637,7 +638,7 @@ width: 440px;
 }
 
 .wrong-msg {
-  border: 1px solid #E54146;
+  border: 1px solid #EF5656;
 }
 
 .pick-one-type {

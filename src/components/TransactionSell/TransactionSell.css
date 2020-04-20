@@ -11,7 +11,7 @@
   /*opacity: 0.4;*/
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #8994A5;
+  color: #6B7DA2;
   letter-spacing: 0
 }
 .business_order_table_tbody{
@@ -245,7 +245,7 @@
 /*  height: 38px;*/
 /*  float: right;*/
 /*  position: absolute;*/
-/*  background: #E54146;*/
+/*  background: #EF5656;*/
 /*  border-radius: 3px;*/
 /*  right: 0;*/
 /*  margin-top: 32px;*/
@@ -441,7 +441,7 @@
 }
 
 .btn-cancel {
-  color: #8994A5;
+  color: #6B7DA2;
   margin-left: 10px;
 }
 
@@ -757,7 +757,7 @@
 }
 
 .wrong-msg {
-  border: 1px solid #E54146;
+  border: 1px solid #EF5656;
 }
 
 .pick-one-type {

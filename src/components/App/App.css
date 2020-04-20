@@ -220,12 +220,12 @@ body {
 }
 
 .m-txt-red {
-  color: #E54146;
+  color: #EF5656;
 }
 
 .txt-red {
   /*color: #ff5a4e;*/
-  color: #E54146
+  color: #EF5656
 }
 
 .txt-reda {
@@ -267,11 +267,11 @@ body {
 }
 
 .wrong-msg {
-  color: #E54146 !important;
+  color: #EF5656 !important;
 }
 
 .wrong-border {
-  border: 1px solid #E54146 !important;
+  border: 1px solid #EF5656 !important;
 }
 
 .pointer {
@@ -322,7 +322,7 @@ input {
 
 /* 红色字体 */
 .text_red {
-  color: #E54146 !important;
+  color: #EF5656 !important;
 }
 
 /* 蓝色字体 */
@@ -360,18 +360,18 @@ input {
 
 /* #888灰色字体 */
 .text_grey_8 {
-  color: #8994A5 !important;
+  color: #6B7DA2 !important;
 }
 
 /* ===============按钮颜色================ */
 /* 红色按钮 */
 .btn_red {
-  background-color: #E54146 !important;
+  background-color: #EF5656 !important;
   border-radius: 6px;
 }
 
 .btn_red_no_hover {
-  background-color: #E54146 !important;
+  background-color: #EF5656 !important;
   border-radius: 6px;
 }
 
@@ -436,7 +436,7 @@ input {
 .btn_white_red {
   box-sizing: border-box;
   background-color: #fff !important;
-  border: 1px solid #E54146 !important;
+  border: 1px solid #EF5656 !important;
   border-radius: 6px;
 }
 
