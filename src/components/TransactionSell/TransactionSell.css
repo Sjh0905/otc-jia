@@ -27,12 +27,13 @@
 
 .usdtprice2{
   position: relative;
-  height: 50px;
-  line-height: 50px;
+  height: 44px;
+  line-height: 44px;
 }
 .usdtprice{
   position: relative;
-  height: 120px;
+  height: 44px;
+  margin-bottom: 55px;
 }
 
 .shichanggd{
@@ -340,7 +341,7 @@
   font-size: 14px;
 }
 .pay_type{
-  width: 8%;
+  width: 10%;
   line-height: 100%;
   font-size: 14px;
 }
@@ -355,7 +356,7 @@
 }
 
 .unit {
-  width: 12%;
+  width: 11%;
   font-size: 14px;
 }
 .option{
