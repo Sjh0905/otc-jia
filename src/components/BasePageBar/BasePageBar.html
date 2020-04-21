@@ -1,6 +1,6 @@
 <div class="page-bar-container flex-center">
   <ul class="page-bar-ul flex-center">
-    <li class="page-bar-li home-page text_blue pointer" @click="goTag(1)">{{$t('index')}}</li>
+    <li class="page-bar-li home-page text_blue pointer" @click="goTag(1)">{{$t('首页')}}</li>
     <li class="page-bar-li base-paging before-page base-next-page pointer" @click="clickToGoBefore"><<</li>
     <template v-for="(item,index) in computedTabArr">
       <li class="page-bar-li base-paging paging pointer"
@@ -19,7 +19,7 @@
 
     <li class="page-bar-li jump">
       <input type="text" class="jump-input" v-model="inputTag">
-      <span class="jump-button text_blue pointer" @click="clickGo">Go</span>
+      <span class="jump-button text_blue pointer" @click="clickGo">下一页</span>
     </li>
   </ul>
 </div>
