@@ -197,10 +197,10 @@ root.data = function () {
     activeVal:true,
     // 字体切换
     jttext:'',
-    logo: logo,
-    size: 124,
-    bgColor: '#fff',
-    fgColor: '#000',
+    // logo: logo,
+    // size: 124,
+    // bgColor: '#fff',
+    // fgColor: '#000',
     value: '',
     // downloadShow: true,
     noticeList: [],
@@ -871,16 +871,16 @@ root.methods.leaveActive = function () {
   this.activeVal = true;
 }
 
-// 钱包鼠标移入
-root.methods.enterMoney = function () {
-  $(".langfont-money").attr("style","color: #fff;");
-  this.moneyVal = false;
-}
+// // 钱包鼠标移入
+// root.methods.enterMoney = function () {
+//   $(".langfont-money").attr("style","color: #fff;");
+//   this.moneyVal = false;
+// }
 
-root.methods.leaveMoney = function () {
-  $(".langfont-money").attr("style","color: (255, 255, 255, 0.8);");
-  this.moneyVal = true;
-}
+// root.methods.leaveMoney = function () {
+//   $(".langfont-money").attr("style","color: (255, 255, 255, 0.8);");
+//   this.moneyVal = true;
+// }
 
 // 钱包鼠标移入
 root.methods.enterOrder = function () {
