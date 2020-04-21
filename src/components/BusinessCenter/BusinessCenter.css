@@ -73,7 +73,7 @@
 }
 
 .transaction-header-right-btn {
-  background: #C43E4E;
+  background: #EF5656;
   border-radius: 3px;
   width: 60px;
   height: 28px;
@@ -339,7 +339,7 @@
 .business_recharge{
   font-size: 16px;
   /*float: right;*/
-  color: #C43E4E;
+  color: #EF5656;
   position: absolute;
   right: 0;
   top: 50%;
@@ -352,7 +352,7 @@
   color: #666;
 }
 .business_balance font{
-  color: #C43E4E;
+  color: #EF5656;
 }
 
 .busniess_order_list{
@@ -409,7 +409,7 @@
 
 .order_title a{
   font-size: 14px;
-  color: #C43E4E;
+  color: #EF5656;
   margin-left: 10px;
 }
 
@@ -435,7 +435,7 @@
   position: relative;
   font-family: PingFangSC-Semibold;
   font-size: 16px;
-  color: #C43E4E;
+  color: #EF5656;
   letter-spacing: 0;
 }
 
@@ -443,7 +443,7 @@
   position: absolute;
   height: 2px;
   width: 50%;
-  background: #C43E4E;
+  background: #EF5656;
 }
 .tab-item-first{
   border-top-left-radius: 6px;
