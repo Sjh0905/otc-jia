@@ -35,18 +35,18 @@
 
 
       <div class="transaction-header-right-img-box">
-        <div class="transaction-header-right-currency">
+        <router-link :to="{name: 'PaymentSet'}" class="transaction-header-right-currency">
           <img class="transactionicon" src="../../assets/OTransaction_icon.png" alt="">
           法币设置
-        </div>
-        <div class="transaction-header-right-currency">
+        </router-link>
+        <router-link :to="{name: 'Business'}" class="transaction-header-right-currency">
           <img class="transactionicon" src="../../assets/OMerchant_icon.png" alt="">
-          发布广告
-        </div>
-        <div class="transaction-header-right-currency">
+          商家
+        </router-link>
+        <router-link :to="{name:'Order'}" class="transaction-header-right-currency">
           <img class="transactionicon" src="../../assets/OOrder_icon.png" alt="">
-          订单
-        </div>
+          法币订单
+        </router-link>
 <!--        <div class="transaction-header-right-amount-box flex-center">-->
 <!--          <div class="transaction-header-right-amount-title">余额：</div>-->
 <!--          <div class="transaction-header-right-amount-num strong">{{isLogin? account :'-&#45;&#45;'}}</div>-->
