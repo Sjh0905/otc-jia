@@ -16,6 +16,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.11.1",
+    "jquery": "3.2.1",
     "npm": "^6.4.0",
     "vue": "^2.5.2",
     "vue-event-bus-use-map": "^1.0.0",

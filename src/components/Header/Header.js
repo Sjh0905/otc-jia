@@ -871,16 +871,16 @@ root.methods.leaveActive = function () {
   this.activeVal = true;
 }
 
-// // 钱包鼠标移入
-// root.methods.enterMoney = function () {
-//   $(".langfont-money").attr("style","color: #fff;");
-//   this.moneyVal = false;
-// }
+// 钱包鼠标移入
+root.methods.enterMoney = function () {
+  $(".langfont-money").attr("style","color: #fff;");
+  this.moneyVal = false;
+}
 
-// root.methods.leaveMoney = function () {
-//   $(".langfont-money").attr("style","color: (255, 255, 255, 0.8);");
-//   this.moneyVal = true;
-// }
+root.methods.leaveMoney = function () {
+  $(".langfont-money").attr("style","color: (255, 255, 255, 0.8);");
+  this.moneyVal = true;
+}
 
 // 钱包鼠标移入
 root.methods.enterOrder = function () {

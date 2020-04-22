@@ -53,7 +53,7 @@ root.data = function () {
 
     // ----------- 弹框卖出信息 start ----------
 
-    sellToastOpen: false,
+    sellToastOpen: true,
 
     sellItem: '',
 
