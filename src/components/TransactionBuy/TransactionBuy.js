@@ -55,7 +55,7 @@ root.data = function () {
 
     // ----------- 弹框买入信息 start ----------
 
-    buyToastOpen: true,
+    buyToastOpen: false,
 
     buyItem: '',
 
