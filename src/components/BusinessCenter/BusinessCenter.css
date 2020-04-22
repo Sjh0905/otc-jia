@@ -27,7 +27,7 @@
 
 }
 .transaction-header-right {
-  margin-top: 150px;
+  /*margin-top: 150px;*/
 }
 
 .transaction-header-right-img {
@@ -165,7 +165,7 @@
   color: #000000;
 }
 .text_light_dark{
-  opacity: 0.5;
+  /*opacity: 0.5;*/
   font-family: PingFangSC-Regular;
   font-size: 16px;
   color: #000000;
@@ -173,7 +173,7 @@
 
 .business-header-item-title {
   width: 30%;
-  opacity: 0.5;
+  /*opacity: 0.5;*/
   font-family: PingFangSC-Regular;
   font-size: 16px;
   color: #000000;
@@ -426,7 +426,7 @@
     margin-bottom: 30px;
   font-family: PingFangSC-Semibold;
   font-size: 16px;
-  color: #333333;
+  color: #6B7DA2;
   letter-spacing: 0;
 }
 .order_conduct_tab_active{
@@ -435,7 +435,7 @@
   position: relative;
   font-family: PingFangSC-Semibold;
   font-size: 16px;
-  color: #EF5656;
+  color: #3576F5;
   letter-spacing: 0;
 }
 
@@ -443,7 +443,7 @@
   position: absolute;
   height: 2px;
   width: 50%;
-  background: #EF5656;
+  background: #3576F5;
 }
 .tab-item-first{
   border-top-left-radius: 6px;
