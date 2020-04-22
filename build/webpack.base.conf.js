@@ -2,7 +2,7 @@
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
-// const webpack = require('webpack')
+const webpack = require('webpack')
 const vueLoaderConfig = require('./vue-loader.conf')
 
 function resolve(dir) {
@@ -39,16 +39,13 @@ module.exports = {
       '@': resolve('src'),
     }
   },
-  // plugins: [
-  //   new webpack.ProvidePlugin({
-  //     jQuery: "jquery",
-  //     $: "jquery",
-  //     'window.$': 'jquery'
-  //   }),
-  //   new webpack.optimize.CommonsChunkPlugin({
-  //     names: ['vendor'],
-  //   }),
-  // ],
+  plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: "jquery",
+      $: "jquery",
+      'window.$': 'jquery'
+    }),
+  ],
   module: {
     rules: [
       // ...(config.dev.useEslint ? [createLintingRule()] : []),
