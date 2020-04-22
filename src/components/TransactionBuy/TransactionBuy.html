@@ -126,7 +126,7 @@
         <Loading v-if="loading" />
 
         <div class="business_order_table_tr flex-center flex-between" v-else v-for="(item,index) in pendingList" :key="index">
-          <div class="order text_dark flex-row">
+          <div class="order text_dark14 flex-row">
             <div style="height:70px;position: relative">
               <div :class="'yansebj'+Math.round(Math.random()*3)">{{item.name.substring(0,1)}}</div>
               <div style="width: 52px;position: absolute;bottom: -1px;background: #fff;height: 1px;"></div>
@@ -135,13 +135,13 @@
               {{item.name}}
             </div>
           </div>
-          <div class="type text_dark">{{item.sum}}</div>
-          <div class="price text_dark">{{toFixed(accMul(item.rate,100),2)}}%</div>
-          <div class="unit text_green">{{toFixed(item.price,2)}}</div>
-          <div class="amount text_dark">{{toFixed(item.amount,2)}}</div>
+          <div class="type text_dark14">{{item.sum}}</div>
+          <div class="price text_dark14">{{toFixed(accMul(item.rate,100),2)}}%</div>
+          <div class="unit text_green14">{{toFixed(item.price,2)}}</div>
+          <div class="amount text_dark14">{{toFixed(item.amount,2)}}</div>
 <!--          <div class="money">{{toFixed(accMul(item.amount,item.price),2)}}</div>-->
-          <div class="num text_dark">{{toFixed(accMul(item.minLimit,item.price),2)}} - {{toFixed(accMul(item.amount,item.price),2)}}</div>
-          <div class="pay_type text_dark">
+          <div class="num text_dark14">{{toFixed(accMul(item.minLimit,item.price),2)}} - {{toFixed(accMul(item.amount,item.price),2)}}</div>
+          <div class="pay_type text_dark14">
 <!--            <span v-if="item.payMethod === 'BANKCARD' || item.payMethod === 'ALIPAY|BANKCARD' || item.payMethod === 'BANKCARD|ALIPAY'" class="icon card_icon"></span>-->
 <!--            <span v-if="item.payMethod === 'ALIPAY' || item.payMethod === 'ALIPAY|BANKCARD' || item.payMethod === 'BANKCARD|ALIPAY'" class="icon alipay_cion"></span>-->
               银行卡
@@ -265,24 +265,24 @@
           <img src="../../assets/PopupWindowCancelled.png" alt="" class="buy-toast-box-close" @click="closeBuyBox">
         </div>
         <div class="buy-toast-list">
-          <div class="buy-toa flex">
+          <div class="buy-toa buy-mar-bom flex">
             <div class="buy-toast-item1">
-              <div class="buy-toast-item-title text_grey_8">商家</div>
-              <div class="buy-toast-item-first-content strong text_dark">{{buyItem.name}}包包</div>
+              <div class="buy-toast-item-title text_grey_12">商家</div>
+              <div class="buy-toast-item-first-content text_dark">{{buyItem.name}}包包</div>
             </div>
             <div class="buy-toast-item1 tac">
-              <div class="buy-toast-item-title text_grey_8">类型</div>
-              <div class="buy-toast-item-first-content text_green strong">买入</div>
+              <div class="buy-toast-item-title text_grey_12">类型</div>
+              <div class="buy-toast-item-first-content text_green">买入</div>
             </div>
             <div class="buy-toast-item2">
-              <div class="buy-toast-item-title text_grey_8">价格</div>
-              <div class="buy-toast-item-first-content text_green strong">{{buyItem.price}} CNY</div>
+              <div class="buy-toast-item-title text_grey_12">价格</div>
+              <div class="buy-toast-item-first-content text_green">{{buyItem.price}} CNY</div>
             </div>
          </div>
           <div class="buy-toast-item mbt">
 <!--            <div class="buy-toast-item-title text_grey_8">数量</div>-->
             <div class="buy-toast-item-input-box input_border border_radius">
-              <input class="buy-toast-item-input border_radius text_green" placeholder="输入金额" @input="bindInputCNY" v-model="inputCNY" type="text">
+              <input class="buy-toast-item-input border_radius" placeholder="输入金额" @input="bindInputCNY" v-model="inputCNY" type="text">
               <div class="buy-toast-item-input-currency text_grey_10">CNY</div>
             </div>
             <div class="buy-toast-item-input-boxOtc">
@@ -308,7 +308,7 @@
         <div class="buy-toast-item buy-toast-item-specials">
             <span class="buy-toast-item-title text_grey_9">支付方式
               <sapn class="buy-toast-item-pay-mode">
-                <div class="buy-toast-item-pay-mode-line">银行卡
+                <div class="buy-toast-item-pay-mode-line"> <img class="PopupImg" src="../../assets/Popup_icon@2x.png" alt="">银行卡
                   <div v-if="buyItem.payMethod === 'ALIPAY' || buyItem.payMethod === 'ALIPAY|BANKCARD' || buyItem.payMethod === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">
                     支付宝
                   </div>
@@ -322,7 +322,7 @@
 
         </div>
         <div class="buy-toast-btn-boxsb">
-          <span class="btns margin-left" @click="closeBuyBox">取消</span>
+          <span class="btns btnOtc margin-leftO" @click="closeBuyBox">取消</span>
           <span class="btns backC" @click="clickToConfirmBuy">买入</span>
         </div>
       </div>
@@ -414,9 +414,9 @@
           <img src="../../assets/PopupWindowCancelled.png" alt="" class="buy-toast-box-close" @click="closeBuyBox">
         </div>
         <div class="buy-toast-list">
-          <div class="buy-toa flex">
+          <div class="buy-toa buy-mar-bom10 flex">
             <div class="buy-toast-item1">
-              <div class="buy-toast-item-title text_grey_8" v-if='!aKeyUserName'>商家</div>
+              <div class="buy-toast-item-title text_grey_12" v-if='!aKeyUserName'>商家</div>
               <div class="buy-toast-item-first-content strong text_dark">{{pay_info.username}}包包</div>
             </div>
             <div class="buy-toast-item1 tac">
@@ -442,7 +442,7 @@
 <!--          <span class="buy-toast-items">USDT</span>-->
         </div>
         <div class=" buy-toast-item-specialsOtc">
-          <span class="header-fs text_grey_9">实付款</span>
+          <span class="header-fs text_grey_9">实付款（以实际订单为准）</span>
           <span class="otc-color">{{inputCNY}}121212 CNY</span>
 <!--          <span class="buy-toast-items">（以实际订单为准）</span>-->
         </div>
@@ -450,7 +450,7 @@
         <div class="buy-toast-item buy-toast-item-specials otc-bor-top">
         <span class="buy-toast-item-title text_grey_9">支付方式</span>
         <span class="header-fs text_grey_9">
-          <span class="buy-toast-items">支付宝
+          <span class="buy-toast-items"><img class="PopupImg" src="../../assets/Popup_icon@2x.png" alt="">支付宝
             <span v-if="buyItem.payMethod === 'ALIPAY' || buyItem.payMethod === 'ALIPAY|BANKCARD' || buyItem.payMethod === 'BANKCARD|ALIPAY'" class="buy-toast-items">
               支付宝
             </span>
@@ -469,7 +469,7 @@
       </div>
 
         <div class="buy-toast-btn-boxsb">
-          <span class="btns margin-left" @click="closeBuyComfirmBox">取消</span>
+          <span class="btns btnOtc margin-leftO" @click="closeBuyComfirmBox">取消</span>
           <span class="btns backC" @click="clickConfirmBtn">{{submitBtnAjaxFlag===false?'确定下单':'下单中'}}</span>
         </div>
 

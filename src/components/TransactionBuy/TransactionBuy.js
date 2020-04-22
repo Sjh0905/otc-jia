@@ -55,12 +55,12 @@ root.data = function () {
 
     // ----------- 弹框买入信息 start ----------
 
-    buyToastOpen: false,
+    buyToastOpen: true,
 
     buyItem: '',
 
 
-    buyCommitToastOpen: true,
+    buyCommitToastOpen: false,
 
     // ----------- 弹框买入信息 end ----------
 
