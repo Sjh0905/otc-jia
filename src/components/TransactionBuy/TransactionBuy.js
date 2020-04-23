@@ -5,7 +5,7 @@ root.components = {
   'BasePageBar': resolve => require(['@/components/BasePageBar/BasePageBar.vue'], resolve),
   'BasePopupWindow': resolve => require(['@/components/BasePopupWindow/BasePopupWindow.vue'], resolve),
   // loading
-  // 'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
+  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
   'PopupPrompt': resolve => require(['../PopupPrompt/PopupPrompt.vue'], resolve),
 }
 root.data = function () {
