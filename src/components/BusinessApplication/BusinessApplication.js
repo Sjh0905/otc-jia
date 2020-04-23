@@ -20,6 +20,7 @@ root.data = function () {
 	}
 };
 root.components = {
+  'BasePageTopBar': resolve => require(['../BasePageTopBar/BasePageTopBar.vue'], resolve),
   'PopupPrompt': resolve => require(['../PopupPrompt/PopupPrompt.vue'], resolve),
   'Loading' : resolve => require(['../Loading/Loading.vue'], resolve),
 }

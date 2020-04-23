@@ -1,11 +1,14 @@
 <div class="BusinessApplication">
+  <!--topbar pc begin-->
+  <BasePageTopBar v-if="!loading"/>
+  <!--topbar pc end-->
 	<div class="bussiness_apply_container border_radius">
 		<Loading v-if="loading" />
 		<div v-else class="bussiness_apply_body">
 			<!-- title start -->
-			<div class="bussiness_apply_title text_block">
-				申请成为商家
-			</div>
+			<!--<div class="bussiness_apply_title text_block">-->
+				<!--申请成为商家-->
+			<!--</div>-->
 <!--      <div class="huit"></div>-->
 <!--      <div class="bussiness_apply_title_small">-->
 <!--        <span class="bussiness_apply_title_small_aa">请发送申请到：</span>-->
