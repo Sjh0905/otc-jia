@@ -220,17 +220,18 @@ body {
 }
 
 .m-txt-red {
-  color: #EF5656;
+  color: #FD5555;
 }
 
 .txt-red {
   /*color: #ff5a4e;*/
-  color: #EF5656
+  color: #FD5555
 }
 
 .txt-reda {
   /*color: #ff5a4e;*/
-  color: rgba(255, 90, 78, .5)
+  color: #FD5555;
+  opacity: 0.8;
 }
 
 .txt-small {
@@ -327,18 +328,19 @@ input {
 
 /* 蓝色字体 */
 .text_blue {
-  opacity: 0.6 !important;
-  font-family: PingFangSC-Medium !important;
+  font-family:PingFangSC-Regular,PingFang SC !important;
   font-size: 14px !important;
-  color: #000000 !important;
+  font-weight:400 !important;
+  color: #3576F5 !important;
   letter-spacing: 0 !important;
 }
 
 /* 白色字体 */
 .text_white {
-  font-family: PingFangSC-Medium !important;
-  font-size: 16px !important;
-  color: #F7F7FB !important;
+  font-family:PingFangSC-Regular,PingFang SC !important;
+  font-size: 14px !important;
+  font-weight:400 !important;
+  color: #fff !important;
   text-align: center !important;
   /* color: white !important; */
 }
@@ -385,17 +387,33 @@ input {
 
 /* 蓝色按钮 */
 .btn_blue {
-  background-color: #C43E4E !important;
-  border-radius: 3px;
+  /*background-color: #3576F5 !important;*/
+  /*border-radius: 2px;*/
+  background: -webkit-gradient(linear,right top, left top,from(rgba(53,118,245,1)),to(rgba(69,154,245,1))) !important;
+  background: linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%) !important;
+  -webkit-box-shadow: 0px 10px 12px -6px rgba(0,2,40,0.2) !important;
+  /*box-shadow: 0px 10px 12px -6px rgba(0,2,40,0.2) !important;*/
+  border-radius: 1px !important;
+  outline: none !important;
+}
+
+.btn_blue_otc {
+  background: #3576F5;
+}
+
+.btn_blue_otc:hover {
+  background: #5C93FF;
 }
 
 .btn_blue_no_hover {
-  background-color: #C43E4E !important;
-  border-radius: 6px;
+  background-color: #5C93FF !important;
+  border-radius: 2px;
 }
 
 .btn_blue:hover {
-  background-color: #C43E4E !important;
+  background: #5C93FF !important;
+  box-shadow:none !important;
+  /*background-color: rgba(196,62,78,0.8) !important;*/
 }
 
 .btn_blue_box_shadow {
@@ -405,27 +423,27 @@ input {
 
 /* 绿色按钮 */
 .btn_green {
-  background-color: #39B496 !important;
-  border-radius: 6px;
+  background-color: #b2f1a2 !important;
+  border-radius: 46px;
 
 }
 
 .btn_green_no_hover {
-  background-color: #39B496 !important;
-  border-radius: 6px;
+  background-color: #02987D !important;
+  border-radius: 2px;
 }
 
 .btn_green:hover {
-  background-color: #35AC97 !important;
+  background-color: #43b723 !important;
 }
 
 .btn_green_box_shadow {
-  box-shadow: 0 2px 10px 2px rgba(25, 119, 0, 0.2);
+  /* box-shadow: 0 2px 10px 2px rgba(25, 119, 0, 0.2); */
 }
 
 /* 灰色按钮 */
 .btn_grey {
-  background-color: #ccc !important;
+  background-color: #C1C1C1 !important;
 }
 
 /*按钮黑色投影*/
@@ -450,10 +468,18 @@ input {
 }
 
 .btn_white_blue {
-  box-sizing: border-box;
   background-color: #fff !important;
-  border: 1px solid  #fff !important;
-  border-radius: 6px;
+  border: 1px solid  #3576F5 !important;
+  border-radius: 1px;
+  box-sizing: border-box;
+}
+
+.btn_white_blue:hover {
+  color: #fff !important;
+  box-sizing: border-box;
+  background-color: #3576F5 !important;
+  /*border: 1px solid  #3576F5 !important;*/
+  border-radius: 1px;
 }
 /*
 .btn_white_blue {
@@ -497,7 +523,7 @@ input {
 
 /* 操作输入框 */
 .input_border {
-  border: 1px solid #C5CFD5 !important;
+  border: 1px solid #E0E1F4 !important;
 }
 
 /* 表单描边 */
@@ -511,7 +537,7 @@ input {
 
 /*圆角*/
 .border_radius {
-  border-radius: 3px !important;
+  border-radius: 1px !important;
 }
 
 /*卡片式投影*/
@@ -546,7 +572,7 @@ input {
 }
 
 .input_padding {
-  padding-left: 10px;
+  padding-left: 15px;
 }
 
 .btn_simple {

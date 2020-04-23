@@ -1,12 +1,13 @@
 <div class="paymentSet">
   <Loading v-if="loading"/>
   <template v-else>
-    <!--支付设置 title begin-->
+    <!--收款账户 title begin-->
     <div class="title flex">
-      <span class="title-block"></span>
-      收款方式
+<!--      <span class="title-block"></span>-->
+      <span>收款账户</span>
+      <span class="title-describe">请务必使用您本人的实名账户</span>
     </div>
-    <!--支付设置 title end-->
+    <!--收款账户 title end-->
 
     <!--&lt;!&ndash;支付宝 begin&ndash;&gt;-->
     <!--<div class="aLiPay-container">-->
@@ -60,17 +61,88 @@
 
     <!--银行转账 begin-->
     <div class="bank-container">
-      <!--银行转账 标题 begin-->
-      <div class="bank-container-title-container payment-title-container flex">
-        <div class="payment-title ">银行转账</div>
-        <!--<template v-if="bankList.length>0">-->
-          <!--<Toggle class="toggle-container" :switchFunc="switchBankPayToggle" :toggleOpen="bankPayToggle"/>-->
-        <!--</template>-->
-      </div>
-      <!--银行转账 标题 end-->
+<!--      &lt;!&ndash;银行转账 标题 begin&ndash;&gt;-->
+<!--      <div class="bank-container-title-container payment-title-container flex">-->
+<!--        <div class="payment-title ">银行转账</div>-->
+<!--        &lt;!&ndash;<template v-if="bankList.length>0">&ndash;&gt;-->
+<!--          &lt;!&ndash;<Toggle class="toggle-container" :switchFunc="switchBankPayToggle" :toggleOpen="bankPayToggle"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;</template>&ndash;&gt;-->
+<!--      </div>-->
+<!--      &lt;!&ndash;银行转账 标题 end&ndash;&gt;-->
 
       <!--银行转账 内容 begin-->
       <ul class="bank-content-container">
+        <!--列表 begin-->
+        <li class="bank-content-row" v-for="row in bankRow">
+          <!--银行卡 item begin-->
+          <div class="bank-item-container " v-for="i in 3">
+            <!--银行卡 begin-->
+            <div class="bank-item-container" v-if="removeDefaultBankCardList[(row-1)*3+i-1]">
+              <div class="bank-label">
+<!--                bank-label-blue-->
+<!--                :class="{'bank-label-blue':removeDefaultBankCardList[(row-1)*3+i-1].bankStyle==1,'bank-label-green':removeDefaultBankCardList[(row-1)*3+i-1].bankStyle==2,'bank-label-yellow':removeDefaultBankCardList[(row-1)*3+i-1].bankStyle==3}"-->
+                <div class="bank-label-title flex">
+                  <!--银行logo-->
+                  <div class="bank-logo-icon-container">
+                    <!--                    <img :src="'https://logo.btcdo.com/'+removeDefaultBankCardList[(row-1)*3+i-1].bankICO+'.png'" alt=""-->
+                    <!--                         class="bank-logo-icon"> -->
+                    <img src="../../assets/China.png" alt="" class="bank-logo-icon">
+                  </div>
+
+                  <div class="bank-info flex">
+                    <div class="bank-info-info flex">
+                      <div class="bank-card-name">
+                        姜楠
+                      </div>
+                      <!--银行卡号-->
+                      <div class="bank-label-card-number">
+                        {{changeBankCard(removeDefaultBankCardList[(row-1)*3+i-1].cardNumber)}}
+                      </div>
+                      ，
+                      <!--银行信息-->
+                      <div class="bank-label-name-container">
+                        <div class="bank-label-ch-name">{{removeDefaultBankCardList[(row-1)*3+i-1].bankNameCN}}</div>
+                        <!--                      <div class="bank-label-en-name">{{removeDefaultBankCardList[(row-1)*3+i-1].bankNameEN}}</div>-->
+                      </div>
+                      ，
+                      <!--银行信息-->
+                      <div class="bank-label-name-container">
+                        <div class="bank-label-ch-name">北京支行</div>
+                        <!--                      <div class="bank-label-en-name">{{removeDefaultBankCardList[(row-1)*3+i-1].bankNameEN}}</div>-->
+                      </div>
+                    </div>
+
+                    <!--编辑银行信息-->
+                    <div class="bank-operation-container flex">
+                      <div class="operate-bank-card flex">
+                        <div class="change-txt bank-change-txt"
+                             @click="clickModifyBankPay(removeDefaultBankCardList[(row-1)*3+i-1])">修改
+                        </div>
+                        <div class="release-txt bank-release-txt"
+                             @click="clickReleaseBank(removeDefaultBankCardList[(row-1)*3+i-1])">解绑
+                        </div>
+                      </div>
+                      <div class="chose-default-bank-card flex pointer"
+                           @click="clickToChoseDefaultBank(removeDefaultBankCardList[(row-1)*3+i-1])">
+                        <Radio class="chose-default-bank-card-radio"
+                               :select="defaultBankId===removeDefaultBankCardList[(row-1)*3+i-1].id"
+                               @click="clickToChoseDefaultBank(removeDefaultBankCardList[(row-1)*3+i-1])"
+                        />
+                        <span class="">默认银行卡</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <!--银行卡 end-->
+          </div>
+          <!--银行卡 item end-->
+        </li>
+        <!--列表 end-->
+
         <!--默认行 begin-->
         <li class="bank-default-row bank-content-row flex">
           <!--默认银行卡 begin-->
@@ -78,18 +150,14 @@
             <div class="bank-label bank-label-blue"
                  :class="{'bank-label-blue':defaultBank.bankStyle==1,'bank-label-green':defaultBank.bankStyle==2,'bank-label-yellow':defaultBank.bankStyle==3}"
             >
-              <div class="bank-label-title ">
+              <div class="bank-label-title flex">
                 <div class="bank-logo-icon-container flex-center">
                   <img :src="'https://logo.btcdo.com/'+defaultBank.bankICO+'.png'" alt="" class="bank-logo-icon">
                   <!--<img src="./assets/bank-logo-1.png" alt="" class="bank-logo-icon">-->
                 </div>
                 <div class="bank-label-name-container flex">
-                  <div class="bank-label-ch-name">
-                    {{defaultBank.bankNameCN}}
-                  </div>
-                  <div class="bank-label-en-name">
-                    {{defaultBank.bankNameEN}}
-                  </div>
+                  <div class="bank-label-ch-name">{{defaultBank.bankNameCN}}</div>
+<!--                  <div class="bank-label-en-name">{{defaultBank.bankNameEN}}</div>-->
                 </div>
               </div>
               <div class="bank-label-card-number strong">
@@ -97,11 +165,13 @@
               </div>
             </div>
             <div class="bank-operation-container flex">
-              <div class="chose-default-bank-card flex pointer">
+              <!--默认银行卡-->
+              <div class="chose-default-bank-card pointer">
                 <Radio class="chose-default-bank-card-radio" :select="defaultBankId==defaultBank.id"/>
                 <span class="strong">默认银行卡</span>
               </div>
-              <div class="operate-bank-card flex">
+              <!--解绑、修改按钮-->
+              <div class="operate-bank-card">
                 <div class="release-txt bank-release-txt" @click="clickReleaseBank(defaultBank)">解绑</div>
                 <div class="change-txt bank-change-txt" @click="clickModifyBankPay(defaultBank)">修改</div>
               </div>
@@ -110,69 +180,24 @@
           <!--默认银行卡 end-->
 
           <!--添加银行卡 begin-->
-            <div class="add-new-bank-card-container bank-item-container flex">
-            <div class="bank-label flex add-new-bank-card-label white-shadow border_radius pointer"
+            <div class="add-new-bank-card-item flex">
+
+
+            <div class="add-new-bank-card-label flex  pointer"
                  @click="clickAddBankPay">
               <div class="add-new-bank-card-img"></div>
               <div class="add-new-bank-card">请添加银行卡</div>
             </div>
           </div>
           <!--添加银行卡 end-->
+
           <!--空 占位的 begin-->
           <div class="bank-item-container flex"></div>
           <!--空 占位的 end-->
         </li>
         <!--默认行 end-->
-        <!--列表 begin-->
-        <li class="bank-content-row flex" v-for="row in bankRow">
-          <!--银行卡 item begin-->
-          <div class="bank-item-container flex" v-for="i in 3">
-            <!--银行卡 begin-->
-            <div class="bank-default-item bank-item-container" v-if="removeDefaultBankCardList[(row-1)*3+i-1]">
-              <div class="bank-label bank-label-blue"
-                   :class="{'bank-label-blue':removeDefaultBankCardList[(row-1)*3+i-1].bankStyle==1,'bank-label-green':removeDefaultBankCardList[(row-1)*3+i-1].bankStyle==2,'bank-label-yellow':removeDefaultBankCardList[(row-1)*3+i-1].bankStyle==3}"
-              >
-                <div class="bank-label-title">
-                  <div class="bank-logo-icon-container flex-center">
-                    <img :src="'https://logo.btcdo.com/'+removeDefaultBankCardList[(row-1)*3+i-1].bankICO+'.png'" alt=""
-                         class="bank-logo-icon">
-                  </div>
-                  <div class="bank-label-name-container flex">
-                    <div class="bank-label-ch-name">{{removeDefaultBankCardList[(row-1)*3+i-1].bankNameCN}}</div>
-                    <div class="bank-label-en-name">{{removeDefaultBankCardList[(row-1)*3+i-1].bankNameEN}}</div>
-                  </div>
-                </div>
-                <div class="bank-label-card-number strong">
-                  {{changeBankCard(removeDefaultBankCardList[(row-1)*3+i-1].cardNumber)}}
-                </div>
-              </div>
-              <div class="bank-operation-container flex">
-                <div class="chose-default-bank-card flex pointer"
-                     @click="clickToChoseDefaultBank(removeDefaultBankCardList[(row-1)*3+i-1])">
-                  <Radio class="chose-default-bank-card-radio"
-                         :select="defaultBankId===removeDefaultBankCardList[(row-1)*3+i-1].id"
-                         @click="clickToChoseDefaultBank(removeDefaultBankCardList[(row-1)*3+i-1])"
-                  />
-                  <span class="">默认银行卡</span>
-                </div>
-                <div class="operate-bank-card flex">
-                  <div class="release-txt bank-release-txt"
-                       @click="clickReleaseBank(removeDefaultBankCardList[(row-1)*3+i-1])">解绑
-                  </div>
-                  <div class="change-txt bank-change-txt"
-                       @click="clickModifyBankPay(removeDefaultBankCardList[(row-1)*3+i-1])">修改
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--银行卡 end-->
-          </div>
-          <!--银行卡 item end-->
-        </li>
-        <!--列表 end-->
+
       </ul>
-
-
       <!--银行转账 内容 end-->
     </div>
 
@@ -203,7 +228,7 @@
           <!--姓名错误提示 begin-->
           <div class="input-item-container wrong-msg-container flex" v-if="aLiPayNameWrong">
             <div class="input-item-title"></div>
-            <div class="input-item-input-container ">
+            <div class="input-item-input-container  txt-red">
               {{aLiPayNameWrong}}
             </div>
           </div>
@@ -268,36 +293,36 @@
           <!--收款码错误提示 end-->
 
           <!--备注信息 begin-->
-          <div class="input-item-container input-item-container-remarks flex">
-            <div class="input-item-title">备注信息：</div>
-            <div class="input-item-input-container relative">
-          <textarea class="input-item-remarks input_border border_radius input_padding input-item-input"
-                    :class="{'wrong-msg-border':aLiPayPromptWrong}"
-                    placeholder="请输入备注信息"
-                    v-model="aLiPayPrompt"
-                    @blur="testALiPayPrompt"
-                    maxlength="50"
-          >
-          </textarea>
-              <div class="input-item-remarks-number">{{aLiPayPromptLength}}/50</div>
-            </div>
-          </div>
+<!--          <div class="input-item-container input-item-container-remarks flex">-->
+<!--            <div class="input-item-title">备注信息：</div>-->
+<!--            <div class="input-item-input-container relative">-->
+<!--          <textarea class="input-item-remarks input_border border_radius input_padding input-item-input"-->
+<!--                    :class="{'wrong-msg-border':aLiPayPromptWrong}"-->
+<!--                    placeholder="请输入备注信息"-->
+<!--                    v-model="aLiPayPrompt"-->
+<!--                    @blur="testALiPayPrompt"-->
+<!--                    maxlength="50"-->
+<!--          >-->
+<!--          </textarea>-->
+<!--              <div class="input-item-remarks-number">{{aLiPayPromptLength}}/50</div>-->
+<!--            </div>-->
+<!--          </div>-->
           <!--备注信息 end-->
 
           <!--备注信息错误提示 begin-->
-          <div class="input-item-container wrong-msg-container flex" v-if="aLiPayPromptWrong">
-            <div class="input-item-title"></div>
-            <div class="input-item-input-container ">
-              {{aLiPayPromptWrong}}
-            </div>
-          </div>
+<!--          <div class="input-item-container wrong-msg-container flex" v-if="aLiPayPromptWrong">-->
+<!--            <div class="input-item-title"></div>-->
+<!--            <div class="input-item-input-container ">-->
+<!--              {{aLiPayPromptWrong}}-->
+<!--            </div>-->
+<!--          </div>-->
           <!--备注信息错误提示 end-->
 
         </div>
 
         <div slot="footer" class="bind-ALiPay-footer flex">
           <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="closeBindALiPayPopupWindow">取消</button>
-          <button class="btn_blue btn_blue_box_shadow text_white aLiPay-btn aLiPay-commit-btn pointer"
+          <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer"
                   @click="goToALiPayStep2">
                   提交
           </button>
@@ -388,8 +413,8 @@
         </div>
         <div slot="article" class="bind-bank-article flex">
           <!--账户名 begin-->
-          <div class="input-item-container flex">
-            <div class="input-item-title zi">账户名：</div>
+          <div class="input-item-container">
+            <div class="input-item-title">账户名</div>
             <div class="input-item-input-container">
               <input type="text" placeholder="请输入您的姓名"
                      class="input-item-input input_padding input_border border_radius"
@@ -411,8 +436,8 @@
           <!--账户名错误提示 end-->
 
           <!--开户行 begin-->
-          <div class="input-item-container flex">
-            <div class="input-item-title zi">开户行：</div>
+          <div class="input-item-container">
+            <div class="input-item-title ">开户行</div>
             <div class="input-item-input-container">
               <!--<input type="text" placeholder="选择" class="input-item-input input_padding input_border border_radius">-->
               <v-select v-model="bankName" :label="selectBankName" :options="bankSelectList"
@@ -436,8 +461,8 @@
           <!--开户行错误提示 end-->
 
           <!--开户支行 begin-->
-          <div class="input-item-container flex">
-            <div class="input-item-title">开户支行：</div>
+          <div class="input-item-container">
+            <div class="input-item-title">开户支行</div>
             <div class="input-item-input-container flex">
               <input type="text" placeholder="请输入开户支行" class="input-item-input input_padding input_border border_radius"
                      v-model="bankBranchName"
@@ -459,9 +484,9 @@
 
 
           <!--银行卡号 begin-->
-          <div class="input-item-container flex">
-            <div class="input-item-title">银行卡号：</div>
-            <div class="input-item-input-container flex">
+          <div class="input-item-container">
+            <div class="input-item-title">银行卡号</div>
+            <div class="input-item-input-container">
               <input type="text" placeholder="请输入银行卡号" class="input-item-input input_padding input_border border_radius"
                      v-model="bankCard"
                      :class="{'wrong-msg-border':bankCardWrong}"
@@ -473,7 +498,6 @@
 
           <!--银行卡号错误提示 begin-->
           <div class="input-item-container wrong-msg-container flex" v-if="bankCardWrong">
-            <div class="input-item-title"></div>
             <div class="input-item-input-container ">
               {{bankCardWrong}}
             </div>
@@ -483,20 +507,20 @@
 
           <!--默认收款银行卡 begin-->
           <div class="input-item-container input-item-container-default-bank-card flex">
-            <div class="input-item-title"></div>
+<!--            <div class="input-item-title"></div>-->
             <div class="input-item-input-container flex ">
               <!--<input type="text" placeholder="请输入银行卡号" class="input-item-input input_padding input_border border_radius">-->
-              <span @click="addChoseDefaultBank" class="pointer flex input-item-default-bank-card-radio-container">
-              <Radio :select="bankDefault" class="input-item-default-bank-card-radio"/>
-              默认收款银行卡
-            </span>
+              <span @click="addChoseDefaultBank" class="pointer text_blue input-item-default-bank-card-radio-container">
+                <Radio :select="bankDefault" class="input-item-default-bank-card-radio"/>
+                默认收款银行卡
+              </span>
             </div>
           </div>
           <!--默认收款银行卡 end-->
 
           <!--默认收款银行卡错误提示 begin-->
           <div class="input-item-container wrong-msg-container flex" v-if="bankDefaultWrong">
-            <div class="input-item-title"></div>
+<!--            <div class="input-item-title"></div>-->
             <div class="input-item-input-container ">
               {{bankDefaultWrong}}
             </div>
@@ -505,20 +529,20 @@
 
 
           <!--备注信息 begin-->
-          <div class="input-item-container input-item-container-remarks flex">
-            <div class="input-item-title">备注信息：</div>
-            <div class="input-item-input-container relative">
-          <textarea class="input-item-remarks input_border border_radius input_padding input-item-input"
-                    placeholder="请输入备注信息"
-                    v-model="bankMark"
-                    :class="{'wrong-msg-border':bankMarkWrong}"
-                    maxlength="50"
-                    @blur="testBankMark"
-          >
-          </textarea>
-              <div class="input-item-remarks-number">{{bankPromptLength}}/50</div>
-            </div>
-          </div>
+<!--          <div class="input-item-container input-item-container-remarks flex">-->
+<!--            <div class="input-item-title">备注信息：</div>-->
+<!--            <div class="input-item-input-container relative">-->
+<!--          <textarea class="input-item-remarks input_border border_radius input_padding input-item-input"-->
+<!--                    placeholder="请输入备注信息"-->
+<!--                    v-model="bankMark"-->
+<!--                    :class="{'wrong-msg-border':bankMarkWrong}"-->
+<!--                    maxlength="50"-->
+<!--                    @blur="testBankMark"-->
+<!--          >-->
+<!--          </textarea>-->
+<!--              <div class="input-item-remarks-number">{{bankPromptLength}}/50</div>-->
+<!--            </div>-->
+<!--          </div>-->
           <!--备注信息 end-->
 
           <!--备注信息错误提示 begin-->
@@ -533,12 +557,12 @@
         </div>
 
         <div slot="footer" class="bind-bank-footer flex">
-          <button class="btn_white_blue text_blue aLiPay-btn pointer"
+          <button class="text_blue aLiPay-btn pointer btn_white_blue"
                   @click="closeBindBankPopupWindow"
           >
             取消
           </button>
-          <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer"
+          <button class="btn_blue_otc text_white aLiPay-btn aLiPay-commit-btn pointer"
                   @click="goToBankStep2"
           >
             提交
@@ -593,7 +617,7 @@
 
           <!--默认收款银行卡 begin-->
           <div class="input-item-container input-item-container-default-bank-card flex">
-            <div class="input-item-conform-title"></div>
+<!--            <div class="input-item-conform-title"></div>-->
             <div class="input-item-input-confirm-container flex">
               <!--<input type="text" placeholder="请输入银行卡号" class="input-item-input input_padding input_border border_radius">-->
               <Radio :select="bankDefault" class="input-item-default-bank-card-radio"/>
@@ -602,14 +626,14 @@
           </div>
           <!--默认收款银行卡 end-->
 
-          <!--备注信息 begin-->
-          <div class="input-item-container input-item-container-confirm-remarks flex">
-            <div class="input-item-conform-title">备注信息：</div>
-            <div class="input-item-input-confirm-container relative">
-              {{bankMark}}
-            </div>
-          </div>
-          <!--备注信息 end-->
+<!--          &lt;!&ndash;备注信息 begin&ndash;&gt;-->
+<!--          <div class="input-item-container input-item-container-confirm-remarks flex">-->
+<!--            <div class="input-item-conform-title">备注信息：</div>-->
+<!--            <div class="input-item-input-confirm-container relative">-->
+<!--              {{bankMark}}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          &lt;!&ndash;备注信息 end&ndash;&gt;-->
 
         </div>
 
