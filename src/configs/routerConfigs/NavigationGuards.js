@@ -4,10 +4,11 @@ export default function ($route, $event, $store, $http, $cookies) {
 		if (to.meta.requireLogin) {
 			// console.log("userId------"+$store.state.authMessage.userId);
 			// console.log('是否登录',$store.state.isLogin)
-	      if (!$store.state.authMessage.userId) {
-	        next('/index/SignPageLogin');
-	        return
-	      }
+          //TODO 发布到生产需要放开以下代码做登录拦截
+	      // if (!$store.state.authMessage.userId) {
+	      //   next('/index/SignPageLogin');
+	      //   return
+	      // }
 			}
 			let isLogin = $store.state.isLogin
 			// console.log(isLogin,'aaa')

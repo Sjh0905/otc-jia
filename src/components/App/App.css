@@ -491,18 +491,19 @@ input {
 
 /* 黄色按钮 */
 .btn_yellow{
-  background-color: #C43E4E !important;
+  background-color: #3576F5 !important;
   border-radius: 3px;
 }
 
 .btn_yellow_red {
   box-sizing: border-box;
-  background-color: #fff !important;
-  border: 1px solid #C43E4E !important;
+  color: #3576F5;
+  background-color: transparent !important;
+  border: 1px solid #3576F5 !important;
   border-radius: 6px;
 }
 .text_yellow {
-  color: #C43E4E !important;
+  color: #3576F5 !important;
 }
 /* ===============交易大厅深度图================ */
 /* 深度图红色 */

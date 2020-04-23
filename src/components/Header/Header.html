@@ -1141,23 +1141,23 @@
                 </span>
                   <!--隐藏的标签 begin-->
                   <!--  sss 屏蔽-->
-                  <ul class="flex navigation-item-hidden-erwm">
-                    <li class="navigation-item-hidden-erwm-item">
-                      <div class="download-left-download-item-qrcode-img">
-                        <Qrcode
-                          :size="size"
-                          :value="value"
-                          :logo="logo"
-                          :bgColor="bgColor"
-                          :fgColor="fgColor"
-                        >
-                        </Qrcode>
-                      </div>
-                    </li>
-                    <li class="navigation-item-hidden-erwm-item" >
-                      <span>iOS & Android {{$t('qrCode')}}</span>
-                    </li>
-                  </ul>
+<!--                  <ul class="flex navigation-item-hidden-erwm">-->
+<!--                    <li class="navigation-item-hidden-erwm-item">-->
+<!--                      <div class="download-left-download-item-qrcode-img">-->
+<!--                        <Qrcode-->
+<!--                          :size="size"-->
+<!--                          :value="value"-->
+<!--                          :logo="logo"-->
+<!--                          :bgColor="bgColor"-->
+<!--                          :fgColor="fgColor"-->
+<!--                        >-->
+<!--                        </Qrcode>-->
+<!--                      </div>-->
+<!--                    </li>-->
+<!--                    <li class="navigation-item-hidden-erwm-item" >-->
+<!--                      <span>iOS & Android {{$t('qrCode')}}</span>-->
+<!--                    </li>-->
+<!--                  </ul>-->
                   <!--  sss 屏蔽结束-->
                   <!--隐藏的标签 end-->
                 </li>
@@ -1181,23 +1181,21 @@
                     <li class="language-itemli">
 
                       <div class="languagediv"  @click="changeLanguage('CH')">
-                        <img src="../../assets/China.png" alt="" class="language-icon">简体中文</div>
-                      <!--                    <div class="languagediv"  @click="changeLanguage('CA')">Русский</div>-->
-                      <div class="languagediv"  @click="changeLanguage('CHT')">
-                        <img src="../../assets/HongKong.png" alt="" class="language-icon">繁体中文</div>
-                      <!-- sss 屏蔽-->
-                      <!--                      <div class="languagediv"  @click="changeLanguage('CA')">-->
-                      <!--                        <img src="../../assets/England.png" alt="" class="language-icon">English</div>-->
-                      <div class="languagediv" @click="changeLanguageLS">
-                        <img src="../../assets/England.png" alt="" class="language-icon">
-                        <!--                        {{$t('indexHeader.forward')}}-->
-                        English
+                        <img src="../../assets/China.png" alt="" class="language-icon">
+                        简体中文
                       </div>
-                      <div class="languagediv" @click="changeLanguageLS">
-                        <img src="../../assets/e_icon.png" alt="" class="language-icon">
-                        <!--                        {$t('indexHeader.forward')}}-->
-                        Русский
-                      </div>
+<!--                      <div class="languagediv"  @click="changeLanguage('CHT')">-->
+<!--                        <img src="../../assets/HongKong.png" alt="" class="language-icon">-->
+<!--                        繁体中文-->
+<!--                      </div>-->
+<!--                      <div class="languagediv" @click="changeLanguageLS">-->
+<!--                        <img src="../../assets/England.png" alt="" class="language-icon">-->
+<!--                        English-->
+<!--                      </div>-->
+<!--                      <div class="languagediv" @click="changeLanguageLS">-->
+<!--                        <img src="../../assets/e_icon.png" alt="" class="language-icon">-->
+<!--                        Русский-->
+<!--                      </div>-->
                       <!--                      <div class="languagediv"  @click="changeLanguage('KOR')">-->
                       <!--                        <img src="../../assets/韩国.png" alt="" class="language-icon in2">한국어</div>-->
                       <!--                      <div class="languagediv"  @click="changeLanguage('JP')">-->
@@ -1260,20 +1258,6 @@
               <!--</div>-->
               <!--&lt;!&ndash;语言 end&ndash;&gt;-->
 
-
-              <!--皮肤 begin-->
-              <div class="change-color-container flex pointer" v-if="changeThemeColor">
-                <img src="" alt="" class="change-color-icon"
-                     v-if="themeColor===0"
-                     @click="clickToChangeThemeColor(1)"
-                >
-                <img src="" alt="" class="change-color-icon"
-                     v-else
-                     @click="clickToChangeThemeColor(0)"
-                >
-              </div>
-              <!--皮肤 end-->
-
             </div>
             <!--右侧内容 end-->
           </div>
@@ -1288,7 +1272,7 @@
 
   </div>
 
-  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>
+<!--  <PopupPrompt :popOpen="popOpen" :popClose="popClose" :popType="popType" :popText="popText"/>-->
 
 
 </div>

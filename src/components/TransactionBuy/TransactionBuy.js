@@ -5,7 +5,7 @@ root.components = {
   'BasePageBar': resolve => require(['@/components/BasePageBar/BasePageBar.vue'], resolve),
   'BasePopupWindow': resolve => require(['@/components/BasePopupWindow/BasePopupWindow.vue'], resolve),
   // loading
-  // 'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
+  'Loading': resolve => require(['../Loading/Loading.vue'], resolve),
   'PopupPrompt': resolve => require(['../PopupPrompt/PopupPrompt.vue'], resolve),
 }
 root.data = function () {
@@ -21,7 +21,7 @@ root.data = function () {
 
     // 获取本页页面数据
     offset: 0,
-    maxResults: 20,
+    maxResults: 5,
 
     // 页面数据显示
     pendingList: [],

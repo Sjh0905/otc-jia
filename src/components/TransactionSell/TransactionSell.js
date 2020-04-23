@@ -21,7 +21,7 @@ root.data = function () {
 
     // 获取本页页面数据
     offset: 0,
-    maxResults: 20,
+    maxResults: 5,
 
     // 页面数据显示
     pendingList: [],

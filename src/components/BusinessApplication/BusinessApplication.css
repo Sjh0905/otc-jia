@@ -20,7 +20,7 @@
 	color: #666;
 }
 .text_blue{
-	color: #C43E4E;
+	color: #EF5656;
 }
 .text_grey{
 	color: #787878;
@@ -51,7 +51,7 @@
 .bussiness_apply_title_small_bb{
   font-family: PingFangSC-Medium;
   font-size: 16px;
-  color: #C43E4E;
+  color: #EF5656;
 }
 .bussiness_apply_title_small2{
   opacity: 0.7;
@@ -80,7 +80,7 @@
   margin-right: 120px;
   font-family: PingFangSC-Regular;
   font-size: 16px;
-  color: #C43E4E;
+  color: #EF5656;
   letter-spacing: 0;
 }
 
@@ -88,7 +88,7 @@
   width: 300px;
   height: 40px;
   line-height: 40px;
-  background: #C43E4E;
+  background: #EF5656;
   border-radius: 3px;
   margin: 0 auto;
   text-align: center;
@@ -130,7 +130,7 @@
 .btn{
 	width: 80%;
 	border: none;
-	background: #C43E4E;
+	background: #EF5656;
 	color: #fff;
 	padding: 7px 0px;
 	font-size: 15px;

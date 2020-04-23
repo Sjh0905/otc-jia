@@ -23,11 +23,11 @@
 .order_title small {
 	line-height: 40px;
 	font-size: 14px;
-	color: #C43E4E;
+	color: #EF5656;
 }
 
 .go_history:hover{
-	color: #C43E4E;
+	color: #EF5656;
 }
 
 .order_status{
@@ -108,8 +108,8 @@
 }
 .copy_btn{
 	padding: 2px 5px;
-	border: 1px solid #C43E4E;
-	color: #C43E4E;
+	border: 1px solid #EF5656;
+	color: #EF5656;
 	margin-left: 10px;
 	cursor: pointer;
 	font-size: 12px;
@@ -298,12 +298,12 @@
 }
 .order_cannel{
 	margin-right: 20px;
-	border: 1px solid #C43E4E;
-	color: #C43E4E;
+	border: 1px solid #EF5656;
+	color: #EF5656;
 }
 .order_complete{
-	border: 1px solid #C43E4E;
-	background: #C43E4E;
+	border: 1px solid #EF5656;
+	background: #EF5656;
 	color: #fff;
 }
 

@@ -63,7 +63,7 @@
 .usdtpriceaaa3{
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #9FA7B8;
+  color: #6B7DA2;
   letter-spacing: 0;
   margin-left: 20px;
 }
@@ -117,7 +117,26 @@
   outline:none;
   /*background: url('../../assets/c2c_form_icon/bolt.png') no-repeat;*/
 }
-
+.usdtprice .buutton:hover{
+  width: 160px;
+  height:44px;
+  float: right;
+  position: absolute;
+  background: #36CBB0;
+  border-radius: 3px;
+  right: 0;
+  margin-top: 32px;
+  font-family: PingFangSC-Medium;
+  font-size: 16px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height:44px;
+  cursor: pointer;
+  border:0;
+  top:-32px;
+  outline:none;
+  /*background: url('../../assets/c2c_form_icon/bolt.png') no-repeat;*/
+}
 .usdtprice .buutton .imgs{
   width: 10px;
   height: 14px;
@@ -127,7 +146,7 @@
 .usdtprice .buytt{
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #9FA7B8;
+  color: #6B7DA2;
   letter-spacing: 0;
   margin-bottom: 12px;
 }
@@ -142,7 +161,8 @@
 
 .buywrite01 .inputbuyje{
   width: 240px;
-  height: 44px;
+  height: 42px;
+  font-size: 14px;
   /*background: #F7F7FB;*/
   border:none;
   float: left;
@@ -150,8 +170,8 @@
 }
 .buywrite01 .inputbuyje::-webkit-input-placeholder{
   font-family: PingFangSC-Regular;
-  font-size: 16px;
-  color: #9FA7B8;
+  font-size: 14px;
+  color: #A2B5D9;
   line-height: 16px;
 }
 .buywrite02{
@@ -162,17 +182,18 @@
   text-align: center;
   /*background: #F7F7FB;*/
   font-family: ArialMT;
-  font-size: 16px;
-  color: #7D8790;
+  font-size: 14px;
+  color: #A2B5D9;
 }
 .buywrite{
   position: absolute;
   right: 33px;
   border: 1px solid #C5CFD5;
   border-radius: 3px;
+  height: 44px;
 }
 .buywrite01 .inputbuyje:focus .buywrite{
-  border: 1px solid #C43E4E;
+  border: 1px solid #EF5656;
 }
 
 
@@ -189,7 +210,7 @@
   width: 11%;
 }
 .order{
-  width: 12%;
+  width: 11%;
   color: #172A4D;
   font-size: 14px;
 }
@@ -200,34 +221,32 @@
 }
 .price{
   width: 11%;
-  font-size: 14px;
 }
 .amount{
   width: 14%;
-  font-size: 14px;
 }
 .money{
   width: 13%;
-  font-size: 14px;
+
 }
 .num{
   width: 16%;
-  font-size: 14px;
+
 }
 .pay_type{
   width: 10%;
   line-height: 100%;
-  font-size: 14px;
+
 }
 
 .unit {
   width: 11%;
-  font-size: 14px;
+
 }
 .option{
   width: 9%;
   text-align: right;
-  font-size: 14px;
+
 }
 
 .payment_icon{
@@ -271,11 +290,52 @@
 /*  border-radius: 2px !important;*/
 /*>>>>>>> 4b30c9b37fd9923eaf4a2e531e51b3ceb3ba2a1e*/
 }
+
+.btns {
+  display: inline-block;
+  width: 46.5%;
+  height: 38px;
+  font-size: 14px;
+  line-height: 40px;
+  text-align: center;
+  color: #3576F5;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.btnOtc {
+  border: 1px solid #3576F5;
+  background: #FFFFFF;
+}
+.btnOtc:hover {
+  /*border: 1px solid #3576F5;*/
+  color: #FFFFFF;
+  background: #3576F5;
+}
+.margin-leftO {
+  margin-right: 4.5%;
+}
 .btn_buy{
   background: #39B496;
 }
+.btn_buy:hover {
+  background: #36CBB0;
+}
 .btn-can {
   padding:7px 10px;
+}
+.PopupImg {
+  width: 16px;
+  margin-right: 10px;
+  vertical-align: sub;
+  margin-bottom: 1px;
+}
+.otc-color {
+  display: inline-block;
+  float: right;
+  color: #08D0AC;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
 }
 .btn_sell{
   background: #EF5656;
@@ -337,7 +397,7 @@ width: 440px;
 }
 
 .buy-toast-window {
-  min-width: 460px;
+  width: 460px;
   min-height: 20px;
   background-color: #ffffff;
   position: absolute;
@@ -346,42 +406,118 @@ width: 440px;
   transform: translateX(-50%) translateY(-50%);
   border-radius: 3px;
   box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.05);
-  padding: 10px 60px 0;
+  /*padding: 10px 60px 0;*/
 }
 
 .buy-toast-box-close {
-  right: 0;
+  width: 15px;
+  right: 25px;
+  top: 22px;
   cursor: pointer;
   position: absolute;
-  top: -31px;
+  /*top: -31px;*/
+}
+.buy-toast-list {
+  padding: 0 5.43%;
 }
 
 .buy-toast-title {
-  text-align: center;
-  height: 48px;
-  line-height: 48px;
-  font-size: 16px;
+  /*text-align: center;*/
+  height: 60px;
+  line-height: 60px;
+  font-size: 18px;
   color: #172A4D;
+  background-color: #EFF0FF;
+  border-radius:1px 1px 0px 0px;
+  padding: 0 5.43%;
 }
 
 .buy-toast-item {
+  /*width: 30%;*/
   height: 32px;
   line-height: 32px;
-  display: flex;
+  /*display: flex;*/
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   font-size: 14px;
 }
-
+.buy-toast-item1 {
+  width: 35%;
+  /*height: 32px;*/
+  /*line-height: 32px;*/
+  /*display: flex;*/
+  /*align-items: center;*/
+  justify-content: space-between;
+  /*font-size: 14px;*/
+}
+.buy-toast-item2 {
+  width: 40%;
+  text-align: right;
+  justify-content: space-between;
+}
+.buy-toast-items {
+  display: inline-block;
+  float: right;
+  color: #0D0E23;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.buy-toa {
+  height: 77px;
+  /*line-height: 77px;*/
+  padding: 0 15px;
+  margin-top: 20px;
+  /*margin-bottom: 10px;*/
+  background-color: #F5F6FA;
+  border-radius:1px;
+}
+.text_green {
+   color: #39B496;
+   font-size:16px;
+   font-family:PingFangSC-Medium,PingFang SC;
+   font-weight:500;
+ }
+.text_green14 {
+  color: #39B496;
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+}
+.text_dark {
+  color: #172A4D;
+  font-size:16px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+}
+.text_dark14 {
+  color: #172A4D;
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+}
+.buy-mar-bom {
+  margin-bottom: 25px;
+}
+.buy-mar-bom10 {
+  margin-bottom: 10px;
+}
+.tac {
+  width: 25%;
+  text-align: center;
+}
 .buy-toast-item-title{
 
+  height: 42px;
+  padding-top: 15px;
+  /*line-height: 46px;*/
+  /*width: 30%;*/
 }
 .buy-toast-item-title-i{
 
 }
 
-.buy-toast-item-first-content {
-
+.buy-toast-item1 {
 }
 .buy-toast-item-first-content-i{
   /* padding-top:30px; */
@@ -389,20 +525,47 @@ width: 440px;
 }
 
 .buy-toast-item-input-box {
+  display: inline-block;
+  width: 42.5%;
   flex-grow: 2;
-  height: 100%;
+  height: 40px;
   box-sizing: border-box;
   padding-left: 10px;
-  padding-right: 50px;
+  /*padding-right: 50px;*/
   position: relative;
 }
 
+.buy-toast-item-input-boxOtc {
+  display: inline-block;
+  flex-grow: 2;
+  box-sizing: border-box;
+  padding: 0 4.5%;
+  position: relative;
+}
+.buy-toastImg {
+  width: 15px;
+  vertical-align: unset;
+}
+.mbt {
+  /*margin-bottom: 10px;*/
+  height: 40px;
+}
+.header-fs {
+  height: 50px;
+  line-height: 50px;
+  margin-top: 10px;
+  /*border-bottom: 1px solid #F5F6FA;*/
+}
 .buy-toast-item-input {
   width: 100%;
   height: 100%;
   border: none;
   /*padding-left: 10px;*/
+  color: #0D0E23;
   display: block;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:500;
 }
 
 .buy-toast-item-input-currency {
@@ -423,13 +586,56 @@ width: 440px;
 
 .buy-toast-item-special {
   align-items: flex-start;
-  height: auto;
+  /*height: auto;*/
+  height: 50px;
+  line-height: 50px;
+  border-top:1px solid #F5F6FA;
+}
+.buy-toast-btn-boxsb {
+  height: 40px;
+  padding: 0 5.43%;
+  margin: 15px 0;
 }
 
+.buy-toast-item-specials {
+  padding: 0 5.43%;
+  align-items: flex-start;
+  /*height: auto;*/
+  height: 50px;
+  line-height: 50px;
+  border-top:1px solid #F5F6FA;
+}
+.otc-bor-top {
+  border: 0px;
+}
+.buy-toast-item-specialsOtc {
+  padding: 0 5.43%;
+  align-items: flex-start;
+  /*height: auto;*/
+  height: 50px;
+  line-height: 50px;
+  /*margin-top: 10px;*/
+  border-bottom:1px solid #F5F6FA;
+}
+.backC {
+  border: 1px solid #5C93FF;
+  background-color: #3576F5;
+  color: #FFFFFF;
+}
+.backC:hover {
+  background-color: #5C93FF;
+  border: 1px solid #5C93FF;
+}
 .buy-toast-item-pay-mode-line {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  display: inline-block;
+  float: right;
+  color: #0D0E23;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
 }
 
 .buy-toast-item-pay-mode-info {
@@ -447,7 +653,29 @@ width: 440px;
 .buy-toast-item-unit {
   margin-left: 10px;
 }
+.text_grey_8 {
+  font-size: 12px;
+  color: #6B7DA2;
+}
 
+.text_grey_12 {
+  font-size: 14px;
+  color: #6B7DA2;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
+.text_grey_10 {
+  font-size: 14px;
+  color: #3576F5;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+}
+
+.text_grey_9 {
+  font-size: 14px;
+  color: #6B7DA2;
+}
 /* 二级验证 */
 
 .ga_sms_container{}
@@ -700,8 +928,10 @@ width: 440px;
     border-radius: 6px;
     -webkit-box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.05);
     box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.05);
-    padding: 10px 30px 0;
+    /*padding: 10px 30px 0;*/
   }
+
+
   .buy-toast-item-pay-mode-info{
     line-height: 32px;
   }
@@ -773,3 +1003,15 @@ width: 440px;
   margin-right: 16px;
 }
 
+input::-webkit-input-placeholder{
+  color:#A2B5D9;
+}
+input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+  color:#A2B5D9;
+}
+input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+  color:#A2B5D9;
+}
+input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+  color:#A2B5D9;
+}

@@ -282,7 +282,7 @@
 					</label>
 				</div>
 				<div class="user_notice">
-          重要提示：<span style="color: #c43e4e;">撤销订单后本交易将被取消，请勿再付款。</span>
+          重要提示：<span style="color: #EF5656;">撤销订单后本交易将被取消，请勿再付款。</span>
 				</div>
 	     	</div>
 	      	<div slot="footer" class="bind-bank-footer flex">
@@ -325,11 +325,11 @@
 					</div>
 				</div>
 				<div class="user_notice" v-if="ctc_order.type == 'BUY_ORDER'">
-          <p>重要提示：<span style="color: #c43e4e;">未付款时点击确认付款属于恶意点击，</span></p>
-          <p class="notice_padding_left"><span style="color: #c43e4e;">一经查处，系统将暂时封锁账户，请谨慎操作。</span></p>
+          <p>重要提示：<span style="color: #EF5656;">未付款时点击确认付款属于恶意点击，</span></p>
+          <p class="notice_padding_left"><span style="color: #EF5656;">一经查处，系统将暂时封锁账户，请谨慎操作。</span></p>
 				</div>
 				<div class="user_notice" v-if="ctc_order.type == 'SELL_ORDER'">
-					<p>重要提示：<span style="color: #c43e4e;">请确认已收到对方本人账户转账，若非买家本人支付，请原路退回。确认收款后资产将直接划转至对方账户，有不可追回风险，请谨慎操作。</span></p>
+					<p>重要提示：<span style="color: #EF5656;">请确认已收到对方本人账户转账，若非买家本人支付，请原路退回。确认收款后资产将直接划转至对方账户，有不可追回风险，请谨慎操作。</span></p>
 					<p class="notice_padding_left"></p>
 				</div>
 	     	</div>

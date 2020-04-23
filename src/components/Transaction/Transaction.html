@@ -35,18 +35,18 @@
 
 
       <div class="transaction-header-right-img-box">
-        <div class="transaction-header-right-currency">
+        <router-link :to="{name: 'PaymentSet'}" class="transaction-header-right-currency">
           <img class="transactionicon" src="../../assets/OTransaction_icon.png" alt="">
           法币设置
-        </div>
-        <div class="transaction-header-right-currency">
+        </router-link>
+        <router-link :to="{name: 'Business'}" class="transaction-header-right-currency">
           <img class="transactionicon" src="../../assets/OMerchant_icon.png" alt="">
-          发布广告
-        </div>
-        <div class="transaction-header-right-currency">
+          商家
+        </router-link>
+        <router-link :to="{name:'Order'}" class="transaction-header-right-currency">
           <img class="transactionicon" src="../../assets/OOrder_icon.png" alt="">
-          订单
-        </div>
+          法币订单
+        </router-link>
 <!--        <div class="transaction-header-right-amount-box flex-center">-->
 <!--          <div class="transaction-header-right-amount-title">余额：</div>-->
 <!--          <div class="transaction-header-right-amount-num strong">{{isLogin? account :'-&#45;&#45;'}}</div>-->
@@ -106,11 +106,12 @@
     <div slot="article" class="pop-article-first">
       <div class="pop-article-text-first text_light_dark">
 <!--        <div class="pop-article-text-first-detail">1、 OTC交易是用户之间点对点交易，<font class="text_red">须买方在场外手动转账付款</font>，卖方收款后确认发币；</div>-->
-        <div class="pop-article-text-first-detail">1、 法币交易是用户之间点对点交易，买方场外转账付款，卖方收款后确认发币；</div>
-        <div class="pop-article-text-first-detail">2、 成交后务必在15分钟内付款，转账后立即点击“我已付款”；</div>
-        <div class="pop-article-text-first-detail">3、 超过15分钟，如未点击“我已付款”，系统视为无效订单，会自动撤销订单；</div>
-        <div class="pop-article-text-first-detail">4、 订单撤销后，切勿再付款；如已付款，切勿撤销订单。如果操作有误，请第一时间提交申诉，上传付款证明；</div>
-        <div class="pop-article-text-first-detail">5、 法币交易存在风险，请充分了解交易规则，交易时保持电话畅通，关注邮件和短信提醒，谨防受骗！ </div>
+        <div class="pop-article-text-first-detail">1、法币交易存在风险，请充分了解交易规则，谨防受骗；</div>
+        <div class="pop-article-text-first-detail">2、法币交易是用户之间点对点交易，买方场外转账付款，卖方收款后确认放币；</div>
+        <div class="pop-article-text-first-detail">3、下单后务必在15分钟内完成付款，付款完成后立即点击“我已付款”；</div>
+        <div class="pop-article-text-first-detail">4、超过15分钟，如未点击“我已付款”，系统会视为超时无效订单；</div>
+        <div class="pop-article-text-first-detail">5、每日取消或超时未操作共计3次，账户24小时内将不允许进行法币交易；</div>
+        <div class="pop-article-text-first-detail">6、取消订单后，切勿再付款，如已付款，切勿取消订单，如操作有误，请第一时间联系客服处理；</div>
         <!--同意协议-->
 <!--        <div class="pop-article-input-container agreement text_light_dark">-->
 <!--          <BaseCheckBox :agreement="popAgreement" :changeAgreement='changePopAgreement'></BaseCheckBox>-->

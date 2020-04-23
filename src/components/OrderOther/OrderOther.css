@@ -9,7 +9,7 @@
   min-height: 150px;
 }
 .order_conduct_title, .order_conduct_content{
-  line-height: 56px;
+  line-height: 70px;
 }
 .order_conduct_content:hover{
     background: #F7F8FA ;
@@ -54,7 +54,7 @@
   color: #39B496;
 }
 .order_conduct_content > div.sell{
-  color: #C43E4E;
+  color: #EF5656;
   /* display: inline; */
 }
 .amount{
@@ -76,7 +76,7 @@
 .cannel_time_btn{
   border: 0;
   padding: 5px 10px;
-  background: #C43E4E;
+  background: #EF5656;
   color: #fff;
   outline: 0;
   cursor: pointer;
