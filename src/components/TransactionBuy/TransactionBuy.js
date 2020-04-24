@@ -136,6 +136,7 @@ root.created = function () {
   // this.setPopWindowContentForVerification()
   // this.popWindowOpen = true
 
+  this.getAuthState()
   // 获取用户是否不符合交易须知要求
   this.getUserCanTrade()
   // 获取本页的列表
@@ -342,13 +343,13 @@ root.methods.getUserCanTrade = function () {
 // 获取用户的绑定信息
 root.methods.getAuthState = function () {
   if (!this.$store.state.authState) {
-    this.$http.send('GET_AUTH_STATE')
+    this.$http.send('GET_USER_AUTO_INFO')
       .then(({
         data
       }) => {
         typeof data === 'string' && (data = JSON.parse(data))
         if (!data) return
-        this.$store.commit('SET_AUTH_STATE', data.dataMap)
+        this.$store.commit('GET_USER_AUTO_INFO', data.data)
       }).catch((err) => {
         console.log('err', err)
       });

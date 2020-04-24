@@ -11,16 +11,28 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/c2c': {
-        target: 'https://valuepay.easybtc.io/',
+      '/otc': {
+        // target: 'https://valuepay.easybtc.io/',
+        target: 'http://10.113.8.21:8010',
         changeOrigin: true,
-        // pathRewrite: {//TODO:连接测试用这个
-        //   '^/c2c': ''
-        // },
-        pathRewrite: {//TODO:连接生产用这个
-          '^/c2c': 'c2c'
-        }
+        pathRewrite: {//TODO:连接测试用这个
+          '^/otc': ''
+        },
+        // pathRewrite: {//TODO:连接生产用这个
+        //   '^/c2c': 'c2c'
+        // }
       },
+      // '/c2c': {
+      //   // target: 'https://valuepay.easybtc.io/',
+      //   target: 'http://10.113.8.21/',
+      //   changeOrigin: true,
+      //   pathRewrite: {//TODO:连接测试用这个
+      //     '^/c2c': ''
+      //   },
+      //   // pathRewrite: {//TODO:连接生产用这个
+      //   //   '^/c2c': 'c2c'
+      //   // }
+      // },
     },
 
     // Various Dev Server settings
