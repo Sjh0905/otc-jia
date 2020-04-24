@@ -12,12 +12,13 @@
   display: block;
   width: 15px;
   height: 15px;
-  background: url('./assets/select_choise.png') center center no-repeat;
+  background: url('./assets/noselect.png') center center no-repeat;
   background-size: 100%;
   vertical-align: middle;
 }
 
 .check_radio.selected {
-  background: url('./assets/select_no_choise.png') center center no-repeat;
+  background: url('./assets/select.png') center center no-repeat;
   background-size: 100%;
+  vertical-align: middle;
 }

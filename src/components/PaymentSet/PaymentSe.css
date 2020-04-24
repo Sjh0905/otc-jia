@@ -77,14 +77,14 @@
 }
 
 .release-txt {
-  color: #EF5656;
+  color: #3576F5;
   font-size: 14px;
   line-height: 14px;
   cursor: pointer;
 }
 
 .change-txt {
-  color: #EF5656;
+  color:#3576F5;
   font-size: 14px;
   line-height: 14px;
   cursor: pointer;
@@ -399,7 +399,9 @@
 .input-item-container {
   justify-items: center;
   align-items: center;
-  margin-top: 20px;
+  height: 87px;
+  box-sizing: border-box;
+  margin-bottom: 5px;
 }
 
 .input-item-container:first-child {
@@ -416,15 +418,19 @@
   white-space: nowrap;
 }
 
+.popwindow-header {
+  justify-content: space-between;
+}
+
 .ga_sms_body_close{
-  position: absolute;
-  right: 10px;
-  top: -15px;
-  width: 20px;
-  cursor: pointer;
-  height: 20px;
-  color: #ccc;
-  font-size: 20px;
+  /*position: absolute;*/
+  /*right: 25px;*/
+  /*!*top: -15px;*!*/
+  /*width: 20px;*/
+  /*cursor: pointer;*/
+  /*height: 20px;*/
+  /*color: #ccc;*/
+  /*font-size: 20px;*/
 }
 
 .zi{
@@ -436,7 +442,9 @@
   /*color: #3576F5;*/
   box-sizing: border-box;
 }
-
+.input-item-input-container >>> .vs__actions {
+  height: 40px;
+}
 .input-item-input-container >>> .dropdown-toggle {
   border-radius: 1px;
   padding-left: 15px;
@@ -449,6 +457,7 @@
 }
 
 .input-item-input-container >>> .dropdown-toggle .vs__selected-options {
+  height: 40px;
   padding: 0;
   margin: 0;
 }
@@ -485,14 +494,17 @@
   margin: 0;
 }
 
+.input-item-container-wrong {
+  height: 20px;
+}
+
 .wrong-msg-container {
   color: #FD5555;
   /*padding-left: 10px;*/
   font-size: 12px;
   line-height: 20px;
-  height: 20px;
-  margin-bottom: -15px;
-  margin-top: 0;
+  /*margin-bottom: -15px;*/
+  /*margin-top: 0;*/
 }
 
 .wrong-msg-border {
@@ -610,6 +622,12 @@
   height: 40px;
   outline: none;
   box-sizing: border-box;
+  background: #3576F5;
+}
+
+.aLiPay-btn:hover {
+  background: -webkit-gradient(linear,right top, left top,from(rgba(53,118,245,1)),to(rgba(69,154,245,1)));
+  /*background: linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);*/
 }
 
 .aLiPay-btn:first-of-type {
@@ -691,8 +709,13 @@
 
 /*绑定银行卡弹窗 begin*/
 /*  绑定银行卡弹窗标题 begin*/
+
 .bind-bank-header {
-  /*width: 722px;*/
+  justify-content: space-between;
+}
+
+.bind-bank-header-wrong img {
+
 }
 
 /*  绑定银行卡弹窗标题 end*/
@@ -723,18 +746,50 @@
 .bind-bank-footer {
   justify-content: center;
   align-items: center;
-  padding: 20px 0 15px 0;
+  padding: 15px 0;
 }
 
 /*  绑定银行卡弹窗footer end*/
 /*  确认绑定银行卡弹窗 begin*/
 .bind-bank-confirm-header {
   /*width: 500px;*/
+  justify-content: space-between;
+}
+
+.bind-bank-close img {
+  vertical-align: middle;
 }
 
 .bind-bank-confirm-article {
   flex-direction: column;
   padding: 0;
+}
+
+.input-item-container-two {
+  justify-content: space-between;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
+  border-bottom: 1px solid #F5F6FA;
+  height: 50px;
+  line-height: 50px;
+  box-sizing: border-box;
+}
+
+.input-item-container-two:last-child {
+  border-bottom: 0;
+}
+
+.input-item-input-confirm-container-two {
+  color: #0D0E23;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
+.img-item-input-confirm-container img {
+  width: 16px;
 }
 
 /*  确认绑定银行卡弹窗 end*/
@@ -777,12 +832,12 @@
 
 /*二次验证 begin*/
 .verify-article {
-  width: 400px;
-  padding: 0 30px;
+  /*width: 400px;*/
+  /*padding: 0 30px;*/
 }
 
 .verify-footer {
-  padding: 10px 30px 30px 30px;
+  padding: 15px 25px;
 }
 
 .verify-row {
@@ -796,8 +851,8 @@
   /*width: 87.5%;*/
   height: 40px;
   border: 1px solid #e5e5e5;
-  border-radius: 5px;
-  margin-left: 34px;
+  border-radius: 1px;
+  /*margin-left: 34px;*/
 }
 
 /*Input标题*/
@@ -819,21 +874,58 @@
 .unit-input-interval {
   height: 20px;
   line-height: 20px;
-  width: 80%;
+  font-size: 12px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  /*width: 80%;*/
   text-align: left;
-  padding-left: 12%;
+  /*padding-left: 12%;*/
 }
 
 .double-input-container {
   justify-content: space-between;
+  padding: 0 15px;
   /*box-sizing: border-box;*/
 }
 
 .identifying-code-button {
-  margin-right: -1px;
+  /*margin-right: -1px;*/
+  color: #3576F5;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.unit-input {
+  font-size: 12px;
 }
 
+/*placeholder  begin*/
+.unit-input::placeholder {
+  color: #A2B5D9;
+}
+
+.unit-input::-moz-placeholder {
+  color: #A2B5D9;
+}
+
+.unit-input::-webkit-input-placeholder {
+  color: #A2B5D9;
+}
+
+.unit-input:-ms-input-placeholder {
+  color: #A2B5D9;
+}
+/*placeholder样式 end*/
+
 /*获取手机验证码*/
+
+.phone-title {
+  font-size: 12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
+}
 .double-input-container > span:nth-of-type(2) {
   width: 20%;
   height: 100%;
@@ -859,13 +951,13 @@
 }
 
 .set-button {
-  width: 90%;
+  width: 100%;
   height: 100%;
   font-size: 1.4rem;
   background-color: #25ced6;
   color: #ffffff;
-  border-radius: 5px;
-  letter-spacing: 10px;
+  border-radius: 1px;
+  letter-spacing: 4px;
   border: 0;
 }
 
@@ -887,7 +979,8 @@
 
 /*验证码发送中*/
 .identifying-code-button-close {
-  background-color: #cccccc !important;
+  color: #a2b5d9;
+  /*background-color: #cccccc !important;*/
 }
 
 /*二次验证 end*/
