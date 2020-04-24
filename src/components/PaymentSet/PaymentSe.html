@@ -1,4 +1,4 @@
-<div class="paymentSet">
+<div :class="removeDefaultBankCardList.length == 0 ? 'paymentSe':'paymentSet'">
   <Loading v-if="loading"/>
   <template v-else>
     <!--收款账户 title begin-->
@@ -180,15 +180,25 @@
           <!--默认银行卡 end-->
 
           <!--添加银行卡 begin-->
-            <div class="add-new-bank-card-item flex">
-
-
-            <div class="add-new-bank-card-label flex  pointer"
-                 @click="clickAddBankPay">
+            <div class="add-new-bank-card-item flex" v-if="removeDefaultBankCardList.length !=0">
+            <div class="add-new-bank-card-label flex pointer" @click="clickAddBankPay">
               <div class="add-new-bank-card-img"></div>
               <div class="add-new-bank-card">请添加银行卡</div>
             </div>
           </div>
+          <!--添加银行卡 end-->
+
+          <!--添加银行卡 begin-->
+            <div class="add-new-bank-card-label-no" v-if="removeDefaultBankCardList.length == 0">
+              <div class="no-bank-list">
+                <img src="./assets/no_bank_list.png" alt="">
+                <p>暂无收款银行卡</p>
+              </div>
+              <div class="flex add-bank-card-no pointer" @click="clickAddBankPay">
+                <img src="./assets/add_bind_bank_card.png" alt="">
+                <div class="add-new-bank-card-no-list">添加</div>
+              </div>
+            </div>
           <!--添加银行卡 end-->
 
           <!--空 占位的 begin-->
@@ -431,7 +441,7 @@
 
             <!--账户名错误提示 begin-->
             <div class="input-item-container-wrong wrong-msg-container flex" v-if="bankAccountWrong">
-              <div class="input-item-input-container ">
+              <div class="input-item-input-container">
                 {{bankAccountWrong}}
               </div>
             </div>
@@ -456,7 +466,7 @@
 
             <!--开户行错误提示 begin-->
             <div class="input-item-container-wrong wrong-msg-container flex" v-if="bankNameWrong">
-              <div class="input-item-title"></div>
+<!--              <div class="input-item-title"></div>-->
               <div class="input-item-input-container ">
                 {{bankNameWrong}}
               </div>
@@ -478,7 +488,7 @@
             </div>
             <!--开户支行错误提示 begin-->
             <div class="input-item-container-wrong wrong-msg-container flex" v-if="bankBranchNameWrong">
-              <div class="input-item-title"></div>
+<!--              <div class="input-item-title"></div>-->
               <div class="input-item-input-container ">
                 {{bankBranchNameWrong}}
               </div>
@@ -509,9 +519,9 @@
           <!--银行卡号 end-->
 
           <!--默认收款银行卡 begin-->
-          <div class="input-item-container input-item-container-default-bank-card flex">
+          <div class=" input-item-container-default-bank-card flex">
 <!--            <div class="input-item-title"></div>-->
-            <div class="input-item-input-container flex ">
+            <div class="flex">
               <!--<input type="text" placeholder="请输入银行卡号" class="input-item-input input_padding input_border border_radius">-->
               <span @click="addChoseDefaultBank" class="pointer text_blue input-item-default-bank-card-radio-container">
                 <Radio :select="bankDefault" class="input-item-default-bank-card-radio"/>
