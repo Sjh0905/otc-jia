@@ -5,7 +5,7 @@
 
 .shangjiagd{
   width: 1200px;
-  height: 80px;
+  height: 60px;
   font-family: PingFangSC-Semibold;
   font-size: 20px;
   color: #333333;
@@ -27,7 +27,7 @@
 
 }
 .transaction-header-right {
-  margin-top: 150px;
+  /*margin-top: 150px;*/
 }
 
 .transaction-header-right-img {
@@ -37,10 +37,10 @@
 }
 
 .transaction-header-right-currency{
-  margin-left: 20px;
+  margin-left: 10px;
   font-family: PingFangSC-Semibold;
   font-size: 14px;
-  color: #333333;
+  color: #0D0E23;
   letter-spacing: 0;
 }
 
@@ -52,14 +52,14 @@
   opacity: 0.6;
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #333333;
+  color: #6B7DA2;
   letter-spacing: 0;
 }
 
 .transaction-header-right-amount-num {
   font-family: PingFangSC-Semibold;
   font-size: 14px;
-  color: #333333;
+  color: #0D0E23;
   letter-spacing: 0;
   margin: 0 10px 0 0;
 }
@@ -68,18 +68,18 @@
   opacity: 0.6;
   font-family: PingFangSC-Regular;
   font-size: 12px;
-  color: #333333;
+  color: #6B7DA2;
   letter-spacing: 0;
 }
 
 .transaction-header-right-btn {
-  background: #EF5656;
-  border-radius: 3px;
+  background: #3576F5;
+  border-radius: 1px;
   width: 60px;
   height: 28px;
   line-height: 28px;
   text-align: center;
-  margin-left: 20px;
+  margin-left: 42px;
   cursor: pointer;
   font-family: PingFangSC-Medium;
   font-size: 14px;
@@ -110,7 +110,7 @@
   margin-top: 24px;
   font-weight: bold;
   position: relative;
-  margin-bottom: 13px;
+  margin-bottom: 35px;
   padding-left: 15%;
   font-family: PingFangSC-Regular;
   font-size: 20px;
@@ -165,17 +165,17 @@
   color: #000000;
 }
 .text_light_dark{
-  opacity: 0.5;
+  /*opacity: 0.5;*/
   font-family: PingFangSC-Regular;
-  font-size: 16px;
+  font-size: 14px;
   color: #000000;
 }
 
 .business-header-item-title {
   width: 30%;
-  opacity: 0.5;
+  /*opacity: 0.5;*/
   font-family: PingFangSC-Regular;
-  font-size: 16px;
+  font-size: 14px;
   color: #000000;
   text-align: right;
 }
@@ -187,8 +187,9 @@
   box-sizing: border-box;
   line-height: 42px;
   position: relative;
-  font-size: 16px;
-  border-radius: 3px;
+  font-size: 14px;
+  border-radius: 1px;
+  margin-left: 15px;
 }
 
 .business-header-item-input-first {
@@ -209,8 +210,8 @@
   border: 0;
   padding-left: 10px;
   font-family: PingFangSC-Medium;
-  font-size: 16px;
-  color: #333333;
+  font-size: 14px;
+  color: #0D0E23;
   line-height: 16px;
 }
 .business-redon {
@@ -220,7 +221,7 @@
   top: 0;
   width: 15%;
   text-align: center;
-  color: #c8c8c8;
+  color: #A2B5D9;
   font-size: 14px;
 }
 
@@ -361,8 +362,8 @@
 }
 
 .order_title{
-  line-height: 100px;
-  margin-top: 30px;
+  line-height: 50px;
+  margin-top: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -418,15 +419,15 @@
 }
 .order_conduct_tab{
     width: 8%;
-    height: 34px;
-    line-height: 34px;
+    height: 60px;
+    line-height: 60px;
     text-align: left;
     cursor: pointer;
     z-index: 100;
-    margin-bottom: 30px;
+    /*margin-bottom: 30px;*/
   font-family: PingFangSC-Semibold;
-  font-size: 16px;
-  color: #333333;
+  font-size: 14px;
+  color: #6B7DA2;
   letter-spacing: 0;
 }
 .order_conduct_tab_active{
@@ -434,8 +435,8 @@
     font-weight: bold;
   position: relative;
   font-family: PingFangSC-Semibold;
-  font-size: 16px;
-  color: #EF5656;
+  font-size: 14px;
+  color: #3576F5;
   letter-spacing: 0;
 }
 
@@ -443,7 +444,7 @@
   position: absolute;
   height: 2px;
   width: 50%;
-  background: #EF5656;
+  background: #3576F5;
 }
 .tab-item-first{
   border-top-left-radius: 6px;

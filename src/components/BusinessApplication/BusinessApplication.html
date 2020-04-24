@@ -1,11 +1,14 @@
 <div class="BusinessApplication">
+  <!--topbar pc begin-->
+  <BasePageTopBar v-if="!loading"/>
+  <!--topbar pc end-->
 	<div class="bussiness_apply_container border_radius">
 		<Loading v-if="loading" />
 		<div v-else class="bussiness_apply_body">
 			<!-- title start -->
-			<div class="bussiness_apply_title text_block">
-				申请成为商家
-			</div>
+			<!--<div class="bussiness_apply_title text_block">-->
+				<!--申请成为商家-->
+			<!--</div>-->
 <!--      <div class="huit"></div>-->
 <!--      <div class="bussiness_apply_title_small">-->
 <!--        <span class="bussiness_apply_title_small_aa">请发送申请到：</span>-->
@@ -21,7 +24,7 @@
         <div class="bussiness_apply_title_small3_bb" v-if="!auth_info.idType" @click="GO_AUTHEUSER">
           <span class="bdiphone">去认证</span>
         </div>
-        <div class="bussiness_apply_title_small3_bb" v-if="auth_info.idType" >
+        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified" v-if="auth_info.idType" >
           已认证
         </div>
 
@@ -31,30 +34,45 @@
         <div class="bussiness_apply_title_small3_bb"  @click="GO_AUTHENTICATION"  v-if="!auth_info.mobile&&!auth_info.ga">
           <span class="bdiphone">去绑定</span>
         </div>
-        <div class="bussiness_apply_title_small3_bb"  v-if="!!auth_info.mobile||!!auth_info.ga">
+        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified"  v-if="!!auth_info.mobile||!!auth_info.ga">
           已绑定
         </div>
       </div>
       <div class="bussiness_small3">
         <div class="bussiness_apply_title_small3_aa">3. 至少绑定一张本人银行卡；</div>
         <div class="bussiness_apply_title_small3_bb" v-if="!auth_info.method">
-          <router-link class=" text_yellow" :to="{name: 'PaymentSet'}">
+          <router-link class="bdiphone" :to="{name: 'PaymentSet'}">
             去绑定
           </router-link>
         </div>
-        <div class="bussiness_apply_title_small3_bb" v-if="!!auth_info.method">
+        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified" v-if="!!auth_info.method">
             已绑定
         </div>
       </div>
+
+      <!--<div class="bussiness_small3">-->
+        <!--<div class="bussiness_apply_title_small3_aa">4. 商家保证金：{{key_amount.value}} {{key_amount.name}}；</div>-->
+      <!--</div>-->
+      <!--<div class="bussiness_small3">-->
+        <!--<div class="bussiness_apply_title_small3_aa">5. 请仔细阅读-->
+          <!--<router-link to="/index/MerchantsProtocol" class="text_yellow">《商家认证协议》。</router-link>-->
+          <!--&lt;!&ndash; <span class="text_yellow">《商家认证协议》。</span> &ndash;&gt;-->
+        <!--</div>-->
+      <!--</div>-->
+
       <div class="bussiness_small3">
-        <div class="bussiness_apply_title_small3_aa">4. 商家保证金：{{key_amount.value}} {{key_amount.name}}；</div>
-      </div>
-      <div class="bussiness_small3">
-        <div class="bussiness_apply_title_small3_aa">5. 请仔细阅读
+        <div class="flex-row bussiness_small3_agreement">
+        <!--<span @click="changeAgreement">-->
+          <!--<img v-show="!agreement" src="../../assets/c2c_common/noselect.png"/>-->
+          <!--<img v-show="agreement" src="../../assets/c2c_common/select.png" class="select-img"/>-->
+        <!--</span>-->
+          <BaseCheckBox :agreement="agree" :changeAgreement='changeAgreement'/>
+          <div class="bussiness_agree_to_pay">同意缴纳商家保证金{{key_amount.value}}{{key_amount.name}}</div>，且同意
           <router-link to="/index/MerchantsProtocol" class="text_yellow">《商家认证协议》。</router-link>
           <!-- <span class="text_yellow">《商家认证协议》。</span> -->
         </div>
       </div>
+
       <div class="bussiness_small4" @click="APPLY_SUBMIT" v-if="!APPLY_SUBMIT">提交申请</div>
       <div class="bussiness_small4"  @click="APPLY_SUBMIT" v-if="APPLY_SUBMIT">已申请</div>
 <!--      <div class="bussiness_apply_title_small3">-->
@@ -70,65 +88,65 @@
 <!--			</div>-->
 			<!-- 如何成为商家 end -->
 			<!-- 成为商家条件 start -->
-<!--			<div class="bussiness_apply_rules">-->
-<!--				<ul class="text_grey">-->
-<!--					<li class="bussiness_apply_rules_item">-->
-<!--						1、注册二零二零，并完成实名认证;-->
-<!--						<span class="tips" v-if="!auth_info.idType">-->
-<!--							<a v-if="isMobile" class="text_blue" href="#" @click="GO_AUTHEUSER">-->
-<!--								去app认证-->
-<!--							</a>-->
-<!--                            <a v-else class="text_blue" href="#" @click="GO_AUTHEUSER">-->
-<!--								去认证-->
-<!--							</a>-->
-<!--						</span>-->
-<!--					</li>-->
-<!--					<li class="bussiness_apply_rules_item">-->
-<!--						2、绑定您本人手机号;-->
-<!--						<span class="tips" v-if="!auth_info.mobile">-->
-<!--							<a class="text_blue" href="#" @click="GO_AUTHENTICATION">-->
-<!--								去绑定-->
-<!--							</a>-->
-<!--						</span>-->
-<!--					</li>-->
-<!--					<li class="bussiness_apply_rules_item">-->
-<!--						3、至少绑定一张本人银行卡;-->
-<!--						<span class="tips" v-if="!auth_info.method">-->
-<!--							<router-link class="text_blue" :to="{name: 'PaymentSet'}">-->
-<!--								去绑定-->
-<!--							</router-link>-->
-<!--						</span>-->
-<!--					</li>-->
-<!--					<li class="bussiness_apply_rules_item">4、请点击<a class="text_blue" href="https://jinshuju.net/f/qfgjeJ" target="_blank">提交申请材料</a>，按要求填写申请资料并提交;</li>-->
-<!--					<li class="bussiness_apply_rules_item">5、支付<span class="text_bolder">{{key_amount.value}} {{key_amount.name}}作为商家保证金</span></li>-->
-<!--					&lt;!&ndash; 或<span class="text_bolder text_block">50000BDB</span>作为保证金; &ndash;&gt;-->
-<!--				</ul>-->
-<!--			</div>-->
+			<!--<div class="bussiness_apply_rules">-->
+				<!--<ul class="text_grey">-->
+					<!--<li class="bussiness_apply_rules_item">-->
+						<!--1、注册二零二零，并完成实名认证;-->
+						<!--<span class="tips" v-if="!auth_info.idType">-->
+							<!--<a v-if="isMobile" class="text_blue" href="#" @click="GO_AUTHEUSER">-->
+								<!--去app认证-->
+							<!--</a>-->
+                            <!--<a v-else class="text_blue" href="#" @click="GO_AUTHEUSER">-->
+								<!--去认证-->
+							<!--</a>-->
+						<!--</span>-->
+					<!--</li>-->
+					<!--<li class="bussiness_apply_rules_item">-->
+						<!--2、绑定您本人手机号;-->
+						<!--<span class="tips" v-if="!auth_info.mobile">-->
+							<!--<a class="text_blue" href="#" @click="GO_AUTHENTICATION">-->
+								<!--去绑定-->
+							<!--</a>-->
+						<!--</span>-->
+					<!--</li>-->
+					<!--<li class="bussiness_apply_rules_item">-->
+						<!--3、至少绑定一张本人银行卡;-->
+						<!--<span class="tips" v-if="!auth_info.method">-->
+							<!--<router-link class="text_blue" :to="{name: 'PaymentSet'}">-->
+								<!--去绑定-->
+							<!--</router-link>-->
+						<!--</span>-->
+					<!--</li>-->
+					<!--<li class="bussiness_apply_rules_item">4、请点击<a class="text_blue" href="https://jinshuju.net/f/qfgjeJ" target="_blank">提交申请材料</a>，按要求填写申请资料并提交;</li>-->
+					<!--<li class="bussiness_apply_rules_item">5、支付<span class="text_bolder">{{key_amount.value}} {{key_amount.name}}作为商家保证金</span></li>-->
+					<!--&lt;!&ndash; 或<span class="text_bolder text_block">50000TT</span>作为保证金; &ndash;&gt;-->
+				<!--</ul>-->
+			<!--</div>-->
 			<!-- 成为商家条件 end -->
 			<!-- 选择支付方式 start -->
-<!--			<div class="bussiness_apply_pay_type text_grey">-->
-<!--				<label>-->
-<!--					<input class="input_box" value="1" type="checkbox" name="currency" v-model="currency">-->
-<!--					同意支付<span class="text_bolder text_block">{{key_amount.value}} {{key_amount.name}}</span>作为商家保证金-->
-<!--				</label>-->
-<!--				&lt;!&ndash; <font>-->
-<!--					或-->
-<!--				</font>-->
-<!--				<label>-->
-<!--					<em class="check_radio" :class="currency == 2 && 'selected'"></em>-->
-<!--					<input class="input_radio" value="2" type="radio" name="currency" v-model="currency">-->
-<!--					同意支付<span class="text_bolder text_block">50000BDB</span>作为商家保证金-->
-<!--				</label> &ndash;&gt;-->
-<!--			</div>-->
+			<!--<div class="bussiness_apply_pay_type text_grey">-->
+				<!--<label>-->
+					<!--<input class="input_box" value="1" type="checkbox" name="currency" v-model="currency">-->
+					<!--同意支付<span class="text_bolder text_block">{{key_amount.value}} {{key_amount.name}}</span>作为商家保证金-->
+				<!--</label>-->
+				<!--&lt;!&ndash; <font>-->
+					<!--或-->
+				<!--</font>-->
+				<!--<label>-->
+					<!--<em class="check_radio" :class="currency == 2 && 'selected'"></em>-->
+					<!--<input class="input_radio" value="2" type="radio" name="currency" v-model="currency">-->
+					<!--同意支付<span class="text_bolder text_block">50000TT</span>作为商家保证金-->
+				<!--</label> &ndash;&gt;-->
+			<!--</div>-->
 			<!-- 选择支付方式 end -->
 			<!-- 同意协议 start -->
-<!--			<div class="bussiness_apply_agree text_grey">-->
-<!--				<label for="agree">-->
-<!--					<input id="agree" type="checkbox" name="" v-model="agree">-->
-<!--					我已阅读并同意-->
-<!--				</label>-->
-<!--				<a class="text_blue" href="https://www.btcdo.com/index/notice/noticeDetail?id=100327" target="_blank">《商家认证协议》</a>-->
-<!--			</div>-->
+			<!--<div class="bussiness_apply_agree text_grey">-->
+				<!--<label for="agree">-->
+					<!--<input id="agree" type="checkbox" name="" v-model="agree">-->
+					<!--我已阅读并同意-->
+				<!--</label>-->
+				<!--<a class="text_blue" href="" target="_blank">《商家认证协议》</a>-->
+			<!--</div>-->
 			<!-- 同意协议 end -->
 			<!-- 提价申请按钮 start -->
 <!--			<div class="bussiness_apply_submit">-->
