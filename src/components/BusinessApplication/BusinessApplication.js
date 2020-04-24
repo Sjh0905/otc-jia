@@ -23,6 +23,8 @@ root.components = {
   'BasePageTopBar': resolve => require(['../BasePageTopBar/BasePageTopBar.vue'], resolve),
   'PopupPrompt': resolve => require(['../PopupPrompt/PopupPrompt.vue'], resolve),
   'Loading' : resolve => require(['../Loading/Loading.vue'], resolve),
+  // 点击选择框
+  'BaseCheckBox': resolve => require(['../BaseCheckBox/BaseCheckBox.vue'], resolve),
 }
 root.created = function () {
 	// 获取认证状态
@@ -64,10 +66,13 @@ root.methods.GET_USER_AUTO_INFO = function () {
 		// this.popText = '请稍后重试';
 	});
 }
-
+// 确认同意协议
+root.methods.changeAgreement = function () {
+  this.agree = !this.agree
+}
 // 提交申请
 root.methods.APPLY_SUBMIT = function () {
-	let notice = ['请先完成实名认证','请先绑定手机号','请先绑定银行卡','请同意支付保障金!', '请同意商家认证协议!'];
+	let notice = ['请先完成实名认证','请先绑定手机号或谷歌','请先绑定银行卡','请同意支付保障金!', '请同意商家认证协议!'];
 	if (!this.auth_info.idType) {
 		this.popOpen = true;
 	    this.popText = notice[0];
@@ -88,11 +93,11 @@ root.methods.APPLY_SUBMIT = function () {
 	//     this.popText = notice[3];
 	//     return false;
 	// }
-	// if (!this.agree) {
-	// 	this.popOpen = true;
-	//     this.popText = notice[4];
-	//     return false;
-	// }
+	if (!this.agree) {
+		this.popOpen = true;
+	    this.popText = notice[4];
+	    return false;
+	}
 
 	this.$http.send('APPLY_BUSINESS', {
 		params: {
@@ -103,7 +108,7 @@ root.methods.APPLY_SUBMIT = function () {
 		// console.log(data);
 		let self = this;
 		let err = data.errorCode;
-		let notice = ['请先登录账号','请先完成实名认证','请先绑定手机号','请先绑定银行卡', '商家的可用余额小于保证金金额', '提交成功'];
+		let notice = ['请先登录账号','请先完成实名认证','请先绑定手机号或谷歌','请先绑定银行卡', '商家的可用余额小于保证金金额', '提交成功'];
 		switch (err) {
 			case 1:
 				self.popOpen = true;
