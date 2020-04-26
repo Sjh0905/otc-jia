@@ -172,22 +172,22 @@ root.computed.removeDefaultBankCardList = function () {
   // })
   // return newArr
   return [
-    {
-      bankStyle:2,
-      bankICO:'',
-      bankNameCN:'中国工商银行',
-      bankNameEN:'ICBC',
-      cardNumber:'1123456765434356',
-      id:1
-    } ,
-    {
-      bankStyle:1,
-      bankICO:'',
-      bankNameCN:'中国工商银行',
-      bankNameEN:'ICBC',
-      cardNumber:'3123211321321321',
-      id:1
-    }
+    // {
+    //   bankStyle:2,
+    //   bankICO:'',
+    //   bankNameCN:'中国工商银行',
+    //   bankNameEN:'ICBC',
+    //   cardNumber:'1123456765434356',
+    //   id:1
+    // } ,
+    // {
+    //   bankStyle:1,
+    //   bankICO:'',
+    //   bankNameCN:'中国工商银行',
+    //   bankNameEN:'ICBC',
+    //   cardNumber:'3123211321321321',
+    //   id:1
+    // }
     // {
     //   bankStyle:3,
     //   bankICO:'',
