@@ -11,14 +11,14 @@
   display: inline-block;
   width: 15px;
   height: 15px;
-  background: url('./assets/select_no_choise.png') center center no-repeat;
+  background: url('./assets/noselect.png') center center no-repeat;
   background-size: 100%;
   vertical-align: middle;
   margin-top: -2px;
   margin-right: 2px;
 }
 .check_radio.selected {
-  background: url('./assets/select_choise.png') center center no-repeat;
+  background: url('./assets/select.png') center center no-repeat;
   background-size: 100%;
 }
 .input_radio{

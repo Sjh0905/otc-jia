@@ -1,24 +1,48 @@
 .paymentSet {
-  padding: 0 50px;
-  position: relative;
-  min-height: 500px;
+  border: 1px solid #EFF0FF;
+  width: 100%;
+  min-height: auto;
+  border-radius: 1px;
+}
+
+.paymentSe {
+  border: 1px solid #EFF0FF;
+  width: 100%;
+  min-height: 364px;
+  border-radius: 1px;
 }
 
 /*title begin*/
 .title {
-  font-size: 16px;
-  line-height: 16px;
-  color: #172A4D;
-  margin-top: 16px;
+  background: #F5F6FA;
+  height: 44px;
+  font-size: 14px;
+  line-height: 44px;
+  padding-left: 25px;
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color: #0D0E23;
+  border-bottom: 1px solid #EFF0FF;
+  /*margin-top: 16px;*/
 }
 
-.title-block {
-  display: block;
-  width: 4px;
-  height: 16px;
-  background: #EF5656;
-  margin-right: 7px;
+.title-describe {
+  line-height: 46px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
+  margin-left: 15px;
 }
+
+/*.title-block {*/
+/*  display: block;*/
+/*  width: 4px;*/
+/*  height: 16px;*/
+/*  background: #C43E4E;*/
+/*  margin-right: 7px;*/
+/*}*/
 
 /*title end*/
 
@@ -60,18 +84,18 @@
 }
 
 .release-txt {
-  color: #EF5656;
+  color: #3576F5;
   font-size: 14px;
   line-height: 14px;
   cursor: pointer;
 }
 
 .change-txt {
-  color: #EF5656;
+  color:#3576F5;
   font-size: 14px;
   line-height: 14px;
   cursor: pointer;
-  padding-right: 20px;
+  /*padding-right: 20px;*/
 }
 
 .aLiPay-release {
@@ -189,50 +213,55 @@
 
 /*  银行内容 begin*/
 .bank-content-container {
-  margin-top: 30px;
+  /*margin-top: 30px;*/
 }
 
 .bank-content-row {
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 36px;
+  /*position: relative;*/
+  /*flex-direction: row;*/
+  /*justify-content: space-between;*/
+  /*margin-bottom: 36px;*/
 }
 
 /*    银行卡 begin*/
 .bank-item-container {
-  width: 316px;
+  color: #0D0E23;
+  /*width: 316px;*/
 }
 
 .bank-label {
-  width: 93%;
-  height: 130px;
-  display: block;
+  /*width: 93%;*/
+  height: 80px;
+  line-height: 80px;
+  /*display: block;*/
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: 6px;
+  border-radius: 1px;
+  color: #0D0E23;
 }
 
 .bank-label-title {
-  padding: 27px 0 0 20px;
-  align-items: center;
+  /*padding: 27px 0 0 20px;*/
+  /*align-items: center;*/
 }
 
 .bank-logo-icon-container {
-  width: 35px;
+  width: 98px;
+  line-height: 80px;
 }
 
 .bank-label-name-container {
-  color: white;
-  /*padding-left: 6px;*/
-  flex-direction: column;
-  justify-content: space-between;
-  height: 28px;
+  color: #0D0E23;
+  /*flex-direction: column;*/
+  /*justify-content: space-between;*/
+  line-height: 80px;
+  /*height: 28px;*/
 }
 
 .bank-label-ch-name {
-  font-size: 20px;
-  line-height: 14px;
-  margin-bottom: 10px;
+  /*font-size: 20px;*/
+  /*line-height: 14px;*/
+  /*margin-bottom: 10px;*/
 }
 
 .bank-label-en-name {
@@ -241,17 +270,35 @@
 }
 
 .bank-label-card-number {
-  font-size: 18px;
-  color: white;
+  /*font-size: 18px;*/
+  color: #0D0E23;
   /* text-align: center; */
-  margin-top: 34px;
+  /*margin-top: 34px;*/
+  /*margin-left: 20px;*/
   white-space: nowrap;
   letter-spacing: 2px;
-  margin-left: 20px;
+
 }
 
 .bank-logo-icon {
-  width: 35px;
+  vertical-align: middle;
+  display: inline-block;
+  margin-left: 25px;
+  width: 24px;
+}
+
+.bank-info {
+  flex: 1;
+  border-bottom: 1px solid #EFF0FF;
+  font-size: 14px;
+  justify-content: space-between;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  padding-right: 22px;
+}
+
+.bank-card-name {
+  margin-right: 80px;
 }
 
 .bank-label-blue {
@@ -271,16 +318,15 @@
 
 /*      银行卡操作 begin*/
 .bank-operation-container {
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-top: 23px;
-  padding: 0 2px;
+  color: #3576F5;
+  /*margin-left: 491px;*/
+  /*margin-top: 23px;*/
+  /*padding: 0 2px;*/
 }
 
 .chose-default-bank-card {
-  font-size: 14px;
-  color: #172A4D;
-  justify-content: center;
   align-items: center;
 }
 
@@ -288,42 +334,121 @@
   margin-right: 11px;
 }
 
-.bank-release-txt {
-  margin-right: 20px;
+.bank-change-txt {
+  margin-right: 24px;
 }
 
-.bank-change-txt {
-
+.bank-release-txt {
+  margin-right: 30px;
 }
 
 /*      银行卡操作 end*/
 /*    银行卡 end*/
 
 /*    添加银行卡 begin*/
-.add-new-bank-card-label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: white;
+
+.add-new-bank-card-item {
+  width: 100%;
+  position: relative;
+  height: 80px;
+  line-height: 80px;
+  width: 100%;
+  font-size: 14px;
+  color: #3576F5;
+  /*border-bottom: 1px solid #EFF0FF;*/
+  box-sizing: border-box;
 }
+
+.add-new-bank-card-label {
+  position: absolute;
+  right: 23px;
+}
+
+.add-new-bank-card-label-no {
+  margin: 96px auto;
+  /*text-align: center;*/
+  /*text-align: center;*/
+  /*justify-content: center;*/
+  /*background: white;*/
+}
+
+.no-bank-list {
+  text-align: center;
+
+}
+
+.no-bank-list img {
+  width:86px;
+  margin-bottom: 24px;
+}
+
+.no-bank-list p {
+  color: #6B7DA2;
+  font-size:16px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  margin-bottom: 31px;
+}
+
+
+
 
 .add-new-bank-card-img {
   display: block;
-  background: url("./assets/add-icon1.png");
+  width: 14px;
+  height: 14px;
+  background: url("./assets/bind_bank_card.png");
   background-repeat: no-repeat;
   background-size: contain;
+  margin: auto 0;
+  margin-right: 10px;
   /* width: 77px;
   height: 77px; */
-  width: 28px;
-  height: 28px;
-  margin-bottom: 10px;
+  /*line-height: 80px;*/
+  /*margin-bottom: 10px;*/
+}
+
+/*.add-new-bank-card-img-no-list {*/
+/*  display: block;*/
+/*  width: 14px;*/
+/*  height: 14px;*/
+/*  background: url("");*/
+/*  background-repeat: no-repeat;*/
+/*  background-size: contain;*/
+/*  margin-right: 10px;*/
+/*  vertical-align: middle;*/
+/*  !* width: 77px;*/
+/*  height: 77px; *!*/
+/*  !*line-height: 80px;*!*/
+/*  !*margin-bottom: 10px;*!*/
+/*}*/
+
+.add-bank-card-no {
+  justify-content: center;
+  width: 124px;
+  height: 34px;
+  line-height: 34px;
+  border: 1px solid #E7EBEE;
+  margin: 0 auto;
+}
+
+.add-bank-card-no img {
+  width: 13px;
+  height: 13px;
+  margin: auto 0;
+  margin-right: 4px;
+}
+
+.add-new-bank-card-no-list {
+  color: #3576F5;
+  font-size:14px;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
 }
 
 .add-new-bank-card {
-  font-size: 16px;
-  line-height: 16px;
-  color: #172A4D;
+  /*position: relative;*/
+
 }
 
 /*    添加银行卡 end*/
@@ -345,27 +470,39 @@
 .input-item-container {
   justify-items: center;
   align-items: center;
-  margin-top: 20px;
+  height: 87px;
+  box-sizing: border-box;
+  margin-bottom: 5px;
+}
+
+.input-item-container:first-child {
+  margin-top: 0;
 }
 
 .input-item-title {
-  width: 210px;
-  text-align: right;
+  /*width: 210px;*/
+  /*text-align: right;*/
   font-size: 14px;
   color: #6B7DA2;
-  padding-right: 20px;
+  margin-bottom: 10px;
+  height: 20px;
+  /*padding-right: 20px;*/
   white-space: nowrap;
 }
 
+.popwindow-header {
+  justify-content: space-between;
+}
+
 .ga_sms_body_close{
-  position: absolute;
-  right: 10px;
-  top: -15px;
-  width: 20px;
-  cursor: pointer;
-  height: 20px;
-  color: #ccc;
-  font-size: 20px;
+  /*position: absolute;*/
+  /*right: 25px;*/
+  /*!*top: -15px;*!*/
+  /*width: 20px;*/
+  /*cursor: pointer;*/
+  /*height: 20px;*/
+  /*color: #ccc;*/
+  /*font-size: 20px;*/
 }
 
 .zi{
@@ -373,31 +510,90 @@
 }
 
 .input-item-input-container {
-  width: 350px;
+  width: 410px;
+  /*color: #3576F5;*/
   box-sizing: border-box;
 }
 
+.input-item-input-container >>> .vs__actions {
+  height: 40px;
+}
+
+.input-item-input-container >>> .dropdown-toggle {
+  border-radius: 1px;
+  padding-left: 15px;
+  width: 410px;
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid #E0E1F4;
+  padding-bottom: 0;
+  box-sizing: border-box;
+}
+
+.input-item-input-container >>> .dropdown-toggle .vs__selected-options {
+  height: 40px;
+  padding: 0;
+  margin: 0;
+}
+
+.input-item-input-container >>> .dropdown-toggle .vs__selected-options .form-control {
+  padding: 0;
+  margin: 0;
+}
+
+/*下拉框 placeholder颜色   begin*/
+.input-item-input-container >>> .dropdown-toggle .vs__selected-options .form-control::-webkit-input-placeholder {
+  color: #0D0E23;
+  font-size: 12px;
+}
+
+.input-item-input-container >>> .dropdown-toggle .vs__selected-options .form-control::-moz-placeholder {
+  color: #0D0E23;
+  font-size: 12px;
+}
+
+.input-item-input-container >>> .dropdown-toggle .vs__selected-options .form-control:-moz-placeholder {
+  color: #0D0E23;
+  font-size: 12px;
+}
+
+.input-item-input-container >>> .dropdown-toggle .vs__selected-options .form-control:-ms-input-placeholder {
+  color: #0D0E23;
+  font-size: 12px;
+}
+/*下拉框 placeholder颜色   end*/
+
+.input-item-input-container >>> .dropdown-toggle .selected-tag {
+  padding: 0;
+  margin: 0;
+}
+
+.input-item-container-wrong {
+  height: 20px;
+}
+
 .wrong-msg-container {
-  color: red;
-  padding-left: 10px;
+  color: #FD5555;
+  /*padding-left: 10px;*/
   font-size: 12px;
   line-height: 20px;
-  height: 20px;
-  margin-bottom: -20px;
-  margin-top: 0;
+  /*margin-bottom: -15px;*/
+  /*margin-top: 0;*/
 }
 
 .wrong-msg-border {
-  border-color: red !important;
+  border-color: #FD5555 !important;
 }
 
 .input-item-input {
   width: 100%;
-  height: 37px;
-  line-height: 37px;
-  font-size: 14px;
-  color: #C5CFD5;
-  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #0D0E23;
+  /*font-weight: bold;*/
   box-sizing: border-box;
 }
 
@@ -496,9 +692,16 @@
 }
 
 .aLiPay-btn {
-  width: 120px;
-  height: 35px;
-  outline:none;
+  width: 195px;
+  height: 40px;
+  outline: none;
+  box-sizing: border-box;
+  background: #3576F5;
+}
+
+.aLiPay-btn:hover {
+  background: -webkit-gradient(linear,right top, left top,from(rgba(53,118,245,1)),to(rgba(69,154,245,1)));
+  /*background: linear-gradient(270deg,rgba(53,118,245,1) 0%,rgba(69,154,245,1) 100%);*/
 }
 
 .aLiPay-btn:first-of-type {
@@ -512,22 +715,26 @@
 /*  弹窗按钮 end*/
 
 .input-item-input::-webkit-input-placeholder {
-  color: #6B7DA2;
+  color: #A2B5D9;
+  font-size: 12px;
   font-weight: normal;
 }
 
 .input-item-input::-moz-placeholder { /* Mozilla Firefox 19+ */
-  color: #6B7DA2;
+  color: #A2B5D9;
+  font-size: 12px;
   font-weight: normal;
 }
 
 .input-item-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  color: #6B7DA2;
+  color: #A2B5D9;
+  font-size: 12px;
   font-weight: normal;
 }
 
 .input-item-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: #6B7DA2;
+  color: #A2B5D9;
+  font-size: 12px;
   font-weight: normal;
 }
 
@@ -541,8 +748,8 @@
 }
 
 .input-item-conform-title {
-  width: 175px;
-  text-align: right;
+  /*width: 175px;*/
+  /*text-align: right;*/
   font-size: 14px;
   color: #888;
   padding-right: 20px;
@@ -576,8 +783,13 @@
 
 /*绑定银行卡弹窗 begin*/
 /*  绑定银行卡弹窗标题 begin*/
+
 .bind-bank-header {
-  width: 722px;
+  justify-content: space-between;
+}
+
+.bind-bank-header-wrong img {
+
 }
 
 /*  绑定银行卡弹窗标题 end*/
@@ -586,17 +798,22 @@
   flex-direction: column;
 }
 
-.input-item-container-default-bank-card .input-item-input-container {
+.input-item-container-default-bank-card {
+  height: 20px;
   align-items: center;
   /*justify-content: center;*/
 }
 
 .input-item-default-bank-card-radio-container {
+  /*font-size:12px !important;*/
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
   align-items: center;
 }
 
 .input-item-default-bank-card-radio {
-  margin-right: 10px;
+  vertical-align: middle;
+  margin-right: 6px;
 }
 
 /*  绑定银行卡弹窗内容 end*/
@@ -604,17 +821,50 @@
 .bind-bank-footer {
   justify-content: center;
   align-items: center;
-  padding: 27px 0 33px 0;
+  padding: 15px 0;
 }
 
 /*  绑定银行卡弹窗footer end*/
 /*  确认绑定银行卡弹窗 begin*/
 .bind-bank-confirm-header {
-  width: 500px;
+  /*width: 500px;*/
+  justify-content: space-between;
+}
+
+.bind-bank-close img {
+  vertical-align: middle;
 }
 
 .bind-bank-confirm-article {
   flex-direction: column;
+  padding: 0;
+}
+
+.input-item-container-two {
+  justify-content: space-between;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
+  border-bottom: 1px solid #F5F6FA;
+  height: 50px;
+  line-height: 50px;
+  box-sizing: border-box;
+}
+
+.input-item-container-two:last-child {
+  border-bottom: 0;
+}
+
+.input-item-input-confirm-container-two {
+  color: #0D0E23;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
+.img-item-input-confirm-container img {
+  width: 16px;
 }
 
 /*  确认绑定银行卡弹窗 end*/
@@ -657,12 +907,12 @@
 
 /*二次验证 begin*/
 .verify-article {
-  width: 400px;
-  padding: 0 30px;
+  /*width: 400px;*/
+  /*padding: 0 30px;*/
 }
 
 .verify-footer {
-  padding: 10px 30px 30px 30px;
+  padding: 15px 25px;
 }
 
 .verify-row {
@@ -676,8 +926,8 @@
   /*width: 87.5%;*/
   height: 40px;
   border: 1px solid #e5e5e5;
-  border-radius: 5px;
-  margin-left: 34px;
+  border-radius: 1px;
+  /*margin-left: 34px;*/
 }
 
 /*Input标题*/
@@ -699,21 +949,58 @@
 .unit-input-interval {
   height: 20px;
   line-height: 20px;
-  width: 80%;
+  font-size: 12px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  /*width: 80%;*/
   text-align: left;
-  padding-left: 12%;
+  /*padding-left: 12%;*/
 }
 
 .double-input-container {
   justify-content: space-between;
+  padding: 0 15px;
   /*box-sizing: border-box;*/
 }
 
 .identifying-code-button {
-  margin-right: -1px;
+  /*margin-right: -1px;*/
+  color: #3576F5;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+.unit-input {
+  font-size: 12px;
 }
 
+/*placeholder  begin*/
+.unit-input::placeholder {
+  color: #A2B5D9;
+}
+
+.unit-input::-moz-placeholder {
+  color: #A2B5D9;
+}
+
+.unit-input::-webkit-input-placeholder {
+  color: #A2B5D9;
+}
+
+.unit-input:-ms-input-placeholder {
+  color: #A2B5D9;
+}
+/*placeholder样式 end*/
+
 /*获取手机验证码*/
+
+.phone-title {
+  font-size: 12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #6B7DA2;
+}
 .double-input-container > span:nth-of-type(2) {
   width: 20%;
   height: 100%;
@@ -739,13 +1026,13 @@
 }
 
 .set-button {
-  width: 90%;
+  width: 100%;
   height: 100%;
   font-size: 1.4rem;
   background-color: #25ced6;
   color: #ffffff;
-  border-radius: 5px;
-  letter-spacing: 10px;
+  border-radius: 1px;
+  letter-spacing: 4px;
   border: 0;
 }
 
@@ -767,7 +1054,8 @@
 
 /*验证码发送中*/
 .identifying-code-button-close {
-  background-color: #cccccc !important;
+  color: #a2b5d9;
+  /*background-color: #cccccc !important;*/
 }
 
 /*二次验证 end*/
@@ -816,8 +1104,8 @@
     width: 50px;
   }
   .verify-article {
-     width: auto;
-     padding: 0px;
+    width: auto;
+    padding: 0px;
   }
   .auth-state-header {
     width: auto;

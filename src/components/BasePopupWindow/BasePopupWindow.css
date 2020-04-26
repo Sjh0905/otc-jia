@@ -9,7 +9,7 @@
 }
 
 .background {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: -100%;
   right: -100%;
@@ -33,11 +33,11 @@
   /* padding: 0 30px;*/
   background: #FFFFFF;
   box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);
-  border-radius: 3px;
+  border-radius: 1px;
 }
-.box1{
-  /*width: 440px !important;*/
-}
+/*.box1{*/
+/*  !*width: 440px !important;*!*/
+/*}*/
 /*popup-window-edit {*/
 /*  width: 440px;*/
 /*  !* background-color: #ffffff; *!*/
@@ -57,21 +57,21 @@
 
 .popWindow-title {
   width: 100%;
-  text-align: center;
+  /*text-align: center;*/
   position: relative;
-  font-size: 18px;
   /* line-height: 18px; */
-  color: #333;
+  color: #0D0E23;
   /* letter-spacing: 2px; */
   border-bottom: 1px solid #E7EBEE;;
-  padding:0 30px;
+  padding:0 25px;
   /*opacity: 0.7;*/
-  font-family: PingFangSC-Medium;
-  font-size: 20px;
-  color: #172A4D;
-  text-align: center;
+  font-size:18px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  /*text-align: center;*/
   height: 60px;
   line-height: 60px;
+  background: #EFF0FF;
 }
 
 .popWindow-title-no-border {
@@ -91,11 +91,12 @@
 /*内容*/
 .popWindow-article {
   /*text-align: center;*/
-  width: 440px;
+  width: 460px;
   font-size: 14px;
-  color: #172A4D;
+  color: #6B7DA2;
+  padding: 25px 25px 0;
   position: relative;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
 
 }
 

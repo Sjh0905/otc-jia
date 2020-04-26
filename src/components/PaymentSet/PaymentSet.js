@@ -1,3 +1,5 @@
+import id from "element-ui/src/locale/lang/id";
+
 const root = {}
 root.name = 'PaymentSet'
 /*------------------------------ 组件 ------------------------------*/
@@ -165,10 +167,44 @@ root.computed.selectedBankId = function () {
 }
 // 去除默认银行卡的银行卡列表
 root.computed.removeDefaultBankCardList = function () {
-  let newArr = this.bankList.slice(0).filter(v => {
-    return v.isDefault !== 1
-  })
-  return newArr
+  // let newArr = this.bankList.slice(0).filter(v => {
+  //   return v.isDefault !== 1
+  // })
+  // return newArr
+  return [
+    // {
+    //   bankStyle:2,
+    //   bankICO:'',
+    //   bankNameCN:'中国工商银行',
+    //   bankNameEN:'ICBC',
+    //   cardNumber:'1123456765434356',
+    //   id:1
+    // } ,
+    // {
+    //   bankStyle:1,
+    //   bankICO:'',
+    //   bankNameCN:'中国工商银行',
+    //   bankNameEN:'ICBC',
+    //   cardNumber:'3123211321321321',
+    //   id:1
+    // }
+    // {
+    //   bankStyle:3,
+    //   bankICO:'',
+    //   bankNameCN:'中国工商银行',
+    //   bankNameEN:'ICBC',
+    //   cardNumber:'1234356',
+    //   id:1
+    // },
+    // {
+    //   bankStyle:4,
+    //   bankICO:'',
+    //   bankNameCN:'中国工商银行',
+    //   bankNameEN:'ICBC',
+    //   cardNumber:'12341234567876543356',
+    //   id:3
+    // }
+  ]
 }
 // 银行卡
 root.computed.bankList = function () {
@@ -248,6 +284,7 @@ root.methods.initData = function () {
       this.aLiPayToggle = this.$globalFunc.arrayHaveItem(data.isUse, "ALIPAY")
       this.bankPayToggle = this.$globalFunc.arrayHaveItem(data.isUse, "BANKCARD")
       this.defaultList = data.userPayInfoList
+      console.info('this.defaultList======',this.defaultList)
       this.aLiPayEmpty = true
       this.aLiPayInfo = {}
       data.userPayInfoList.forEach(v => {
@@ -1166,9 +1203,9 @@ root.methods.verifyCanSend = function () {
 }
 
 root.methods.click_send = function () {
-  if (!this.verifyCanSend()) {
-    return
-  }
+  // if (!this.verifyCanSend()) {
+  //   return
+  // }
   this.sending = true
   let method, code
   if (this.picked === 'bindGA') {
@@ -1224,11 +1261,11 @@ root.methods.clearSecondVerify = function () {
 
 // 打开认证状态弹窗
 root.methods.openAuthStatePopupWindow = function () {
-  if (!this.identity) {
-    this.authStatePopupType = 1
-    this.authStatePopupWindow = true
-    return false
-  }
+  // if (!this.identity) {
+  //   this.authStatePopupType = 1
+  //   this.authStatePopupWindow = true
+  //   return false
+  // }
   if (!this.bindGa && !this.bindMobile) {
     this.authStatePopupType = 2
     this.authStatePopupWindow = true

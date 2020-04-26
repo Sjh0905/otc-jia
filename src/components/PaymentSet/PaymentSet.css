@@ -300,13 +300,7 @@
 /*    银行卡 end*/
 
 /*    添加银行卡 begin*/
-.add-new-bank-card-label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: white;
-}
+
 
 .add-new-bank-card-img {
   display: block;
@@ -844,8 +838,8 @@
     width: 50px;
   }
   .verify-article {
-     width: auto;
-     padding: 0px;
+    width: auto;
+    padding: 0px;
   }
   .auth-state-header {
     width: auto;

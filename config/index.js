@@ -12,8 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/otc': {
-        // target: 'https://valuepay.easybtc.io/',
-        target: 'http://10.113.8.21:8010',
+        target: 'https://valuepay.easybtc.io/',
+        // target: 'http://10.113.8.21:8010',
         changeOrigin: true,
         // pathRewrite: {//TODO:连接测试用这个
         //   '^/otc': ''
