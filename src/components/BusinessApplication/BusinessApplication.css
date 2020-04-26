@@ -103,24 +103,37 @@
   /*padding-right: 0;*/
   background-color: #ffffff;
 }
-
+.bussiness_small3_agreement_box{
+  margin-top: 30px;
+  height: auto;
+  border: 0;
+}
 .bussiness_small3_agreement{
   align-items: center;
   line-height: 20px;
 }
+.serial_number{
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #E0E1F4;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+  color: #3576F5;
+}
 
 .bussiness_small4{
-  width: 300px;
-  height: 40px;
-  line-height: 40px;
-  background: #EF5656;
-  border-radius: 3px;
+  width: 520px;
+  height: 44px;
+  line-height: 44px;
+  border-radius: 1px;
   margin: 0 auto;
   text-align: center;
-  font-family: PingFangSC-Medium;
-  font-size: 16px;
-  color: #F7F7FB;
-  margin-top: 40px;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-size: 14px;
+  color: #FFFFFF;
+  margin-top: 20px;
   cursor: pointer;
 }
 
