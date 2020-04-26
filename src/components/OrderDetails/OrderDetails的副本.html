@@ -13,7 +13,7 @@
 						类型
 					</div>
 					<div class="type">
-						{{ctc_order.type == 'SELL_ORDER' ? '买家姓名' : '卖家姓名'}}
+						{{ctc_order.type == 'SELL' ? '买家姓名' : '卖家姓名'}}
 					</div>
 					<div class="price">
 						价格(CNY)
@@ -33,19 +33,19 @@
 					<div class="numbers">
 						{{ctc_order.orderId}}
 					</div>
-					<div class="type" :class="ctc_order.type == 'SELL_ORDER' ? 'sell' : 'buy'">
-						{{ctc_order.type == 'SELL_ORDER' ? '卖出' : '买入'}}
+					<div class="type" :class="ctc_order.type == 'SELL' ? 'sell' : 'buy'">
+						{{ctc_order.type == 'SELL' ? '卖出' : '买入'}}
 					</div>
 					<div class="type" >
-						{{ctc_order.type == 'SELL_ORDER' ? user_info.name : user_info.name}}
+						{{ctc_order.type == 'SELL' ? user_info.name : user_info.name}}
 					</div>
-					<div class="price" :class="ctc_order.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+					<div class="price" :class="ctc_order.type == 'SELL' ? 'sell' : 'buy'">
 						{{$globalFunc.accFixed(ctc_order.price,2)}}
 					</div>
 					<div class="amount">
 						{{$globalFunc.accFixed(ctc_order.amount,2)}}
 					</div>
-					<div class="money" :class="ctc_order.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+					<div class="money" :class="ctc_order.type == 'SELL' ? 'sell' : 'buy'">
 						<font ref="money_copy">{{$globalFunc.accFixed(ctc_order.amount * ctc_order.price,2)}}</font>
 						<span class="copy_btn border_radius" @click="COPY('money_copy')">复制</span>
 					</div>
@@ -62,7 +62,7 @@
 					<div class="user_content">
 						<!-- <div class="user_name user_detail font_color">
 							<div class="seller" v-if="ctc_order.type == 'BUY'">卖家信息:</div>
-							<div class="seller" v-if="ctc_order.type == 'SELL_ORDER'">买家信息:</div>
+							<div class="seller" v-if="ctc_order.type == 'SELL'">买家信息:</div>
 							<div class="name">
 								<span class="font_color">姓名:</span>
 								<span v-if="detail_type == 2 || detail_type == 3">{{changeName(user_info.name)}}</span>
@@ -109,7 +109,7 @@
 								<div class="border_radius card" :class="item.bankStyle == 1 ? 'blue' : (item.bankStyle == 2 ? 'green' : 'yellow')">
 									<div class="card_item" v-show="item.type == 'BANKCARD'">
 										<span v-if="ctc_order.type == 'BUY'">卖家姓名: </span>
-										<span v-if="ctc_order.type == 'SELL_ORDER'">姓名: </span>
+										<span v-if="ctc_order.type == 'SELL'">姓名: </span>
 										<font ref="name">
 											<span v-if="detail_type == 2 || detail_type == 3">{{item.username}}</span>
 											<span v-else>{{changeName(item.username)}}</span>
@@ -218,8 +218,8 @@
 							<!-- <button class="btns order_complete border_radius disabled box_shadow" v-if="ctc_order.type == 'BUY' && show_buy_sell_btn && paying && canneling">已撤单</button> -->
 							<!-- 有无付款 end -->
 							<!-- 有无收款 start -->
-							<button class="btns order_complete border_radius box_shadow" @click="SHOW_COMPELETE" v-if="ctc_order.type == 'SELL_ORDER' && show_buy_sell_btn && !paying">确认已收款</button>
-							<!-- <button class="btns order_complete border_radius disabled box_shadow" v-if="ctc_order.type == 'SELL_ORDER' && show_buy_sell_btn && paying">已收款</button> -->
+							<button class="btns order_complete border_radius box_shadow" @click="SHOW_COMPELETE" v-if="ctc_order.type == 'SELL' && show_buy_sell_btn && !paying">确认已收款</button>
+							<!-- <button class="btns order_complete border_radius disabled box_shadow" v-if="ctc_order.type == 'SELL' && show_buy_sell_btn && paying">已收款</button> -->
 							<!-- 有无收款 end -->
 						</div>
 					</div>
@@ -256,7 +256,7 @@
 					</div>
 					<div class="user_info_item flex">
 						<div class="user_info_item_label">类型：</div>
-						<div class="user_info_item_detail">{{ctc_order.type == 'SELL_ORDER' ? '卖出' : '买入'}}</div>
+						<div class="user_info_item_detail">{{ctc_order.type == 'SELL' ? '卖出' : '买入'}}</div>
 					</div>
 					<div class="user_info_item flex">
 						<div class="user_info_item_label">价格：</div>
@@ -295,7 +295,7 @@
 	    <template v-if="show_compelete">
 			<div slot="header">
 	    		<span v-if="ctc_order.type == 'BUY'">确认付款</span>
-	    		<span v-if="ctc_order.type == 'SELL_ORDER'">确认收款</span>
+	    		<span v-if="ctc_order.type == 'SELL'">确认收款</span>
 	  		</div>
 	  		<div slot="article">
 				<div class="user_info">
@@ -305,7 +305,7 @@
 					</div>
 					<div class="user_info_item flex">
 						<div class="user_info_item_label">类型：</div>
-						<div class="user_info_item_detail">{{ctc_order.type == 'SELL_ORDER' ? '卖出' : '买入'}}</div>
+						<div class="user_info_item_detail">{{ctc_order.type == 'SELL' ? '卖出' : '买入'}}</div>
 					</div>
 					<div class="user_info_item flex">
 						<div class="user_info_item_label">价格：</div>
@@ -320,22 +320,22 @@
 						<div class="user_info_item_detail">{{$globalFunc.accFixed(ctc_order.amount * ctc_order.price,2)}} CNY</div>
 					</div>
 					<div class="user_info_item flex">
-						<div class="user_info_item_label">{{ctc_order.type == 'SELL_ORDER' ? '买家姓名:' : '卖家姓名:'}}</div>
-						<div class="user_info_item_detail">{{ctc_order.type == 'SELL_ORDER'?user_info.name:pay_info[0].username}}</div>
+						<div class="user_info_item_label">{{ctc_order.type == 'SELL' ? '买家姓名:' : '卖家姓名:'}}</div>
+						<div class="user_info_item_detail">{{ctc_order.type == 'SELL'?user_info.name:pay_info[0].username}}</div>
 					</div>
 				</div>
 				<div class="user_notice" v-if="ctc_order.type == 'BUY'">
           <p>重要提示：<span style="color: #EF5656;">未付款时点击确认付款属于恶意点击，</span></p>
           <p class="notice_padding_left"><span style="color: #EF5656;">一经查处，系统将暂时封锁账户，请谨慎操作。</span></p>
 				</div>
-				<div class="user_notice" v-if="ctc_order.type == 'SELL_ORDER'">
+				<div class="user_notice" v-if="ctc_order.type == 'SELL'">
 					<p>重要提示：<span style="color: #EF5656;">请确认已收到对方本人账户转账，若非买家本人支付，请原路退回。确认收款后资产将直接划转至对方账户，有不可追回风险，请谨慎操作。</span></p>
 					<p class="notice_padding_left"></p>
 				</div>
 	     	</div>
 	      	<div slot="footer" class="bind-bank-footer flex">
 	        	<button class="btn_white_blue text_blue aLiPay-btn pointer" @click="CLOSE_DIALOG">取消</button>
-	        	<button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="COMPLETE_BTN" v-if="ctc_order.type == 'SELL_ORDER'">确认收款</button>
+	        	<button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="COMPLETE_BTN" v-if="ctc_order.type == 'SELL'">确认收款</button>
 	        	<button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="COMPLETE_BTN" v-if="ctc_order.type == 'BUY'">确认付款</button>
 	      	</div>
 	    </template>

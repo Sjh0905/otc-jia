@@ -32,16 +32,16 @@
         <div class="numbers">
           {{item.orderId}}
         </div>
-       <div  class="type" :class="item.type == 'SELL_ORDER' ? 'sell' : 'buy'">
-        {{item.type == 'SELL_ORDER' ? '卖出' : '买入'}}
+       <div  class="type" :class="item.type == 'SELL' ? 'sell' : 'buy'">
+        {{item.type == 'SELL' ? '卖出' : '买入'}}
        </div>
-        <div class="price" :class="item.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+        <div class="price" :class="item.type == 'SELL' ? 'sell' : 'buy'">
           {{$globalFunc.accFixed(item.price,2)}}
         </div>
         <div class="amount">
           {{$globalFunc.accFixed(item.amount,2)}}
         </div>
-        <div class="money" :class="item.type == 'SELL_ORDER' ? 'sell' : 'buy'">
+        <div class="money" :class="item.type == 'SELL' ? 'sell' : 'buy'">
           {{$globalFunc.accFixed(item.amount * item.price,2)}}
         </div>
         <!-- DYSTOCIA,//订单难产,剩余量不足

@@ -334,11 +334,11 @@ root.methods.GET_ORDER_DETAIL = function () {
 				this.paying = true; // 不能点
 				return;
 			}
-			if (this.ctc_order.type == 'SELL_ORDER' && this.ctc_order.confirmStatus != 'UNCONFIRMED' && this.ctc_order.confirmStatus != 'BUYER_CONFIRM') {  // 如果是卖单
+			if (this.ctc_order.type == 'SELL' && this.ctc_order.confirmStatus != 'UNCONFIRMED' && this.ctc_order.confirmStatus != 'BUYER_CONFIRM') {  // 如果是卖单
 				this.paying = true; // 不能点
 				return;
 			}
-			if (this.ctc_order.type == 'SELL_ORDER') {
+			if (this.ctc_order.type == 'SELL') {
 				if (this.ctc_order.confirmStatus != 'UNCONFIRMED') {
 					this.order_status = 1; // 显示买家已付款
 				}
@@ -431,7 +431,7 @@ root.methods.CLOSE_DIALOG = function () {
 // 倒计时
 root.methods.initTimes = function (now, end) {
 	// 买单和卖单都显示15分钟，但是如果是卖单，且开始结束时差大于一小时的时候，且客户已付款，需要显示出小时
-	if (this.order_type == 'SELL_ORDER' && this.ctc_order.confirmStatus == 'BUYER_CONFIRM' && (Number(end) - Number(now) > 3600000)) {
+	if (this.order_type == 'SELL' && this.ctc_order.confirmStatus == 'BUYER_CONFIRM' && (Number(end) - Number(now) > 3600000)) {
   console.log('ooooooooo=====',document.getElementById('times'))
 		new Countdown(document.getElementById('times'), {
 		    format: '<span style="margin-left: 2px; color: #ED7265;">hh</span> 时 <span style="margin-left: 2px; color: #ED7265;">mm</span> 分 <span style="margin-left: 2px; color: #ED7265;">ss</span> 秒',
@@ -455,7 +455,7 @@ root.methods.SHOW_COMPELETE = function () {
 }
 // 确认付款按钮
 root.methods.COMPLETE_BTN = function () {
-	if (this.order_type == 'SELL_ORDER') {
+	if (this.order_type == 'SELL') {
 		// 邮箱验证
 		// this.show_mail = true;
 		// 谷歌手机二级验证

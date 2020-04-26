@@ -178,7 +178,7 @@ root.watch.result_socket = function (newValue, oldValue) {
       this.buyInputMoney = ''
       this.submitBuyAjaxFlag = false
     }
-    if (newValue.data.postersType === 'SELL_ORDER') {
+    if (newValue.data.postersType === 'SELL') {
       // 关闭卖出弹框
       this.submitSellBoxFlag = false;
       this.sellInputPrice = ''
@@ -803,7 +803,7 @@ root.methods.submitToSell = function () {
 
   this.$http.send('CREATE_POSTER_ORDER', {
     params: {
-      postersType: 'SELL_ORDER',
+      postersType: 'SELL',
       userId: this.userId,
       currency: 'USDT',
       toCurrency: 'CNY',

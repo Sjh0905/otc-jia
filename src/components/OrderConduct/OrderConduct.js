@@ -198,7 +198,7 @@ root.methods.COMFIRM_BTN = function (item) {
     return
 	}
 	// console.log(item,'aaa')
-	if (item.type == 'SELL_ORDER') {
+	if (item.type == 'SELL') {
 		// if (!this.bindEmail) {
 		// 	this.popOpen = true;
 	 //    	this.popText = '请先绑定邮箱';
