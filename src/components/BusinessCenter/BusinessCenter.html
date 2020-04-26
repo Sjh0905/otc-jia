@@ -221,7 +221,7 @@
 <!--          <Loading v-if="getPartPosterOrderListLoading" />-->
 <!--          <div v-else>-->
 <!--            <div class="market_table_title flex-center border_bottom text_dark" v-for="(item,index) in sectionPendingList" :key="index">-->
-<!--              <div class="type" :class="item.postersType === 'BUY_ORDER' ? 'text_green' : 'text_red'">{{item.postersType === 'BUY_ORDER'?'买入':'卖出'}}</div>-->
+<!--              <div class="type" :class="item.postersType === 'BUY' ? 'text_green' : 'text_red'">{{item.postersType === 'BUY'?'买入':'卖出'}}</div>-->
 <!--              <div class="user">{{item.userName}}</div>-->
 <!--              <div class="deals">{{item.transactions}}</div>-->
 <!--              <div class="length_time">{{toFixed(accDiv(accMul(accMinus(item.total,item.amount),100),item.total),2)}}%</div>-->
@@ -232,7 +232,7 @@
 <!--                <span v-if='item.payType==="BANKCARD" || item.payType==="BANKCARD|ALIPAY" || item.payType==="ALIPAY|BANKCARD"' class="icon card_icon"></span>-->
 <!--                <span v-if='item.payType==="ALIPAY" || item.payType==="BANKCARD|ALIPAY" || item.payType==="ALIPAY|BANKCARD"' class="icon alipay_cion"></span>-->
 <!--              </div>-->
-<!--              <div class="price text_right" :class="item.postersType === 'BUY_ORDER' ? 'text_green' : 'text_red'">{{toFixed(item.price,2)}}</div>-->
+<!--              <div class="price text_right" :class="item.postersType === 'BUY' ? 'text_green' : 'text_red'">{{toFixed(item.price,2)}}</div>-->
 <!--            </div>-->
 <!--          </div>-->
 

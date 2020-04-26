@@ -221,7 +221,7 @@ root.watch.result_socket = function (newValue, oldValue) {
         type: 1,
         orderId:newValue.data.orderId,
         payInfo:newValue.data.payInfo,
-        orderType: 'SELL_ORDER'
+        orderType: 'SELL'
       }
     })
   }
@@ -251,7 +251,7 @@ root.methods = {}
 // 	this.$http.send('POST_DASH_BUTTON_QUICKSELL', {
 // 		query: {
 // 			// userId: this.userId,
-// 			// c2cOrderType: "BUY_ORDER",
+// 			// c2cOrderType: "BUY",
 // 			// payId: byId,
 // 		}
 // 	}).then(({data}) => {
@@ -381,7 +381,8 @@ root.methods.getPageList = function () {
     query: {
       offset: this.offset,
       maxResults: this.maxResults,
-      status: 'BUY_ORDER',
+      side: 'BUY',
+      // status: 'BUY',
       currency: 'USDT',
     }
   }).then(({data}) => {
@@ -898,7 +899,7 @@ root.methods.clickConfirmBtn = function () {
     // query: {
     // type: 1,
     // orderId:this.buyItem.id,
-    // orderType: 'BUY_ORDER'}})}
+    // orderType: 'BUY'}})}
      if(this.isSocket){
     this.$router.push({
     name: 'Order',

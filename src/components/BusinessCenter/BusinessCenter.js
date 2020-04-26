@@ -170,7 +170,7 @@ root.watch.result_socket = function (newValue, oldValue) {
     this.popOpen = true
     this.popType = 1
     this.popText = '下单成功'
-    if (newValue.data.postersType === 'BUY_ORDER') {
+    if (newValue.data.postersType === 'BUY') {
       // 关闭买入弹框
       this.submitBuyBoxFlag = false;
       this.buyInputPrice = ''
@@ -671,16 +671,26 @@ root.methods.submitToBuy = function () {
 
   this.$http.send('CREATE_POSTER_ORDER', {
     params: {
-      postersType: 'BUY_ORDER',
-      userId: this.userId,
-      currency: 'USDT',
-      toCurrency: 'CNY',
-      price: this.buyInputPrice,
-      total: this.buyInputNum,
-      amount: this.buyInputNum,
-      maxLimit: this.buyInputMaxNum,
-      minLimit: this.buyInputMinNum,
+      // postersType: 'BUY',
+      // userId: this.userId,
+      // currency: 'USDT',
+      // toCurrency: 'CNY',
+      // price: this.buyInputPrice,
+      // total: this.buyInputNum,
+      // amount: this.buyInputNum,
+      // maxLimit: this.buyInputMaxNum,
+      // minLimit: this.buyInputMinNum,
       // payType: payType,   // 支付宝 ALIPAY  银行卡 BANKCARD  俩都有 ALIPAY|BANKCARD
+
+      //2020-4-26sss 修改参数
+      side: 'BUY',
+      currency: 'USDT',
+      price: this.buyInputPrice, //单价
+      amount: this.buyInputNum, //数量
+      max: this.buyInputMaxNum, //最大数量
+      min: this.buyInputMinNum,//最小数量
+      payType: this.payType,  //支付方式
+
     }
   }).then(({
     data

@@ -206,7 +206,7 @@ root.methods.COMFIRM_BTN = function (item) {
 		// };
 		this.show_sell_dialog = true;
 	}
-	if (item.type == 'BUY_ORDER') {
+	if (item.type == 'BUY') {
 		this.show_buy_dialog = true;
 	}
 	this.order_detail = item;

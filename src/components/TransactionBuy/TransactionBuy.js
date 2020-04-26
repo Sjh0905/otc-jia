@@ -236,7 +236,7 @@ root.watch.result_socket = function (newValue, oldValue) {
       query: {
         type: 1,
         orderId: newValue.data.orderId,
-        orderType: 'BUY_ORDER'
+        orderType: 'BUY'
       }
     })
     return
@@ -265,7 +265,8 @@ root.methods.GET_ORDER_DETAIL = function () {
   this.$http.send('GET_DASH_BUTTON', {
 		query: {
 			// userId: this.userId,
-			// c2cOrderType: "BUY_ORDER",
+			// c2cOrderType: "BUY",
+      //获取订单色ID就行
 			payId: byId,
 		}
 	}).then(({data}) => {
@@ -384,7 +385,7 @@ root.methods.getPageList = function () {
     query: {
       offset: this.offset,
       maxResults: this.maxResults,
-      status: 'SELL_ORDER',
+      side: 'SELL',
       currency: this.currency,
     }
   }).then(({
@@ -402,7 +403,7 @@ root.methods.getPageList = function () {
   });
 }
 
-// 一键购买
+// 一键购买 (待定)
 root.methods.aKeyToBuy = function (item) {
   // this.pageListAjaxLoading = false
   // this.loading = true
@@ -442,6 +443,8 @@ root.methods.aKeyToBuy = function (item) {
     console.log('err', err)
   });
 }
+
+
 // 弹框时候，输入框绑定另一个值的改变
 root.methods.abindInputNum = async function () {
   if (!this.inputNum) {
@@ -795,7 +798,7 @@ root.methods.clickConfirmBtn = function () {
     // query: {
     //     type: 1,
     //     orderId:this.buyItem.id,
-    //     orderType: 'BUY_ORDER'}})}
+    //     orderType: 'BUY'}})}
     this.$router.push({
       name:'Order',
     })}

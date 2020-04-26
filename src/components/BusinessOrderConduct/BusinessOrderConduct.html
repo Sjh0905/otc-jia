@@ -4,7 +4,7 @@
 			<!-- table 头 start -->
 			<div class="business_order_table_title flex-center ">
         <div class="type">类型</div>
-        
+
 				<div class="price">单价(CNY)</div>
 				<!-- <div class="amount"></div> -->
         <div class="amount">数量(USDT)</div>
@@ -31,8 +31,8 @@
 				<Loading v-if="loading" />
 				<div class="business_order_table_tr flex-center text_dark" v-if="!loading && pageList.length!= 0" v-for="(item,index) in pageList" :key="index">
 <!--					<div class="order">{{item.id}}</div>-->
-					<div class="type" :class="item.postersType === 'BUY_ORDER' ? 'text_green' : 'text_red'">{{item.postersType === 'BUY_ORDER' ? '购买' : '出售'}}</div>
-					<div class="price" :class="item.postersType === 'BUY_ORDER' ? 'text_green' : 'text_green'">{{toFixed(item.price,2)}}</div>
+					<div class="type" :class="item.postersType === 'BUY' ? 'text_green' : 'text_red'">{{item.postersType === 'BUY' ? '购买' : '出售'}}</div>
+					<div class="price" :class="item.postersType === 'BUY' ? 'text_green' : 'text_green'">{{toFixed(item.price,2)}}</div>
 					<div class="amount">{{toFixed(item.total,2)}}</div>
 <!--					<div class="money">{{toFixed(accMul(item.total,item.price),2)}}</div>-->
           <div class="complete">{{toFixed(item.deal,2)}}</div>

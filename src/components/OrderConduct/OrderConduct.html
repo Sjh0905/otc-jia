@@ -65,11 +65,11 @@
           <button class="cannel_time_btn border_radius" v-if="item.type == 'SELL_ORDER' && (item.confirmStatus == 'UNCONFIRMED' || item.confirmStatus == 'BUYER_CONFIRM')" @click="COMFIRM_BTN(item)">
             确认已收款
           </button>
-          <button class="cannel_time_btn border_radius" v-if="item.type == 'BUY_ORDER' && item.confirmStatus == 'UNCONFIRMED'" @click="COMFIRM_BTN(item)">
+          <button class="cannel_time_btn border_radius" v-if="item.type == 'BUY' && item.confirmStatus == 'UNCONFIRMED'" @click="COMFIRM_BTN(item)">
             确认已付款
           </button>
           <!-- 买单确认收付款 start -->
-          <button class="cannel_time_btn border_radius disabled" v-if="item.type == 'BUY_ORDER' && item.confirmStatus != 'UNCONFIRMED'">
+          <button class="cannel_time_btn border_radius disabled" v-if="item.type == 'BUY' && item.confirmStatus != 'UNCONFIRMED'">
             处理中
           </button>
           <!-- 买单确认收付款 end -->

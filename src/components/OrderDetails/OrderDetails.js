@@ -260,7 +260,7 @@ root.methods.CANCEL_CTC_ORDER = function () {
 
 // 判断支付方式有无变化
 root.methods.USER_PAY_INFO = function (ctc_order) {
-	if (this.detail_type > 1 || this.order_type == 'BUY_ORDER') return;
+	if (this.detail_type > 1 || this.order_type == 'BUY') return;
 	this.$http.send('USER_PAY_INFO', {
 		params: {
 			ctcOrder: ctc_order,
@@ -330,7 +330,7 @@ root.methods.GET_ORDER_DETAIL = function () {
 			// console.log(this.ctc_order,'ccc',this.order_detail_time,this.detail_type == 2 || this.detail_type == 4)
 
 			// 是否收/付款
-			if (this.ctc_order.type == 'BUY_ORDER' && this.ctc_order.confirmStatus != 'UNCONFIRMED') { // 如果是买单
+			if (this.ctc_order.type == 'BUY' && this.ctc_order.confirmStatus != 'UNCONFIRMED') { // 如果是买单
 				this.paying = true; // 不能点
 				return;
 			}
@@ -463,7 +463,7 @@ root.methods.COMPLETE_BTN = function () {
 
 		this.show_dialog = false;
 	}
-	if (this.order_type == 'BUY_ORDER') {
+	if (this.order_type == 'BUY') {
 		this.$http.send('COMFIRM_PAYMENT', {
 			params: {
 				"ctcOrderId": this.ctc_order.id
@@ -493,7 +493,7 @@ root.methods.COMPLETE_BTN = function () {
 
 // 收付款成功后跳到完成界面
 root.methods.GO_ORDER_COMPELETE = function () {
-	let order_type = this.order_type == 'BUY_ORDER' ? 1 : 2;
+	let order_type = this.order_type == 'BUY' ? 1 : 2;
 	this.GO_DETAIL_TYPE(order_type);
 }
 

@@ -64,7 +64,7 @@
         <div class="order_detail_container">
           <div class="user_content">
             <!-- <div class="user_name user_detail font_color">
-              <div class="seller" v-if="ctc_order.type == 'BUY_ORDER'">卖家信息:</div>
+              <div class="seller" v-if="ctc_order.type == 'BUY'">卖家信息:</div>
               <div class="seller" v-if="ctc_order.type == 'SELL_ORDER'">买家信息:</div>
               <div class="name">
                 <span class="font_color">姓名:</span>
@@ -99,7 +99,7 @@
           </div>
           <div class="card_content">
             <!-- <div class="user_name font_color">
-              <span v-if="ctc_order.type == 'BUY_ORDER'">卖家收款信息:</span>
+              <span v-if="ctc_order.type == 'BUY'">卖家收款信息:</span>
               <span v-else>我的收款信息</span>
             </div> -->
             <div class="card_list">
@@ -111,7 +111,7 @@
                 <!-- <div class="border_radius" :class="item.type == 'BANKCARD' ? 'card' : 'alipay'"> -->
                 <div class="border_radius card" :class="item.bankStyle == 1 ? 'blue' : (item.bankStyle == 2 ? 'green' : 'yellow')">
                   <div class="card_item" v-show="item.type == 'BANKCARD'">
-                    <span v-if="ctc_order.type == 'BUY_ORDER'">卖家姓名: </span>
+                    <span v-if="ctc_order.type == 'BUY'">卖家姓名: </span>
                     <span v-if="ctc_order.type == 'SELL_ORDER'">姓名: </span>
                     <font ref="name">
                       <span v-if="detail_type == 2 || detail_type == 3">{{item.username}}</span>
@@ -237,11 +237,11 @@
                 <!-- 其他订单详情界面 end -->
               </div>
               <div class="order_btns" v-if="detail_type == 1">
-                <button class="btns order_cannel border_radius" @click="ORDER_CANNEL" v-if="ctc_order.type == 'BUY_ORDER' && !paying">取消订单</button>
+                <button class="btns order_cannel border_radius" @click="ORDER_CANNEL" v-if="ctc_order.type == 'BUY' && !paying">取消订单</button>
                 <!-- 有无付款 start -->
-                <button class="btns order_complete border_radius box_shadow" @click="SHOW_COMPELETE" v-if="ctc_order.type == 'BUY_ORDER' && show_buy_sell_btn && !paying">确认已付款</button>
-                <!-- <button class="btns order_complete border_radius disabled box_shadow" v-if="ctc_order.type == 'BUY_ORDER' && show_buy_sell_btn && paying && !canneling">已付款</button> -->
-                <!-- <button class="btns order_complete border_radius disabled box_shadow" v-if="ctc_order.type == 'BUY_ORDER' && show_buy_sell_btn && paying && canneling">已撤单</button> -->
+                <button class="btns order_complete border_radius box_shadow" @click="SHOW_COMPELETE" v-if="ctc_order.type == 'BUY' && show_buy_sell_btn && !paying">确认已付款</button>
+                <!-- <button class="btns order_complete border_radius disabled box_shadow" v-if="ctc_order.type == 'BUY' && show_buy_sell_btn && paying && !canneling">已付款</button> -->
+                <!-- <button class="btns order_complete border_radius disabled box_shadow" v-if="ctc_order.type == 'BUY' && show_buy_sell_btn && paying && canneling">已撤单</button> -->
                 <!-- 有无付款 end -->
                 <!-- 有无收款 start -->
                 <button class="btns order_complete border_radius box_shadow" @click="SHOW_COMPELETE" v-if="ctc_order.type == 'SELL_ORDER' && show_buy_sell_btn && !paying">确认已收款</button>
@@ -322,7 +322,7 @@
     <!-- 确认付款 start -->
     <template v-if="show_compelete">
       <div slot="header">
-        <span v-if="ctc_order.type == 'BUY_ORDER'">确认付款</span>
+        <span v-if="ctc_order.type == 'BUY'">确认付款</span>
         <span v-if="ctc_order.type == 'SELL_ORDER'">确认收款</span>
       </div>
       <div slot="article">
@@ -352,7 +352,7 @@
             <div class="user_info_item_detail">{{ctc_order.type == 'SELL_ORDER'?user_info.name:pay_info[0].username}}</div>
           </div>
         </div>
-        <div class="user_notice" v-if="ctc_order.type == 'BUY_ORDER'">
+        <div class="user_notice" v-if="ctc_order.type == 'BUY'">
           <p>重要提示：<span style="color: #EF5656;">未付款时点击确认付款属于恶意点击，</span></p>
           <p class="notice_padding_left"><span style="color: #EF5656;">一经查处，系统将暂时封锁账户，请谨慎操作。</span></p>
         </div>
@@ -364,7 +364,7 @@
       <div slot="footer" class="bind-bank-footer flex">
         <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="CLOSE_DIALOG">取消</button>
         <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="COMPLETE_BTN" v-if="ctc_order.type == 'SELL_ORDER'">确认收款</button>
-        <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="COMPLETE_BTN" v-if="ctc_order.type == 'BUY_ORDER'">确认付款</button>
+        <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="COMPLETE_BTN" v-if="ctc_order.type == 'BUY'">确认付款</button>
       </div>
     </template>
     <!-- 确认付款 end -->
