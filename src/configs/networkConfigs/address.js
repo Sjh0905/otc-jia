@@ -26,10 +26,7 @@ address.APPLY_BUSINESS = {url: urlHead + '/user/submissionForSeller', method: 'p
 address.GET_LIST_ORDERS = {url: urlHead + '/user/getListOfCtcOrders', method: 'post', timeout: null, responseType: 'json'}
 
 // 2018-8-21 otc首页请求列表
-// address.GET_LIST_OF_LISTS= {url: urlHead + '/user/getListOfLists', method: 'get', timeout: null, responseType: 'json'}
-
-//2020-4-26sss   otc首页请求列表
-address.GET_LIST_OF_LISTS= {url: urlHead + '/advert/tradeIndex', method: 'get', timeout: null, responseType: 'json'}
+address.GET_LIST_OF_LISTS= {url: urlHead + '/user/getListOfLists', method: 'get', timeout: null, responseType: 'json'}
 
 // 我的订单 确认付款
 address.COMFIRM_PAYMENT = {url: urlHead + '/user/toConfirmPayment', method: 'post', timeout: null, responseType: 'json'}
@@ -47,19 +44,15 @@ address.GET_SEVER_TIME = {url: urlHead + '/user/getServerTime', method: 'get', t
 address.USER_PAY_INFO = {url: urlHead + '/user/validateUserPayInfo', method: 'post', timeout: null, responseType: 'json'}
 
 // 获取用户的认证状态
-// address.GET_AUTH_STATE = {url: urlHead + '/auth/getAuthsForC2C', method: 'post', timeout: null, responseType: 'json'}
-// 获取用户的usdt资产2020-4-26
-address.ACCOUNTS = {url: urlHead + '/accounts/userAccounts', method: 'get'}
+address.GET_AUTH_STATE = {url: urlHead + '/auth/getAuthsForC2C', method: 'post', timeout: null, responseType: 'json'}
+address.GET_AUTH_INFO = {url: urlHead + '/user/getUserAuthInfo', method: 'get', timeout: null, responseType: 'json'}
+// 获取用户的usdt资产
+address.ACCOUNTS = {url: urlHead + '/user/userAccounts', method: 'get'}
 // 确认下单接口
-// address.PLACE_AN_ORDER = {url: urlHead + '/user/placeAnOrder', method: 'post', timeout: null, responseType: 'json'}
-
-//2020-4-26sss 确认下单接口
-address.PLACE_AN_ORDER = {url: urlHead + '/orders/placeAnOrder', method: 'post', timeout: null, responseType: 'json'}
+address.PLACE_AN_ORDER = {url: urlHead + '/user/placeAnOrder', method: 'post', timeout: null, responseType: 'json'}
 
 // 商户下单接口
-// address.CREATE_POSTER_ORDER = {url: urlHead + '/user/createPostersOrder', method: 'post', timeout: null, responseType: 'json'}
-//2020-4-26sss 商户下单接口
-address.CREATE_POSTER_ORDER = {url: urlHead + '/advert/releaseIndex', method: 'post', timeout: null, responseType: 'json'}
+address.CREATE_POSTER_ORDER = {url: urlHead + '/user/createPostersOrder', method: 'post', timeout: null, responseType: 'json'}
 // 买入详情，取消订单 /cancelCtcOrder
 address.CANCEL_CTC_ORDER = {url: urlHead + '/user/cancelCtcOrder', method: 'post', timeout: null, responseType: 'json'}
 
@@ -71,13 +64,14 @@ address.COMMEN_AUTH_FORCTC = {url: urlHead + '/auth/commonAuthForC2C', method: '
 
 // 2018-8-20 支付设置部分
 // 支付设置初始化
-address.PAYMENT_SET_INIT = {url: urlHead + '/payInf/showPayInfo', method: 'get'}
+// address.PAYMENT_SET_INIT = {url: urlHead + '/payInf/showPayInfo', method: 'get'}
+address.PAYMENT_SET_INIT = {url: urlHead + '/common/systemArgs', method: 'get'}
 
 // 获取支持交易的银行
-address.GET_BANK = {url: urlHead + '/payInf/getBanks', method: 'get'}
+// address.GET_BANK = {url: urlHead + '/payInf/getBanks', method: 'get'}
 
 // 添加支付信息
-address.ADD_PAYMENT_INFO = {url: urlHead + '/payInf/addPayInfo', method: 'post'}
+address.ADD_PAYMENT_INFO = {url: urlHead + '/user/addPayInfo', method: 'post'}
 
 // 修改支付信息
 address.CHANGE_PAYMENT_INFO = {url: urlHead + '/payInf/modifyBankcard', method: 'post'}
@@ -109,21 +103,20 @@ address.CANCEL_POSTER_ORDER = {url: urlHead + '/user/cancelPostersOrder', method
 // 登出 signoutForC2C
 address.SIGNOUT_CTC = {url: urlHead + '/user/signoutForC2C', method: 'post', timeout: null, responseType: 'json'}
 
-// 检测用户是否被禁止交易2020-4-26
-address.VALIDATE_USER_CAN_TRADE = {url: urlHead + '/accounts/validateUserCanTrade', method: 'get', timeout: null, responseType: 'json'}
+// 检测用户是否被禁止交易
+address.VALIDATE_USER_CAN_TRADE = {url: urlHead + '/user/validateUserCanTrade', method: 'post', timeout: null, responseType: 'json'}
 
-// 点击关闭c2c首次弹框2020-4-26
-address.CONFIRM_MARKET_RULES_RECORD = {url: urlHead + '/accounts/confirmMarketRulesRecord', method: 'post', timeout: null, responseType: 'json'}
+// 点击关闭c2c首次弹框
+address.CONFIRM_MARKET_RULES_RECORD = {url: urlHead + '/user/confirmMarketRulesRecord', method: 'post', timeout: null, responseType: 'json'}
 
-// 首次进入c2c是否显示弹框2020-4-26
-// address.IS_FIRST_VISIT = {url: urlHead + '/user/isFirstVisit', method: 'post', timeout: null, responseType: 'json'}
-address.IS_FIRST_VISIT = {url: urlHead + '/accounts/isFirstVisit', method: 'get', timeout: null, responseType: 'json'}
+// 首次进入c2c是否显示弹框
+address.IS_FIRST_VISIT = {url: urlHead + '/user/isFirstVisit', method: 'post', timeout: null, responseType: 'json'}
 
 // 点击一键购买
 address.POST_DASH_BUTTON={url: urlHead + '/user/quickBuy', method: 'post', timeout: null, responseType: 'json'}
 address.POST_DASH_BUTTON_QUICKSELL={url: urlHead + '/user/quickSell', method: 'post', timeout: null, responseType: 'json'}
-// 获取银行卡信息2020-4-26
-address.GET_DASH_BUTTON={url: urlHead + '/accounts/userPayInfo', method: 'get', timeout: null, responseType: 'json'}
+// 获取银行卡信息
+address.GET_DASH_BUTTON={url: urlHead + '/user/payInfo', method: 'get', timeout: null, responseType: 'json'}
 
 
 export default address

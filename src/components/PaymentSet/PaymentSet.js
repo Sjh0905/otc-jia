@@ -123,7 +123,7 @@ root.created = function () {
   // console.log(this.selectedBankName,'hahhahaahh')
   // console.log(this.bankSelectList)
   // console.log(this.selectBankName)
-  this.getBankList()
+  // this.getBankList()
   // console.log(this.bankSelectList)
 }
 root.mounted = function () {
@@ -155,7 +155,7 @@ root.computed.lang = function () {
 }
 // 选择银行名称的依据（中英文）
 root.computed.selectBankName = function () {
-  return this.lang === 'CH' ? 'chineseName' : 'englishName'
+  return this.lang === 'CH' ? 'cnName' : 'enName'
 }
 // 选择的银行名称
 root.computed.selectedBankName = function () {
@@ -167,49 +167,34 @@ root.computed.selectedBankId = function () {
 }
 // 去除默认银行卡的银行卡列表
 root.computed.removeDefaultBankCardList = function () {
-  // let newArr = this.bankList.slice(0).filter(v => {
-  //   return v.isDefault !== 1
-  // })
-  // return newArr
-  return [
-    // {
-    //   bankStyle:2,
-    //   bankICO:'',
-    //   bankNameCN:'中国工商银行',
-    //   bankNameEN:'ICBC',
-    //   cardNumber:'1123456765434356',
-    //   id:1
-    // } ,
-    // {
-    //   bankStyle:1,
-    //   bankICO:'',
-    //   bankNameCN:'中国工商银行',
-    //   bankNameEN:'ICBC',
-    //   cardNumber:'3123211321321321',
-    //   id:1
-    // }
-    // {
-    //   bankStyle:3,
-    //   bankICO:'',
-    //   bankNameCN:'中国工商银行',
-    //   bankNameEN:'ICBC',
-    //   cardNumber:'1234356',
-    //   id:1
-    // },
-    // {
-    //   bankStyle:4,
-    //   bankICO:'',
-    //   bankNameCN:'中国工商银行',
-    //   bankNameEN:'ICBC',
-    //   cardNumber:'12341234567876543356',
-    //   id:3
-    // }
-  ]
+  let newArr = this.bankList.slice(0).filter(v => {
+    return v.isDefault !== 1
+  })
+  return newArr
+  // return [
+  //   // {
+  //   //   bankStyle:2,
+  //   //   bankICO:'',
+  //   //   bankNameCN:'中国工商银行',
+  //   //   bankNameEN:'ICBC',
+  //   //   cardNumber:'1123456765434356',
+  //   //   id:1
+  //   // } ,
+  //   // {
+  //   //   bankStyle:1,
+  //   //   bankICO:'',
+  //   //   bankNameCN:'中国工商银行',
+  //   //   bankNameEN:'ICBC',
+  //   //   cardNumber:'3123211321321321',
+  //   //   id:1
+  //   // }
+  // ]
 }
-// 银行卡
+// 银行卡 type: 1代表银行卡
 root.computed.bankList = function () {
+  console.log('this.defaultList=====',this.defaultList)
   return this.defaultList.filter(v => {
-    return v.type === 'BANKCARD'
+    return v.type === '1'
   })
 }
 // 默认银行卡
@@ -272,6 +257,7 @@ root.methods = {}
 
 // 初始化获取数据
 root.methods.initData = function () {
+  if (this.bankSelectListReady) return
   return this.$http.send('PAYMENT_SET_INIT')
     .then(({data}) => {
       typeof data === 'string' && (data = JSON.parse(data))
@@ -281,18 +267,20 @@ root.methods.initData = function () {
         return
       }
       this.initReady = true
-      this.aLiPayToggle = this.$globalFunc.arrayHaveItem(data.isUse, "ALIPAY")
-      this.bankPayToggle = this.$globalFunc.arrayHaveItem(data.isUse, "BANKCARD")
-      this.defaultList = data.userPayInfoList
+      this.bankSelectListReady = true
+      // this.aLiPayToggle = this.$globalFunc.arrayHaveItem(data.isUse, "ALIPAY")
+      // this.bankPayToggle = this.$globalFunc.arrayHaveItem(data.isUse, "BANKCARD")
+      this.defaultList = data.data.payments
+      this.bankSelectList = data.data.payments
       console.info('this.defaultList======',this.defaultList)
-      this.aLiPayEmpty = true
-      this.aLiPayInfo = {}
-      data.userPayInfoList.forEach(v => {
-        if (v.type === 'ALIPAY') {
-          this.aLiPayInfo = v
-          this.aLiPayEmpty = false
-        }
-      })
+      // this.aLiPayEmpty = true
+      // this.aLiPayInfo = {}
+      // data.payments.forEach(v => {
+      //   if (v.type === 'ALIPAY') {
+      //     this.aLiPayInfo = v
+      //     this.aLiPayEmpty = false
+      //   }
+      // })
     })
     .catch(err => {
       // console.warn('初始化失败', err)
@@ -311,16 +299,16 @@ root.methods.getAuthState = function () {
     }
     return
   }
-  this.$http.send('GET_AUTH_STATE')
+  this.$http.send('GET_AUTH_INFO')
     .then(({data}) => {
       // console.log(data,'手机认证状态')
       typeof data === 'string' && (data = JSON.parse(data))
       if (!data) return
-      this.$store.commit('SET_AUTH_STATE', data.dataMap)
-      if (data.dataMap.sms) {
+      this.$store.commit('SET_AUTH_STATE', data.data)
+      if (data.data.mobile) {
         this.picked = 'bindMobile'
       }
-      if (data.dataMap.ga) {
+      if (data.data.gaAuth) {
         this.picked = 'bindGA'
       }
       this.authStateReady = true
@@ -610,21 +598,21 @@ root.methods.closeAllPromptWindow = function () {
   this.closeSecondVerify()
 }
 
-// 获取银行列表
-root.methods.getBankList = function () {
-  if (this.bankSelectListReady) return
-  return this.$http.send('GET_BANK')
-    .then(({data}) => {
-      // console.log(data)
-      typeof data === 'string' && (data = JSON.parse(data))
-      // console.warn('获取银行列表', data)
-      this.bankSelectList = data
-      this.bankSelectListReady = true
-    })
-    .catch(err => {
-      // console.warn('获取银行列表出错', err)
-    })
-}
+// // 获取银行列表
+// root.methods.getBankList = function () {
+//   if (this.bankSelectListReady) return
+//   return this.$http.send('GET_BANK')
+//     .then(({data}) => {
+//       // console.log(data)
+//       typeof data === 'string' && (data = JSON.parse(data))
+//       // console.warn('获取银行列表', data)
+//       this.bankSelectList = data
+//       this.bankSelectListReady = true
+//     })
+//     .catch(err => {
+//       // console.warn('获取银行列表出错', err)
+//     })
+// }
 
 // 银行卡输入表单验证
 
@@ -736,12 +724,12 @@ root.methods.canSendBank = function () {
 
 // 点击选择开户行
 root.methods.clickSelectBankName = function (val) {
-  // console.log(val)
+  console.log('val=====',val)
   this.bankName = val
   if (val) this.testBankName()
 }
 
-// 点击解绑银行卡
+// 点击解绑银行卡bankName
 root.methods.clickReleaseBank = function (item) {
   this.deleteBankIng = false
   this.confirmDeleteBank = true
@@ -781,7 +769,7 @@ root.methods.confirmReleaseBank = function () {
 
 // 点击添加银行卡支付
 root.methods.clickAddBankPay = function () {
-  if (!this.openAuthStatePopupWindow()) return
+  // if (!this.openAuthStatePopupWindow()) return
 
   this.bindBankPopupWindowOpen = true
   this.bindBankPopupWindowStep = 1
@@ -790,7 +778,7 @@ root.methods.clickAddBankPay = function () {
   if (this.isFirstBindBank) {
     this.bankDefault = true
   }
-  this.getBankList()
+  // this.getBankList()
 }
 
 // 点击修改银行卡支付
@@ -820,7 +808,7 @@ root.methods.clickModifyBankPay = async function (item) {
 // 寻找银行
 root.methods.findBankFormSelectList = function (bankName) {
   return this.bankSelectList.filter(v => {
-    return v.chineseName === bankName || v.englishName === bankName
+    return v.cnName === bankName || v.enName === bankName
   }).pop()
 }
 
@@ -830,18 +818,18 @@ root.methods.addBankPay = function (method, code) {
   if (this.bankPayBinding) return
   this.bankPayBinding = true
 
-  let formData = new FormData()
+  let formData = new FormDataddBankPaya()
   formData.append('userPayInfoBean', JSON.stringify({
-    'type': 'BANKCARD',
-    'mark': this.bankMark,
-    'username': this.bankAccount,
+    'bankType ': 1, // 1 银行卡 2 支付宝 3 微信
+    // 'mark': this.bankMark,
+    'userName': this.bankAccount,  // TODO ：账户名默认显示出来
     'bankName': this.selectedBankName,
-    'bankId': this.selectedBankId,
-    'bankAddr': this.bankBranchName,
-    'cardNumber': this.bankCard,
-    'isDefault': this.bankDefault ? 1 : 0,
+    // 'bankId': this.selectedBankId,
+    'backAddress ': this.bankBranchName,
+    'bankNumber': this.bankCard,
+    'isShow': this.bankDefault ? 1 : 0,
     'method': method,
-    'code': code
+    'code': code,
   }))
 
   this.$http.sendFile('ADD_PAYMENT_INFO', formData)
@@ -1201,11 +1189,11 @@ root.methods.verifyCanSend = function () {
   }
   return canSend
 }
-
+// 发送添加银行卡表单
 root.methods.click_send = function () {
-  // if (!this.verifyCanSend()) {
-  //   return
-  // }
+  if (!this.verifyCanSend()) {
+    return
+  }
   this.sending = true
   let method, code
   if (this.picked === 'bindGA') {
