@@ -1,3 +1,4 @@
+import * as BusinessOrderData from '../MockData/BusinessOrderData'
 const root = {}
 root.name = 'BusinessOrderConduct'
 /*------------------------------ 组件 ------------------------------*/
@@ -119,6 +120,7 @@ root.methods.getPartPosterOrderList = function () {
       if(typeof data === 'string'){
         data = JSON.parse(data)
       }
+      // data.dataMap.ctcOrderList.results = BusinessOrderData.getBusinessOrderData().dataMap.posterOrderList
       if (data.dataMap.ctcOrderList.results.length === 0 && data.dataMap.ctcOrderList.page.totalItems != 0) {
         this.offset = this.accMinus(this.offset, 1)
         this.getPartPosterOrderList()
@@ -186,8 +188,8 @@ root.methods.submitCancelPosterOrder = function () {
     console.log('err', err)
     this.cancelBuyBoxFlag = false
   });
-  
-  return 
+
+  return
 }
 
 

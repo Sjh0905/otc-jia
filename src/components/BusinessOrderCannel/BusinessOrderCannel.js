@@ -1,3 +1,5 @@
+import * as BusinessOrderData from "../MockData/BusinessOrderData";
+
 const root = {}
 root.name = 'BusinessOrderCannel'
 /*------------------------------ 组件 ------------------------------*/
@@ -57,7 +59,7 @@ root.methods.getPartPosterOrderList = function () {
     .then(({data}) => {
       typeof data === 'string' && (data = JSON.parse(data))
       // console.log('orderList',data)
-
+      // data.dataMap.ctcOrderList.results = BusinessOrderData.getBusinessOrderData().dataMap.posterOrderList
       let pageList = data.dataMap.ctcOrderList.results
       let transactionsMap = data.dataMap.transactionsMap
       let lockMap = data.dataMap.lockMap

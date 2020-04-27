@@ -29,7 +29,7 @@
 			<!-- table tbody start -->
 			<div class="business_order_table_tbody text_block">
 				<Loading v-if="loading" />
-				<div class="business_order_table_tr flex-center text_dark" v-if="!loading && pageList.length!= 0" v-for="(item,index) in pageList" :key="index">
+				<div class="business_order_table_tr flex-center" v-if="!loading && pageList.length!= 0" v-for="(item,index) in pageList" :key="index">
 <!--					<div class="order">{{item.id}}</div>-->
 					<div class="type" :class="item.postersType === 'BUY' ? 'text_green' : 'text_red'">{{item.postersType === 'BUY' ? '购买' : '出售'}}</div>
 					<div class="price" :class="item.postersType === 'BUY' ? 'text_green' : 'text_green'">{{toFixed(item.price,2)}}</div>
@@ -68,7 +68,7 @@
     <!--撤销弹框-->
     <div v-if="cancelBuyBoxFlag" class="submit-buy-window">
       <div class="submit-buy-box border_radius">
-        <div class="submit-buy-title strong text_dark" >确定撤单</div>
+        <div class="submit-buy-title strong" >确定撤单</div>
         <div class="submit-buy-list">
 <!--          <div class="submit-buy-item">-->
 <!--            <div class="submit-buy-item-left text_grey_8 strong">价格设置：</div>-->
@@ -82,15 +82,15 @@
             <div class="submit-buy-item-left text_grey_8 strong">价格：</div>
             <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
               <span class="margin_right" :class="itemContainer.postersType==='SELL'?'text_red':'text_green'">{{toFixed(itemContainer.price,2)}}</span>
-              <span class="text_absolute text_grey_8">CNY</span>
+              <span class="text_absolute">CNY</span>
             </div>
           </div>
 
           <div class="submit-buy-item margin_top">
             <div class="submit-buy-item-left text_grey_8 strong">数量：</div>
             <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
-              <span class="text_dark margin_right">{{toFixed(itemContainer.total,2)}}</span>
-              <span class="text_absolute text_grey_8">USDT</span>
+              <span class="margin_right">{{toFixed(itemContainer.total,2)}}</span>
+              <span class="text_absolute">USDT</span>
             </div>
           </div>
 
@@ -98,29 +98,29 @@
             <div class="submit-buy-item-left text_grey_8 strong">金额：</div>
             <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
               <span class="margin_right" :class="itemContainer.postersType==='SELL'?'text_red':'text_green'">{{toFixed(accMul(itemContainer.amount,itemContainer.price),2)}}</span>
-              <span class="text_absolute text_grey_8">CNY</span>
+              <span class="text_absolute">CNY</span>
             </div>
           </div>
 
           <div class="submit-buy-item margin_top">
             <div class="submit-buy-item-left text_grey_8 strong">成交数量：</div>
             <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
-              <span class="text_dark margin_right">{{toFixed(itemContainer.deal,2)}}</span>
-              <span class="text_absolute text_grey_8">USDT</span>
+              <span class="margin_right">{{toFixed(itemContainer.deal,2)}}</span>
+              <span class="text_absolute">USDT</span>
             </div>
           </div>
           <div class="submit-buy-item margin_top">
             <div class="submit-buy-item-left text_grey_8 strong">锁定数量：</div>
             <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
-              <span class="text_dark margin_right">{{toFixed(itemContainer.locking,2)}}</span>
-              <span class="text_absolute text_grey_8">USDT</span>
+              <span class="margin_right">{{toFixed(itemContainer.locking,2)}}</span>
+              <span class="text_absolute">USDT</span>
             </div>
           </div>
           <div class="submit-buy-item margin_top">
             <div class="submit-buy-item-left text_grey_8 strong">可撤回数量：</div>
             <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
-              <span class="text_dark margin_right">{{toFixed(itemContainer.amount,2)}}</span>
-              <span class="text_absolute text_grey_8">USDT</span>
+              <span class="margin_right">{{toFixed(itemContainer.amount,2)}}</span>
+              <span class="text_absolute">USDT</span>
             </div>
           </div>
 
@@ -150,9 +150,9 @@
 <!--          </div>-->
         </div>
         <div class="submit-btn-box">
-          <div class="submit-btn border_radius" :class="itemContainer.postersType==='SELL'?'text_red submit-sell-cancel':'text_green submit-btn-cancel'" @click="closeCancelBox">取消</div>
+          <div class="submit-btn border_radius" :class="itemContainer.postersType==='SELL_ORDER'?'text_red submit-sell-cancel':'text_green submit-btn-cancel'" @click="closeCancelBox">取消</div>
 
-          <div class="submit-btn border_radius text_white" :class="itemContainer.postersType==='SELL'?'submit-sell-confirm':'submit-btn-confirm'" @click="submitCancelPosterOrder()">{{ajaxFlag===true?'撤单中':'确定撤单'}}</div>
+          <div class="submit-btn border_radius text_white" :class="itemContainer.postersType==='SELL_ORDER'?'submit-sell-confirm':'submit-btn-confirm'" @click="submitCancelPosterOrder()">{{ajaxFlag===true?'撤单中':'确定撤单'}}</div>
         </div>
       </div>
     </div>

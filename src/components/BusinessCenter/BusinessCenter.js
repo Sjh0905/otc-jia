@@ -223,7 +223,7 @@ root.methods.inputNumbers = function (val) {
 }
 
 root.methods.checkHeaderLoading = function () {
-  this.headerLoading = !(this.postBusinessBaseInfoLoading && this.getAccountLoading)
+  this.headerLoading = !(this.postBusinessBaseInfoLoading && this.getAccountLoading) //&& false
 }
 
 // 点击usdt充值跳转到去充值
@@ -939,10 +939,10 @@ root.methods.postBusinessBaseInfo = function () {
             this.popOpen = true
             this.popType = 0
             this.popText = '没有该记录或者申请状态不对'
-            // todo
-            this.$router.push({
-              name: 'BusinessApplication'
-            })
+            // todo 上生产前放开
+            // this.$router.push({
+            //   name: 'BusinessApplication'
+            // })
 
             // this.postBusinessBaseInfoLoading = true
             // this.checkHeaderLoading()
