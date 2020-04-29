@@ -24,10 +24,10 @@
           <div class="flex serial_number">1</div>
           注册二零二零，并完成实名认证；
         </div>
-        <div class="bussiness_apply_title_small3_bb" v-if="!auth_info.idType" @click="GO_AUTHEUSER">
+        <div class="bussiness_apply_title_small3_bb" v-if="auth_info.idType == 'NONE'" @click="GO_AUTHEUSER">
           <span class="bdiphone">去认证</span>
         </div>
-        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified" v-if="auth_info.idType" >
+        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified" v-if="auth_info.idType != 'NONE'" >
           已认证
         </div>
 
@@ -37,10 +37,10 @@
           <div class="flex serial_number">2</div>
           绑定您本人的手机号或绑定谷歌；
         </div>
-        <div class="bussiness_apply_title_small3_bb"  @click="GO_AUTHENTICATION"  v-if="!auth_info.mobile&&!auth_info.ga">
+        <div class="bussiness_apply_title_small3_bb"  @click="GO_AUTHENTICATION"  v-if="!auth_info.mobile&&!auth_info.gaAuth">
           <span class="bdiphone">去绑定</span>
         </div>
-        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified"  v-if="!!auth_info.mobile||!!auth_info.ga">
+        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified"  v-if="!!auth_info.mobile||!!auth_info.gaAuth">
           已绑定
         </div>
       </div>
@@ -49,12 +49,12 @@
           <div class="flex serial_number">3</div>
           至少绑定一张本人银行卡；
         </div>
-        <div class="bussiness_apply_title_small3_bb" v-if="!auth_info.method">
+        <div class="bussiness_apply_title_small3_bb" v-if="!auth_info.payInfo">
           <router-link class="bdiphone" :to="{name: 'PaymentSet'}">
             去绑定
           </router-link>
         </div>
-        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified" v-if="!!auth_info.method">
+        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified" v-if="!!auth_info.payInfo">
             已绑定
         </div>
       </div>

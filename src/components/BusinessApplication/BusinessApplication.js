@@ -48,7 +48,7 @@ root.methods = {};
 root.methods.GET_USER_AUTO_INFO = function () {
 	this.$http.send('GET_USER_AUTO_INFO').then(({data}) => {
 		// console.log(data,"银行卡绑定测试");
-		let auth_info = data.dataMap;
+		let auth_info = data.data;
 		this.auth_info = auth_info;
 
 		for (let item in auth_info.BOND) {
@@ -78,12 +78,12 @@ root.methods.APPLY_SUBMIT = function () {
 	    this.popText = notice[0];
 	    return false;
 	}
-	if (!this.auth_info.mobile&&!this.auth_info.ga) {
+	if (!this.auth_info.mobile&&!this.auth_info.gaAuth) {
 			this.popOpen = true;
 	    this.popText = notice[1];
 	    return false;
 	}
-	if (!this.auth_info.method) {
+	if (!this.auth_info.payInfo) {
 		this.popOpen = true;
 	    this.popText = notice[2];
 	    return false;
@@ -103,6 +103,7 @@ root.methods.APPLY_SUBMIT = function () {
 		params: {
 			// currency: this.currency == 1 && this.key_amount.name,
       currency:'USDT',
+      amount:2020
 		}
 	}).then(({data}) => {
 		// console.log(data);
