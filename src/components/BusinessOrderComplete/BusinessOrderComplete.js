@@ -51,8 +51,7 @@ root.methods.getPartPosterOrderList = function () {
   this.$http.send('GET_BUSINESS_ORDER_LIST',{
     params:{
       binessUserId: this.userId,
-      // status: 'COMPLETE',
-      status: 'COMPLETE',
+      status: 3,//1 进行中 2 已取消 3 已完成
       offset: this.offset,
       maxResults: this.maxResults
     }

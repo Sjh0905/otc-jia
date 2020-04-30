@@ -97,21 +97,21 @@ root.data = function () {
     //---------超时弹窗结束-------
     isRouterAlive:true,
 
-    payType:'BANKCARD'// 支付宝 ALIPAY  银行卡 BANKCARD  俩都有 ALIPAY|BANKCARD
+    payType:1// 银行卡 1 支付宝 2  微信 3
   }
 }
 root.created = function () {
   // 临时loading
 
   // 获取顶部信息
-  this.postBusinessBaseInfo()
+  // this.postBusinessBaseInfo()
 
   // 获取账户余额信息
   this.getAccount()
 
   // 获取部分市场挂单
   // this.getPartPosterOrderList()
-  this.getAuthState()
+  this.getUserAuthInfo()
 }
 
 root.computed = {}
@@ -224,7 +224,7 @@ root.methods.inputNumbers = function (val) {
 }
 
 root.methods.checkHeaderLoading = function () {
-  this.headerLoading = !(this.postBusinessBaseInfoLoading && this.getAccountLoading) //&& false
+  this.headerLoading = !this.getAccountLoading //&& false
 }
 
 // 点击usdt充值跳转到去充值
@@ -541,12 +541,12 @@ root.methods.goToBuy = function () {
   //   return
   // }
 
-  if (!this.buyCheckboxBankPay) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '请选择您的支付方式'
-    return
-  }
+  // if (!this.buyCheckboxBankPay) {
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = '请选择您的支付方式'
+  //   return
+  // }
 
   this.submitBuyBoxFlag = true;
 }
@@ -622,12 +622,12 @@ root.methods.goToSell = function () {
   //   return
   // }
 
-  if (!this.sellCheckboxBankPay) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '请选择您的支付方式'
-    return
-  }
+  // if (!this.sellCheckboxBankPay) {
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = '请选择您的支付方式'
+  //   return
+  // }
 
 
   this.submitSellBoxFlag = true;
@@ -681,7 +681,7 @@ root.methods.submitToBuy = function () {
       // amount: this.buyInputNum,
       // maxLimit: this.buyInputMaxNum,
       // minLimit: this.buyInputMinNum,
-      // payType: payType,   // 支付宝 ALIPAY  银行卡 BANKCARD  俩都有 ALIPAY|BANKCARD
+      // payType: payType,   // 银行卡 1 支付宝 2  微信 3
 
       //2020-4-26sss 修改参数
       side: 'BUY',
@@ -696,62 +696,42 @@ root.methods.submitToBuy = function () {
   }).then(({
     data
   }) => {
-    typeof res === 'string' && (res = JSON.parse(res))
+    // typeof res === 'string' && (res = JSON.parse(res))
     console.log('data', data)
     typeof data === 'string' && (data = JSON.parse(data))
-    if (data.result === 'FAIL' || data.errorCode) {
+    if (data.result === 'FAIL' || data.code != 200) {
       this.submitBuyAjaxFlag = false
-      switch (data.errorCode) {
-        case 3:
+
+      switch (data.code) {
+        case 1010://暂不支持该币种交易
           this.popOpen = true
           this.popType = 0
-          this.popText = '用户未登录'
-          window.location.reload();
+          this.popText = '暂不支持该币种交易'
           break;
-        case 4:
+        case 1012://挂单数量不在单笔成交数量区间
           this.popOpen = true
           this.popType = 0
-          this.popText = '单笔最小购买数量为10'
+          this.popText = '挂单数量不在单笔成交数量区间'
           break;
-        case 5:
+        case 1013://挂单数量小于系统限制最小数量
           this.popOpen = true
           this.popType = 0
-          this.popText = '单笔最大购买数量为20000'
+          this.popText = '挂单数量小于系统限制最小数量'
           break;
-        case 6:
+        case 1014://挂单数量大于系统限制最大数量
           this.popOpen = true
           this.popType = 0
-          this.popText = '设置的买入数量不能低于10'
+          this.popText = '挂单数量大于系统限制最大数量'
           break;
-        case 7:
+        case 1047://该用户不是商家
           this.popOpen = true
           this.popType = 0
-          this.popText = '设置的买入数量不能大于30000'
+          this.popText = '您不是商家'
           break;
-        case 8:
+        case 1048://请设置默认收款账号
           this.popOpen = true
           this.popType = 0
-          this.popText = '您的余额不足，请充值！'
-          break;
-        case 10:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '您不是商家或审核未通过！'
-          break;
-        case 11:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '您已被禁用！'
-          break;
-        case 13:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '您没有设置默认银行卡'
-          break;
-        case 110:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '用户被禁用'
+          this.popText = '请设置默认收款账号'
           break;
       }
       return
@@ -770,6 +750,7 @@ root.methods.submitToBuy = function () {
     this.$router.go(0) },2000)
   }).catch((err) => {
     console.log('err', err)
+    this.submitBuyAjaxFlag = false
     this.submitBuyBoxFlag = false;
   });
 }
@@ -813,7 +794,7 @@ root.methods.submitToSell = function () {
       // amount: this.sellInputNum,
       // maxLimit: this.sellInputMaxNum,
       // minLimit: this.sellInputMinNum,
-      // // payType: payType,   // 支付宝 ALIPAY  银行卡 BANKCARD  俩都有 ALIPAY|BANKCARD
+      // // payType: payType,   // 银行卡 1 支付宝 2  微信 3
 
       side: 'SELL',
       currency: 'USDT',
@@ -828,60 +809,39 @@ root.methods.submitToSell = function () {
   }) => {
     // console.log('dataa',data)
     typeof data === 'string' && (data = JSON.parse(data))
-    if (data.result === 'FAIL' || data.errorCode) {
+    if (data.result === 'FAIL' || data.code) {
 
       this.submitSellAjaxFlag = false
-      switch (data.errorCode) {
-        case 3:
+      switch (data.code) {
+        case 1010://暂不支持该币种交易
           this.popOpen = true
           this.popType = 0
-          this.popText = '用户未登录'
-          window.location.reload()
+          this.popText = '暂不支持该币种交易'
           break;
-        case 4:
+        case 1012://挂单数量不在单笔成交数量区间
           this.popOpen = true
           this.popType = 0
-          this.popText = '单笔最小出售数量为10'
+          this.popText = '挂单数量不在单笔成交数量区间'
           break;
-        case 5:
+        case 1013://挂单数量小于系统限制最小数量
           this.popOpen = true
           this.popType = 0
-          this.popText = '单笔最大购买数量为20000'
+          this.popText = '挂单数量小于系统限制最小数量'
           break;
-        case 6:
+        case 1014://挂单数量大于系统限制最大数量
           this.popOpen = true
           this.popType = 0
-          this.popText = '设置的买入数量不能低于10'
+          this.popText = '挂单数量大于系统限制最大数量'
           break;
-        case 7:
+        case 1047://该用户不是商家
           this.popOpen = true
           this.popType = 0
-          this.popText = '设置的买入数量不能大于30000'
+          this.popText = '您不是商家'
           break;
-        case 8:
+        case 1048://请设置默认收款账号
           this.popOpen = true
           this.popType = 0
-          this.popText = '您的余额不足，请充值！'
-          break;
-        case 10:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '您不是商家或审核未通过！'
-          break;
-        case 11:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '您已被禁用！'
-          break;
-        case 13:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '您没有设置默认银行卡'
-          break;
-        case 110:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '用户被禁用'
+          this.popText = '请设置默认收款账号'
           break;
       }
       return
@@ -919,9 +879,9 @@ root.methods.getAccount = function () {
       data
     }) => {
       typeof data === 'string' && (data = JSON.parse(data))
-      console.log('acount', data.dataMap.account)
+      console.log('acount', data.data.account)
 
-      this.$store.commit('SET_ACCOUNT', data.dataMap.account)
+      this.$store.commit('SET_ACCOUNT', data.data.account)
       this.getAccountLoading = true
       this.checkHeaderLoading()
     }).catch((err) => {
@@ -931,7 +891,7 @@ root.methods.getAccount = function () {
 }
 
 // 获取顶部信息
-root.methods.postBusinessBaseInfo = function () {
+/*root.methods.postBusinessBaseInfo = function () {
   this.$http.send('POST_BUSINESS_BASE_INFO', {
       params: {
         userId: this.userId,
@@ -993,7 +953,7 @@ root.methods.postBusinessBaseInfo = function () {
       console.log('err', err)
     });
   return
-}
+}*/
 
 // 获取部分挂单列表
 root.methods.getPartPosterOrderList = function () {
@@ -1016,9 +976,6 @@ root.methods.getPartPosterOrderList = function () {
 
 root.methods.SUBMIT = function () {
   console.log('sumbit: ', this.test)
-
-
-
 
 }
 // 切换页签
@@ -1100,25 +1057,36 @@ root.methods.goToBind = function () {
   window.open(open_url);
 }
 // 获取认证状态
-root.methods.getAuthState = function () {
-  if (this.$store.state.authState) {
-    // this.authStateReady = true
-    // if (this.bindMobile) {
-    //   this.picked = 'bindMobile'
-    // }
-    // if (this.bindGa) {
-    //   this.picked = 'bindGA'
-    // }
-    return
-  }
-  this.$http.send('GET_AUTH_STATE')
+root.methods.getUserAuthInfo = function () {
+  // if (this.$store.state.authState) {
+  //   // this.authStateReady = true
+  //   // if (this.bindMobile) {
+  //   //   this.picked = 'bindMobile'
+  //   // }
+  //   // if (this.bindGa) {
+  //   //   this.picked = 'bindGA'
+  //   // }
+  //   return
+  // }
+  this.$http.send('GET_USER_AUTH_INFO')
     .then(({
       data
     }) => {
       // console.log(data,'手机认证状态')
       typeof data === 'string' && (data = JSON.parse(data))
       if (!data) return
-      this.$store.commit('SET_AUTH_STATE', data.dataMap)
+      this.$store.commit('SET_AUTH_STATE', data.data)
+
+      let auth_info = data.data;
+      // -1 未申请，0 审核中，1 驳回，2 普通商家
+      if (auth_info.audits != 2) {
+        this.popOpen = true
+        this.popType = 0
+        this.popText = '商户状态不对'
+
+        this.$router.push({name: 'BusinessCenter'});
+      }
+
       // if (data.dataMap.sms) {
       //   this.picked = 'bindMobile'
       // }
