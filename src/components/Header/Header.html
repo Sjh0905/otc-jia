@@ -1037,34 +1037,69 @@
 
                     <li class="navigation-item-hidden-list-item">
                       <div
-                        @click="goToCurrentEntrust"
+                        @click="goToSecurityCenter"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
-                        {{$t('币币订单')}}
+                        个人中心
+
+<!--                        个人中心添加 begin-->
+
+<!--                        <div class="asset-li-title-left">-->
+<!--                          <div class="asset-li-content">-->
+<!--                            <p class="asset-li-title">{{userName}}</p>-->
+<!--&lt;!&ndash;                            <span><img class="VIP_img" src="./assets/selectedVIP_icon.png" alt="" v-if="flag"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span><img class="VIP_img" src="./assets/selected_noVIP_icon.png" alt="" v-if="!flag"></span>&ndash;&gt;-->
+<!--                            <div class="not-certified" v-if="authType==3">{{$t('uncertified')}}</div>-->
+<!--                            &lt;!&ndash;           <div class="not-certified" v-if="true">待审核</div>  TODO:新加的，切勿删除&ndash;&gt;-->
+<!--                            <div class="not-certified" v-if="authType==1">{{$t('beDismissed')}}</div>-->
+<!--                            <div class="not-certified" v-if="authType==0||authType==5||authType==6">{{$t('toBeAudited')}}</div>-->
+<!--                            <div class="certified" v-if="authType==2">{{$t('passed')}}</div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                        <div class="certified-img"><img src="./assets/goto.png" alt=""></div>-->
+<!--                        个人中心添加 end-->
+                      </div>
+                    </li>
+
+                    <li class="navigation-item-hidden-list-item">
+                      <div
+                        @click="goToPaymentSet"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                        {{$t('法币设置')}}
+                      </div>
+                    </li>
+
+                    <li class="navigation-item-hidden-list-item">
+                      <div
+                        @click="goToAuthentication"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                        {{$t('身份认证')}}
                       </div>
                     </li>
                     <li class="navigation-item-hidden-list-item">
                       <div
-                        @click="goToCurrentEntrust"
+                        @click="goToSecurityLog"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
-                        {{$t('币币订单')}}
+                        {{$t('安全日志')}}
                       </div>
                     </li>
                     <li class="navigation-item-hidden-list-item">
                       <div
-                        @click="goToCurrentEntrust"
+                        @click="goToRecommend"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
-                        {{$t('币币订单')}}
+                        {{$t('我的邀请')}}
                       </div>
                     </li>
                     <li class="navigation-item-hidden-list-item">
                       <div
-                        @click="goToCurrentEntrust"
+                        @click="loginOff"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
-                        {{$t('币币订单')}}
+                        {{$t('退出登录')}}
                       </div>
                     </li>
                   </ul>
@@ -1091,11 +1126,11 @@
                       :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',
                     'navigation-item-hidden-list-black':isBlack}"
                   >
-                    <li
-                      class="navigation-item-hidden-list-item-k"
-                    >
-                      <p id="navigation-item-hidden-list-item-l" >{{$t('公告平台')}}</p>
-                    </li>
+<!--                    <li-->
+<!--                      class="navigation-item-hidden-list-item-k"-->
+<!--                    >-->
+<!--                      <p id="navigation-item-hidden-list-item-l" >{{$t('公告平台')}}</p>-->
+<!--                    </li>-->
                     <!--                  <li  class="navigation-item-hidden-list-item-i"-->
                     <!--                       v-for="(value, key) in noticeList" :key="key"  @click="goNotice(value.id)">-->
                     <!--                    <p id="navigation-item-hidden-list-item-i">{{value.title}}</p>-->

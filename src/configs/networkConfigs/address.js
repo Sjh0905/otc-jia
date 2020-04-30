@@ -69,24 +69,26 @@ address.PAYMENT_SET_INIT = {url: urlHead + '/common/systemArgs', method: 'get'}
 
 // 获取支持交易的银行
 // address.GET_BANK = {url: urlHead + '/payInf/getBanks', method: 'get'}
+// 获取交易银行卡列表
+address.GET_BANK = {url: urlHead + '/accounts/userPayments', method: 'get'}
 
 // 添加支付信息
 address.ADD_PAYMENT_INFO = {url: urlHead + '/user/addPayInfo', method: 'post'}
 
 // 修改支付信息
-address.CHANGE_PAYMENT_INFO = {url: urlHead + '/payInf/modifyBankcard', method: 'post'}
+address.CHANGE_PAYMENT_INFO = {url: urlHead + '/user/modifyPayInfo', method: 'post'}
 
 // 修改启用状态
 address.CHANGE_PAYMENT_STATUS = {url: urlHead + '/payInf/modifyStatus', method: 'get'}
 
 // 删除支付信息
-address.DELETE_PAYMENT_INFO = {url: urlHead + '/payInf/delete', method: 'get'}
+address.DELETE_PAYMENT_INFO = {url: urlHead + '/user/deletePayInfo', method: 'get'}
 
 // 设置默认支付
-address.SET_DEFAULT_PAYMENT = {url: urlHead + '/payInf/isDefault', method: 'get'}
+address.SET_DEFAULT_PAYMENT = {url: urlHead + '/user/modifyStatus', method: 'get'}
 
 // 发送手机验证码
-address.SEND_MOBILE_VERIFY_CODE = {url:urlHead + '/payInf/SendCode',method:'get'}
+address.SEND_MOBILE_VERIFY_CODE = {url:urlHead + '/user/SendCode',method:'get'}
 
 // 商家中心
 // 商家中心顶部接口

@@ -483,6 +483,10 @@ root.methods.goToOfficialQuantitativeDetails = function () {
   window.location.replace(this.$store.state.domain_url + 'index/officialQuantitativeDetails');
 }
 //跳转到拼团详情页面
+root.methods.goToTransactionBuy = function () {
+  this.$router.push({name:'TransactionBuy'});
+}
+//跳转到拼团详情页面
 root.methods.goToAssembleARegiment = function () {
   window.location.replace(this.$store.state.domain_url + 'index/assembleARegiment');
 }
@@ -504,12 +508,35 @@ root.methods.goToCurrentEntrust = function () {
 }
 //跳转到个人中心页面
 root.methods.goToSecurityCenter = function () {
-  window.location.replace(this.$store.state.domain_url + 'index/personal/securityCenter/');
+  window.location.replace(this.$store.state.domain_url + 'index/personal/securityCenter');
 }
-//跳转到拼团详情页面
-root.methods.goToTransactionBuy = function () {
-  this.$router.push({name:'TransactionBuy'});
+//跳转到法币设置页面
+root.methods.goToPaymentSet = function () {
+  this.$router.push('/index/PersonCenter/PaymentSet');
 }
+//跳转到身份认证页面
+root.methods.goToAuthentication = function () {
+  window.location.replace(this.$store.state.domain_url + 'index/personal/auth/authentication');
+}
+//跳转到安全日志页面
+root.methods.goToSecurityLog = function () {
+  window.location.replace(this.$store.state.domain_url + 'index/personal/securityLog');
+}
+//跳转到我的邀请页面
+root.methods.goToRecommend = function () {
+  window.location.replace(this.$store.state.domain_url + 'index/personal/Recommend/PcRecommend');
+}
+//跳转退出登录
+root.methods.goOutRegain = function () {
+  this.$http.send('LOGIN_OFF',
+    {
+      bind: this,
+      params: {},
+      callBack: this.re_login_off_callback
+    }
+  )
+}
+
 
 //是否是会员get (query:{})
 root.methods.getCheck= function () {

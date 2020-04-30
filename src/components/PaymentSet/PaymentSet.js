@@ -22,7 +22,7 @@ root.data = function () {
     aLiPayEmpty: true,
     aLiPayInfo: null,// 支付宝绑定信息
     // bankList: [],
-    defaultList: [],
+    defaultList: [], //已添加银行卡列表
     bankSelectList: [], // 下拉银行列表
     bankSelectListReady: false, // 下拉银行列表ready
 
@@ -64,7 +64,7 @@ root.data = function () {
     bindBankPopupWindowOpen: false,
     bindBankPopupWindowStep: 1, // 第一步 1 输入 第二步 2 确认
 
-    bankAccount: '', // 银行卡账户名
+    // bankAccount: '', // 银行卡账户名
     bankAccountWrong: '', // 银行卡账户名错误
     bankName: '', // 银行卡开户行
     bankNameWrong: '', // 银行卡开户行错误
@@ -89,7 +89,7 @@ root.data = function () {
     deleteBankId: '', // 删除的银行卡id
     deleteBankAccount: '', // 删除的银行卡账号名
 
-    modifyDefaultBankId: '', // 修改默认的银行卡
+    modifyDefaultBankId: 0, // 修改默认的银行卡
 
     // 显示提示
     popOpen: false,
@@ -123,7 +123,7 @@ root.created = function () {
   // console.log(this.selectedBankName,'hahhahaahh')
   // console.log(this.bankSelectList)
   // console.log(this.selectBankName)
-  // this.getBankList()
+  this.getBankList()
   // console.log(this.bankSelectList)
 }
 root.mounted = function () {
@@ -133,14 +133,21 @@ root.beforeDestroy = function () {
 }
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
+
+
+// 获取用户名
+root.computed.bankAccount = function () {
+  return this.$store.state.authState.name
+}
+
 // 判断是否是手机
 root.computed.isMobile = function () {
   return this.$store.state.isMobile
 }
-// 银行卡列表行数
-root.computed.bankRow = function () {
-  return Math.ceil(this.removeDefaultBankCardList.length / 3)
-}
+// // 银行卡列表行数
+// root.computed.bankRow = function () {
+//   return Math.ceil(this.removeDefaultBankCardList.length / 3)
+// }
 // 支付宝备注长度
 root.computed.aLiPayPromptLength = function () {
   return this.aLiPayPrompt.length
@@ -165,11 +172,12 @@ root.computed.selectedBankName = function () {
 root.computed.selectedBankId = function () {
   return this.bankName && this.bankName.id || ''
 }
-// 去除默认银行卡的银行卡列表
+// 去除默认银行卡的银行卡列表 （不是默认的）
 root.computed.removeDefaultBankCardList = function () {
   let newArr = this.bankList.slice(0).filter(v => {
-    return v.isDefault !== 1
+    return v.isShow === true
   })
+  console.info('newArr=====',newArr)
   return newArr
   // return [
   //   // {
@@ -192,21 +200,22 @@ root.computed.removeDefaultBankCardList = function () {
 }
 // 银行卡 type: 1代表银行卡
 root.computed.bankList = function () {
-  console.log('this.defaultList=====',this.defaultList)
+  // console.log('this.defaultList=====',this.defaultList)
   return this.defaultList.filter(v => {
-    return v.type === '1'
+    return v.bankType == 1
   })
 }
 // 默认银行卡
 root.computed.defaultBank = function () {
+  console.log('this.bankList===',this.bankList)
   let defaultBank
   for (let i = 0; i < this.bankList.length; i++) {
-    if (this.bankList[i].isDefault == 1) {
-      defaultBank = this.bankList[i]
-      break
+    if (this.bankList[i].isShow) {
+      return defaultBank = this.bankList[i]
     }
   }
-  return defaultBank
+  // console.log('defaultBank=====',defaultBank)
+  // return defaultBank
 }
 
 // 默认银行卡id
@@ -231,17 +240,17 @@ root.computed.identity = function () {
 
 // 认证状态-ga
 root.computed.bindGa = function () {
-  return this.$store.state.authState && this.$store.state.authState.ga
+  return this.$store.state.authState && this.$store.state.authState.gaAuth
 }
 
 // 认证状态-mobile
 root.computed.bindMobile = function () {
-  return this.$store.state.authState && this.$store.state.authState.sms
+  return this.$store.state.authState && this.$store.state.authState.mobile
 }
 
 // 认证状态-显示选择
 root.computed.showPicked = function () {
-  return this.bindGa && this.bindMobile
+  return this.picked == 'bindGA' && this.picked == 'bindMobile'
 }
 
 // 页面加载中
@@ -252,6 +261,10 @@ root.computed.loading = function () {
 
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}
+root.watch.bankList = function (oldVal , newVal) {
+  console.log('oldVal====',oldVal)
+  console.log('newVal====',newVal)
+}
 /*------------------------------ 方法 -------------------------------*/
 root.methods = {}
 
@@ -270,9 +283,9 @@ root.methods.initData = function () {
       this.bankSelectListReady = true
       // this.aLiPayToggle = this.$globalFunc.arrayHaveItem(data.isUse, "ALIPAY")
       // this.bankPayToggle = this.$globalFunc.arrayHaveItem(data.isUse, "BANKCARD")
-      this.defaultList = data.data.payments
+      // this.defaultList = data.data.payments
       this.bankSelectList = data.data.payments
-      console.info('this.defaultList======',this.defaultList)
+      // console.info('this.defaultList======',this.defaultList)
       // this.aLiPayEmpty = true
       // this.aLiPayInfo = {}
       // data.payments.forEach(v => {
@@ -304,7 +317,8 @@ root.methods.getAuthState = function () {
       // console.log(data,'手机认证状态')
       typeof data === 'string' && (data = JSON.parse(data))
       if (!data) return
-      this.$store.commit('SET_AUTH_STATE', data.data)
+      this.$store.commit('GET_USER_AUTO_INFO', data.data)
+      // this.bankAccount = this.$store.state.authState.name
       if (data.data.mobile) {
         this.picked = 'bindMobile'
       }
@@ -336,7 +350,7 @@ root.methods.clearALiPayData = function () {
 
 // 清空银行信息
 root.methods.clearBankData = function () {
-  this.bankAccount = '' // 银行卡账户名
+  // this.bankAccount = '' // 银行卡账户名
   this.bankAccountWrong = ''
   this.bankName = '' // 银行卡开户行
   this.bankNameWrong = ''
@@ -598,24 +612,24 @@ root.methods.closeAllPromptWindow = function () {
   this.closeSecondVerify()
 }
 
-// // 获取银行列表
-// root.methods.getBankList = function () {
-//   if (this.bankSelectListReady) return
-//   return this.$http.send('GET_BANK')
-//     .then(({data}) => {
-//       // console.log(data)
-//       typeof data === 'string' && (data = JSON.parse(data))
-//       // console.warn('获取银行列表', data)
-//       this.bankSelectList = data
-//       this.bankSelectListReady = true
-//     })
-//     .catch(err => {
-//       // console.warn('获取银行列表出错', err)
-//     })
-// }
+// 获取银行列表
+root.methods.getBankList = function () {
+  if (this.bankSelectListReady) return
+  return this.$http.send('GET_BANK')
+    .then(({data}) => {
+      // console.log(data)
+      typeof data === 'string' && (data = JSON.parse(data))
+      console.warn('获取银行列表', data)
+      this.defaultList = data.data
+
+      this.bankSelectListReady = true
+    })
+    .catch(err => {
+      // console.warn('获取银行列表出错', err)
+    })
+}
 
 // 银行卡输入表单验证
-
 root.methods.changeBankCard = function (card) {
   let number = card.slice(-4)
   let beforeLength, afterLength = 4, beforeChart = ''
@@ -688,17 +702,17 @@ root.methods.testBankMark = function () {
 // 检测是否可以发送
 root.methods.canSendBank = function () {
   let canSend = true
-  canSend = this.testBankAccount() && canSend
+  // canSend = this.testBankAccount() && canSend
   canSend = this.testBankName() && canSend
   canSend = this.testBankBranchName() && canSend
   canSend = this.testBankCard() && canSend
   canSend = this.testBankDefault() && canSend
   // canSend = this.testBankMark() && canSend
 // console.log("----111111111111-------------"+this.testBankAccount());
-  if (this.bankAccount === '') {
-    this.bankAccountWrong = '请输入账户名'
-    canSend = false
-  }
+//   if (this.bankAccount === '') {
+//     this.bankAccountWrong = '请输入账户名'
+//     canSend = false
+//   }
   // console.log("----22222222222222222-------------"+this.testBankName());
   if (!this.selectedBankName) {
     this.bankNameWrong = '请选择开户行'
@@ -734,9 +748,9 @@ root.methods.clickReleaseBank = function (item) {
   this.deleteBankIng = false
   this.confirmDeleteBank = true
   this.deleteBankId = item.id
-  this.deleteBankCard = item.cardNumber
-  this.deleteBankAccount = item.username
-  this.deleteBankName = this.lang === 'CH' ? item.bankNameCN : item.bankNameEN
+  this.deleteBankCard = item.bankNumber
+  this.deleteBankAccount = item.userName
+  this.deleteBankName = item.bankName
 }
 
 // 确认解绑银行卡
@@ -752,13 +766,16 @@ root.methods.confirmReleaseBank = function () {
       typeof data === 'string' && (data = JSON.parse(data))
       // console.warn('删除银行卡信息', data)
       if (data) {
-        await this.initData()
+        data.code && data.code== 200 && this.openPop('删除银行卡成功',1)
+        await this.getBankList()
         this.closeAllPromptWindow()
+
       }
       if (!data) {
         this.openPop('删除失败，可能有未完成的订单或挂单', 0)
       }
       this.deleteBankIng = false
+      this.defaultList = data.data
     })
     .catch(err => {
       // console.warn('删除支付宝出错', err)
@@ -778,31 +795,30 @@ root.methods.clickAddBankPay = function () {
   if (this.isFirstBindBank) {
     this.bankDefault = true
   }
-  // this.getBankList()
+  this.getBankList()
 }
 
 // 点击修改银行卡支付
 root.methods.clickModifyBankPay = async function (item) {
-  if (!this.openAuthStatePopupWindow()) return
-
+  // if (!this.openAuthStatePopupWindow()) return
   this.bindBankPopupWindowOpen = true
   this.bindBankPopupWindowStep = 1
-  this.bankAccount = item.username
+  this.bankAccount = item.userName
   this.bankAccountWrong = ''
   this.bankNameWrong = ''
-  this.bankBranchName = item.bankAddr
+  this.bankBranchName = item.bankAddress
   this.bankBranchNameWrong = ''
-  this.bankCard = item.cardNumber
+  this.bankCard = item.bankNumber
   this.bankCardWrong = ''
-  this.bankDefault = item.isDefault == 1 ? true : false
+  this.bankDefault = item.isShow == 1 ? true : false
   this.bankDefaultWrong = ''
-  this.bankMark = item.mark
-  this.bankMarkWrong = ''
+  // this.bankMark = item.mark
+  // this.bankMarkWrong = ''
   this.bankId = item.id
   this.bankType = 1
   this.bankPayBinding = false
   await this.getBankList()
-  this.bankName = this.findBankFormSelectList(item.bankNameCN)
+  this.bankName = this.findBankFormSelectList(item.bankName)
 }
 
 // 寻找银行
@@ -818,73 +834,86 @@ root.methods.addBankPay = function (method, code) {
   if (this.bankPayBinding) return
   this.bankPayBinding = true
 
-  let formData = new FormDataddBankPaya()
+  let formData = new FormData()
   formData.append('userPayInfoBean', JSON.stringify({
-    'bankType ': 1, // 1 银行卡 2 支付宝 3 微信
+    'bankType': 1, //  1 银行卡 2 支付宝 3 微信
     // 'mark': this.bankMark,
     'userName': this.bankAccount,  // TODO ：账户名默认显示出来
     'bankName': this.selectedBankName,
     // 'bankId': this.selectedBankId,
-    'backAddress ': this.bankBranchName,
+    'bankAddress': this.bankBranchName,
     'bankNumber': this.bankCard,
     'isShow': this.bankDefault ? 1 : 0,
     'method': method,
     'code': code,
   }))
+  console.info('formData======',formData)
 
   this.$http.sendFile('ADD_PAYMENT_INFO', formData)
     .then(async ({data}) => {
       typeof data === 'string' && (data = JSON.parse(data))
-      // console.warn('绑定银行卡', data)
-      if (data.resultCode) {
+      console.warn('绑定银行卡', data)
+      if (data.code) {
         let message = ''
-        switch (data.resultCode) {
-          case 1:
-            message = '失败，请重试'
+        switch (data.code) {
+          case 1001:
+            message = '用户未绑定手机'
             break;
-          case 2:
-            message = '暂不支持该银行卡'
+          case 1003:
+            message = '验证码过期'
             break;
-          case 3:
-            message = '图片保存失败'
+          case 1004:
+            message = '验证码错误'
             break;
-          case 4:
-            message = '重复绑定'
+          case 1005:
+            message = '用户名不一致'
             break;
-          case 5:
-            message = '信息填写不完整'
+          case 1006:
+            message = '填写完整信息'
             break;
-          case 6:
-            message = '未接收到图片'
+          case 1009:
+            message = '图片上传失败'
             break;
-          case 7:
-            message = '图片过大超过2m'
+          case 1040:
+            message = '卡号已存在'
             break;
-          case 8:
-            message = '上传图片不是jpg格式'
+          case 200:
+            message = '添加银行卡成功'
             break;
-          case 9:
-            message = '您的银行卡开户名，和在本网站账户实名认证姓名不一致或未实名认证'
-            break;
-          case 10:
-            message = ''
-            if (method === 'ga') {
-              this.GACodeWA = '验证码错误'
-            }
-            if (method === 'sms') {
-              this.verificationCodeWA = '验证码错误'
-            }
-            break;
-          case 11:
-            message = '您未绑定谷歌验证或手机'
-            break;
-          case 20:
-            message = '您有未完成的订单或挂单，不能重置默认收款银行卡'
-            break;
+          // case 8:
+          //   message = '上传图片不是jpg格式'
+          //   break;
+          // case 9:
+          //   message = '您的银行卡开户名，和在本网站账户实名认证姓名不一致或未实名认证'
+          //   break;
+          // case 10:
+          //   message = ''
+          //   if (method === 'ga') {
+          //     this.GACodeWA = '验证码错误'
+          //   }
+          //   if (method === 'sms') {
+          //     this.verificationCodeWA = '验证码错误'
+          //   }
+          //   break;
+          // case 11:
+          //   message = '您未绑定谷歌验证或手机'
+          //   break;
+          // case 20:
+          //   message = '您有未完成的订单或挂单，不能重置默认收款银行卡'
+          //   break;
           default:
             message = '暂不可用'
         }
-        message && this.openPop(message || '暂不可用', 0)
+        data.code !=200 && message && this.openPop(message || '暂不可用', 0)
+        if(data.code == 200){
+          message && this.openPop(message || '添加成功')
+          // 关闭弹窗
+          this.bindBankPopupWindowOpen = false
+          this.secondVerifyOpen = false
+          // 获取银行卡信息
+          this.getBankList()
+          this.defaultList = data.data
+        }
         this.bankPayBinding = false
         this.sending = false
         return
@@ -910,56 +939,96 @@ root.methods.modifyBankPay = function (method, code) {
 
   let formData = new FormData()
   formData.append('userPayInfoBean', JSON.stringify({
-    'type': 'BANKCARD',
-    'mark': this.bankMark,
-    'username': this.bankAccount,
+    // 'type': 'BANKCARD',
+    // 'mark': this.bankMark,
+    // 'username': this.bankAccount,
+    // 'bankName': this.selectedBankName,
+    // 'bankId': this.selectedBankId,
+    // 'bankAddr': this.bankBranchName,
+    // 'cardNumber': this.bankCard,
+    // 'isDefault': this.bankDefault ? 1 : 0,
+    // 'id': this.bankId,
+    // 'method': method,
+    // 'code': code
+
+    'bankType': 1, //  1 银行卡 2 支付宝 3 微信
+    // 'mark': this.bankMark,
+    'userName': this.bankAccount,  // TODO ：账户名默认显示出来
     'bankName': this.selectedBankName,
-    'bankId': this.selectedBankId,
-    'bankAddr': this.bankBranchName,
-    'cardNumber': this.bankCard,
-    'isDefault': this.bankDefault ? 1 : 0,
     'id': this.bankId,
+    // 'bankId': this.selectedBankId,
+    'bankAddress': this.bankBranchName,
+    'bankNumber': this.bankCard,
+    'isShow': this.bankDefault ? 1 : 0,
     'method': method,
-    'code': code
+    'code': code,
   }))
   // console.log(formData.get("userPayInfoBean"),'formdata')
   this.$http.sendFile('CHANGE_PAYMENT_INFO', formData)
     .then(async ({data}) => {
       typeof data === 'string' && (data = JSON.parse(data))
       // console.warn('修改银行卡', data)
-      if (data.resultCode) {
+      if (data.code) {
         let message = ''
-        switch (data.resultCode) {
-          case 1:
-            message = '失败，请重试'
+        switch (data.code) {
+          // case 1:
+          //   message = '失败，请重试'
+          //   break;
+          // case 2:
+          //   message = '暂不支持该银行卡'
+          //   break;
+          // case 9:
+          //   message = '您的银行卡开户名，和在本网站账户实名认证姓名不一致或未实名认证'
+          //   break;
+          // case 10:
+          //   message = ''
+          //   if (method === 'ga') {
+          //     this.GACodeWA = '验证码错误'
+          //   }
+          //   if (method === 'sms') {
+          //     this.verificationCodeWA = '验证码错误'
+          //   }
+          //   break;
+          // case 11:
+          //   message = '修改失败，可能有未完成的订单或挂单'
+          //   break;
+          // case 20:
+          //   message = '您有未完成的订单或挂单，不能重置默认收款银行卡'
+          //   break;
+          case 1001:
+            message = '用户未绑定手机'
             break;
-          case 2:
-            message = '暂不支持该银行卡'
+          case 1003:
+            message = '验证码过期'
             break;
-          case 9:
-            message = '您的银行卡开户名，和在本网站账户实名认证姓名不一致或未实名认证'
+          case 1004:
+            message = '验证码错误'
             break;
-          case 10:
-            message = ''
-            if (method === 'ga') {
-              this.GACodeWA = '验证码错误'
-            }
-            if (method === 'sms') {
-              this.verificationCodeWA = '验证码错误'
-            }
+          case 1005:
+            message = '用户名不一致'
             break;
-          case 11:
-            message = '修改失败，可能有未完成的订单或挂单'
+          case 1006:
+            message = '填写完整信息'
             break;
-          case 20:
-            message = '您有未完成的订单或挂单，不能重置默认收款银行卡'
+          case 1009:
+            message = '图片上传失败'
+            break;
+          case 1040:
+            message = '卡号已存在'
+            break;
+          case 200:
+            message = '修改成功'
             break;
           default:
             message = '暂不可用'
         }
-
         message && this.openPop(message || '暂不可用', 0)
-
+        data.code && data.code== 200 && this.openPop(message || '修改成功', 1 )
+        // 关闭弹窗
+        this.bindBankPopupWindowOpen = false
+        this.secondVerifyOpen = false
+        // 重新获取列表
+        this.defaultList = data.data
         this.bankPayBinding = false
         this.sending = false
         return
@@ -991,16 +1060,18 @@ root.methods.addChoseDefaultBank = function () {
 root.methods.goToBankStep2 = function () {
   // console.log(this.defaultList,'yinhang')
   // console.log(this.$store.state.authMessage)
+  this.GACode = ''
   let isData = [];
   this.defaultList.forEach(item=>{
-    isData.push(item.cardNumber)})
-  if(isData.indexOf(this.bankCard)!=-1){
+    isData.push(item.bankNumber)})
+  if(isData.indexOf(this.bankName)!=-1){
     this.openPop('银行卡号已存在', 0)
     return
   }
   if (!this.canSendBank()) return
   this.bindBankPopupWindowStep = 2
   // console.log("----------------11111111111111111");
+
 }
 // 绑定银行卡第一步
 root.methods.goToBankStep1 = function () {
@@ -1018,20 +1089,21 @@ root.methods.clickToChoseDefaultBank = function (item) {
 root.methods.confirmChoseDefaultBank = function () {
   this.$http.send('SET_DEFAULT_PAYMENT', {
     query: {
-      id: this.modifyDefaultBankId
+      id: this.modifyDefaultBankId,
+      type: true
     }
   })
-    .then(async ({data}) => {
+    .then( ({data}) => {
       typeof data === 'string' && (data = JSON.parse(data))
       // console.warn('修改默认的银行卡', data)
       if (data) {
-
+        this.defaultList = data.data
       }
       if (!data) {
         this.openPop('您有未完成的订单或挂单，不能重置默认收款银行卡', 0)
-
       }
-      await this.initData()
+      // this.initData()
+      this.getBankList()
     })
     .catch(err => {
       // console.warn('修改默认的银行卡失败', err)
@@ -1104,8 +1176,10 @@ root.methods.closeBindBankPopupWindow = function () {
 
 // 开始二次验证弹窗  验证方式 1 2 3 4 1为绑定支付宝 2为修改支付宝 3为绑定银行卡 4为修改银行卡
 root.methods.beginVerify = function (type) {
+  this.GACode = ''
   this.verifyType = type
   this.secondVerifyOpen = true
+  this.click_send()
 }
 
 // 开始倒计时
@@ -1132,7 +1206,11 @@ root.methods.endGetVerificationCodeCountdown = function () {
 // 点击获取手机验证码
 root.methods.click_getVerificationCode = function () {
   this.beginGetVerificationCodeCountdown()
-  this.$http.send('SEND_MOBILE_VERIFY_CODE')
+  this.$http.send('SEND_MOBILE_VERIFY_CODE',{
+    query: {
+      'bankType': 1
+    }
+  })
     .then(({data}) => {
       typeof data === 'string' && (data = JSON.parse(data))
       // console.warn('发送手机验证码', data)
@@ -1191,9 +1269,7 @@ root.methods.verifyCanSend = function () {
 }
 // 发送添加银行卡表单
 root.methods.click_send = function () {
-  if (!this.verifyCanSend()) {
-    return
-  }
+  if (!this.verifyCanSend()) return
   this.sending = true
   let method, code
   if (this.picked === 'bindGA') {
@@ -1203,7 +1279,6 @@ root.methods.click_send = function () {
   if (this.picked === 'bindMobile') {
     method = 'sms'
     code = this.verificationCode
-
   }
   // console.warn('this is picked', this.picked, this.verifyType, this.verifyType === 3, this.verifyType === 4)
   // 绑定支付宝
@@ -1217,11 +1292,13 @@ root.methods.click_send = function () {
   // 绑定银行卡
   if (this.verifyType === 3) {
     this.addBankPay(method, code)
+    return;
   }
   // 修改银行卡
   if (this.verifyType === 4) {
     this.modifyBankPay(method, code)
   }
+
 }
 
 

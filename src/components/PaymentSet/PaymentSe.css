@@ -246,7 +246,8 @@
 }
 
 .bank-logo-icon-container {
-  width: 98px;
+  /*width: 98px;*/
+  /*margin-right: 25px;*/
   line-height: 80px;
 }
 
@@ -277,15 +278,32 @@
   /*margin-left: 20px;*/
   white-space: nowrap;
   letter-spacing: 2px;
-
 }
 
-.bank-logo-icon {
-  vertical-align: middle;
-  display: inline-block;
+.bank-card-show {
+  width: 84px;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 10px;
+  border: 1px solid #EFF0FF;
+  box-sizing: border-box;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color: #3576F5;
+  text-align: center;
   margin-left: 25px;
-  width: 24px;
+  margin-top: 29px;
+  margin: 29px 25px 0;
+  /*margin: 29px auto;*/
 }
+
+/*.bank-logo-icon {*/
+/*  vertical-align: middle;*/
+/*  display: inline-block;*/
+/*  margin-left: 25px;*/
+/*  width: 24px;*/
+/*}*/
 
 .bank-info {
   flex: 1;
@@ -872,35 +890,47 @@
 /*绑定银行卡弹窗 end*/
 
 /*删除支付宝账号弹窗 begin*/
+.delete-header {
+  justify-content: space-between;
+}
+.detele-bank-info {
+  color: #6B7DA2;
+  font-size:14px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
+
 .delete-row {
-  margin-top: 18px;
-  font-size: 14px;
-  line-height: 14px;
-  width: 364px;
+  margin-top: 27px;
+  /*margin-top: 18px;*/
+  /*font-size: 14px;*/
+  /*line-height: 14px;*/
+  /*width: 364px;*/
 }
 
 .delete-bank-row {
-  width: 442px;
+  justify-content: space-between;
+  /*width: 442px;*/
 }
 
 .delete-title {
-  width: 170px;
-  text-align: right;
-  color: #888;
+  /*width: 170px;*/
+  /*text-align: right;*/
+  /*color: #888;*/
 }
 
 .delete-bank-title {
-  width: 117px;
+  /*width: 117px;*/
 }
 
 .delete-detail {
-  color: #333;
-  padding-left: 5px;
+  color: #171A23;
+  /*padding-left: 5px;*/
 }
 
 .delete-footer {
   justify-content: center;
-  padding: 30px 0;
+  padding: 30px 0 15px;
 }
 
 /*删除支付宝账号弹窗 end*/
@@ -916,12 +946,21 @@
 }
 
 .verify-row {
+  font-size: 12px;
+  justify-content: space-between;
+  padding: 0 15px;
   align-items: center;
   /*padding: 20px 0;*/
   margin-top: 10px;
 }
 
 /*Input板块*/
+
+.ga-code-title {
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+}
 .unit-input-container {
   /*width: 87.5%;*/
   height: 40px;
@@ -939,11 +978,19 @@
 
 /*Input标签*/
 .unit-input {
-  border: 0 solid transparent;
-  width: 88%;
+  border: 0 ;
+  width: 70%;
   height: 100%;
   box-sizing: border-box;
   border-radius: 5px;
+}
+
+.input-ga {
+}
+
+.get-ga-code {
+
+  color: #3576F5;
 }
 
 .unit-input-interval {
@@ -1037,15 +1084,15 @@
 }
 
 .wrong-msg {
-  border: 1px solid red;
+  border: 1px solid #FD5555;
 }
 
 .pick-one-type {
   border: 0;
-  justify-content: space-around;
-  -webkit-justify-content: space-around;
-  align-items: center;
-  -webkit-align-items: center;
+  /*justify-content: space-around;*/
+  /*-webkit-justify-content: space-around;*/
+  /*align-items: center;*/
+  /*-webkit-align-items: center;*/
 }
 
 .unit-title {
