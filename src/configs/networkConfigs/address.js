@@ -105,7 +105,7 @@ address.POST_BUSINESS_BASE_INFO = {url: urlHead + '/user/getBusinessBaseInfo', m
 address.GET_PART_POSTER_ORDER_LIST = {url: urlHead + '/user/getPartPosterOrderList', method: 'post', timeout: null, responseType: 'json'}
 
 // 我的商家订单
-address.GET_BUSINESS_ORDER_LIST = {url: urlHead + '/user/getBusinessOrderList', method: 'post', timeout: null, responseType: 'json'}
+address.GET_BUSINESS_ORDER_LIST = {url: urlHead + '/advert/userOtcAdverts', method: 'get', timeout: null, responseType: 'json'}
 
 // 我的商家撤单
 address.CANCEL_POSTER_ORDER = {url: urlHead + '/user/cancelPostersOrder', method: 'post', timeout: null, responseType: 'json'}

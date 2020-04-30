@@ -696,62 +696,42 @@ root.methods.submitToBuy = function () {
   }).then(({
     data
   }) => {
-    typeof res === 'string' && (res = JSON.parse(res))
+    // typeof res === 'string' && (res = JSON.parse(res))
     console.log('data', data)
     typeof data === 'string' && (data = JSON.parse(data))
-    if (data.result === 'FAIL' || data.errorCode) {
+    if (data.result === 'FAIL' || data.code != 200) {
       this.submitBuyAjaxFlag = false
-      switch (data.errorCode) {
-        case 3:
+
+      switch (data.code) {
+        case 1010://暂不支持该币种交易
           this.popOpen = true
           this.popType = 0
-          this.popText = '用户未登录'
-          window.location.reload();
+          this.popText = '暂不支持该币种交易'
           break;
-        case 4:
+        case 1012://挂单数量不在单笔成交数量区间
           this.popOpen = true
           this.popType = 0
-          this.popText = '单笔最小购买数量为10'
+          this.popText = '挂单数量不在单笔成交数量区间'
           break;
-        case 5:
+        case 1013://挂单数量小于系统限制最小数量
           this.popOpen = true
           this.popType = 0
-          this.popText = '单笔最大购买数量为20000'
+          this.popText = '挂单数量小于系统限制最小数量'
           break;
-        case 6:
+        case 1014://挂单数量大于系统限制最大数量
           this.popOpen = true
           this.popType = 0
-          this.popText = '设置的买入数量不能低于10'
+          this.popText = '挂单数量大于系统限制最大数量'
           break;
-        case 7:
+        case 1047://该用户不是商家
           this.popOpen = true
           this.popType = 0
-          this.popText = '设置的买入数量不能大于30000'
+          this.popText = '您不是商家'
           break;
-        case 8:
+        case 1048://请设置默认收款账号
           this.popOpen = true
           this.popType = 0
-          this.popText = '您的余额不足，请充值！'
-          break;
-        case 10:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '您不是商家或审核未通过！'
-          break;
-        case 11:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '您已被禁用！'
-          break;
-        case 13:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '您没有设置默认银行卡'
-          break;
-        case 110:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '用户被禁用'
+          this.popText = '请设置默认收款账号'
           break;
       }
       return
@@ -770,6 +750,7 @@ root.methods.submitToBuy = function () {
     this.$router.go(0) },2000)
   }).catch((err) => {
     console.log('err', err)
+    this.submitBuyAjaxFlag = false
     this.submitBuyBoxFlag = false;
   });
 }
@@ -828,60 +809,39 @@ root.methods.submitToSell = function () {
   }) => {
     // console.log('dataa',data)
     typeof data === 'string' && (data = JSON.parse(data))
-    if (data.result === 'FAIL' || data.errorCode) {
+    if (data.result === 'FAIL' || data.code) {
 
       this.submitSellAjaxFlag = false
-      switch (data.errorCode) {
-        case 3:
+      switch (data.code) {
+        case 1010://暂不支持该币种交易
           this.popOpen = true
           this.popType = 0
-          this.popText = '用户未登录'
-          window.location.reload()
+          this.popText = '暂不支持该币种交易'
           break;
-        case 4:
+        case 1012://挂单数量不在单笔成交数量区间
           this.popOpen = true
           this.popType = 0
-          this.popText = '单笔最小出售数量为10'
+          this.popText = '挂单数量不在单笔成交数量区间'
           break;
-        case 5:
+        case 1013://挂单数量小于系统限制最小数量
           this.popOpen = true
           this.popType = 0
-          this.popText = '单笔最大购买数量为20000'
+          this.popText = '挂单数量小于系统限制最小数量'
           break;
-        case 6:
+        case 1014://挂单数量大于系统限制最大数量
           this.popOpen = true
           this.popType = 0
-          this.popText = '设置的买入数量不能低于10'
+          this.popText = '挂单数量大于系统限制最大数量'
           break;
-        case 7:
+        case 1047://该用户不是商家
           this.popOpen = true
           this.popType = 0
-          this.popText = '设置的买入数量不能大于30000'
+          this.popText = '您不是商家'
           break;
-        case 8:
+        case 1048://请设置默认收款账号
           this.popOpen = true
           this.popType = 0
-          this.popText = '您的余额不足，请充值！'
-          break;
-        case 10:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '您不是商家或审核未通过！'
-          break;
-        case 11:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '您已被禁用！'
-          break;
-        case 13:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '您没有设置默认银行卡'
-          break;
-        case 110:
-          this.popOpen = true
-          this.popType = 0
-          this.popText = '用户被禁用'
+          this.popText = '请设置默认收款账号'
           break;
       }
       return
