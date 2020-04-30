@@ -36,17 +36,19 @@ root.methods = {};
 // 获取列表
 root.methods.GET_ORDER_CONDUCT = function (search) {
 	this.$http.send('GET_LIST_ORDERS', {
-		params: {
+    query: {
 			offset: this.selectIndex,
 			maxResults: 10,
-			status: 'CANCEL', //  “PROCESSING”进行中, “COMPLETE”已完成, “CANCEL”已取消
-			ctcOrderId: search || '',
+			// status: 'CANCEL', //  “PROCESSING”进行中, “COMPLETE”已完成, “CANCEL”已取消
+      status: 4, //   1进行中, 3已完成, 4已取消
+      ctcOrderId: search || '',
 		}
 	}).then(({data}) => {
-		if (data.errorCode == 0) {
+		if (data.ode == 200) {
 			this.loading = false;
-			let datas = data.dataMap.ctcOrders;
-			this.list = datas.results;
+			// let datas = data.dataMap.ctcOrders;
+			let datas = data.data;
+			this.list = datas;
 			if (this.list[0] == null) {
 				this.list = [];
 				return;
@@ -54,7 +56,7 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
 			this.maxPage = datas.page.totalPages;
 			this.selectIndex = datas.page.pageIndex;
 		}
-		if (data.errorCode == 1) {
+		if (data.code == 1) {
 			window.location.reload();
 		}
 	}).catch((err) => {

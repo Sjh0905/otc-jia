@@ -20,32 +20,41 @@
         申请需要具备以下条件：
       </div>
       <div class="bussiness_small3">
-        <div class="bussiness_apply_title_small3_aa">1. 注册二零二零，并完成实名认证；</div>
-        <div class="bussiness_apply_title_small3_bb" v-if="!auth_info.idType" @click="GO_AUTHEUSER">
+        <div class="flex-row bussiness_apply_title_small3_aa">
+          <div class="flex serial_number">1</div>
+          注册二零二零，并完成实名认证；
+        </div>
+        <div class="bussiness_apply_title_small3_bb" v-if="auth_info.idType == 'NONE'" @click="GO_AUTHEUSER">
           <span class="bdiphone">去认证</span>
         </div>
-        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified" v-if="auth_info.idType" >
+        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified" v-if="auth_info.idType != 'NONE'" >
           已认证
         </div>
 
       </div>
       <div class="bussiness_small3">
-        <div class="bussiness_apply_title_small3_aa">2. 绑定您本人的手机号或绑定谷歌；</div>
-        <div class="bussiness_apply_title_small3_bb"  @click="GO_AUTHENTICATION"  v-if="!auth_info.mobile&&!auth_info.ga">
+        <div class="flex-row bussiness_apply_title_small3_aa">
+          <div class="flex serial_number">2</div>
+          绑定您本人的手机号或绑定谷歌；
+        </div>
+        <div class="bussiness_apply_title_small3_bb"  @click="GO_AUTHENTICATION"  v-if="!auth_info.mobile&&!auth_info.gaAuth">
           <span class="bdiphone">去绑定</span>
         </div>
-        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified"  v-if="!!auth_info.mobile||!!auth_info.ga">
+        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified"  v-if="!!auth_info.mobile||!!auth_info.gaAuth">
           已绑定
         </div>
       </div>
       <div class="bussiness_small3">
-        <div class="bussiness_apply_title_small3_aa">3. 至少绑定一张本人银行卡；</div>
-        <div class="bussiness_apply_title_small3_bb" v-if="!auth_info.method">
+        <div class="flex-row bussiness_apply_title_small3_aa">
+          <div class="flex serial_number">3</div>
+          至少绑定一张本人银行卡；
+        </div>
+        <div class="bussiness_apply_title_small3_bb" v-if="!auth_info.payInfo">
           <router-link class="bdiphone" :to="{name: 'PaymentSet'}">
             去绑定
           </router-link>
         </div>
-        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified" v-if="!!auth_info.method">
+        <div class="bussiness_apply_title_small3_bb bussiness_apply_title_small3_bb_certified" v-if="!!auth_info.payInfo">
             已绑定
         </div>
       </div>
@@ -60,21 +69,34 @@
         <!--</div>-->
       <!--</div>-->
 
-      <div class="bussiness_small3">
+      <div class="bussiness_small3 bussiness_small3_agreement_box">
         <div class="flex-row bussiness_small3_agreement">
         <!--<span @click="changeAgreement">-->
           <!--<img v-show="!agreement" src="../../assets/c2c_common/noselect.png"/>-->
           <!--<img v-show="agreement" src="../../assets/c2c_common/select.png" class="select-img"/>-->
         <!--</span>-->
           <BaseCheckBox :agreement="agree" :changeAgreement='changeAgreement'/>
-          <div class="bussiness_agree_to_pay">同意缴纳商家保证金{{key_amount.value}}{{key_amount.name}}</div>，且同意
-          <router-link to="/index/MerchantsProtocol" class="text_yellow">《商家认证协议》。</router-link>
+          <div class="bussiness_agree_to_pay" @click="changeAgreement">同意缴纳商家保证金{{key_amount.value}}{{key_amount.name}}</div>，且同意
+          <router-link to="/index/MerchantsProtocol" class="text_yellow">《商家认证协议》</router-link>
           <!-- <span class="text_yellow">《商家认证协议》。</span> -->
         </div>
       </div>
+      <!--audits： -1 未申请，0 审核中，1 驳回，2 普通商家-->
+      <div class="bussiness_small4 btn_blue" v-if="auth_info.audits == 1 || auth_info.audits == -1" @click="APPLY_SUBMIT">
+        提交申请
+      </div>
+      <div class="bussiness_small4 btn_blue_disabled" v-if="auth_info.audits == 0">
+        审核中
+      </div>
 
-      <div class="bussiness_small4" @click="APPLY_SUBMIT" v-if="!APPLY_SUBMIT">提交申请</div>
-      <div class="bussiness_small4"  @click="APPLY_SUBMIT" v-if="APPLY_SUBMIT">已申请</div>
+      <!--<div class="bussiness_small4 btn_blue" @click="APPLY_SUBMIT" v-if="!APPLY_SUBMIT">提交申请</div>-->
+      <!--<div class="bussiness_small4 btn_blue"  @click="APPLY_SUBMIT" v-if="APPLY_SUBMIT">已申请</div>-->
+
+
+      <div class="bussiness_apply_submit">
+
+      </div>
+
 <!--      <div class="bussiness_apply_title_small3">-->
 <!--        4. 商家保证金：1200USDT；-->
 <!--      </div>-->
@@ -149,14 +171,14 @@
 			<!--</div>-->
 			<!-- 同意协议 end -->
 			<!-- 提价申请按钮 start -->
-<!--			<div class="bussiness_apply_submit">-->
-<!--				<button class="btn border_radius box_shadow" v-if="auth_info.audits == '2' || auth_info.audits == '1' || auth_info.audits == '-1'" @click="APPLY_SUBMIT">-->
-<!--					提交申请-->
-<!--				</button>-->
-<!--				<button class="btn border_radius box_shadow" v-if="auth_info.audits == 0">-->
-<!--					审核中-->
-<!--				</button>-->
-<!--			</div>-->
+			<!--<div class="bussiness_apply_submit">-->
+				<!--<button class="btn border_radius box_shadow" v-if="auth_info.audits == '2' || auth_info.audits == '1' || auth_info.audits == '-1'" @click="APPLY_SUBMIT">-->
+					<!--提交申请-->
+				<!--</button>-->
+				<!--<button class="btn border_radius box_shadow" v-if="auth_info.audits == 0">-->
+					<!--审核中-->
+				<!--</button>-->
+			<!--</div>-->
 			<!-- 提交申请按钮 end -->
 		</div>
 	</div>

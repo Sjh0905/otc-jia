@@ -11,7 +11,7 @@
 .business_order_table_title{
 	line-height: 40px;
 	/* border-bottom: 1px solid rgba(0,0,0,0.1); */
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   /*opacity: 0.4;*/
   font-family: PingFangSC-Regular;
   font-size: 14px;
@@ -27,7 +27,7 @@
 	color: #888;
 }
 .text_block{
-	color: #555;
+	color: #172A4D;
 }
 .text_center{
 	text-align: center;
@@ -80,9 +80,9 @@
 }
 
 .business_order_table_tr{
-	line-height: 40px;
+	line-height: 60px;
 	width: 100%;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 .business_order_table_tr:last-child{
   border-bottom: none;

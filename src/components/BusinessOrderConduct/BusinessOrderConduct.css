@@ -11,7 +11,7 @@
 
 .business_order_table_title {
   line-height: 40px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   /*opacity: 0.4;*/
   font-family: PingFangSC-Regular;
   font-size: 14px;
@@ -30,7 +30,7 @@
 }
 
 .text_block {
-  color: #555;
+  color: #172A4D;
 }
 
 .text_center {
@@ -42,11 +42,11 @@
 }
 
 .type {
-  width: 12%;
+  width: 9%;
 }
 
 .price {
-  width: 14%;
+  width: 11%;
 }
 
 .amount {
@@ -58,7 +58,7 @@
 }
 
 .num {
-  width: 13%;
+  width: 16%;
 }
 
 .clock {
@@ -93,9 +93,9 @@
 }
 
 .business_order_table_tr {
-  line-height: 40px;
+  line-height: 60px;
   width: 100%;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .business_order_table_tr:last-child {
@@ -148,7 +148,7 @@
 }
 
 .submit-buy-box {
-  width: 750px;
+  width: 550px;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -161,10 +161,12 @@
   line-height: 68px;
   font-size: 16px;
   text-align: center;
+  color: #172A4D;
 }
 
 .submit-buy-list {
-  padding: 0 160px;
+  padding: 0 90px;
+  padding-left: 50px;
 }
 
 .submit-buy-item {
@@ -189,6 +191,7 @@
   height: 32px;
   font-size: 14px;
   position: relative;
+  color: #0D0E23;
 }
 
 
@@ -206,7 +209,7 @@
 }
 
 .submit-buy-item-right-border {
-  border: 1px solid #ccc;
+  border: 1px solid #E0E1F4;
 
   padding-left: 14px;
 }
@@ -217,6 +220,7 @@
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
+  color: #A2B5D9;
 }
 
 .submit-buy-item-right-img-zfb {
@@ -228,7 +232,7 @@
   height: 80px;
   display: flex;
   justify-content: space-between;
-  padding: 0 220px;
+  padding: 0 140px;
   align-items: center;
 }
 

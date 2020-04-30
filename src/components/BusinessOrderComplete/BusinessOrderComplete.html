@@ -19,7 +19,7 @@
 			<!-- table tbody start -->
 			<div class="business_order_table_tbody text_block">
 				<Loading v-if="loading" />
-				<div class="business_order_table_tr flex-center text_dark" v-else v-for="(item,index) in pageList" :key="index">
+				<div class="business_order_table_tr flex-center" v-else v-for="(item,index) in pageList" :key="index">
 <!--					<div class="order">{{item.id}}</div>-->
 					<div class="type" >{{item.id}}</div>
           <div class="orderstatus" :class="item.postersType === 'BUY' ? 'text_green' : 'text_red'">{{item.postersType === 'BUY' ? '购买' : '出售'}}</div>
@@ -28,7 +28,7 @@
 					<div class="money">{{toFixed(accMul(item.total,item.price),2)}}</div>
 <!--					<div class="num">{{toFixed(accMul(item.minLimit,item.price),2)}} - {{toFixed(accMul(item.total,item.price),2)}}</div>-->
 <!--					<div class="create">{{formatDateUitl(item.createdAt)}}</div>-->
-          <div class="jyobject"></div>
+          <div class="jyobject">张三</div>
 					<div class="update">{{formatDateUitl(item.updatedAt)}}</div>
 <!--					<div class="pay_type payment_icon">-->
 <!--						<span class="icon card_icon"></span>-->

@@ -1,3 +1,5 @@
+import * as BusinessOrderData from "../MockData/BusinessOrderData";
+
 const root = {}
 root.name = 'BusinessOrderComplete'
 /*------------------------------ 组件 ------------------------------*/
@@ -49,15 +51,17 @@ root.methods.getPartPosterOrderList = function () {
   this.$http.send('GET_BUSINESS_ORDER_LIST',{
     params:{
       binessUserId: this.userId,
+      // status: 'COMPLETE',
       status: 'COMPLETE',
       offset: this.offset,
       maxResults: this.maxResults
     }
   })
     .then(({data}) => {
-      
+
       typeof data === 'string' && (data = JSON.parse(data))
       // console.log('orderLista',data)
+      // data.dataMap.ctcOrderList.results = BusinessOrderData.getBusinessOrderData().dataMap.posterOrderList
       let pageList = data.dataMap.ctcOrderList.results
       let transactionsMap = data.dataMap.transactionsMap
 
