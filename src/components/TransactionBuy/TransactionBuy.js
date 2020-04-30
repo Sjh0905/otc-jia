@@ -350,7 +350,8 @@ root.methods.getAuthState = function () {
       }) => {
         typeof data === 'string' && (data = JSON.parse(data))
         if (!data) return
-        this.$store.commit('GET_USER_AUTH_INFO', data.data)
+
+        this.$store.commit('SET_AUTH_STATE', data.data)
       }).catch((err) => {
         console.log('err', err)
       });
