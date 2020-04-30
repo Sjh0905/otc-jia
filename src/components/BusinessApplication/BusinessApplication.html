@@ -81,8 +81,8 @@
           <!-- <span class="text_yellow">《商家认证协议》。</span> -->
         </div>
       </div>
-
-      <div class="bussiness_small4 btn_blue" v-if="auth_info.audits == '2' || auth_info.audits == '1' || auth_info.audits == '-1'" @click="APPLY_SUBMIT">
+      <!--audits： -1 未申请，0 审核中，1 驳回，2 普通商家-->
+      <div class="bussiness_small4 btn_blue" v-if="auth_info.audits == 1 || auth_info.audits == -1" @click="APPLY_SUBMIT">
         提交申请
       </div>
       <div class="bussiness_small4 btn_blue_disabled" v-if="auth_info.audits == 0">
