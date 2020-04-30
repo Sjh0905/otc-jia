@@ -17,7 +17,7 @@ address.SIGN_TEST = {url: urlHead + '/user/signInForTest', method: 'post', timeo
 // address.CHECK_LOGIN = {url: '/otc/user/checkLoginForC2C', method: 'post', timeout: null, responseType: 'json'};
 
 // 申请商家时候获取当前用户认证状态 getUserAuthInfo
-address.GET_USER_AUTO_INFO = {url: urlHead + '/user/getUserAuthInfo', method: 'get', timeout: null, responseType: 'json'}
+address.GET_USER_AUTH_INFO = {url: urlHead + '/user/getUserAuthInfo', method: 'get', timeout: null, responseType: 'json'}
 
 // 2018-8-14 申请成为商家
 address.APPLY_BUSINESS = {url: urlHead + '/user/submissionForSeller', method: 'post', timeout: null, responseType: 'json'}

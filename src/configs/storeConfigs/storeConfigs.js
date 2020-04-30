@@ -119,7 +119,7 @@ store.mutations.SET_SERVER_TIME = (state, time) => {
  * @param info
  * @constructor
  */
-store.mutations.GET_USER_AUTO_INFO = (state, info) => {
+store.mutations.SET_AUTH_STATE = (state, info) => {
   state.authState = info
 }
 

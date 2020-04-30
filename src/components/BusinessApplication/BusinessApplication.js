@@ -28,7 +28,7 @@ root.components = {
 }
 root.created = function () {
 	// 获取认证状态
-	this.GET_USER_AUTO_INFO();
+	this.GET_USER_AUTH_INFO();
 	// 获取全局配置
 	this.getSystemArgs();
 	// console.log(this.auth_info,'aaa')
@@ -47,8 +47,8 @@ root.computed.isMobile = function () {
 
 root.methods = {};
 // 获取认证状态
-root.methods.GET_USER_AUTO_INFO = function () {
-	this.$http.send('GET_USER_AUTO_INFO').then(({data}) => {
+root.methods.GET_USER_AUTH_INFO = function () {
+	this.$http.send('GET_USER_AUTH_INFO').then(({data}) => {
 		// console.log(data,"银行卡绑定测试");
 		let auth_info = data.data;
 		this.auth_info = auth_info;
@@ -155,7 +155,7 @@ root.methods.APPLY_SUBMIT = function () {
 				self.popType = 1;
 				self.popOpen = true;
 				self.popText = "提交成功";
-				self.GET_USER_AUTO_INFO();
+				self.GET_USER_AUTH_INFO();
 				break;
 		}
 	}).catch((err) => {

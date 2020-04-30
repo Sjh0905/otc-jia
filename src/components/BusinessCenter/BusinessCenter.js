@@ -97,21 +97,21 @@ root.data = function () {
     //---------超时弹窗结束-------
     isRouterAlive:true,
 
-    payType:'BANKCARD'// 支付宝 ALIPAY  银行卡 BANKCARD  俩都有 ALIPAY|BANKCARD
+    payType:1// 银行卡 1 支付宝 2  微信 3
   }
 }
 root.created = function () {
   // 临时loading
 
   // 获取顶部信息
-  this.postBusinessBaseInfo()
+  // this.postBusinessBaseInfo()
 
   // 获取账户余额信息
   this.getAccount()
 
   // 获取部分市场挂单
   // this.getPartPosterOrderList()
-  this.getAuthState()
+  this.getUserAuthInfo()
 }
 
 root.computed = {}
@@ -224,7 +224,7 @@ root.methods.inputNumbers = function (val) {
 }
 
 root.methods.checkHeaderLoading = function () {
-  this.headerLoading = !(this.postBusinessBaseInfoLoading && this.getAccountLoading) //&& false
+  this.headerLoading = !this.getAccountLoading //&& false
 }
 
 // 点击usdt充值跳转到去充值
@@ -541,12 +541,12 @@ root.methods.goToBuy = function () {
   //   return
   // }
 
-  if (!this.buyCheckboxBankPay) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '请选择您的支付方式'
-    return
-  }
+  // if (!this.buyCheckboxBankPay) {
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = '请选择您的支付方式'
+  //   return
+  // }
 
   this.submitBuyBoxFlag = true;
 }
@@ -622,12 +622,12 @@ root.methods.goToSell = function () {
   //   return
   // }
 
-  if (!this.sellCheckboxBankPay) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '请选择您的支付方式'
-    return
-  }
+  // if (!this.sellCheckboxBankPay) {
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = '请选择您的支付方式'
+  //   return
+  // }
 
 
   this.submitSellBoxFlag = true;
@@ -681,7 +681,7 @@ root.methods.submitToBuy = function () {
       // amount: this.buyInputNum,
       // maxLimit: this.buyInputMaxNum,
       // minLimit: this.buyInputMinNum,
-      // payType: payType,   // 支付宝 ALIPAY  银行卡 BANKCARD  俩都有 ALIPAY|BANKCARD
+      // payType: payType,   // 银行卡 1 支付宝 2  微信 3
 
       //2020-4-26sss 修改参数
       side: 'BUY',
@@ -813,7 +813,7 @@ root.methods.submitToSell = function () {
       // amount: this.sellInputNum,
       // maxLimit: this.sellInputMaxNum,
       // minLimit: this.sellInputMinNum,
-      // // payType: payType,   // 支付宝 ALIPAY  银行卡 BANKCARD  俩都有 ALIPAY|BANKCARD
+      // // payType: payType,   // 银行卡 1 支付宝 2  微信 3
 
       side: 'SELL',
       currency: 'USDT',
@@ -919,9 +919,9 @@ root.methods.getAccount = function () {
       data
     }) => {
       typeof data === 'string' && (data = JSON.parse(data))
-      console.log('acount', data.dataMap.account)
+      console.log('acount', data.data.account)
 
-      this.$store.commit('SET_ACCOUNT', data.dataMap.account)
+      this.$store.commit('SET_ACCOUNT', data.data.account)
       this.getAccountLoading = true
       this.checkHeaderLoading()
     }).catch((err) => {
@@ -931,7 +931,7 @@ root.methods.getAccount = function () {
 }
 
 // 获取顶部信息
-root.methods.postBusinessBaseInfo = function () {
+/*root.methods.postBusinessBaseInfo = function () {
   this.$http.send('POST_BUSINESS_BASE_INFO', {
       params: {
         userId: this.userId,
@@ -993,7 +993,7 @@ root.methods.postBusinessBaseInfo = function () {
       console.log('err', err)
     });
   return
-}
+}*/
 
 // 获取部分挂单列表
 root.methods.getPartPosterOrderList = function () {
@@ -1016,9 +1016,6 @@ root.methods.getPartPosterOrderList = function () {
 
 root.methods.SUBMIT = function () {
   console.log('sumbit: ', this.test)
-
-
-
 
 }
 // 切换页签
@@ -1100,25 +1097,36 @@ root.methods.goToBind = function () {
   window.open(open_url);
 }
 // 获取认证状态
-root.methods.getAuthState = function () {
-  if (this.$store.state.authState) {
-    // this.authStateReady = true
-    // if (this.bindMobile) {
-    //   this.picked = 'bindMobile'
-    // }
-    // if (this.bindGa) {
-    //   this.picked = 'bindGA'
-    // }
-    return
-  }
-  this.$http.send('GET_AUTH_STATE')
+root.methods.getUserAuthInfo = function () {
+  // if (this.$store.state.authState) {
+  //   // this.authStateReady = true
+  //   // if (this.bindMobile) {
+  //   //   this.picked = 'bindMobile'
+  //   // }
+  //   // if (this.bindGa) {
+  //   //   this.picked = 'bindGA'
+  //   // }
+  //   return
+  // }
+  this.$http.send('GET_USER_AUTH_INFO')
     .then(({
       data
     }) => {
       // console.log(data,'手机认证状态')
       typeof data === 'string' && (data = JSON.parse(data))
       if (!data) return
-      this.$store.commit('SET_AUTH_STATE', data.dataMap)
+      this.$store.commit('SET_AUTH_STATE', data.data)
+
+      let auth_info = data.data;
+      // -1 未申请，0 审核中，1 驳回，2 普通商家
+      if (auth_info.audits != 2) {
+        this.popOpen = true
+        this.popType = 0
+        this.popText = '商户状态不对'
+
+        this.$router.push({name: 'BusinessCenter'});
+      }
+
       // if (data.dataMap.sms) {
       //   this.picked = 'bindMobile'
       // }
