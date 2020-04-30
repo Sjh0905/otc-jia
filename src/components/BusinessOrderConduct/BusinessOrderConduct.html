@@ -31,14 +31,14 @@
 				<Loading v-if="loading" />
 				<div class="business_order_table_tr flex-center" v-if="!loading && pageList.length!= 0" v-for="(item,index) in pageList" :key="index">
 <!--					<div class="order">{{item.id}}</div>-->
-					<div class="type" :class="item.postersType === 'BUY' ? 'text_green' : 'text_red'">{{item.postersType === 'BUY' ? '购买' : '出售'}}</div>
-					<div class="price" :class="item.postersType === 'BUY' ? 'text_green' : 'text_green'">{{toFixed(item.price,2)}}</div>
-					<div class="amount">{{toFixed(item.total,2)}}</div>
+					<div class="type" :class="item.side === 'BUY' ? 'text_green' : 'text_red'">{{item.side === 'BUY' ? '购买' : '出售'}}</div>
+					<div class="price" :class="item.side === 'BUY' ? 'text_green' : 'text_green'">{{toFixed(item.fixedPrice,2)}}</div>
+					<div class="amount">{{toFixed(item.volume,2)}}</div>
 <!--					<div class="money">{{toFixed(accMul(item.total,item.price),2)}}</div>-->
-          <div class="complete">{{toFixed(item.deal,2)}}</div>
+          <div class="complete">{{toFixed(item.tradingVolume,2)}}</div>
           <!-- <div class="money">已取消(USDT)</div> -->
-          <div class="clock">{{toFixed(item.locking,2)}}</div>
-					<div class="num">{{toFixed(accMul(item.minLimit,item.price),2)}} - {{toFixed(accMul(item.total,item.price),2)}}</div>
+          <div class="clock">{{toFixed(item.frozenVolume,2)}}</div>
+					<div class="num">{{toFixed(item.minAmount,2)}} - {{toFixed(item.maxAmount,2)}}</div>
 
 
 					<div class="create">{{formatDateUitl(item.createdAt)}}</div>

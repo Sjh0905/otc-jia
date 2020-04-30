@@ -120,8 +120,9 @@ root.methods.getPartPosterOrderList = function () {
       if(typeof data === 'string'){
         data = JSON.parse(data)
       }
+      this.pageList = data.data
       // data.dataMap.ctcOrderList.results = BusinessOrderData.getBusinessOrderData().dataMap.posterOrderList
-      if (data.dataMap.ctcOrderList.results.length === 0 && data.dataMap.ctcOrderList.page.totalItems != 0) {
+      /*if (data.dataMap.ctcOrderList.results.length === 0 && data.dataMap.ctcOrderList.page.totalItems != 0) {
         this.offset = this.accMinus(this.offset, 1)
         this.getPartPosterOrderList()
         return
@@ -138,7 +139,7 @@ root.methods.getPartPosterOrderList = function () {
       }
 
       this.pageList = pageList
-      this.maxPage = data.dataMap.ctcOrderList.page.totalPages
+      this.maxPage = data.dataMap.ctcOrderList.page.totalPages*/
       this.loading = false
     }).catch((err) => {
       console.log('err', err)
