@@ -133,11 +133,14 @@ root.beforeDestroy = function () {
 }
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
-
+// 获取认证状态
+root.computed.authState = function () {
+  return this.$store.state.authState ||{}
+}
 
 // 获取用户名
 root.computed.bankAccount = function () {
-  return this.$store.state.authState.name
+  return this.authState.name
 }
 
 // 判断是否是手机
@@ -312,7 +315,7 @@ root.methods.getAuthState = function () {
     }
     return
   }
-  this.$http.send('GET_AUTH_INFO')
+  this.$http.send('GET_AUTH_STATE')
     .then(({data}) => {
       // console.log(data,'手机认证状态')
       typeof data === 'string' && (data = JSON.parse(data))
