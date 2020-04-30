@@ -23,7 +23,8 @@ address.GET_USER_AUTO_INFO = {url: urlHead + '/user/getUserAuthInfo', method: 'g
 address.APPLY_BUSINESS = {url: urlHead + '/user/submissionForSeller', method: 'post', timeout: null, responseType: 'json'}
 
 // 我的订单 接口 /user/getListOfCtcOrders
-address.GET_LIST_ORDERS = {url: urlHead + '/user/getListOfCtcOrders', method: 'post', timeout: null, responseType: 'json'}
+// address.GET_LIST_ORDERS = {url: urlHead + '/user/getListOfCtcOrders', method: 'post', timeout: null, responseType: 'json'}
+address.GET_LIST_ORDERS = {url: urlHead + '/orders/getOtcOrders', method: 'get', timeout: null, responseType: 'json'}
 
 // 2018-8-21 otc首页请求列表
 // address.GET_LIST_OF_LISTS= {url: urlHead + '/user/getListOfLists', method: 'get', timeout: null, responseType: 'json'}
@@ -31,10 +32,12 @@ address.GET_LIST_ORDERS = {url: urlHead + '/user/getListOfCtcOrders', method: 'p
 address.GET_LIST_OF_LISTS= {url: urlHead + '/advert/tradeIndex', method: 'get', timeout: null, responseType: 'json'}
 
 // 我的订单 确认付款
-address.COMFIRM_PAYMENT = {url: urlHead + '/user/toConfirmPayment', method: 'post', timeout: null, responseType: 'json'}
+// address.COMFIRM_PAYMENT = {url: urlHead + '/user/toConfirmPayment', method: 'post', timeout: null, responseType: 'json'}
+address.COMFIRM_PAYMENT = {url: urlHead + '/orders/confirmPayment', method: 'post', timeout: null, responseType: 'json'}
 
 // 我的订单 确认已收
-address.COMFIRM_RECEIVED = {url: urlHead + '/user/toConfirmReceived', method: 'post', timeout: null, responseType: 'json'}
+// address.COMFIRM_RECEIVED = {url: urlHead + '/user/toConfirmReceived', method: 'post', timeout: null, responseType: 'json'}
+address.COMFIRM_RECEIVED = {url: urlHead + '/orders/confirmCollection', method: 'post', timeout: null, responseType: 'json'}
 
 // 订单详情 getCtcOrderDetail
 address.CTC_ORDER_DETAIL = {url: urlHead + '/user/getOtcOrderDetail', method: 'post', timeout: null, responseType: 'json'}
@@ -47,7 +50,7 @@ address.USER_PAY_INFO = {url: urlHead + '/user/validateUserPayInfo', method: 'po
 
 // 获取用户的认证状态
 // address.GET_AUTH_STATE = {url: urlHead + '/auth/getAuthsForC2C', method: 'post', timeout: null, responseType: 'json'}
-address.GET_AUTH_INFO = {url: urlHead + '/user/getUserAuthInfo', method: 'get', timeout: null, responseType: 'json'}
+address.GET_AUTH_STATE = {url: urlHead + '/user/getUserAuthInfo', method: 'get', timeout: null, responseType: 'json'}
 // 获取用户的usdt资产
 // address.ACCOUNTS = {url: urlHead + '/user/userAccounts', method: 'get'}
 address.ACCOUNTS = {url: urlHead + '/accounts/userAccounts', method: 'get'}

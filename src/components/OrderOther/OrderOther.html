@@ -28,7 +28,7 @@
       <!--  @click="GO_DETAIL(item.id, item.type)" -->
       <div class="order_conduct_content border_bottom flex-center" v-else v-for="(item, i) in list" @click="GO_DETAIL(item.id, item.type)">
         <div class="numbers">
-          {{item.orderId}}
+          {{item.orderNo}}
         </div>
           <div class="type" :class="item.type == 'SELL' ? 'sell' : 'buy'">
               {{item.type == 'SELL' ? '卖出' : '买入'}}
@@ -43,14 +43,31 @@
           {{$globalFunc.accFixed(item.amount * item.price,2)}}
         </div>
         <div class="cannel_time" :class="item.type == 'SELL' ? 'sell' : 'buy'">
-          <span v-if="item.orderStatus == 'EXPIRE1'">确认付款超时</span>
-          <span v-if="item.orderStatus == 'EXPIRE2'">确认收款超时</span>
-          <span v-if="item.orderStatus == 'ABNORMAL'">订单异常</span>
-          <span v-if="item.orderStatus == 'APPEAL'">申诉订单</span>
-          <span v-if="item.orderStatus == 'PROCESSING'">进行中</span>
-          <span v-if="item.orderStatus == 'COMPLETE'">已完成</span>
-          <span v-if="item.orderStatus == 'CANCEL'">已取消</span>
-          <span v-if="item.orderStatus == 'ROBFAIL'">已取消</span>
+<!--          <span v-if="item.orderStatus == 'EXPIRE1'">确认付款超时</span>-->
+<!--          <span v-if="item.orderStatus == 'EXPIRE2'">确认收款超时</span>-->
+<!--          <span v-if="item.orderStatus == 'ABNORMAL'">订单异常</span>-->
+<!--          <span v-if="item.orderStatus == 'APPEAL'">申诉订单</span>-->
+<!--          <span v-if="item.orderStatus == 'PROCESSING'">进行中</span>-->
+<!--          <span v-if="item.orderStatus == 'COMPLETE'">已完成</span>-->
+<!--          <span v-if="item.orderStatus == 'CANCEL'">已取消</span>-->
+<!--          <span v-if="item.orderStatus == 'ROBFAIL'">已取消</span>-->
+
+
+          <span v-if="item.status == 'EXPIRE1'">确认付款超时</span>
+          <span v-if="item.status == 'EXPIRE2'">确认收款超时</span>
+          <span v-if="item.status == 'ABNORMAL'">订单异常</span>
+          <span v-if="item.status == 'APPEAL'">申诉订单</span>
+          <span v-if="item.status == 'PROCESSING'">进行中</span>
+          <span v-if="item.status == '1'">待支付</span>
+          <span v-if="item.status == '2'">已支付</span>
+          <span v-if="item.status == '3'">已完成</span>
+<!--          <span v-if="item.status == '4'">已取消</span>-->
+          <span v-if="item.status == '4'">已取消</span>
+          <span v-if="item.status == '5'">申诉中</span>
+          <span v-if="item.status == '6'">放币中</span>
+          <span v-if="item.status == '7'">超时关闭</span>
+          <span v-if="item.status == '8'">申诉处理完成</span>
+          <span v-if="item.status == '9'">申诉取消</span>
         </div>
         <div class="create_time">
           {{$globalFunc.formatDateUitl(item.createdAt, 'YYYY-MM-DD hh:mm:ss')}}

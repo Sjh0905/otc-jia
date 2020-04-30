@@ -110,7 +110,7 @@ root.methods.getPartPosterOrderList = function () {
   this.$http.send('GET_BUSINESS_ORDER_LIST', {
     params: {
       binessUserId: this.userId,
-      status: 'PROCESSING',
+      status: 1,
       offset: this.offset,
       maxResults: this.maxResults
     }

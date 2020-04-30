@@ -344,13 +344,13 @@ root.methods.getUserCanTrade = function () {
 // 获取用户的绑定信息
 root.methods.getAuthState = function () {
   if (!this.$store.state.authState) {
-    this.$http.send('GET_USER_AUTO_INFO')
+    this.$http.send('GET_AUTH_STATE')
       .then(({
         data
       }) => {
         typeof data === 'string' && (data = JSON.parse(data))
         if (!data) return
-        this.$store.commit('GET_USER_AUTO_INFO', data.data)
+        this.$store.commit('SET_AUTH_STATE', data.data)
       }).catch((err) => {
         console.log('err', err)
       });
