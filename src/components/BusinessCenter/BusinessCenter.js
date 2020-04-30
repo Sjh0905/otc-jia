@@ -95,8 +95,9 @@ root.data = function () {
     refreshPageFunc: () => {},
 
     //---------超时弹窗结束-------
-    isRouterAlive:true
+    isRouterAlive:true,
 
+    payType:'BANKCARD'// 支付宝 ALIPAY  银行卡 BANKCARD  俩都有 ALIPAY|BANKCARD
   }
 }
 root.created = function () {
@@ -109,7 +110,7 @@ root.created = function () {
   this.getAccount()
 
   // 获取部分市场挂单
-  this.getPartPosterOrderList()
+  // this.getPartPosterOrderList()
   this.getAuthState()
 }
 
@@ -165,7 +166,7 @@ root.watch.result_socket = function (newValue, oldValue) {
     this.$eventBus.notify({
       key: 'SET_BUSINESS_ORDER_SUCCESS'
     });
-    this.getPartPosterOrderList()
+    // this.getPartPosterOrderList()
 
     this.popOpen = true
     this.popType = 1
@@ -803,16 +804,24 @@ root.methods.submitToSell = function () {
 
   this.$http.send('CREATE_POSTER_ORDER', {
     params: {
-      postersType: 'SELL',
-      userId: this.userId,
+      // postersType: 'SELL',
+      // userId: this.userId,
+      // currency: 'USDT',
+      // toCurrency: 'CNY',
+      // price: this.sellInputPrice,
+      // total: this.sellInputNum,
+      // amount: this.sellInputNum,
+      // maxLimit: this.sellInputMaxNum,
+      // minLimit: this.sellInputMinNum,
+      // // payType: payType,   // 支付宝 ALIPAY  银行卡 BANKCARD  俩都有 ALIPAY|BANKCARD
+
+      side: 'SELL',
       currency: 'USDT',
-      toCurrency: 'CNY',
-      price: this.sellInputPrice,
-      total: this.sellInputNum,
-      amount: this.sellInputNum,
-      maxLimit: this.sellInputMaxNum,
-      minLimit: this.sellInputMinNum,
-      // payType: payType,   // 支付宝 ALIPAY  银行卡 BANKCARD  俩都有 ALIPAY|BANKCARD
+      price: this.sellInputPrice, //单价
+      amount: this.sellInputNum, //数量
+      max: this.sellInputMaxNum, //最大数量
+      min: this.sellInputMinNum,//最小数量
+      payType: this.payType,  //支付方式
     }
   }).then(({
     data
@@ -934,15 +943,16 @@ root.methods.postBusinessBaseInfo = function () {
       typeof data === 'string' && (data = JSON.parse(data))
       console.log('baseInfo', data)
       if (data.result === 'FAIL' || data.errorCode) {
+        //返回值只用到了错误码判断，以下情况需要返回申请页面
         switch (data.errorCode) {
           case 2:
             this.popOpen = true
             this.popType = 0
             this.popText = '没有该记录或者申请状态不对'
             // todo 上生产前放开
-            // this.$router.push({
-            //   name: 'BusinessApplication'
-            // })
+            this.$router.push({
+              name: 'BusinessApplication'
+            })
 
             // this.postBusinessBaseInfoLoading = true
             // this.checkHeaderLoading()
@@ -962,7 +972,7 @@ root.methods.postBusinessBaseInfo = function () {
         }
         return
       }
-
+      //以下变量暂时没用到，应该是和费率、挂单价格限制、支付方式有关的
       this.ctcFee = data.dataMap.ctcFee
       this.lowestBuyPrice = data.dataMap.lowestBuyPrice
       this.lowestSellPrice = data.dataMap.lowestSellPrice
@@ -988,17 +998,17 @@ root.methods.postBusinessBaseInfo = function () {
 // 获取部分挂单列表
 root.methods.getPartPosterOrderList = function () {
   this.getPartPosterOrderListLoading = true
-  this.$http.send('GET_PART_POSTER_ORDER_LIST')
-    .then(({
-      data
-    }) => {
-      typeof data === 'string' && (data = JSON.parse(data))
-      console.log(data)
-      this.sectionPendingList = data.dataMap.posterOrderList
-      this.getPartPosterOrderListLoading = false
-    }).catch((err) => {
-      console.log('err', err)
-    });
+  // this.$http.send('GET_PART_POSTER_ORDER_LIST')
+  //   .then(({
+  //     data
+  //   }) => {
+  //     typeof data === 'string' && (data = JSON.parse(data))
+  //     console.log(data)
+  //     this.sectionPendingList = data.dataMap.posterOrderList
+  //     this.getPartPosterOrderListLoading = false
+  //   }).catch((err) => {
+  //     console.log('err', err)
+  //   });
   return
 }
 

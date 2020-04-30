@@ -132,6 +132,9 @@ address.IS_FIRST_VISIT = {url: urlHead + '/accounts/isFirstVisit', method: 'get'
 address.POST_DASH_BUTTON={url: urlHead + '/user/quickBuy', method: 'post', timeout: null, responseType: 'json'}
 address.POST_DASH_BUTTON_QUICKSELL={url: urlHead + '/user/quickSell', method: 'post', timeout: null, responseType: 'json'}
 
+// 查询全局配置信息
+address.GET_SYSTEM_ARGS={url: urlHead + '/common/systemArgs', method: 'get', timeout: null, responseType: 'json'}
+
 
 // 获取银行卡信息2020-4-26
 // address.GET_DASH_BUTTON={url: urlHead + '/user/payInfo', method: 'get', timeout: null, responseType: 'json'}
