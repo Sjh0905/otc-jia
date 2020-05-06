@@ -879,9 +879,9 @@ root.methods.getAccount = function () {
       data
     }) => {
       typeof data === 'string' && (data = JSON.parse(data))
-      console.log('acount', data.data.account)
+      console.log('acount', data.data.accounts)
 
-      this.$store.commit('SET_ACCOUNT', data.data.account)
+      this.$store.commit('SET_ACCOUNT', data.data.accounts[0].available)
       this.getAccountLoading = true
       this.checkHeaderLoading()
     }).catch((err) => {

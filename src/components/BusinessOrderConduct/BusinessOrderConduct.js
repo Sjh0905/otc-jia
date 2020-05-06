@@ -108,8 +108,8 @@ root.methods.getPartPosterOrderList = function () {
 
   this.loading = true
   this.$http.send('GET_BUSINESS_ORDER_LIST', {
-    params: {
-      binessUserId: this.userId,
+    query: {
+      // binessUserId: this.userId,
       status: 1,//1 进行中 2 已取消 3 已完成
       offset: this.offset,
       maxResults: this.maxResults
@@ -170,7 +170,7 @@ root.methods.submitCancelPosterOrder = function () {
   this.ajaxFlag = true
   this.$http.send('CANCEL_POSTER_ORDER', {
     params: {
-      postersOrderId: this.itemContainer.id,
+      id: this.itemContainer.id,
     }
   })
     .then(({data}) => {

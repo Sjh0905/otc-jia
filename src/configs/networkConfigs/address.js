@@ -113,7 +113,7 @@ address.GET_PART_POSTER_ORDER_LIST = {url: urlHead + '/user/getPartPosterOrderLi
 address.GET_BUSINESS_ORDER_LIST = {url: urlHead + '/advert/userOtcAdverts', method: 'get', timeout: null, responseType: 'json'}
 
 // 我的商家撤单
-address.CANCEL_POSTER_ORDER = {url: urlHead + '/user/cancelPostersOrder', method: 'post', timeout: null, responseType: 'json'}
+address.CANCEL_POSTER_ORDER = {url: urlHead + '/advert/cancelPosterOrder', method: 'post', timeout: null, responseType: 'json'}
 
 // // 登出 signoutForC2C
 // address.SIGNOUT_CTC = {url: urlHead + '/user/signoutForC2C', method: 'post', timeout: null, responseType: 'json'}
