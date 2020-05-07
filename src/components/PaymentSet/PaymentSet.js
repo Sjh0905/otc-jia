@@ -133,14 +133,14 @@ root.beforeDestroy = function () {
 }
 /*------------------------------ 计算 -------------------------------*/
 root.computed = {}
-// 获取认证状态
-root.computed.authState = function () {
-  return this.$store.state.authState ||{}
-}
+// // 获取认证状态
+// root.computed.authState = function () {
+//   return this.$store.state.authMessage ||{}
+// }
 
 // 获取用户名
 root.computed.bankAccount = function () {
-  return this.authState.name
+  return this.$store.state.authState.name
 }
 
 // 判断是否是手机
@@ -320,7 +320,7 @@ root.methods.getAuthState = function () {
       // console.log(data,'手机认证状态')
       typeof data === 'string' && (data = JSON.parse(data))
       if (!data) return
-      this.$store.commit('GET_USER_AUTO_INFO', data.data)
+      this.$store.commit('SET_AUTH_STATE', data.data)
       // this.bankAccount = this.$store.state.authState.name
       if (data.data.mobile) {
         this.picked = 'bindMobile'
@@ -646,14 +646,14 @@ root.methods.changeBankCard = function (card) {
   return `${beforeChart} ${number}`
 }
 
-// 检验银行卡号
-root.methods.testBankAccount = function () {
-  this.bankAccountWrong = ''
-  if (this.bankAccount === '') {
-    return false
-  }
-  return true
-}
+// // 检验银行卡号
+// root.methods.testBankAccount = function () {
+//   this.bankAccountWrong = ''
+//   if (this.bankAccount === '') {
+//     return false
+//   }
+//   return true
+// }
 // 检验开户行
 root.methods.testBankName = function () {
   this.bankNameWrong = ''
@@ -805,8 +805,9 @@ root.methods.clickAddBankPay = function () {
 root.methods.clickModifyBankPay = async function (item) {
   // if (!this.openAuthStatePopupWindow()) return
   this.bindBankPopupWindowOpen = true
+  console.log('item=======',item)
   this.bindBankPopupWindowStep = 1
-  this.bankAccount = item.userName
+  // this.bankAccount = item.userName
   this.bankAccountWrong = ''
   this.bankNameWrong = ''
   this.bankBranchName = item.bankAddress

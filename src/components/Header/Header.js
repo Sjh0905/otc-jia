@@ -245,16 +245,16 @@ root.created = function () {
   if (this.isLogin) {
     this.getNoticeRedPoint()
   }
-  if (!this.isLogin) {
-    this.$store.commit('changeNoticeRedPoint', false);
-  }
+  // if (!this.isLogin) {
+  //   this.$store.commit('changeNoticeRedPoint', false);
+  // }
   this.getLangVal()
 
   this.GET_COOKIE();
 
   this.GET_NOTICE();
 
-  this.$store.commit('SET_SERVER_TIME_CALL_BACK',this.refreshKKPriceRange);
+  // this.$store.commit('SET_SERVER_TIME_CALL_BACK',this.refreshKKPriceRange);
 
   if (this.isLogin) {
     this.getCheck(); //是不是会员
@@ -447,7 +447,7 @@ root.watch.isLogin = function (newValue, oldValue) {
     this.getNoticeRedPoint()
   }
   if (!newValue) {
-    this.$store.commit('changeNoticeRedPoint', false);
+    // this.$store.commit('changeNoticeRedPoint', false);
   }
 }
 
@@ -775,8 +775,8 @@ root.methods.getNoticeRedPoint = function () {
 
 root.methods.re_get_notice_callback = function (data) {
   // console.log('获取小红点', data.readNotice)
-  data.readNotice && this.$store.commit('changeNoticeRedPoint', true);
-  !data.readNotice && this.$store.commit('changeNoticeRedPoint', false);
+  // data.readNotice && this.$store.commit('changeNoticeRedPoint', true);
+  // !data.readNotice && this.$store.commit('changeNoticeRedPoint', false);
   let that = this
 
   if (!data.readNotice) {

@@ -120,7 +120,10 @@ store.mutations.SET_SERVER_TIME = (state, time) => {
  * @constructor
  */
 store.mutations.SET_AUTH_STATE = (state, info) => {
-  state.authState = info
+  // state.authState = info
+  if (!info) return;
+  state.authState = info;
+  state.isLogin = info.userId ? true : false
 }
 
 // 修改顶部usdt余额
