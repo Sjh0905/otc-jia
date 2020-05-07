@@ -48,8 +48,14 @@ store.state.authMessage = {
   zipcode: ''
 }
 
-store.state.account = null;
+store.state.accounts = null;
 
+/**
+ * 货币种类
+ * @type {{}}
+ */
+store.state.currency = new Map()
+store.state.currencyChange = 0 // 币种信息发送变化
 
 /**
  * 认证状态
@@ -126,9 +132,42 @@ store.mutations.SET_AUTH_STATE = (state, info) => {
   state.isLogin = info.userId ? true : false
 }
 
-// 修改顶部usdt余额
-store.mutations.SET_ACCOUNT = (state, info) => {
-  state.account = info
+// 修改顶部资产余额
+store.mutations.SET_ACCOUNTS = (state, accounts) => {
+  state.accounts = accounts
+
+  // 如果获取到的信息没有或者不是数组，直接退出即可
+  if (!accounts || accounts instanceof Array === false) return
+  // 扩充account
+  for (let i = 0; i < accounts.length; i++) {
+    // 如果没有currency这个属性，跳过即可
+    if (!accounts[i].currency) {
+      continue
+    }
+    // 获取Map币种对应的对象
+    let target = state.currency.get(accounts[i].currency)
+
+    // 如果不存在这个属性，新建一个
+    if (!target) {
+      state.currency.set(accounts[i].currency, target = {
+        currency: accounts[i].currency,
+        // total: accounts[i].total || 0,
+        available: accounts[i].available || 0,
+        frozen: accounts[i].frozen || 0,
+        locked: accounts[i].locked || 0,
+      })
+    }
+
+    // 修改总值
+    // target.total = parseFloat(GlobalFunc.accAdd(target.available, target.frozen))
+
+    console.log('state.currency',state.currency);
+  }
+
+  // 因为Map对象并不会触发vuex和watch的检测，所以使用另外的属性进行检测，每次变动，对currencyChange进行修改，观测currencyChange即可
+  state.currencyChange++
+  if (state.currencyChange > 100) state.currencyChange = 0
+
 }
 
 // socket 信息

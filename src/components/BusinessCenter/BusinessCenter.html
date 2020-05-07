@@ -1,7 +1,7 @@
 
 <div class="BusinessCenter min-width max-width">
   <div class="shangjiagd">
-    <div class="sjgd">商家挂单</div>
+    <div class="sjgd">发布广告</div>
     <div class="sjchongz">
       <div class="transaction-header-right flex-center">
         <div class="transaction-header-right-img-box">
@@ -10,7 +10,7 @@
         <div class="transaction-header-right-currency strong">USDT</div>
         <div class="transaction-header-right-amount-box flex-center">
           <div class="transaction-header-right-amount-title">可用余额：</div>
-          <div class="transaction-header-right-amount-num strong">{{toFixed(account*1,8)}}</div>
+          <div class="transaction-header-right-amount-num strong">{{toFixed(USDTAvailable*1,8)}}</div>
           <div class="transaction-header-right-amount-unit">USDT</div>
         </div>
         <div class="transaction-header-right-btn " @click="goToRecharge">充值</div>
@@ -247,7 +247,7 @@
   <div class="busniess_order_list">
     <div class="order_title">
       <div class="order_title_left">
-        我的订单
+        我的广告
 <!--        <router-link to="/index/PersonCenter/PaymentSet">修改支付方式</router-link>-->
       </div>
 <!--      <a class="order_title_right text_blue" href="" target="_blank">商家操作说明</a>-->
