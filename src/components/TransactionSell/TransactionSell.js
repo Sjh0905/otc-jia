@@ -21,7 +21,7 @@ root.data = function () {
 
     // 获取本页页面数据
     offset: 0,
-    maxResults: 2,
+    maxResults: 200,
 
     // 页面数据显示
     pendingList: [],
@@ -397,7 +397,7 @@ root.methods.getPageList = function () {
     this.pendingList = data.data
     console.log('this.pendingList====',this.pendingList)
     // this.maxPage = Math.ceil(this.accDiv(data.data,this.maxResults))
-    this.maxPage = this.maxResults
+    // this.maxPage = this.maxResults
     // console.log(this.maxPage)
 
   }).catch((err) => {
