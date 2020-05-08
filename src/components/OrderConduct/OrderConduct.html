@@ -35,17 +35,17 @@
           <div class="numbers">
             {{item.orderNo}}
           </div>
-          <div class="type" :class="item.type == 'SELL' ? 'sell' : 'buy'">
-            {{item.type == 'SELL' ? '卖出' : '买入'}}
+          <div class="type" :class="item.sellerId == userId ? 'sell' : 'buy'">
+            {{item.sellerId == userId ? '卖出' : '买入'}}
           </div>
-          <div class="price" :class="item.type == 'SELL' ? 'sell' : 'buy'">
+          <div class="price" :class="item.sellerId == userId ? 'sell' : 'buy'">
             {{$globalFunc.accFixed(item.price,2)}}
           </div>
           <div class="amount">
-            {{$globalFunc.accFixed(item.amount,2)}}
+            {{$globalFunc.accFixed(item.amount,6)}}
           </div>
-          <div class="money" :class="item.type == 'SELL' ? 'sell' : 'buy'">
-            {{$globalFunc.accFixed(item.amount * item.price,2)}}
+          <div class="money" :class="item.sellerId == userId ? 'sell' : 'buy'">
+            {{item.totalAmount}}
           </div>
           <!-- UNCONFIRMED, // 未确认
                     BUYER_CONFIRM, // 买方确认
@@ -61,21 +61,42 @@
             <span v-if="item.status == 2">已支付</span>
             <span v-if="item.status == 3">已完成</span>
             <span v-if="item.status == 4">已取消</span>
+            <span v-if="item.status == 5">申诉中</span>
+            <span v-if="item.status == 6">放币中</span>
+            <span v-if="item.status == 7">超时关闭</span>
+            <span v-if="item.status == 8">申诉处理完成</span>
+            <span v-if="item.status == 9">申诉取消</span>
           </div>
           <div class="create_time">
             {{$globalFunc.formatDateUitl(item.createdAt, 'YYYY-MM-DD hh:mm:ss')}}
           </div>
           </div>
         <div class="cannel_time">
-          <button class="cannel_time_btn border_radius" v-if="item.type == 'SELL' && (item.confirmStatus == 'UNCONFIRMED' || item.confirmStatus == 'BUYER_CONFIRM')" @click="COMFIRM_BTN(item)">
+          <button class="cannel_time_btn border_radius" v-if="item.sellerId == userId && (item.status == '1'||item.status == '2')" @click="COMFIRM_BTN(item)">
             确认已收款
           </button>
-          <button class="cannel_time_btn border_radius" v-if="item.type == 'BUY' && item.confirmStatus == 'UNCONFIRMED'" @click="COMFIRM_BTN(item)">
+          <button class="cannel_time_btn border_radius" v-if="item.sellerId != userId && item.status == '1'" @click="COMFIRM_BTN(item)">
             确认已付款
           </button>
           <!-- 买单确认收付款 start -->
-          <button class="cannel_time_btn border_radius disabled" v-if="item.type == 'BUY' && item.confirmStatus != 'UNCONFIRMED'">
+<!--          <button class="cannel_time_btn border_radius disabled" v-if="item.type == 'BUY' && item.status != '2'">-->
+          <button class="cannel_time_btn border_radius disabled" v-if="item.sellerId != userId && item.status == '2'">
             处理中
+          </button>
+          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '7'">
+            联系客服处理
+          </button>
+          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '5'">
+            申诉中
+          </button>
+          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '6'">
+            放币中
+          </button>
+          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '8'">
+            申诉处理完成
+          </button>
+          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '9'">
+            申诉取消
           </button>
           <!-- 买单确认收付款 end -->
         </div>
@@ -105,11 +126,11 @@
         <div class="user_info">
           <div class="user_info_item flex">
             <div class="user_info_item_label">单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:</div>
-            <div class="user_info_item_detail">{{order_detail.orderId}}</div>
+            <div class="user_info_item_detail">{{order_detail.orderNo}}</div>
           </div>
           <div class="user_info_item flex">
             <div class="user_info_item_label">类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:</div>
-            <div class="user_info_item_detail">{{order_detail.type == 'SELL' ? '卖出' : '买入'}}</div>
+            <div class="user_info_item_detail">{{order_detail.sellerId == userId ? '卖出' : '买入'}}</div>
           </div>
           <div class="user_info_item flex">
             <div class="user_info_item_label">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格:</div>
@@ -124,8 +145,8 @@
             <div class="user_info_item_detail">{{$globalFunc.accFixed(order_detail.amount * order_detail.price,2)}} CNY</div>
           </div>
           <div class="user_info_item flex">
-            <div class="user_info_item_label">{{order_detail.type == 'SELL' ? '卖家姓名' : '卖家姓名'}}：</div>
-            <div class="user_info_item_detail">{{user_info.name}}</div>
+            <div class="user_info_item_label">{{order_detail.sellerId == userId ? '卖家姓名' : '卖家姓名'}}：</div>
+            <div class="user_info_item_detail">{{user_info.userName}}</div>
           </div>
         </div>
         <div class="user_notice">
@@ -148,11 +169,11 @@
         <div class="user_info">
           <div class="user_info_item flex">
             <div class="user_info_item_label">单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</div>
-            <div class="user_info_item_detail">{{order_detail.orderId}}</div>
+            <div class="user_info_item_detail">{{order_detail.orderNo}}</div>
           </div>
           <div class="user_info_item flex">
             <div class="user_info_item_label">类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</div>
-            <div class="user_info_item_detail">{{order_detail.type == 'SELL' ? '卖出' : '买入'}}</div>
+            <div class="user_info_item_detail">{{order_detail.sellerId == userId ? '卖出' : '买入'}}</div>
           </div>
           <div class="user_info_item flex">
             <div class="user_info_item_label">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格：</div>
@@ -167,8 +188,8 @@
             <div class="user_info_item_detail">{{$globalFunc.accFixed(order_detail.amount * order_detail.price,2)}} CNY</div>
           </div>
           <div class="user_info_item flex">
-            <div class="user_info_item_label">{{order_detail.type == 'SELL' ? '买家姓名' : '卖家姓名'}}：</div>
-            <div class="user_info_item_detail">{{user_info.name}}</div>
+            <div class="user_info_item_label">{{order_detail.sellerId == userId ? '买家姓名' : '卖家姓名'}}：</div>
+            <div class="user_info_item_detail">{{order_detail.sellerId == userId ? order_detail.buyName : order_detail.sellName}}</div>
           </div>
         </div>
         <div class="user_notice">
@@ -178,7 +199,7 @@
       </div>
       <div slot="footer" class="bind-bank-footer flex">
         <button class="btn_white_blue text_blue aLiPay-btn pointer" @click="CLOSE_DIALOG">取消</button>
-        <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="COMFIRM_RECEIVABLES">确认已收款</button>
+        <button class="btn_blue text_white aLiPay-btn aLiPay-commit-btn pointer" @click="COMFIRM_RECEIVED">确认已收款</button>
       </div>
     </template>
   </PopupWindow>

@@ -120,25 +120,34 @@
       <div class="business_order_table_tr flex-center flex-between" v-else v-for="(item,index) in pendingList" :key="index">
         <div class="order text_dark14 flex-row">
           <div style="height:70px;position: relative">
-            <div :class="'yansebj'+Math.round(Math.random()*3)">{{item.name.substring(0,1)}}</div>
+<!--            <div :class="'yansebj'+Math.round(Math.random()*3)">{{item.nickName.substring(0,1)}}</div>-->
             <div style="width: 52px;position: absolute;bottom: -1px;background: #fff;height: 1px;"></div>
           </div>
           <div class="nameColor">
-            {{item.name}}
+            {{item.nickname}}
           </div>
         </div>
-          <div class="type text_dark14">{{item.sum}}</div>
-          <div class="price text_dark14">{{toFixed(accMul(item.rate,100),2)}}%</div>
-          <div class="unit text_green14">{{toFixed(item.price,2)}}</div>
-          <div class="amount text_dark14">{{toFixed(item.amount,2)}}</div>
+         <!--  成交单数-->
+          <div class="type text_dark14">{{item.cmpOrder}}</div>
+        <!--  成交率-->
+          <div class="price text_dark14">{{toFixed((item.succOrder / item.cmpOrder),2)}}%</div>
+<!--          <div class="price text_dark14"></div>-->
+        <!--  单价-->
+          <div class="unit text_green14">{{toFixed(item.fixedPrice,2)}}</div>
+        <!--  数量-->
+          <div class="amount text_dark14">{{toFixed(item.visiableVolume,6)}}</div>
 <!--          <div class="money">{{toFixed(accMul(item.amount,item.price),2)}}</div>-->
-          <div class="num text_dark14">{{toFixed(accMul(item.minLimit,item.price),2)}} - {{toFixed(accMul(item.amount,item.price),2)}}</div>
-          <div class="pay_type text_dark14">
+        <!--  限额-->
+<!--          <div class="num text_dark14">{{toFixed(accMul(item.minLimit,item.price),2)}} - {{toFixed(accMul(item.amount,item.price),2)}}</div>-->
+          <div class="num text_dark14">{{toFixed((item.minAmount * item.fixedPrice),2)}} - {{toFixed((item.maxAmount * item.fixedPrice),2)}}</div>
+        <!--  支付方式-->
+          <div class="pay_type text_dark14" v-if="(item.payMethod) == '1'">
 <!--            <span v-if="item.payMethod === 'BANKCARD' || item.payMethod === 'ALIPAY|BANKCARD' || item.payMethod === 'BANKCARD|ALIPAY'" class="icon card_icon"></span>-->
 <!--            <span v-if="item.payMethod === 'ALIPAY' || item.payMethod === 'ALIPAY|BANKCARD' || item.payMethod === 'BANKCARD|ALIPAY'" class="icon alipay_cion"></span>-->
             银行卡
           </div>
 
+        <!--  交易-->
           <div class="option text_center">
             <button class="btn btn_sell btn-can" @click="clickToSellSelf(item)">
               出售USDT
@@ -262,7 +271,7 @@
           <div class="buy-toa buy-mar-bom flex">
             <div class="buy-toast-item1">
               <div class="buy-toast-item-title text_grey_12">商家</div>
-              <div class="buy-toast-item-first-content text_dark">{{sellItem.name}}包包</div>
+              <div class="buy-toast-item-first-content text_dark">{{sellItem.nickname}}</div>
             </div>
             <div class="buy-toast-item1 tac">
               <div class="buy-toast-item-title text_grey_12">类型</div>
@@ -270,20 +279,20 @@
             </div>
             <div class="buy-toast-item2">
               <div class="buy-toast-item-title text_grey_12">价格</div>
-              <div class="buy-toast-item-first-content text_red">{{sellItem.price}} CNY</div>
+              <div class="buy-toast-item-first-content text_red">{{sellItem.fixedPrice}} CNY</div>
             </div>
           </div>
           <div class="mbt">
             <!--            <div class="buy-toast-item-title text_grey_8">数量</div>-->
             <div class="buy-toast-item-input-box input_border border_radius">
-              <input class="buy-toast-item-input border_radius" placeholder="输入金额" @input="bindInputNum" v-model="inputNum" type="text">
+              <input class="buy-toast-item-input border_radius" placeholder="输入金额" @input="bindInputCNY" v-model="inputCNY" type="text">
               <div class="buy-toast-item-input-currency text_grey_10">CNY</div>
             </div>
             <div class="buy-toast-item-input-boxOtc">
               <img class="buy-toastImg" src="../../assets/OSwitch.png" alt="">
             </div>
             <div class="buy-toast-item-input-box input_border border_radius">
-              <input class="buy-toast-item-input border_radius" placeholder="输入数量" @input="bindInputCNY" v-model="inputCNY" type="text">
+              <input class="buy-toast-item-input border_radius" placeholder="输入数量" @input="bindInputNum" v-model="inputNum" type="text">
               <div class="buy-toast-item-input-currency text_grey_10">USDT</div>
             </div>
 
@@ -294,7 +303,7 @@
           <!--          </div>-->
           <div class="header-fs">
             <span class="buy-toast-item-title text_grey_9">限额
-              <span class="buy-toast-items">{{sellItem.minLimit}}~{{sellItem.maxLimit}}100000-100000 USDT</span></span>
+              <span class="buy-toast-items">{{toFixed((sellItem.minAmount * sellItem.fixedPrice),2)}}~{{toFixed((sellItem.maxAmount * sellItem.fixedPrice),2)}} CNY</span></span>
 
           </div>
 
@@ -303,19 +312,22 @@
         <div class="buy-toast-item buy-toast-item-specials">
           <span class="buy-toast-item-title text_grey_9">收款方式</span>
           <span class="buy-toast-item-pay-mode">
-            <span class="buy-toast-item-pay-mode-line"><img class="PopupImg" src="../../assets/Popup_icon@2x.png" alt="">zhifubao
-              <div v-if="sellItem.payMethod === 'ALIPAY' || sellItem.payMethod === 'ALIPAY|BANKCARD' || sellItem.payMethod === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">
-                支付宝
-              </div>
-              <div v-if="sellItem.payMethod === 'BANKCARD' || sellItem.payMethod === 'ALIPAY|BANKCARD' || sellItem.payMethod === 'BANKCARD|ALIPAY'" class="buy-toast-item-first-content-bank-item text_dark strong">
-                银行转账 <span style="color:#EF5656">(需本人账户收款)</span>
-              </div>
-              <div v-if="sellItem.payType === 'ALIPAY' || sellItem.payType === 'ALIPAY|BANKCARD' || sellItem.payType === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">
-                支付宝
-              </div>
-              <div v-if="sellItem.payType === 'BANKCARD' || sellItem.payType === 'ALIPAY|BANKCARD' || sellItem.payType === 'BANKCARD|ALIPAY'" class="buy-toast-item-first-content-bank-item text_dark strong">
-                银行转账 <span style="color:#EF5656">(需本人账户收款)</span>
-              </div>
+            <span class="buy-toast-item-pay-mode-line"><img class="PopupImg" src="../../assets/Popup_icon@2x.png" alt="">
+<!--              <div v-if="sellItem.payMethod === 'ALIPAY' || sellItem.payMethod === 'ALIPAY|BANKCARD' || sellItem.payMethod === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">-->
+<!--                支付宝-->
+<!--              </div>-->
+<!--              <div v-if="sellItem.payMethod === 'BANKCARD' || sellItem.payMethod === 'ALIPAY|BANKCARD' || sellItem.payMethod === 'BANKCARD|ALIPAY'" class="buy-toast-item-first-content-bank-item text_dark strong">-->
+<!--                银行转账 <span style="color:#EF5656">(需本人账户收款)</span>-->
+<!--              </div>-->
+<!--              <div v-if="sellItem.payType === 'ALIPAY' || sellItem.payType === 'ALIPAY|BANKCARD' || sellItem.payType === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">-->
+<!--                支付宝-->
+<!--              </div>-->
+<!--              <div v-if="sellItem.payType === 'BANKCARD' || sellItem.payType === 'ALIPAY|BANKCARD' || sellItem.payType === 'BANKCARD|ALIPAY'" class="buy-toast-item-first-content-bank-item text_dark strong">-->
+<!--                银行转账 <span style="color:#EF5656">(需本人账户收款)</span>-->
+<!--              </div>-->
+               <span v-if="(sellItem.payMethod) == '1'"  class="buy-toast-item-first-content-bank-item text_dark strong">
+                银行卡
+              </span>
             </span>
             <!-- <div class="sell-toast-item-pay-mode-info text_blue">(需本人账户收款)</div> -->
           </span>
@@ -417,7 +429,8 @@
           <div class="buy-toa buy-mar-bom10 flex">
             <div class="buy-toast-item1">
               <div class="buy-toast-item-title text_grey_12" v-if='!aKeyUserName'>商家</div>
-              <div class="buy-toast-item-first-content text_dark">{{pay_info.username}}包包</div>
+<!--              <div class="buy-toast-item-first-content text_dark">{{pay_info.username}}包包</div>-->
+              <div class="buy-toast-item-first-content text_dark">{{sellItem.nickname}}</div>
             </div>
             <div class="buy-toast-item1 tac">
               <div class="buy-toast-item-title text_grey_9">类型</div>
@@ -425,59 +438,64 @@
             </div>
             <div class="buy-toast-item2">
               <div class="buy-toast-item-title text_grey_9">价格</div>
-              <div class="buy-toast-item-first-content text_red">{{sellItem.price}}10000 CNY</div>
+              <div class="buy-toast-item-first-content text_red">{{sellItem.fixedPrice}} CNY</div>
             </div>
           </div>
 
         </div>
 
-        <div class=" buy-toast-item-specialsOtc" v-if='!aKeyUserName'>
-            <span class="header-fs text_grey_9">单号
-              <span class="buy-toast-items">{{sellItem.id}}1234567</span>
-            </span>
-        </div>
+<!--        <div class=" buy-toast-item-specialsOtc" v-if='!aKeyUserName'>-->
+<!--            <span class="header-fs text_grey_9">单号-->
+<!--              <span class="buy-toast-items">{{sellItem.id}}</span>-->
+<!--            </span>-->
+<!--        </div>-->
         <div class=" buy-toast-item-specialsOtc">
           <span class="header-fs text_grey_9">数量</span>
-          <span class="buy-toast-items">{{inputNum}}12345</span>
+          <span class="buy-toast-items">{{inputNum}}</span>
           <!--          <span class="buy-toast-items">USDT</span>-->
         </div>
         <div class=" buy-toast-item-specialsOtc">
           <span class="header-fs text_grey_9">实收款（以实际订单为准）</span>
 <!--          <span class="text_grey_9"></span>-->
-          <span class="otc-color">{{inputCNY}}121212 CNY</span>
+          <span class="otc-color">{{inputCNY}} CNY</span>
 
         </div>
 
         <div class="buy-toast-item-specials otc-bor-top">
           <span class="buy-toast-item-title text_grey_9">收款方式</span>
           <span class="header-fs text_grey_9">
-          <span class="buy-toast-items"><img class="PopupImg" src="../../assets/Popup_icon@2x.png" alt="">支付宝
-              <div v-if="sellItem.payMethod === 'ALIPAY' || sellItem.payMethod === 'ALIPAY|BANKCARD' || sellItem.payMethod === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">
-                支付宝
-              </div>
-              <div v-if="sellItem.payMethod === 'BANKCARD' || sellItem.payMethod === 'ALIPAY|BANKCARD' || sellItem.payMethod === 'BANKCARD|ALIPAY'" class="buy-toast-item-first-content-bank-item text_dark strong">
-                银行转账 <span style="color:#EF5656">(需本人账户收款)</span>
-              </div>
-              <div v-if="sellItem.payType === 'ALIPAY' || sellItem.payType === 'ALIPAY|BANKCARD' || sellItem.payType === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">
-                支付宝
-              </div>
-              <div v-if="sellItem.payType === 'BANKCARD' || sellItem.payType === 'ALIPAY|BANKCARD' || sellItem.payType === 'BANKCARD|ALIPAY'" class="buy-toast-item-first-content-bank-item text_dark strong">
-                银行转账 <span style="color:#EF5656">(需本人账户收款)</span>
-              </div>
+          <span class="buy-toast-items"><img class="PopupImg" src="../../assets/Popup_icon@2x.png" alt="">
+<!--              <div v-if="sellItem.payMethod === 'ALIPAY' || sellItem.payMethod === 'ALIPAY|BANKCARD' || sellItem.payMethod === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">-->
+<!--                支付宝-->
+<!--              </div>-->
+<!--              <div v-if="sellItem.payMethod === 'BANKCARD' || sellItem.payMethod === 'ALIPAY|BANKCARD' || sellItem.payMethod === 'BANKCARD|ALIPAY'" class="buy-toast-item-first-content-bank-item text_dark strong">-->
+<!--                银行转账 <span style="color:#EF5656">(需本人账户收款)</span>-->
+<!--              </div>-->
+<!--              <div v-if="sellItem.payType === 'ALIPAY' || sellItem.payType === 'ALIPAY|BANKCARD' || sellItem.payType === 'BANKCARD|ALIPAY'"  class="buy-toast-item-first-content-bank-item text_dark strong">-->
+<!--                支付宝-->
+<!--              </div>-->
+<!--              <div v-if="sellItem.payType === 'BANKCARD' || sellItem.payType === 'ALIPAY|BANKCARD' || sellItem.payType === 'BANKCARD|ALIPAY'" class="buy-toast-item-first-content-bank-item text_dark strong">-->
+<!--                银行转账 <span style="color:#EF5656">(需本人账户收款)</span>-->
+<!--              </div>-->
+
+               <span v-if="sellItem.payMethod == '1'"  class="buy-toast-item-first-content-bank-item text_dark strong">
+                银行卡
+              </span>
           </span>
             <!-- <div class="buy-toast-item-pay-mode-info text_blue">(需本人账户支付)</div> -->
         </span>
         </div>
 
-        <div class="buy-toast-item buy-toast-item-specials" v-if='!!sellItemPay'>
-          <span class="buy-toast-item-title text_grey_9">收款银行卡</span>
-          <span class="header-fs text_grey_9">
-            <span class="buy-toast-items">
-              {{sellItemPay.bankName}},baobao
-              {{sellItemPay.cardNumber}},121212121212121212
-            </span>
-          </span>
-        </div>
+<!--        <div class="buy-toast-item buy-toast-item-specials" v-if='!!sellItemPay'>-->
+<!--        <div class="buy-toast-item buy-toast-item-specials" v-if='sellItem.payMethod == 1'>-->
+<!--          <span class="buy-toast-item-title text_grey_9">收款银行卡</span>-->
+<!--          <span class="header-fs text_grey_9">-->
+<!--            <span class="buy-toast-items">-->
+<!--              {{sellItemPay.payName}}-->
+<!--              {{sellItemPay.cardNumber}},121212121212121212-->
+<!--            </span>-->
+<!--          </span>-->
+<!--        </div>-->
 
         <div class="buy-toast-btn-boxsb">
           <span class="btns btnOtc margin-leftO" @click="closeSellComfirmBox">取消</span>

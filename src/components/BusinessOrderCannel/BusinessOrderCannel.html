@@ -3,34 +3,36 @@
 		<div class="business_order_table">
 			<!-- table 头 start -->
 			<div class="business_order_table_title flex-center ">
-<!--				<div class="order">单号</div>-->
-				<div class="type">订单号</div>
-        <div class="orderstatus">类型</div>
+				<div class="order">单号</div>
+				<div class="type">类型</div>
+        <!--<div class="orderstatus">类型</div>-->
 				<div class="price">单价(CNY)</div>
 				<div class="amount">数量(USDT)</div>
-				<div class="money">总金额(CNY)</div>
+				<!--<div class="money">总金额(CNY)</div>-->
 <!--				<div class="clock">锁定(USDT)</div>-->
-        <div class="jyobject">交易对象</div>
-<!--				<div class="complete">成交(USDT)</div>-->
+        <!--<div class="jyobject">交易对象</div>-->
+				<div class="complete">已成交(USDT)</div>
 <!--				<div class="create">创建时间</div>-->
-				<div class="update">时间</div>
+                <div class="num">限额(CNY)</div>
+				<div class="update">撤销时间</div>
 			</div>
 			<!-- table 头 end -->
 			<!-- table tbody start -->
 			<div class="business_order_table_tbody text_block">
 				<Loading v-if="loading" />
-				<div class="business_order_table_tr flex-center" v-else v-for="(item,index) in pageList" :key="index">
-<!--					<div class="order">{{item.id}}</div>-->
-					<div class="type" >&nbsp;{{item.id}}</div>
-          <div class="orderstatus" :class="item.postersType === 'BUY' ? 'text_green' : 'text_red'">{{item.postersType === 'BUY' ? '购买' : '出售'}}</div>
-          <div class="price" :class="item.postersType === 'BUY' ? 'text_green' : 'text_green'">{{toFixed(item.price,2)}}</div>
-					<div class="amount">{{toFixed(item.total,2)}}</div>
-					<div class="money">{{toFixed(accMul(item.total,item.price),2)}}</div>
+				<div v-if="!loading" class="business_order_table_tr flex-center"  v-for="(item,index) in pageList" :key="index">
+					<div class="order">{{item.advertNo}}</div>
+					<!--<div class="type" >&nbsp;{{item.id}}</div>-->
+          <div class="type" :class="item.side === 'BUY' ? 'text_green' : 'text_red'">{{item.side === 'BUY' ? '购买' : '出售'}}</div>
+          <div class="price" :class="item.side === 'BUY' ? 'text_green' : 'text_red'">{{toFixed(item.fixedPrice,2)}}</div>
+					<div class="amount">{{toFixed(item.volume,2)}}</div>
+					<!--<div class="money">{{toFixed(accMul(item.total,item.price),2)}}</div>-->
 <!--					<div class="clock">{{item.postersType === 'BUY'?'0.00':toFixed(item.locking,2)}}</div>-->
-          <div class="jyobject">李四</div>
-<!--					<div class="complete">{{toFixed(item.deal,2)}}</div>-->
+          <!--<div class="jyobject">李四</div>-->
+					<div class="complete">{{toFixed(item.tradingVolume,2)}}</div>
 <!--					<div class="create">{{formatDateUitl(item.createdAt)}}</div>-->
-					<div class="update">{{formatDateUitl(item.cancelTime)}}</div>
+                    <div class="num">{{toFixed(accMul(item.minAmount,item.fixedPrice),2)}} - {{toFixed(accMul(item.maxAmount,item.fixedPrice),2)}}</div>
+					<div class="update">{{formatDateUitl(item.updatedAt)}}</div>
 				</div>
 			</div>
 			<!-- table tbody end -->

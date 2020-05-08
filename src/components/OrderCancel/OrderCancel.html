@@ -30,19 +30,19 @@
       <Loading v-if="loading" />
       <div class="order_conduct_content border_bottom flex-center" v-else v-for="(item, i) in list" @click="GO_DETAIL(item.id, item.type)">
         <div class="numbers">
-          {{item.orderId}}
+          {{item.orderNo}}
         </div >
-        <div class="type" :class="item.type == 'SELL' ? 'sell' : 'buy'">
-          {{item.type == 'SELL' ? '卖出' : '买入'}}
+        <div class="type" :class="item.sellerId == userId ? 'sell' : 'buy'">
+          {{item.sellerId == userId ? '卖出' : '买入'}}
         </div>
-        <div class="price" :class="item.type == 'SELL' ? 'sell' : 'buy'">
+        <div class="price" :class="item.sellerId == userId ? 'sell' : 'buy'">
           {{$globalFunc.accFixed(item.price,2)}}
         </div>
         <div class="amount">
-          {{$globalFunc.accFixed(item.amount,2)}}
+          {{$globalFunc.accFixed(item.amount,6)}}
         </div>
-        <div class="money" :class="item.type == 'SELL' ? 'sell' : 'buy'">
-          {{$globalFunc.accFixed(item.price * item.amount,2)}}
+        <div class="money" :class="item.sellerId == userId ? 'sell' : 'buy'">
+          {{item.totalAmount}}
         </div>
         <div class="status">
           <span>已取消</span>
@@ -51,7 +51,7 @@
           {{$globalFunc.formatDateUitl(item.createdAt, 'YYYY-MM-DD hh:mm:ss')}}
         </div> -->
         <div class="cannel_time">
-          {{!!item.cancelTime ? $globalFunc.formatDateUitl(item.cancelTime, 'YYYY-MM-DD hh:mm:ss') : ''}}
+          {{!!item.updatedAt ? $globalFunc.formatDateUitl(item.updatedAt, 'YYYY-MM-DD hh:mm:ss') : ''}}
         </div>
       </div>
     </div>

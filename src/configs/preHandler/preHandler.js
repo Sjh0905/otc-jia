@@ -50,10 +50,10 @@ export default async function ($http, $store, $cookie, $i18n) {
 	}
 
 
-
-
-
-	// await Promise.all([checkLogin(), getServerTime()]).then(res => {
+	await Promise.all([getServerTime()]).then(res => {
+    	// console.warn('')
+  	})
+  // await Promise.all([checkLogin(), getServerTime()]).then(res => {
   //   	// console.warn('')
   // 	})
 

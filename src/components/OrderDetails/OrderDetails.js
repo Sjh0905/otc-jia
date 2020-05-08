@@ -124,7 +124,7 @@ root.computed.order_type = function () {
 }
 // 用户id
 root.computed.userId = function () {
-	return this.$store.state.authMessage.userId;
+	return this.$store.state.authState.userId;
 }
 // 服务器时间
 root.computed.serverTime = function () {
@@ -139,7 +139,7 @@ root.watch = {};
 
 // 在进行中界面，如果倒计时结束了，还没有完成收付款，需要跳到取消页面
 root.watch.serverTime = function (newValue, oldValue) {
-	let end = !!this.ctc_order.expireTime2 ? this.ctc_order.expireTime2 : this.ctc_order.expireTime1;
+	let end = !!this.ctc_order.expireTime2 ? this.ctc_order.expireTime2 : this.ctc_order.updatedAt;
 	if (this.detail_type == 1 && end <= newValue) {
 		this.GO_DETAIL_TYPE(4);
 	}
@@ -215,10 +215,10 @@ root.methods.changePhone = function (phone) {
 }
 
 // 我要申诉
-root.methods.GO_APPEAL = function () {
-	let appeal = this.$store.state.domain_url + 'index/help/wordOrder';
-	window.location.replace(appeal);
-}
+// root.methods.GO_APPEAL = function () {
+// 	let appeal = this.$store.state.domain_url + 'index/help/wordOrder';
+// 	window.location.replace(appeal);
+// }
 
 // 取消订单
 root.methods.CANCEL_CTC_ORDER = function () {
@@ -229,18 +229,19 @@ root.methods.CANCEL_CTC_ORDER = function () {
 	}
 	this.$http.send('CANCEL_CTC_ORDER', {
 		params: {
-			confirmNOPay: this.no_pay_agree ? 0 : 1,
-			ctcOrderId: this.ctcOrderId,
+			// confirmNOPay: this.no_pay_agree ? 0 : 1,
+			id: this.ctcOrderId,
 		}
 	}).then(({data}) => {
-		let errorCode = data.errorCode;
-		if (errorCode == 0) {
-			this.CLOSE_DIALOG();
-			// 跳到撤单详情界面
-			this.GO_DETAIL_TYPE(3);
-			this.popType = 1;
+		let errorCode = data.code;
+		if (errorCode == 200) {
+
 			this.popOpen = true;
-		    this.popText = '撤销成功';
+			this.popText = '撤销成功';
+      this.CLOSE_DIALOG();
+      // 跳到撤单详情界面
+      this.GO_DETAIL_TYPE(3);
+      this.popType = 1;
 			return;
 		}
 		if (errorCode == 1) {
@@ -260,7 +261,8 @@ root.methods.CANCEL_CTC_ORDER = function () {
 
 // 判断支付方式有无变化
 root.methods.USER_PAY_INFO = function (ctc_order) {
-	if (this.detail_type > 1 || this.order_type == 'BUY') return;
+	// if (this.detail_type > 1 || this.order_type == 'BUY') return;
+	if (this.detail_type > 1 || this.sellerId == this.userId) return;
 	this.$http.send('USER_PAY_INFO', {
 		params: {
 			ctcOrder: ctc_order,
@@ -281,34 +283,33 @@ root.methods.USER_PAY_INFO = function (ctc_order) {
 root.methods.GET_ORDER_DETAIL = function () {
 
 	this.$http.send('CTC_ORDER_DETAIL', {
-		params: {
-			userId: this.userId,
-			c2cOrderType: this.order_type,
-			ctcOrderId: this.ctcOrderId,
+		query: {
+			id: this.ctcOrderId,
 		}
 	}).then(({data}) => {
 		let self = this;
-		let code = data.errorCode;
-		let datas = data.dataMap;
+		// let code = data.errorCode;
+		let datas = data.data;
 		// console.log(data,'bbb')
-		if (code == 0) {
+		if (data.code == 200) {
 			this.loading = false;
 
 			console.log('datas=====',datas,this.detail_type)
+      //
+			// this.appealTime = datas.appealTime;
+			// this.appeal = datas.ctcOrder.appeal;
+      //
+			// this.userType = datas.userType;
+      //
 
-			this.appealTime = datas.appealTime;
-			this.appeal = datas.ctcOrder.appeal;
-
-			this.userType = datas.userType;
+			console.log('rrrrrrrrrrr 88888888',datas.order)
 
 
-			console.log('rrrrrrrrrrr 88888888',datas.ctcOrder)
-
-
-			this.ctc_order = datas.ctcOrder;
+			this.ctc_order = datas.order;
 			// this.user_info = datas.userType == 0 ? (!!datas.user && datas.user || {}) : (!!datas.business && datas.business[0] || {});
 			this.user_info = !!datas.user && datas.user || {}
-			this.pay_info = (datas.userType == 1 || datas.userType == 4 )  ? (datas.userPayInfoList || []) : (datas.businessPayInfoList || []);
+			// this.pay_info = (datas.userType == 1 || datas.userType == 4 )  ? (datas.userPayInfoList || []) : (datas.businessPayInfoList || []);
+			this.pay_info = datas.userPayment
 			// 判断用户支付方式有无变化 买入时候需要判断
 			// datas.userType == 1 && this.USER_PAY_INFO(this.ctc_order);
 
@@ -318,28 +319,28 @@ root.methods.GET_ORDER_DETAIL = function () {
 
       //   订单状态时间  = (订单类型2完成 || 订单类型4全部)
       this.order_detail_time = (this.detail_type == 2 || this.detail_type == 4) ?
-        this.ctc_order.confirmTime : (this.detail_type == 3 ?
-          this.ctc_order.cancelTime : this.ctc_order.payTime);
+        this.ctc_order.updatedAt : (this.detail_type == 3 ?
+          this.ctc_order.updatedAt : this.ctc_order.createdAt);
 
 
-      //expireTime1:订单未完成的时间  cancelTime:取消时间  payTime:创建时间  confirmTime:完成时间
+      //expireTime1:订单未完成的时间updatedAt  cancelTime:取消时间updatedAt  payTime:创建时间createdAt  confirmTime:完成时间updatedAt
       this.order_detail_time =(this.detail_type != 4 || this.detail_type == 4)?
-        this.ctc_order.expireTime1 : this.ctc_order.cancelTime;
+        this.ctc_order.updatedAt : this.ctc_order.updatedAt;
 
       // this.order_detail_time = this.detail_type == 2 ||  this.detail_type == 3 ||this.detail_type == 4 || ( this.ctc_order.confirmTime ?  this.ctc_order.cancelTime : this.ctc_order.payTime);
 			// console.log(this.ctc_order,'ccc',this.order_detail_time,this.detail_type == 2 || this.detail_type == 4)
 
 			// 是否收/付款
-			if (this.ctc_order.type == 'BUY' && this.ctc_order.confirmStatus != 'UNCONFIRMED') { // 如果是买单
+			if (this.ctc_order.sellerId != this.userId && this.ctc_order.status != '1') { // 如果是买单
 				this.paying = true; // 不能点
 				return;
 			}
-			if (this.ctc_order.type == 'SELL' && this.ctc_order.confirmStatus != 'UNCONFIRMED' && this.ctc_order.confirmStatus != 'BUYER_CONFIRM') {  // 如果是卖单
+			if (this.ctc_order.sellerId == this.userId && this.ctc_order.status != '1' && this.ctc_order.status != '3') {  // 如果是卖单
 				this.paying = true; // 不能点
 				return;
 			}
-			if (this.ctc_order.type == 'SELL') {
-				if (this.ctc_order.confirmStatus != 'UNCONFIRMED') {
+			if (this.ctc_order.sellerId == this.userId) {
+				if (this.ctc_order.status != '1') {
 					this.order_status = 1; // 显示买家已付款
 				}
 			}
@@ -350,10 +351,12 @@ root.methods.GET_ORDER_DETAIL = function () {
 			}
 
 			// 初始化倒计时
-			let end = !!this.ctc_order.expireTime2 ? this.ctc_order.expireTime2 : this.ctc_order.expireTime1;
+			let end = this.ctc_order.limitTime;
+			// let end = !!this.ctc_order.expireTime2 ? this.ctc_order.expireTime2 : this.ctc_order.updatedAt;
       // (this.detail_type == 1 || this.detail_type == 4) && this.initTimes(this.serverTime, end);
-      this.detail_type == 1  && this.initTimes(this.serverTime, end);
-      this.detail_type == 4 && this.initTimes(this.serverTime, end);
+      console.log('this.serverTime==============',data.time);
+      this.detail_type == 1  && this.initTimes(data.time, end);
+      this.detail_type == 4 && this.initTimes(data.time, end);
 		}
 		switch (code) {
 			case 5:
@@ -376,6 +379,10 @@ root.methods.GET_ORDER_DETAIL = function () {
 				self.popOpen = true;
 	    		self.popText = '商家已被禁用';
 				break;
+      case 1016:
+        self.popOpen = true;
+        self.popText = '订单未找到';
+        break;
 			default:
 				break;
 		}
@@ -431,8 +438,8 @@ root.methods.CLOSE_DIALOG = function () {
 // 倒计时
 root.methods.initTimes = function (now, end) {
 	// 买单和卖单都显示15分钟，但是如果是卖单，且开始结束时差大于一小时的时候，且客户已付款，需要显示出小时
-	if (this.order_type == 'SELL' && this.ctc_order.confirmStatus == 'BUYER_CONFIRM' && (Number(end) - Number(now) > 3600000)) {
-  console.log('ooooooooo=====',document.getElementById('times'))
+	if (this.ctc_order.sellerId == this.userId && (Number(end) - Number(now) > 3600000)) {
+  console.info('ooooooooo=====',document.getElementById('times'))
 		new Countdown(document.getElementById('times'), {
 		    format: '<span style="margin-left: 2px; color: #ED7265;">hh</span> 时 <span style="margin-left: 2px; color: #ED7265;">mm</span> 分 <span style="margin-left: 2px; color: #ED7265;">ss</span> 秒',
         startTime: now,
@@ -455,23 +462,24 @@ root.methods.SHOW_COMPELETE = function () {
 }
 // 确认付款按钮
 root.methods.COMPLETE_BTN = function () {
-	if (this.order_type == 'SELL') {
-		// 邮箱验证
-		// this.show_mail = true;
-		// 谷歌手机二级验证
-		this.show_ga_sms_dialog = true;
-
-		this.show_dialog = false;
-	}
-	if (this.order_type == 'BUY') {
+	// if (this.ctc_order.sellerId != this.userId) {
+	// 	// 邮箱验证
+	// 	// this.show_mail = true;
+	// 	// 谷歌手机二级验证
+	// 	this.show_ga_sms_dialog = true;
+  //
+	// 	this.show_dialog = false;
+	// }
+	if (this.ctc_order.sellerId != this.userId) {
 		this.$http.send('COMFIRM_PAYMENT', {
 			params: {
-				"ctcOrderId": this.ctc_order.id
+				id: this.ctc_order.id
 			}
 		}).then(({data}) => {
 			// console.log(data,'aaa')
-			let code = data.errorCode;
-			if (code == 0) {
+			let code = data.code;
+			if (code == 200) {
+        this.show_buy_sell_btn = false;
 				// 关闭弹框
 				this.CLOSE_DIALOG();
 				// 跳到已完成界面
@@ -479,21 +487,97 @@ root.methods.COMPLETE_BTN = function () {
 				this.popType = 1;
 				this.popOpen = true;
 				this.popText = '付款成功';
+				return;
 			}
 
-			if (code > 0) {
+			if (code == 1016) {
 				this.popOpen = true;
-		    	this.popText = '系统繁忙，请稍后重试';
+				this.popText = '订单未找到';
+        return;
 			}
+			if (code == 500) {
+				this.popOpen = true;
+				this.popText = '订单操作中中，无法取消';
+        return;
+			}
+			if (code == 1032) {
+				this.popOpen = true;
+				this.popText = '订单超时';
+        return;
+			}
+			if (code == 1025) {
+				this.popOpen = true;
+				this.popText = '订单不是一个待支付订单';
+        return;
+			}
+
 		}).catch((err) => {
 			console.log(err,'aaa')
 		});
 	}
 }
 
+
+// 确认收款按钮
+root.methods.COMFIRM_RECEIVED = function () {
+
+  if (this.ctc_order.sellerId == this.userId) {
+    this.$http.send('COMFIRM_RECEIVED', {
+      params: {
+        id: this.ctc_order.id
+      }
+    }).then(({data}) => {
+      // console.log(data,'aaa')
+      let code = data.code;
+      if (code == 200) {
+
+        this.show_buy_sell_btn = false;
+        // this.show_ga_sms_dialog = false;
+        // 关闭弹框
+        this.CLOSE_DIALOG();
+        // 跳到已完成界面
+        this.GO_ORDER_COMPELETE();
+        this.popType = 1;
+        this.popOpen = true;
+        this.popText = '收款成功';
+        return;
+      }
+
+      if (code == 1016) {
+        this.popOpen = true;
+        this.popText = '订单未找到';
+        return;
+      }
+      if (code == 500) {
+        this.popOpen = true;
+        this.popText = '订单操作中中，无法取消';
+        return;
+      }
+      if (code == 1032) {
+        this.popOpen = true;
+        this.popText = '订单超时';
+        return;
+      }
+      if (code == 1025) {
+        this.popOpen = true;
+        this.popText = '订单不是一个待支付订单';
+        return;
+      }
+      if (code == 1026) {
+        this.popOpen = true;
+        this.popText = '只有已支付状态的的订单才能确认';
+        return;
+      }
+
+    }).catch((err) => {
+      console.log(err,'aaa')
+    });
+  }
+}
+
 // 收付款成功后跳到完成界面
 root.methods.GO_ORDER_COMPELETE = function () {
-	let order_type = this.order_type == 'BUY' ? 1 : 2;
+	let order_type = this.sellerId != this.userId ? 1 : 2;
 	this.GO_DETAIL_TYPE(order_type);
 }
 
@@ -573,22 +657,23 @@ root.methods.click_send = function () {
   if (pickedType === 'mobile') {
 
     this.$http.send('COMMEN_AUTH_FORCTC', {
-		params: {
+		query: {
 			"type": pickedType,
   			"code": code,
   			"purpose":"Confirm",
-			"ctcOrderId": this.ctc_order.id
+			"id": this.ctc_order.id
 		}
 	}).then(({data}) => {
-		let code = data.errorCode;
+		let code = data.code;
 			this.sending = false;
-		if (code == 0) {
+		if (code == 200) {
 			this.show_buy_sell_btn = false;
 			this.show_ga_sms_dialog = false;
 			// 跳到已完成界面
 			this.GO_ORDER_COMPELETE();
+			return;
 		}
-		if (code > 0) {
+		if (code) {
 			let self = this;
 			this.popOpen = true;
 	    	switch (code) {
@@ -618,12 +703,12 @@ root.methods.click_send = function () {
 			"type": pickedType,
   			"code": code,
   			"purpose":"Confirm",
-			"ctcOrderId": this.ctc_order.id
+			"id": this.ctc_order.id
 		}
 	}).then(({data}) => {
-		let code = data.errorCode;
+		let code = data.code;
 			this.sending = false;
-		if (code == 0) {
+		if (code == 200) {
 			this.show_buy_sell_btn = false;
 			this.show_ga_sms_dialog = false;
 			// 跳到已完成界面
@@ -740,7 +825,8 @@ root.methods.CLOSE_GA_SMS_DIALOG = function () {
 root.methods.GET_AUTH_STATE = function () {
 	this.$http.send('GET_AUTH_STATE').then(({data}) => {
 		typeof data === 'string' && (data = JSON.parse(data));
-		let res = data.dataMap;
+		let res = data.data;
+    this.$store.commit('SET_AUTH_STATE', data.data)
 		this.identity_type = res;
 		if (res.result == 'SUCCESS' && ((res.sms || res.ga) && res.email)) {
 			this.identity = true;
@@ -813,7 +899,7 @@ root.methods.VALID_EMAIL = function () {
 			"type": 'email',
 			"code": this.mailCode,
 			"purpose":"Confirm",
-			"ctcOrderId": this.ctc_order.id
+			"id": this.ctc_order.id
 		}
 	}).then(({data}) => {
 		let error = data.errorCode;

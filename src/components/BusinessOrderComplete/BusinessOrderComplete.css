@@ -3,7 +3,7 @@
 }
 .business_order_table{
   position: relative;
-	z-index: 300;
+	/*z-index: 300;*/
 	background-color: #fff;
   font-size: 14px;
 	margin-top: 30px;
@@ -33,22 +33,22 @@
 	text-align: center;
 }
 .order{
-	width: 10%;
+	width: 17%;
 }
 .type{
-	width: 14%;
+	width: 10%;
 }
 .orderstatus{
   width: 14%;
 }
 .price{
-	width: 14%;
+	width: 10%;
 }
 .amount{
-	width: 16%;
+	width: 14%;
 }
 .money{
-	width: 16%;
+	width: 14%;
 }
 .jyobject{
   width: 14%;
@@ -57,22 +57,22 @@
 	width: 18%;
 }
 .complete{
-	width: 10%;
+	width: 14%;
 }
 .create{
 	width: 15%;
 }
 .update{
-	width: 16%;
+	width: 13%;
   text-align: right;
 }
 .pay_type{
-	width: 10%;
+	width: 8%;
 	line-height: 100%;
 }
 
 .payment_icon{
-  padding-left: 2.6%;
+  /*padding-left: 2.6%;*/
 }
 
 .icon{
