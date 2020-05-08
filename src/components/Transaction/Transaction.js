@@ -180,7 +180,7 @@ root.methods.getAuthState = function () {
         // console.log(data)
         typeof data === 'string' && (data = JSON.parse(data))
         if (!data) return
-        this.$store.commit('SET_AUTH_STATE', data.dataMap)
+        this.$store.commit('SET_AUTH_STATE', data.data)
         this.authStateLoading = true
         this.checkLoading()
       }).catch((err) => {
