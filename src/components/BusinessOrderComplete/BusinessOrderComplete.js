@@ -49,18 +49,18 @@ root.methods.getPartPosterOrderList = function () {
 
   this.loading = true
   this.$http.send('GET_BUSINESS_ORDER_LIST',{
-    params:{
-      binessUserId: this.userId,
+    query:{
+      // binessUserId: this.userId,
       status: 3,//1 进行中 2 已取消 3 已完成
       offset: this.offset,
       maxResults: this.maxResults
     }
   })
     .then(({data}) => {
-
       typeof data === 'string' && (data = JSON.parse(data))
+      this.pageList = data.data;
       // console.log('orderLista',data)
-      // data.dataMap.ctcOrderList.results = BusinessOrderData.getBusinessOrderData().dataMap.posterOrderList
+      /*// data.dataMap.ctcOrderList.results = BusinessOrderData.getBusinessOrderData().dataMap.posterOrderList
       let pageList = data.dataMap.ctcOrderList.results
       let transactionsMap = data.dataMap.transactionsMap
 
@@ -72,7 +72,7 @@ root.methods.getPartPosterOrderList = function () {
       // console.log('获取的pageList数据',pageList)
 
       this.pageList = pageList
-      this.maxPage = data.dataMap.ctcOrderList.page.totalPages
+      this.maxPage = data.dataMap.ctcOrderList.page.totalPages*/
       this.loading = false
       // this.sectionPendingList = data.dataMap.posterOrderList
     }).catch((err) => {

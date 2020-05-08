@@ -2,11 +2,10 @@
 
 .business_order_table {
   position: relative;
-  z-index: 300;
+  /*z-index: 300;*/
   background-color: #fff;
   font-size: 14px;
   margin-top: 30px;
-
 }
 
 .business_order_table_title {
@@ -38,19 +37,19 @@
 }
 
 .order {
-  width: 14%;
+  width: 17%;
 }
 
 .type {
-  width: 9%;
+  width: 5%;
 }
 
 .price {
-  width: 11%;
+  width: 8%;
 }
 
 .amount {
-  width: 16%;
+  width: 10%;
 }
 
 .money {
@@ -58,34 +57,34 @@
 }
 
 .num {
-  width: 16%;
+  width: 15%;
 }
 
 .clock {
-  width: 13%;
+  width: 10%;
 }
 
 .complete {
-  width: 14%;
+  width: 10%;
 }
 
 .create {
-  width: 16%;
+  width: 14%;
   text-align: left;
 }
 .pay_type {
-  width: 10%;
+  width: 7%;
   line-height: 100%;
 }
 
 .option {
-  width: 7%;
+  width: 4%;
   text-align: right;
 }
 
 .payment_icon {
   /*padding-left: 2%;*/
-  text-align: center;
+  /*text-align: center;*/
 }
 
 .icon {
