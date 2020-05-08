@@ -49,8 +49,9 @@
 }
 
 .usdtpriceaaa1{
-  font-family:PingFangSC-Regular,PingFang SC;
-  font-size: 20px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  font-size: 24px;
   color: #172A4D;
   letter-spacing: 0;
   line-height: 28px;
@@ -222,7 +223,8 @@
 /*}*/
 
 .shichanggd{
-  font-family:PingFangSC-Regular,PingFang SC;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
   font-size: 20px;
   color: #172A4D;
   letter-spacing: 0;
