@@ -75,7 +75,7 @@ root.components = {
 root.computed = {};
 
 root.computed.userId = function () {
-	return this.$store.state.authMessage.userId;
+	return this.$store.state.authState.userId;
 }
 
 root.computed.result_socket = function () {
@@ -183,24 +183,24 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
 // 确认收/付款
 root.methods.COMFIRM_BTN = function (item) {
 	this.$http.send('CTC_ORDER_DETAIL', {
-		params: {
-			userId: this.userId,
-			c2cOrderType: item.type,
-			ctcOrderId: item.id,
+		query: {
+			id: item.id,
 		}
 	}).then(({data}) => {
-		let datas = data.dataMap;
-		this.user_info = !!datas.user && datas.user || {}
+		let datas = data.data;
+		this.user_info = !!datas.userPayment && datas.userPayment || {}
 		// console.log(this.user_info,'ddd')
 
 	}).catch((err) => {
 
 	});
-	if(!this.openAuthStatePopupWindow()){
-    return
-	}
+	//sss屏蔽
+	// if(!this.openAuthStatePopupWindow()){
+  //   return
+	// }
+  //sss屏蔽结束
 	// console.log(item,'aaa')
-	if (item.type == 'SELL') {
+	if (item.sellerId == this.userId) {
 		// if (!this.bindEmail) {
 		// 	this.popOpen = true;
 	 //    	this.popText = '请先绑定邮箱';
@@ -208,7 +208,7 @@ root.methods.COMFIRM_BTN = function (item) {
 		// };
 		this.show_sell_dialog = true;
 	}
-	if (item.type == 'BUY') {
+	if (item.sellerId != this.userId) {
 		this.show_buy_dialog = true;
 	}
 	this.order_detail = item;
@@ -222,12 +222,12 @@ root.methods.COMFIRM_PAYMENT = function () {
 	let self = this;
 	this.$http.send('COMFIRM_PAYMENT', {
 		params: {
-			ctcOrderId: this.order_detail.id
+			id: this.order_detail.id
 		}
 	}).then(({data}) => {
 		console.log(this.order_detail.id,'aaa')
-		let code = data.result;
-		if (code == 'SUCCESS') {
+		let code = data.code;
+		if (code == '200') {
 			this.show_dialog = false;
 			this.show_buy_dialog = false;
 			// // 重新渲染列表
@@ -235,9 +235,17 @@ root.methods.COMFIRM_PAYMENT = function () {
 			this.$router.push({name: 'OrderDetails', query: {'type': '1','orderId': this.order_detail.id, 'orderType':this.order_detail.type}});
 		}
 		if (code == 'FAIL') {
-				this.popOpen = true;
-	    	this.popText = '系统繁忙，请稍后重试';
-		}
+      this.popOpen = true;
+      this.popText = '系统繁忙，请稍后重试';
+    }
+    if (code == '1032') {
+      this.popOpen = true;
+      this.popText = '订单超时';
+    }
+    if (code == '1016') {
+      this.popOpen = true;
+      this.popText = '订单未找到';
+    }
 
 	}).catch((err) => {
 		console.log(err)
@@ -245,10 +253,70 @@ root.methods.COMFIRM_PAYMENT = function () {
 }
 
 // 确认已收款
-root.methods.COMFIRM_RECEIVABLES = function () {
-	this.CLOSE_DIALOG();
-	// this.show_mail = true;
-	this.show_ga_sms_dialog = true;
+// root.methods.COMFIRM_RECEIVABLES = function () {
+// 	this.CLOSE_DIALOG();
+// 	// this.show_mail = true;
+// 	this.show_ga_sms_dialog = true;
+// }
+
+// 确认收款按钮
+root.methods.COMFIRM_RECEIVED = function () {
+
+  if (this.order_detail.sellerId == this.userId) {
+    this.$http.send('COMFIRM_RECEIVED', {
+      params: {
+        id: this.order_detail.id
+      }
+    }).then(({data}) => {
+      // console.log(data,'aaa')
+      let code = data.code;
+      if (code == 200) {
+        // 关闭弹框
+        this.CLOSE_DIALOG();
+        // 跳到已完成界面
+        // this.GO_ORDER_COMPELETE();
+        this.popType = 1;
+        this.popOpen = true;
+        this.popText = '收款成功';
+        return;
+      }
+
+      if (code == 1016) {
+        this.popOpen = true;
+        this.popText = '订单未找到';
+        return;
+      }
+      if (code == 500) {
+        this.popOpen = true;
+        this.popText = '订单操作中中，无法取消';
+        return;
+      }
+      if (code == 1032) {
+        this.popOpen = true;
+        this.popText = '订单超时';
+        return;
+      }
+      if (code == 1025) {
+        this.popOpen = true;
+        this.popText = '订单不是一个待支付订单';
+        return;
+      }
+      if (code == 1026) {
+        this.popOpen = true;
+        this.popText = '只有已支付状态的的订单才能确认';
+        return;
+      }
+
+    }).catch((err) => {
+      console.log(err,'aaa')
+    });
+  }
+}
+
+// 收付款成功后跳到完成界面
+root.methods.GO_ORDER_COMPELETE = function () {
+  let order_type = this.sellerId != this.userId ? 1 : 2;
+  this.GO_DETAIL_TYPE(order_type);
 }
 
 // 切换页码
