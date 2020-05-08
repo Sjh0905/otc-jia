@@ -143,7 +143,7 @@ store.mutations.SET_RESULT_SOCKET = (state, socket_info) => {
 
 // 登出
 store.mutations.LOGIN_OUT = (state, info) => {
-  state.authMessage = {
+  state.authState = {
     userId: '',
     city: '',
     country: '',
