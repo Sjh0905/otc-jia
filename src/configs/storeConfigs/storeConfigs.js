@@ -61,7 +61,8 @@ store.state.account = null;
  * @type {null}
  */
 
-store.state.authState = null
+// store.state.authState = null
+store.state.authState = {};
 
 // 连接 socket 信息
 store.state.socket = {};
