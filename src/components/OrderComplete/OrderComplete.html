@@ -33,17 +33,20 @@
       <!-- {{item.orderId}}-->
           {{item.orderNo}}
         </div>
-       <div  class="type" :class="item.type == 'SELL' ? 'sell' : 'buy'">
-        {{item.type == 'SELL' ? '卖出' : '买入'}}
+       <div  class="type" :class="item.sellerId == userId ? 'sell' : 'buy'">
+        {{item.sellerId == userId ? '卖出' : '买入'}}
        </div>
-        <div class="price" :class="item.type == 'SELL' ? 'sell' : 'buy'">
+        <div class="price" :class="item.sellerId == userId ? 'sell' : 'buy'">
           {{$globalFunc.accFixed(item.price,2)}}
         </div>
         <div class="amount">
-          {{$globalFunc.accFixed(item.amount,2)}}
+          {{$globalFunc.accFixed(item.amount,6)}}
         </div>
-        <div class="money" :class="item.type == 'SELL' ? 'sell' : 'buy'">
-          {{$globalFunc.accFixed(item.amount * item.price,2)}}
+<!--        <div class="money" :class="item.type == 'SELL' ? 'sell' : 'buy'">-->
+<!--          {{$globalFunc.accFixed(item.amount * item.price,2)}}-->
+<!--        </div>-->
+        <div class="money" :class="item.sellerId == userId ? 'sell' : 'buy'">
+          {{item.totalAmount}}
         </div>
         <!-- DYSTOCIA,//订单难产,剩余量不足
                  ROBFAIL,//订单抢锁失败
