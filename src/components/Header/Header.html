@@ -815,28 +815,28 @@
 
               <ul class="navigation-right-container flex">
                 <!--登录注册 begin-->
-<!--                <li class="login-register-container flex" v-if="!isLogin">-->
-<!--                  <router-link-->
-<!--                    :to="{name:'login'}"-->
-<!--                    class="navigation-item-router login-register-item flex"-->
-<!--                    active-class="navigation-item-router-selected text_blue"-->
-<!--                  >-->
-<!--                    <span class="dlfont">{{$t('login')}}</span>-->
-<!--                  </router-link>-->
-<!--                  &lt;!&ndash;                                  <span class="login-register-item-separator light-color">|</span>&ndash;&gt;-->
+                <li class="login-register-container flex" v-if="!isLogin">
+                  <div
+                    @click="goToLogin"
+                    class="navigation-item-router login-register-item flex"
+                    active-class="navigation-item-router-selected text_blue"
+                  >
+                    <span class="dlfont pointer">{{$t('登录')}}</span>
+                  </div>
+                  <!--                                  <span class="login-register-item-separator light-color">|</span>-->
 
-<!--                  <router-link-->
-<!--                    :to="{name:'register'}"-->
-<!--                    class="navigation-item-router login-register-item-re flex"-->
-<!--                    active-class="navigation-item-router-selected text_blue"-->
-<!--                  >-->
-<!--                    <span class="zcfont">{{$t('register')}}</span>-->
-<!--                  </router-link>-->
-<!--                </li>-->
+                  <div
+                    @click="goToRegister"
+                    class="navigation-item-router login-register-item-re flex"
+                    active-class="navigation-item-router-selected text_blue"
+                  >
+                    <span class="zcfont pointer">{{$t('注册')}}</span>
+                  </div>
+                </li>
                 <!--登录注册 end-->
 
                 <!--登录后 begin-->
-                <li class="navigation-item-container flex" @mouseenter="enterMoney()" @mouseleave="leaveMoney()">
+                <li class="navigation-item-container flex" @mouseenter="enterMoney()" @mouseleave="leaveMoney()" v-if="isLogin">
                   <router-link
                     :to="{name:'myWallet'}"
                     class="navigation-item-router flex"
@@ -852,14 +852,14 @@
                     'navigation-item-hidden-list-black':isBlack}"
                   >
                     <!--  资产概览  begin-->
-                    <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'overviewOfAssets'}"
-                        class="navigation-item-hidden-list-item-router"
-                        active-class="item_selected">
-                       {{$t('资产概览')}}
-                      </router-link>
-                    </li>
+<!--                    <li class="navigation-item-hidden-list-item">-->
+<!--                      <router-link-->
+<!--                        :to="{name:'overviewOfAssets'}"-->
+<!--                        class="navigation-item-hidden-list-item-router"-->
+<!--                        active-class="item_selected">-->
+<!--                       {{$t('资产概览')}}-->
+<!--                      </router-link>-->
+<!--                    </li>-->
 
                     <!-- 资产概览 end-->
 
@@ -975,7 +975,7 @@
                   <!--隐藏的标签 end-->
                 </li>
 
-                <li class="navigation-item-container flex" v-if="" @mouseenter="enterOrder()" @mouseleave="leaveOrder()">
+                <li class="navigation-item-container flex" v-if="isLogin" @mouseenter="enterOrder()" @mouseleave="leaveOrder()">
                   <div
                     @click="goToCurrentEntrust"
                     class="navigation-item-router flex"
@@ -1011,17 +1011,15 @@
                   <!--隐藏的标签 end-->
                 </li>
 
-                <li class="navigation-item-container flex" v-if="">
+                <li class="navigation-item-container flex" v-if="isLogin">
                   <div
                     @click="goToSecurityCenter"
                     class="navigation-item-router flex"
-                    active-class="navigation-item-router-selected"
                   >
-
                     <!-- 非会员-->
-                    <img src="../../assets/geren.png" alt="" class="login-header-name flex-center personal-icon" v-if="">
+                    <img src="../../assets/geren.png" alt="" class="login-header-name flex-center personal-icon" v-if="!flag">
                     <!-- 是会员-->
-<!--                    <img src="../../assets/head_icon.png" alt="" class="login-header-name flex-center personal-icons" v-if="flag">-->
+                    <img src="../../assets/head_icon.png" alt="" class="login-header-name flex-center personal-icons" v-if="flag">
                   </div>
 
 
@@ -1035,12 +1033,33 @@
 <!--                      <IndexHeaderAssts v-if="" :black="isBlack"/>-->
 <!--                    </li>-->
 
-                    <li class="navigation-item-hidden-list-item">
+                    <li class="navigation-item-hidden-list-item-personal">
                       <div
                         @click="goToSecurityCenter"
                         class="navigation-item-hidden-list-item-router"
-                        active-class="item_selected">
-                        个人中心
+                        >
+
+                        <div class="asset-li-title-left">
+                          <div class="asset-li-content">
+                            <p class="asset-li-title">{{userName}}</p>
+
+                            <span><img class="VIP_img" src="../../assets/selectedVIP_icon.png" alt="" v-if="flag"></span>
+                            <span><img class="VIP_img" src="../../assets/selected_noVIP_icon.png" alt="" v-if="!flag"></span>
+                            <div class="not-certified" v-if="!authType">{{$t('未认证')}}</div>
+                            <div class="certified" v-if="authType ">{{$t('已认证')}}</div>
+                          </div>
+                        </div>
+                        <div class="certified-img"><img src="../../assets/goto.png" alt=""></div>
+
+
+
+                        <!--                        <div v-if="idType!='NUNE'">-->
+<!--                          已认证-->
+<!--                        </div>-->
+<!--                        <div v-if="idTyp =='NUNE'">-->
+<!--                          未认证-->
+<!--                        </div>-->
+
 
 <!--                        个人中心添加 begin-->
 
@@ -1096,7 +1115,7 @@
                     </li>
                     <li class="navigation-item-hidden-list-item">
                       <div
-                        @click="loginOff"
+                        @click="goOutRegain"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         {{$t('退出登录')}}
