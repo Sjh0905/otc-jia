@@ -22,6 +22,9 @@ root.components = {
 
 root.computed = {};
 
+root.computed.userId = function () {
+  return this.$store.state.authState.userId
+}
 root.props = {};
 
 root.created = function () {
@@ -44,7 +47,7 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
       ctcOrderId: search || '',
 		}
 	}).then(({data}) => {
-		if (data.ode == 200) {
+		if (data.code == 200) {
 			this.loading = false;
 			// let datas = data.dataMap.ctcOrders;
 			let datas = data.data;

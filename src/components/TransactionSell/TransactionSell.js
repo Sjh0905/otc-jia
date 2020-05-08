@@ -21,7 +21,7 @@ root.data = function () {
 
     // 获取本页页面数据
     offset: 0,
-    maxResults: 5,
+    maxResults: 2,
 
     // 页面数据显示
     pendingList: [],
@@ -160,7 +160,7 @@ root.computed.isLogin = function () {
 }
 
 root.computed.userId = function () {
-  return this.$store.state.authMessage.userId;
+  return this.$store.state.authState.userId;
 }
 
 // 用户USDT的可用余额
@@ -278,10 +278,10 @@ root.methods.inputNumbers = function (val) {
   let value = val.replace(/[^0-9.]/g, '').replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
 
   if(value.toString().split(".")[1]){
-    if(value.toString().split(".")[1].length < 3){
+    if(value.toString().split(".")[1].length < 7){
       return value
     } else {
-      return this.toFixed(value,2)
+      return this.toFixed(value,6)
     }
   }
   else{
@@ -348,9 +348,9 @@ root.methods.getAuthState = function () {
       .then(({data}) => {
         typeof data === 'string' && (data = JSON.parse(data))
 
-        // console.log('authdata',data.dataMap)
+        console.log('authdata',data.data)
         if (!data) return
-        this.$store.commit('SET_AUTH_STATE', data.dataMap)
+        this.$store.commit('SET_AUTH_STATE', data.data)
         // console.log('authdata',this.$store.state.authState)
       }).catch((err) => {
       console.log('err', err)
@@ -393,8 +393,11 @@ root.methods.getPageList = function () {
     // this.loading = false
     this.pageListAjaxLoading = true
     this.checkLoading()
-    this.pendingList = data.dataMap.orders
-    this.maxPage = Math.ceil(this.accDiv(data.dataMap.totalPage,this.maxResults))
+    // this.pendingList = data.dataMap.orders
+    this.pendingList = data.data
+    console.log('this.pendingList====',this.pendingList)
+    // this.maxPage = Math.ceil(this.accDiv(data.data,this.maxResults))
+    this.maxPage = this.maxResults
     // console.log(this.maxPage)
 
   }).catch((err) => {
@@ -417,7 +420,7 @@ root.methods.bindInputNum = function () {
     return
   }
   this.inputNum = this.inputNumbers(this.inputNum)
-  this.inputCNY = this.toFixed(this.accMul(this.inputNum, this.sellItem.price), 2)
+  this.inputCNY = this.toFixed(this.accMul(this.inputNum, this.sellItem.fixedPrice), 2)
 }
 
 root.methods.bindInputCNY = function () {
@@ -435,10 +438,10 @@ root.methods.bindInputCNY = function () {
     return
   }
   this.inputCNY = this.inputNumbers(this.inputCNY)
-  if (this.sellItem.price === 0) {
+  if (this.sellItem.fixedPrice === 0) {
     return
   }
-  this.inputNum = this.toFixed(this.accDiv(this.inputCNY, this.sellItem.price), 0)
+  this.inputNum = this.toFixed(this.accDiv(this.inputCNY, this.sellItem.fixedPrice), 6)
 }
 
 
@@ -500,11 +503,11 @@ root.methods.abindInputNum = async function () {
     }
     this.inputNum = this.inputNumbers(this.inputNum)
 
-    if (this.sellItem.price === 0) {
+    if (this.sellItem.fixedPrice === 0) {
       return
     }
 
-    this.inputCNY = this.toFixed(this.accMul(this.inputNum, this.sellItem.price), 2)
+    this.inputCNY = this.toFixed(this.accMul(this.inputNum, this.sellItem.fixedPrice), 2)
 
   })
 
@@ -520,11 +523,11 @@ root.methods.abindInputCNY = async function () {
       return
     }
     this.inputCNY = this.inputNumbers(this.inputCNY)
-    if (this.sellItem.price === 0) {
+    if (this.sellItem.fixedPrice === 0) {
       return
     }
     // console.log(this.buyItem, 'aaa')
-    this.inputNum = this.toFixed(this.accDiv(this.inputCNY, this.sellItem.price), 0)
+    this.inputNum = this.toFixed(this.accDiv(this.inputCNY, this.sellItem.fixedPrice), 0)
     // console.log(this.inputNum, 'bbb')
   })
 
@@ -625,49 +628,50 @@ root.methods.abindInputCNY = async function () {
 
 // 点击出售按钮
 root.methods.clickToSellSelf = function (item) {
-  // 是否登录
+  // // 是否登录
+  // // if (!this.isLogin) {
+  // //   // this.$router.push({name: 'SignPageLogin'});
+  // //   this.$router.push('/index/sign/login')
+  // //   return
+  // // }
+  // sss屏蔽
+  // // 是否登录
   // if (!this.isLogin) {
-  //   // this.$router.push({name: 'SignPageLogin'});
-  //   this.$router.push('/index/sign/login')
+  //   window.location.replace(this.$store.state.domain_url + 'index/sign/login?ani=1&toUrl=c2c_url');
   //   return
   // }
-
-  // 是否登录
-  if (!this.isLogin) {
-    window.location.replace(this.$store.state.domain_url + 'index/sign/login?ani=1&toUrl=c2c_url');
-    return
-  }
-
-  // 没有身份认证 并 没有绑定手机或谷歌必须绑定邮箱 并 没有绑定银行卡
-  if((!this.identityVerification) && (!((this.bindChrome||this.bindSms) && this.bindMail)) && (!this.bindBankCard)) {
-    this.setPopWindowContentForJoin()
-    this.popWindowOpen = true
-    return
-  }
-  // 没有身份认证
-  if(!this.identityVerification) {
-    this.setPopWindowContentForVerification()
-    this.popWindowOpen = true
-    return
-  }
-  // 没有绑定手机或者谷歌
-  if(!this.bindSms&&!this.bindChrome) {
-    this.setPopWindowContentForBindMobile()
-    this.popWindowOpen = true
-    return
-  }
-  // 没有绑定邮箱
-  if(!this.bindMail) {
-    this.setPopWindowContentForBindMail()
-    this.popWindowOpen = true
-    return
-  }
-  // 没有绑定银行卡
-  if(!this.bindBankCard) {
-    this.setPopWindowContentForBindBankCard()
-    this.popWindowOpen = true
-    return
-  }
+  //
+  // // 没有身份认证 并 没有绑定手机或谷歌必须绑定邮箱 并 没有绑定银行卡
+  // if((!this.identityVerification) && (!((this.bindChrome||this.bindSms) && this.bindMail)) && (!this.bindBankCard)) {
+  //   this.setPopWindowContentForJoin()
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  // // 没有身份认证
+  // if(!this.identityVerification) {
+  //   this.setPopWindowContentForVerification()
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  // // 没有绑定手机或者谷歌
+  // if(!this.bindSms&&!this.bindChrome) {
+  //   this.setPopWindowContentForBindMobile()
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  // // 没有绑定邮箱
+  // if(!this.bindMail) {
+  //   this.setPopWindowContentForBindMail()
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  // // 没有绑定银行卡
+  // if(!this.bindBankCard) {
+  //   this.setPopWindowContentForBindBankCard()
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  // sss屏蔽结束
 
   if(this.userCanNotTradeInfo){
     this.popOpen = true
@@ -688,41 +692,43 @@ root.methods.clickToSellSelf = function (item) {
 
 // 点击卖出按钮
 root.methods.clickToConfirmSell = function () {
-  // 是否登录
-  if (!this.isLogin) {
-    window.location.replace(this.$store.state.domain_url + 'index/sign/login?ani=1&toUrl=c2c_url');
-    return
-  }
-  // 没有身份认证 并 没有绑定手机或没有绑定邮箱 并 没有绑定银行卡
-  if ((!this.identityVerification) && (!((this.bindChrome || this.bindSms) && this.bindMail)) && (!this.bindBankCard)) {
-    this.setPopWindowContentForJoin()
-    this.popWindowOpen = true
-    return
-  }
-  // 没有身份认证
-  if (!this.identityVerification) {
-    this.setPopWindowContentForVerification()
-    this.popWindowOpen = true
-    return
-  }
-  // 没有绑定手机或者谷歌
-  if (!this.bindSms && !this.bindChrome) {
-    this.setPopWindowContentForBindMobile()
-    this.popWindowOpen = true
-    return
-  }
-  // 没有绑定邮箱
-  if (!this.bindMail) {
-    this.setPopWindowContentForBindMail()
-    this.popWindowOpen = true
-    return
-  }
-  // 没有绑定银行卡
-  if (!this.bindBankCard) {
-    this.setPopWindowContentForBindBankCard()
-    this.popWindowOpen = true
-    return
-  }
+  // sss屏蔽
+  // // 是否登录
+  // if (!this.isLogin) {
+  //   window.location.replace(this.$store.state.domain_url + 'index/sign/login?ani=1&toUrl=c2c_url');
+  //   return
+  // }
+  // // 没有身份认证 并 没有绑定手机或没有绑定邮箱 并 没有绑定银行卡
+  // if ((!this.identityVerification) && (!((this.bindChrome || this.bindSms) && this.bindMail)) && (!this.bindBankCard)) {
+  //   this.setPopWindowContentForJoin()
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  // // 没有身份认证
+  // if (!this.identityVerification) {
+  //   this.setPopWindowContentForVerification()
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  // // 没有绑定手机或者谷歌
+  // if (!this.bindSms && !this.bindChrome) {
+  //   this.setPopWindowContentForBindMobile()
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  // // 没有绑定邮箱
+  // if (!this.bindMail) {
+  //   this.setPopWindowContentForBindMail()
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  // // 没有绑定银行卡
+  // if (!this.bindBankCard) {
+  //   this.setPopWindowContentForBindBankCard()
+  //   this.popWindowOpen = true
+  //   return
+  // }
+  // sss屏蔽结束
   if(this.inputNum==''&&this.value=='选项2'){
     this.popOpen = true
     this.popType = 0
@@ -740,16 +746,16 @@ root.methods.clickToConfirmSell = function () {
     this.popType = 0
     this.popText = this.userCanNotTradeInfo
   }
-  if(this.inputNum*1 < this.sellItem.minLimit*1) {
+  if(this.inputCNY*1 < this.sellItem.minAmount*1*this.sellItem.fixedPrice) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '不足最小交易额'
+    this.popText = '不足最小下单金额' + this.sellItem.minAmount*this.sellItem.fixedPrice
     return
   }
-  if(this.inputNum*1 > this.sellItem.maxLimit*1) {
+  if(this.inputCNY*1 > this.sellItem.maxAmount*1*this.sellItem.fixedPrice) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '卖出数量超出最大交易额'
+    this.popText = '超出最大下单金额' + this.sellItem.maxAmount*this.sellItem.fixedPrice
     return
   }
   if(this.inputNum*1 > this.sellItem.amount*1) {
@@ -759,6 +765,14 @@ root.methods.clickToConfirmSell = function () {
     return
   }
 
+  // sss屏蔽
+  // if(this.inputNum*1 > this.$store.state.account*1) {
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = '您的USDT余额不足'
+  //   return
+  // }
+  // sss屏蔽结束
   if(this.inputNum*1 > this.USDTAvailable*1) {
     this.popOpen = true
     this.popType = 0
@@ -810,17 +824,38 @@ root.methods.clickConfirmBtn = function () {
 
   this.$http.send('PLACE_AN_ORDER', {
     params: {
-      orderId: this.sellItem.id,
+      id: this.sellItem.id,
       // payInfo:this.sellItemPay.bankName,
       amount: this.inputNum,
+      cny: this.inputCNY,
     }
   }).then(({data}) => {
     // this.sellCommitToastOpen = false
     // typeof res === 'string' && (res = JSON.parse(res))
     // console.log('data', data)
-    if (data.result === 'FAIL' || data.errorCode) {
+
+    if (data.code == 200) {
+      this.sellCommitToastOpen = false
+      this.popOpen = true
+      this.popType = 1
+      this.popText = '已提交'
+      setTimeout(()=>{
+        if(this.isSocket){
+          // this.$router.push({
+          // name: 'OrderDetails',
+          // query: {
+          //     type: 1,
+          //     orderId:this.buyItem.id,
+          //     orderType: 'BUY'}})}
+          this.$router.push({
+            name:'Order',
+          })}
+      },3000)
+      return;
+    }
+    if (data.code) {
       this.submitBtnAjaxFlag = false;
-      switch (data.errorCode) {
+      switch (data.code) {
         case 1:
           window.location.reload();
           break;
@@ -839,17 +874,27 @@ root.methods.clickConfirmBtn = function () {
           this.popType = 0
           this.popText = '不在限额内'
           break;
-        case 5:
+        case 1021:
           this.popOpen = true
           this.popType = 0
           this.popText = '账户余额不足'
+          break;
+        case 1020:
+          this.popOpen = true
+          this.popType = 0
+          this.popText = '卖出数量大于商家剩余数量'
+          break;
+        case 1053:
+          this.popOpen = true
+          this.popType = 0
+          this.popText = '余额不足'
           break;
         case 6:
           this.popOpen = true
           this.popType = 0
           this.popText = '卖出数量超过上限'
           break;
-        case 8:
+        case 1050:
           this.popOpen = true
           this.popType = 0
           this.popText = '有一个订单未完成，暂停继续下单，完成后恢复'
@@ -859,7 +904,7 @@ root.methods.clickConfirmBtn = function () {
           this.popType = 0
           this.popText = '24H内超过3笔取消订单将禁止1天OTC交易'
           break;
-        case 10:
+        case 1052:
           this.popOpen = true
           this.popType = 0
           this.popText = '您不能卖给自己的挂单'
@@ -891,22 +936,26 @@ root.methods.clickConfirmBtn = function () {
       }
       return
     }
-    this.popOpen = true
-    this.popType = 1
-    this.popText = '下单成功'
-    setTimeout(()=>{
-    // if(this.isSocket){
-    // this.$router.push({
-    // name: 'OrderDetails',
-    // query: {
-    // type: 1,
-    // orderId:this.buyItem.id,
-    // orderType: 'BUY'}})}
-     if(this.isSocket){
-    this.$router.push({
-    name: 'Order',
-    })}
-    },2000)
+
+    // if (data.code == 200) {
+    //   this.popOpen = true
+    //   this.popType = 1
+    //   this.popText = '下单成功'
+    //   setTimeout(()=>{
+    //     // if(this.isSocket){
+    //     // this.$router.push({
+    //     // name: 'OrderDetails',
+    //     // query: {
+    //     // type: 1,
+    //     // orderId:this.buyItem.id,
+    //     // orderType: 'BUY'}})}
+    //     if(this.isSocket){
+    //       this.$router.push({
+    //         name: 'Order',
+    //       })}
+    //   },2000)
+    // }
+
   }).catch((err) => {
     this.submitBtnAjaxFlag = false
     this.sellCommitToastOpen = false

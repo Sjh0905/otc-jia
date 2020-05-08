@@ -67,7 +67,8 @@ store.state.currencyChange = 0 // 币种信息发送变化
  * @type {null}
  */
 
-store.state.authState = null
+// store.state.authState = null
+store.state.authState = {};
 
 // 连接 socket 信息
 store.state.socket = {};

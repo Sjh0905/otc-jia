@@ -117,7 +117,7 @@ root.created = function () {
 root.computed = {}
 
 root.computed.userId = function () {
-  return this.$store.state.authMessage.userId
+  return this.$store.state.authState.userId
 }
 
 // 用户USDT的可用余额

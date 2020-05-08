@@ -33,7 +33,7 @@ root.beforeDestroy = function () {}
 root.computed = {}
 
 root.computed.userId = function () {
-  return this.$store.state.authMessage.userId
+  return this.$store.state.authState.userId
 }
 /*------------------------------ 观察 -------------------------------*/
 root.watch = {}

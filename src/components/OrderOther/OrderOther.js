@@ -21,6 +21,9 @@ root.components = {
 }
 
 root.computed = {};
+root.computed.userId = function () {
+  return this.$store.state.authState.userId;
+}
 
 root.props = {};
 

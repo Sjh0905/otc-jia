@@ -130,6 +130,7 @@ func.accMul = function (arg1, arg2) {
   return num1.mul(num2).toString()
 }
 
+
 //格式化时间年-月-日  时：分：秒
 func.formatDateUitl = function (time, formatString, offset = 8) {
 
