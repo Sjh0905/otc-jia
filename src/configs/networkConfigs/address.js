@@ -40,7 +40,8 @@ address.COMFIRM_PAYMENT = {url: urlHead + '/orders/confirmPayment', method: 'pos
 address.COMFIRM_RECEIVED = {url: urlHead + '/orders/confirmCollection', method: 'post', timeout: null, responseType: 'json'}
 
 // 订单详情 getCtcOrderDetail
-address.CTC_ORDER_DETAIL = {url: urlHead + '/user/getOtcOrderDetail', method: 'post', timeout: null, responseType: 'json'}
+// address.CTC_ORDER_DETAIL = {url: urlHead + '/user/getOtcOrderDetail', method: 'post', timeout: null, responseType: 'json'}
+address.CTC_ORDER_DETAIL = {url: urlHead + '/orders/getOrderInfo', method: 'get', timeout: null, responseType: 'json'}
 
 // 获取服务器时间 /user/getServerTime
 address.GET_SEVER_TIME = {url: urlHead + '/user/getServerTime', method: 'get', timeout: null, responseType: 'json'}
@@ -67,13 +68,14 @@ address.CREATE_POSTER_ORDER = {url: urlHead + '/advert/releaseIndex', method: 'p
 
 
 // 买入详情，取消订单 /cancelCtcOrder
-address.CANCEL_CTC_ORDER = {url: urlHead + '/user/cancelCtcOrder', method: 'post', timeout: null, responseType: 'json'}
+address.CANCEL_CTC_ORDER = {url: urlHead + '/orders/cancelOrder', method: 'post', timeout: null, responseType: 'json'}
 
 // 发送邮箱/短信验证码
 address.ORDER_MAIL_CODE = {url: urlHead + '/auth/getVerificationCodeForC2C', method: 'post', timeout: null, responseType: 'json'}
 
 // 验证短信/邮箱验证码 commonAuthForotc
-address.COMMEN_AUTH_FORCTC = {url: urlHead + '/auth/commonAuthForC2C', method: 'post', timeout: null, responseType: 'json'}
+// address.COMMEN_AUTH_FORCTC = {url: urlHead + '/auth/commonAuthForC2C', method: 'post', timeout: null, responseType: 'json'}
+address.COMMEN_AUTH_FORCTC = {url: urlHead + '/user/SendCode', method: 'get', timeout: null, responseType: 'json'}
 
 // 2018-8-20 支付设置部分
 // 支付设置初始化
