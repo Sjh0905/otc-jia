@@ -179,9 +179,11 @@ root.computed.order_type = function () {
 root.computed.userId = function () {
 	return this.$store.state.authState.userId;
 }
-// 判断用户是否有account
-root.computed.account = function () {
-  return this.$store.state.account
+
+// 用户USDT的可用余额
+root.computed.USDTAvailable = function () {
+  let USDTAccount = this.$store.state.currency.get("USDT") || {}
+  return USDTAccount.available || 0
 }
 
 // 判断用户是否实名认证
@@ -362,15 +364,15 @@ root.methods.getAuthState = function () {
 // 获取用户的资产 请求结束后，重新请求一下
 root.methods.getAccount = function () {
   this.$http.send('ACCOUNTS', {
-      query: {
-        currency: 'USDT'
-      }
+      // query: {
+      //   currency: 'USDT'
+      // }
     })
     .then(({
       data
     }) => {
       typeof data === 'string' && (data = JSON.parse(data))
-      this.$store.commit('SET_ACCOUNT', data.dataMap.account)
+      this.$store.commit('SET_ACCOUNTS', data.data.accounts)
     }).catch((err) => {
       console.log('err', err)
     });

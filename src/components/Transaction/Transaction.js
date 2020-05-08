@@ -63,8 +63,10 @@ root.computed.isLogin = function () {
   return this.$store.state.isLogin;
 }
 
-root.computed.account = function () {
-  return this.toFixed(this.$store.state.account*1,8)
+// 用户USDT的可用余额
+root.computed.USDTAvailable = function () {
+  let USDTAccount = this.$store.state.currency.get("USDT") || {}
+  return USDTAccount.available || 0
 }
 
 root.methods = {}
@@ -156,13 +158,13 @@ root.methods.goToRecharge = function () {
 // 获取用户的资产
 root.methods.getAccount = function () {
   this.$http.send('ACCOUNTS', {
-    query: {
-      currency: 'USDT'
-    }
+    // query: {
+    //   currency: 'USDT'
+    // }
   })
     .then(({data}) => {
       typeof data === 'string' && (data = JSON.parse(data))
-      this.$store.commit('SET_ACCOUNT',data.dataMap.account)
+      this.$store.commit('SET_ACCOUNTS',data.data.accounts)
       this.accountLoading = true
       this.checkLoading()
     }).catch((err) => {
