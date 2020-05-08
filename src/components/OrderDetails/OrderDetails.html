@@ -2,9 +2,9 @@
 
 	<div class="order_container border_radius min-width box1">
 		<div class="order_title"><span class="imgs"><img src="../../assets/c2c_transaction/USDT.png" alt=""></span>
-      <span class="cursor go_history go_history1 ">购买USDT</span>  <div class="numbers" >
+      <span class="cursor go_history go_history1 ">购买USDT</span>  <span class="numbers" >
         单号:	{{ctc_order.orderNo}}
-      </div></div>
+      </span></div>
 		<Loading v-show="loading" />
 		<div class="order_detail border_radius" v-show="!loading">
 			<div class="border_radius_top">
@@ -81,10 +81,10 @@
                 </span>
                 联系卖家
               </div> -->
-            <div class="appeal font_color cursor" @click="GO_APPEAL" v-if="appealTime == 1 && !appeal">
+            <div class="appeal font_color" v-if="ctc_order.status == 7">
 								<span>
 								</span>
-              申诉请联系客服
+              申诉请联系在线客服
             </div>
             <!--							<div class="appeal font_color cursor" v-if="appealTime == 1 && !!appeal">-->
             <!--								<span>-->
@@ -203,7 +203,7 @@
                 <span class="order_status" v-if="detail_type == 2">已完成</span>
                 <span class="order_status" v-if="detail_type == 3">已取消</span>
 
-                <em class="order_status" v-if="ctc_order.status == '7' && detail_type == 4">确认超时</em>
+                <em class="order_status" v-if="ctc_order.status == '7' && (detail_type == 1 || detail_type == 4)">确认超时</em>
 <!--                <em class="order_status" v-if="this.ctc_order.status == 'EXPIRE2' && detail_type == 4">确认收款超时</em>-->
 <!--                <em class="order_status" v-if="this.ctc_order.status == 'ABNORMAL' && detail_type == 4">订单异常</em>-->
                 <em class="order_status" v-if="(ctc_order.status == '5'||ctc_order.status == '8'||ctc_order.status == '9') && detail_type == 4">申诉订单</em>
@@ -254,7 +254,7 @@
                 <!-- <button class="btns order_complete border_radius disabled box_shadow" v-if="ctc_order.type == 'BUY' && show_buy_sell_btn && paying && canneling">已撤单</button> -->
                 <!-- 有无付款 end -->
                 <!-- 有无收款 start -->
-                <button class="btns order_complete border_radius box_shadow" @click="SHOW_COMPELETE" v-if="ctc_order.sellerId == userId && show_buy_sell_btn && (!paying || paying)">确认已收款</button>
+                <button class="btns order_complete border_radius box_shadow" @click="SHOW_COMPELETE" v-if="ctc_order.sellerId == userId && (ctc_order.status == 1 ||ctc_order.status == 2) && show_buy_sell_btn && (!paying || paying)">确认已收款</button>
                 <!-- <button class="btns order_complete border_radius disabled box_shadow" v-if="ctc_order.type == 'SELL' && show_buy_sell_btn && paying">已收款</button> -->
                 <!-- 有无收款 end -->
               </div>

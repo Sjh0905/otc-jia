@@ -215,10 +215,10 @@ root.methods.changePhone = function (phone) {
 }
 
 // 我要申诉
-root.methods.GO_APPEAL = function () {
-	let appeal = this.$store.state.domain_url + 'index/help/wordOrder';
-	window.location.replace(appeal);
-}
+// root.methods.GO_APPEAL = function () {
+// 	let appeal = this.$store.state.domain_url + 'index/help/wordOrder';
+// 	window.location.replace(appeal);
+// }
 
 // 取消订单
 root.methods.CANCEL_CTC_ORDER = function () {
@@ -438,7 +438,7 @@ root.methods.CLOSE_DIALOG = function () {
 // 倒计时
 root.methods.initTimes = function (now, end) {
 	// 买单和卖单都显示15分钟，但是如果是卖单，且开始结束时差大于一小时的时候，且客户已付款，需要显示出小时
-	if (this.sellerId == this.userId && (Number(end) - Number(now) > 3600000)) {
+	if (this.ctc_order.sellerId == this.userId && (Number(end) - Number(now) > 3600000)) {
   console.info('ooooooooo=====',document.getElementById('times'))
 		new Countdown(document.getElementById('times'), {
 		    format: '<span style="margin-left: 2px; color: #ED7265;">hh</span> 时 <span style="margin-left: 2px; color: #ED7265;">mm</span> 分 <span style="margin-left: 2px; color: #ED7265;">ss</span> 秒',

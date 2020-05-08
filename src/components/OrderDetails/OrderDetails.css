@@ -29,6 +29,8 @@
   border-radius: 2px;
 	color: #333333;
 	margin-bottom: 10px;
+  padding-right: 25px;
+  box-sizing: border-box;
 }
 .imgs{
   display: inline-block;
@@ -98,10 +100,11 @@
 .numbers{
   display: inline-block;
   /*width: 20%;*/
-	padding-left: 72%;
+	/*padding-left: 72%;*/
   font-family: PingFangSC-Regular;
   font-size: 13px !important;
   color: #6B7DA2;
+  float: right;
 }
 /*.type{*/
 /*	width: 15%;*/
@@ -224,7 +227,7 @@
 	background: url('./assets/我要申诉.png') center no-repeat;
 	background-size: 100%;
 	vertical-align: middle;
-	margin: -2px 3px 0px 0px;
+	margin: -2px 3px 2px 0px;
 }
 .card_content{
 
@@ -318,9 +321,10 @@
 	margin: 5px 0px 0px 5px;
 }
 .order_tips{
-	width: 77%;
+	/*width: 77%;*/
+  display: inline-block;
 	padding-top: 10px;
-	padding-right: 10px;
+	/*padding-right: 10px;*/
 	color: #333;
 	overflow: hidden;
 }
@@ -333,7 +337,7 @@
   border-radius: 2px;
   padding-top: 20px;
   padding-bottom: 0px;
-  margin-bottom: -25px;
+  /*margin-bottom: -25px;*/
   padding: 27px;
   margin-left: -37px;
   color: #172A4D;
@@ -359,6 +363,7 @@
 }
 .order_btns{
 	float: right;
+  margin-top: 15px;
 }
 .btns{
 	border: 0;
