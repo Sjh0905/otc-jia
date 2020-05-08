@@ -21,7 +21,7 @@ root.data = function () {
 
     // 获取本页页面数据
     offset: 0,
-    maxResults: 3,
+    maxResults: 100,
 
     // 页面数据显示
     pendingList: [],
@@ -386,7 +386,7 @@ root.methods.getPageList = function () {
   this.loading = true
   this.$http.send('GET_LIST_OF_LISTS', {
     query: {
-      offset: this.offset,
+      offset: this.selectIndex,
       maxResults: this.maxResults,
       side: 'SELL',
       currency: this.currency,
@@ -399,8 +399,8 @@ root.methods.getPageList = function () {
     this.pageListAjaxLoading = true
     this.checkLoading()
     this.pendingList = data.data
-    // this.maxPage = Math.ceil(this.accDiv(data.data, this.maxResults))
-    this.maxPage = this.maxResults
+    this.maxPage = Math.ceil(this.accDiv(this.pendingList.length, this.maxResults))
+    // this.maxPage = this.maxResults
     console.info('this.maxPage=========ooooo',this.maxPage)
 
   }).catch((err) => {

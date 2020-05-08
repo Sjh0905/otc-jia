@@ -6,8 +6,8 @@ root.data = function () {
 		// loading
     	loading: true,
 		// 分页
-		maxPage: 3,
-    maxResults: 10,
+		maxPage: 1,
+    maxResults: 1000,
     offset: 0,
 		selectIndex: 1,
 		// 列表
@@ -58,7 +58,7 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
 				this.list = [];
 				return;
 			};
-			this.maxPage = this.maxResults;
+			// this.maxPage = this.maxResults;
 			// this.selectIndex = datas.page.pageIndex;
 		}
 		if (data.code == 1) {
