@@ -739,7 +739,7 @@ root.methods.getAuthState = function () {
       // console.log(data,'手机认证状态')
       typeof data === 'string' && (data = JSON.parse(data))
       if (!data) return
-      this.$store.commit('SET_AUTH_STATE', data.dataMap)
+      this.$store.commit('SET_AUTH_STATE', data.data)
       // if (data.dataMap.sms) {
       //   this.picked = 'bindMobile'
       // }
