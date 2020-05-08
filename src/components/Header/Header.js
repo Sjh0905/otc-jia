@@ -279,7 +279,7 @@ root.computed = {}
 // // uid
 // root.computed.uuid = function () {
 //   if(this.$store.state.authMessage.uuid == undefined){
-//     return this.$store.state.authMessage.userId
+//     return this.$store.state.authState.userId
 //   }
 //   return this.$store.state.authMessage.uuid
 // }
@@ -287,7 +287,7 @@ root.computed = {}
 
 // 获取userId
 root.computed.userId = function () {
-  return this.$store.state.authMessage.userId
+  return this.$store.state.authState.userId
 }
 
 // 是否是会员
@@ -353,7 +353,7 @@ root.computed.mobileHeaderTitle = function () {
 
 // 是否登录
 root.computed.isLogin = function () {
-  if (this.$store.state.authMessage.userId !== '') return true
+  if (this.$store.state.authState.userId !== '') return true
   return false
 }
 // 是否显示右侧菜单
@@ -728,7 +728,7 @@ root.methods.GO_GRC = function () {
   typeof paras == 'string' && (paras = JSON.parse(paras))
   let _bitsession_ =paras.cookies && paras.cookies.value || '';
   let isApp = false;
-  let userId = this.$store.state.authMessage.userId;
+  let userId = this.$store.state.authState.userId;
   let lang = this.$store.state.lang;
   let GRC_URL = this.$store.state.GRC_URL+'?'+'isApp='+isApp+'&_bitsession_='+_bitsession_+'&userId='+userId+'&lang='+lang;
   window.open(GRC_URL);
@@ -821,7 +821,7 @@ root.methods.goToPersonal = function () {
 // 打开客服对话框
 root.methods.openYsf = function () {
   ysf.config({
-    uid: this.$store.state.authMessage.userId && this.$store.state.authMessage.userId || "无",
+    uid: this.$store.state.authState.userId && this.$store.state.authState.userId || "无",
     email: this.$store.state.authMessage.email && this.$store.state.authMessage.email || "无",
 
   });

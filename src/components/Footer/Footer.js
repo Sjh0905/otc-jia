@@ -118,7 +118,7 @@ root.computed.staticUrl = function () {
 
 // 是否登录
 root.computed.isLogin = function () {
-  if (this.$store.state.authMessage.userId !== '') return true
+  if (this.$store.state.authState.userId !== '') return true
   return false
 }
 
