@@ -6,7 +6,9 @@ root.data = function () {
 		// loading
     	loading: true,
 		// 分页
-		maxPage: 1,
+		maxPage: 3,
+    maxResults: 10,
+    offset: 0,
 		selectIndex: 1,
 		// 列表
 		list: [],
@@ -40,8 +42,8 @@ root.methods = {};
 root.methods.GET_ORDER_CONDUCT = function (search) {
 	this.$http.send('GET_LIST_ORDERS', {
     query: {
-			offset: this.selectIndex,
-			maxResults: 10,
+			offset: this.offset,
+			maxResults: this.maxResults,
 			// status: 'OTHER', //  “PROCESSING”进行中, “COMPLETE”已完成, “CANCEL”已取消
 			status: 0, //        1进行中, 3已完成, 4已取消  0全部
       ctcOrderId: search || '',
@@ -56,8 +58,8 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
 				this.list = [];
 				return;
 			};
-			this.maxPage = datas.page.totalPages;
-			this.selectIndex = datas.page.pageIndex;
+			this.maxPage = this.maxResults;
+			// this.selectIndex = datas.page.pageIndex;
 		}
 		if (data.code == 1) {
 			window.location.reload();
@@ -66,12 +68,26 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
 
 	});
 }
+// // 切换页码
+// root.methods.clickChangePage = function (page) {
+// 	this.selectIndex = page;
+// 	// 切换页码
+// 	this.GET_ORDER_CONDUCT();
+//
+// }
+
 // 切换页码
 root.methods.clickChangePage = function (page) {
-	this.selectIndex = page;
-	// 切换页码
-	this.GET_ORDER_CONDUCT();
-
+  // if (this.pageListAjaxLoading === false) {
+  //   return
+  // }
+  this.selectIndex = page;
+  this.offset = (page - 1) * this.maxResults
+  if (this.offset < 0) {
+    this.offset = 0
+  }
+  // this.loading = true
+  this.GET_ORDER_CONDUCT();
 }
 // 跳转详情
 root.methods.GO_DETAIL = function (id, orderType) {
