@@ -837,14 +837,13 @@
 
                 <!--登录后 begin-->
                 <li class="navigation-item-container flex" @mouseenter="enterMoney()" @mouseleave="leaveMoney()" v-if="isLogin">
-                  <router-link
-                    :to="{name:'myWallet'}"
+                  <div @click="goToMyWallet"
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected"
                   >
                     <span class="langfont-money" >{{$t('资产')}}</span>
                     <div class="language-jt-down" :class="moneyVal?'language-jt-down':'language-jt-up'" ></div>
-                  </router-link>
+                  </div>
 
                   <!--隐藏的标签 begin-->
                   <ul class="flex navigation-item-hidden-list"
@@ -876,12 +875,11 @@
 
                     <!--  法币账户  begin-->
                     <li class="navigation-item-hidden-list-item">
-                      <router-link
-                        :to="{name:'overviewOfAssets'}"
+                      <div @click="goToLegalCurrency"
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         {{$t('法币账户')}}
-                      </router-link>
+                      </div>
                     </li>
 
                     <!-- 法币账户 end-->
