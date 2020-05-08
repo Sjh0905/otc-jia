@@ -19,8 +19,6 @@
         <!-- <div class="complete">交易对象</div> -->
         <!-- <div class="clock">冻结(USDT)</div> -->
 				<!-- <div class="num">限额(CNY)</div> -->
-
-
 				<!-- <div class="create">时间</div> -->
 				<!-- <div class="pay_type text_center">支付方式</div> -->
 				<!-- <div class="option text_center">操作</div> -->
@@ -32,7 +30,7 @@
 				<div class="business_order_table_tr flex-center" v-if="!loading && pageList.length!= 0" v-for="(item,index) in pageList" :key="index">
           <div class="order">{{item.advertNo}}</div>
           <div class="type" :class="item.side === 'BUY' ? 'text_green' : 'text_red'">{{item.side === 'BUY' ? '购买' : '出售'}}</div>
-					<div class="price" :class="item.side === 'BUY' ? 'text_green' : 'text_green'">{{toFixed(item.fixedPrice,2)}}</div>
+					<div class="price" :class="item.side === 'BUY' ? 'text_green' : 'text_red'">{{toFixed(item.fixedPrice,2)}}</div>
 					<div class="amount">{{toFixed(item.volume,2)}}</div>
 <!--					<div class="money">{{toFixed(accMul(item.total,item.price),2)}}</div>-->
           <div class="complete">{{toFixed(item.tradingVolume,2)}}</div>
@@ -70,13 +68,13 @@
       <div class="submit-buy-box border_radius">
         <div class="submit-buy-title strong" >确定撤单</div>
         <div class="submit-buy-list">
-<!--          <div class="submit-buy-item">-->
-<!--            <div class="submit-buy-item-left text_grey_8 strong">价格设置：</div>-->
-<!--            <div class="submit-buy-item-right text_dark strong">-->
-<!--              <img class="submit-buy-item-right-img" src="" alt="">-->
-<!--              固定价格-->
-<!--            </div>-->
-<!--          </div>-->
+          <!--<div class="submit-buy-item">-->
+            <!--<div class="submit-buy-item-left text_grey_8 strong">价格设置：</div>-->
+            <!--<div class="submit-buy-item-right text_dark strong">-->
+              <!--<img class="submit-buy-item-right-img" src="" alt="">-->
+              <!--固定价格-->
+            <!--</div>-->
+          <!--</div>-->
 
           <div class="submit-buy-item">
             <div class="submit-buy-item-left text_grey_8 strong">价格：</div>
@@ -142,12 +140,12 @@
             </div>
           </div>
 
-<!--          <div class="submit-buy-item">-->
-<!--            <div class="submit-buy-item-left text_grey_8 strong">手续费：</div>-->
-<!--            <div class="submit-buy-item-right">-->
-<!--              <span class="text_blue">{{toFixed(accMul(itemContainer.fee,100),2)}}%</span>（成交后收取）-->
-<!--            </div>-->
-<!--          </div>-->
+          <!--<div class="submit-buy-item">-->
+            <!--<div class="submit-buy-item-left text_grey_8 strong">手续费：</div>-->
+            <!--<div class="submit-buy-item-right">-->
+              <!--<span class="text_blue">{{toFixed(accMul(itemContainer.fee,100),2)}}%</span>（成交后收取）-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
         <div class="submit-btn-box">
           <div class="submit-btn border_radius" :class="itemContainer.postersType==='SELL_ORDER'?'text_red submit-sell-cancel':'text_green submit-btn-cancel'" @click="closeCancelBox">取消</div>
