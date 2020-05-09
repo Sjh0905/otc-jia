@@ -83,7 +83,8 @@ root.computed.result_socket = function () {
 }
 // 认证状态-实名认证
 root.computed.identity = function () {
-  return this.$store.state.authState && this.$store.state.authState.identity
+  if(this.$store.state.authState.idType =='PASSPORT')return true
+  return false
 }
 // 认证状态-ga
 root.computed.bindGa = function () {
