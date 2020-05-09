@@ -1014,7 +1014,7 @@ root.methods.popWindowCloseForJoin = function () {
 // 设置弹窗样式 --- 参与OTC交易需要实名认证
 root.methods.setPopWindowContentForVerification = function () {
   this.popWindowTitle= '身份认证';
-  this.popWindowContent= ['法币交易前请先进行身份认证并绑定本人手机号才能够进行交易，您尚未完成实名认证，不能进行法币交易，请先完成实名认证。'];
+  this.popWindowContent= ['法币交易前请先进行身份认证才能够进行交易，您尚未完成实名认证，不能进行法币交易，请先完成实名认证。'];
   this.popWindowBtnText = this.isMobile && '去app认证' || '去认证';
   this.popWindowContentCenter = true;
   this.popWindowContentAllCenter = false;
