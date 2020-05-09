@@ -90,6 +90,13 @@
   cursor: pointer;
 }
 
+.release-txt-grey {
+  color: #A2B5D9;
+  font-size: 14px;
+  line-height: 14px;
+  cursor: pointer;
+}
+
 .change-txt {
   color:#3576F5;
   font-size: 14px;
@@ -316,7 +323,8 @@
 }
 
 .bank-card-name {
-  margin-right: 80px;
+  width: 100px;
+  margin-right: 60px;
 }
 
 .bank-label-blue {
@@ -1093,6 +1101,10 @@
   /*-webkit-justify-content: space-around;*/
   /*align-items: center;*/
   /*-webkit-align-items: center;*/
+}
+
+.identify-margin {
+  margin-right: 20px;
 }
 
 .unit-title {
