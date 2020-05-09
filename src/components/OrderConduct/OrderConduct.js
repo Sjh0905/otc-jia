@@ -169,6 +169,7 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
 				this.list = [];
 				return;
 			};
+			this.GET_ORDER_CONDUCT()
 			this.maxPage = datas.page.totalPages;
 			this.selectIndex = datas.page.pageIndex;
 		}
@@ -231,7 +232,7 @@ root.methods.COMFIRM_PAYMENT = function () {
 			this.show_dialog = false;
 			this.show_buy_dialog = false;
 			// // 重新渲染列表
-			// this.GET_ORDER_CONDUCT();
+			this.GET_ORDER_CONDUCT();
 			this.$router.push({name: 'OrderDetails', query: {'type': '1','orderId': this.order_detail.id, 'orderType':this.order_detail.type}});
 		}
 		if (code == 'FAIL') {
@@ -273,11 +274,14 @@ root.methods.COMFIRM_RECEIVED = function () {
       if (code == 200) {
         // 关闭弹框
         this.CLOSE_DIALOG();
+
         // 跳到已完成界面
         // this.GO_ORDER_COMPELETE();
         this.popType = 1;
         this.popOpen = true;
         this.popText = '收款成功';
+        this.$router.push({name: 'OrderDetails', query: {'type': '1','orderId': this.order_detail.id, 'orderType':this.order_detail.type}});
+        this.GET_ORDER_CONDUCT();
         return;
       }
 
