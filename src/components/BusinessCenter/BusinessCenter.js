@@ -97,7 +97,9 @@ root.data = function () {
     //---------超时弹窗结束-------
     isRouterAlive:true,
 
-    payType:1// 银行卡 1 支付宝 2  微信 3
+    payType:1,// 银行卡 1 支付宝 2  微信 3
+
+    accounts:[]
   }
 }
 root.created = function () {
@@ -120,9 +122,15 @@ root.computed.userId = function () {
   return this.$store.state.authState.userId
 }
 
+root.computed.currencyChange = function () {
+  return this.$store.state.currencyChange
+}
+
 // 用户USDT的可用余额
 root.computed.USDTAvailable = function () {
-  let USDTAccount = this.$store.state.currency.get("USDT") || {}
+  let USDTAccount = this.accounts.find(v => v.currency == "USDT") || {}
+  console.log('USDTAccount', USDTAccount)
+
   return USDTAccount.available || 0
 }
 
@@ -154,6 +162,10 @@ root.provide = function () {
 
 
 root.watch = {}
+// 监听vuex中的变化
+root.watch.currencyChange = function (newVal, oldVal) {
+  this.accounts = [...this.$store.state.currency.values()]
+}
 
 root.watch.result_socket = function (newValue, oldValue) {
   let user_id = newValue.data.userId;
