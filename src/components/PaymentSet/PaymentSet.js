@@ -238,7 +238,9 @@ root.computed.hasOnlyOneBank = function () {
 
 // 认证状态-实名认证
 root.computed.identity = function () {
-  return this.$store.state.authState && this.$store.state.authState.identity
+  if(this.$store.state.authState.idType =='PASSPORT')return true
+  return false
+  // return this.$store.state.authState && this.$store.state.authState.identity
 }
 
 // 认证状态-ga
@@ -253,7 +255,8 @@ root.computed.bindMobile = function () {
 
 // 认证状态-显示选择
 root.computed.showPicked = function () {
-  return this.picked == 'bindGA' && this.picked == 'bindMobile'
+  if(this.bindMobile && this.bindGa) return true
+  return false
 }
 
 // 页面加载中
@@ -313,7 +316,6 @@ root.methods.getAuthState = function () {
     if (this.bindGa) {
       this.picked = 'bindGA'
     }
-    return
   }
   this.$http.send('GET_AUTH_STATE')
     .then(({data}) => {
@@ -1212,7 +1214,7 @@ root.methods.click_getVerificationCode = function () {
   this.beginGetVerificationCodeCountdown()
   this.$http.send('SEND_MOBILE_VERIFY_CODE',{
     query: {
-      'bankType': 1
+      'type': 'OTCPayInfo'
     }
   })
     .then(({data}) => {

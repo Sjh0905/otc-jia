@@ -805,8 +805,8 @@
         </div>
         <div slot="article" class="verify-article">
           <!--选择 begin-->
-          <div class="flex unit-input-container pick-one-type" >
-            <div>
+          <div class="flex unit-input-container pick-one-type" v-if="showPicked" >
+            <div class="identify-margin">
               <input type="radio" class="pointer" name="identify-type" id="ga" value="bindGA" v-model="picked">
               <label for="ga" class="pointer">谷歌验证</label>
             </div>
@@ -819,7 +819,7 @@
 
           <!--谷歌验证码 begin-->
           <template v-if="picked==='bindGA'">
-            <div class="ga-code-title">谷歌验证码</div>
+            <div class="ga-code-title" v-if="!showPicked">谷歌验证码</div>
             <div class="flex unit-input-container verify-row"
                  :class="{'wrong-msg':GACodeWA !==''}">
 <!--              <span class=" unit-input-container-title">-->
@@ -842,7 +842,7 @@
 
           <!--手机验证码 begin-->
           <template v-if="picked==='bindMobile'">
-            <div class="phone-title">手机验证码</div>
+            <div class="phone-title" v-if="!showPicked">手机验证码</div>
             <div class="flex unit-input-container double-input-container verify-row"
                  :class="{'wrong-msg':verificationCodeWA!==''}"
             >

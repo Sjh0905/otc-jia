@@ -1102,6 +1102,10 @@
   /*-webkit-align-items: center;*/
 }
 
+.identify-margin {
+  margin-right: 20px;
+}
+
 .unit-title {
   padding-top: 0;
 }

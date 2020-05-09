@@ -1094,7 +1094,7 @@ root.methods.popWindowCloseForBindMail = function () {
 // 设置弹窗样式 --- 参与OTC交易需要绑定银行卡
 root.methods.setPopWindowContentForBindBankCard = function () {
   this.popWindowTitle= '绑定银行卡';
-  this.popWindowContent= ['您还没有绑定银行卡，不能进行OTC交易，请先绑定一张银行卡，至少绑定一张本人银行卡。'];
+  this.popWindowContent= ['您还没有绑定银行卡，不能进行OTC交易，至少绑定一张本人银行卡。'];
   this.popWindowBtnText= '去绑定';
   this.popWindowContentCenter = false;
   this.popWindowContentAllCenter = false;
