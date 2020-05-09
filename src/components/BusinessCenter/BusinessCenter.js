@@ -243,7 +243,7 @@ root.methods.checkHeaderLoading = function () {
 // 点击usdt充值跳转到去充值
 root.methods.goToRecharge = function () {
 
-  window.location.replace(this.$store.state.domain_url + 'index/asset/rechargeAndWithdrawal?symbol=USDT');
+  window.location.replace(this.$store.state.domain_url + 'index/asset/rechargeAndWithdrawals');
 }
 
 // 买入多选选择是否用支付宝
