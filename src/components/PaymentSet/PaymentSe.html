@@ -120,9 +120,17 @@
                         <div class="change-txt bank-change-txt"
                              @click="clickModifyBankPay(row)">修改
                         </div>
+
+<!--                        默认银行卡不能点击解绑-->
                         <div class="release-txt bank-release-txt"
+                             v-show="defaultBankId !==row.id"
                              @click="clickReleaseBank(row)">解绑
                         </div>
+                        <div class="release-txt-grey bank-release-txt"
+                             v-show="defaultBankId == row.id"
+                             >解绑
+                        </div>
+
                       </div>
                       <div class="chose-default-bank-card flex pointer"
                            @click="clickToChoseDefaultBank(row)">
