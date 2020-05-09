@@ -188,27 +188,28 @@ root.computed.USDTAvailable = function () {
 
 // 判断用户是否实名认证
 root.computed.identityVerification = function () {
-  return this.$store.state.authState.identity
+  if(this.$store.state.authState.idType =='PASSPORT')return true
+  return false
 }
 
 // 判断用户是否绑定手机号
 root.computed.bindSms = function () {
-  return this.$store.state.authState.sms
+  return this.$store.state.authState.mobile
 }
 
 // 判断用户是否绑定邮箱
 root.computed.bindMail = function () {
-  return this.$store.state.authState.mail
+  return this.$store.state.authState.email
 }
 
 //判断用户是否绑定谷歌
 root.computed.bindChrome = function () {
-  return this.$store.state.authState.ga
+  return this.$store.state.authState.gaAuth
 }
 
 // 判断用户是否绑定银行卡
 root.computed.bindBankCard = function () {
-  return this.$store.state.authState.method
+  return this.$store.state.authState.payInfo
 }
 
 // socket推过来的值
@@ -886,7 +887,8 @@ root.methods.setPopWindowContentForJoin = function () {
 
 // 设置点击弹窗按钮方法 --- 参与OTC交易需要满足以下条件
 root.methods.popWindowClickBtnForJoin = function () {
-  window.location.replace(this.$store.state.domain_url + 'index/personal/auth/authentication');
+  // window.location.replace(this.$store.state.domain_url + 'index/personal/auth/authentication');
+  window.location.replace(this.$store.state.domain_url + 'index/personal/securityCenter/');
 }
 // 设置点击弹窗关闭按钮方法 --- 参与OTC交易需要满足以下条件
 root.methods.popWindowCloseForJoin = function () {
