@@ -144,4 +144,7 @@ address.GET_SYSTEM_ARGS={url: urlHead + '/common/systemArgs', method: 'get', tim
 // address.GET_DASH_BUTTON={url: urlHead + '/user/payInfo', method: 'get', timeout: null, responseType: 'json'}
 address.GET_DASH_BUTTON={url: urlHead + '/accounts/userPayInfo', method: 'get', timeout: null, responseType: 'json'}
 
+// 退出登录
+address.LOGIN_OFF = {url: urlHead+'/user/signout', method: 'post'} //登出
+
 export default address

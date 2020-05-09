@@ -149,6 +149,8 @@
 
 
 // import logo from '../../assets/download-icon.png'
+import func from "../../configs/globalFunctionConfigs/globalFunctionConfigs";
+
 const root = {}
 root.name = 'Header'
 
@@ -235,6 +237,8 @@ root.data = function () {
     // popOpen: false,
     popText: '系统繁忙',
 
+    // flag:false , //是否为会员
+    // number:''
   }
 }
 
@@ -256,10 +260,11 @@ root.created = function () {
 
   // this.$store.commit('SET_SERVER_TIME_CALL_BACK',this.refreshKKPriceRange);
 
-  if (this.isLogin) {
-    this.getCheck(); //是不是会员
-  }
+  // if (this.isLogin) {
+  //   this.getCheck(); //是不是会员
+  // }
 
+  this.getAuthState()
 
   this.$eventBus.listen(this, 'CHECK_IS_VIP', this.getCheck);
 
@@ -290,10 +295,17 @@ root.computed.userId = function () {
   return this.$store.state.authState.userId
 }
 
-// 是否是会员
+// // 是否是会员
 root.computed.flag = function () {
+  if(!this.$store.state.authState)return
   // console.log('flag======',this.$store.state.flag)
-  return this.$store.state.isVIP.flag
+  // console.log('this.$store.state.authState=====',this.$store.state.authState)
+  return this.$store.state.authState.memeber
+}
+// 是否实名认证
+root.computed.authType = function () {
+  if(this.$store.state.authState.idType =='PASSPORT')return true
+  return false
 }
 
 
@@ -338,6 +350,7 @@ root.computed.downloadShow = function(){
 root.computed.hall_symbol = function () {
   return this.$store.state.hall_symbol;
 }
+
 root.computed.mobileTradingHallFlag = function () {
   return this.$store.state.mobileTradingHallFlag;
 }
@@ -353,14 +366,15 @@ root.computed.mobileHeaderTitle = function () {
 
 // 是否登录
 root.computed.isLogin = function () {
-  if (this.$store.state.authState.userId !== '') return true
+  if (this.$store.state.isLogin) return true
   return false
 }
-// 是否显示右侧菜单
-root.computed.changePopOpen = function () {
-  if (this.$store.state.mobilePopOpen === true) return true
-  return false
-}
+
+// // 是否显示右侧菜单
+// root.computed.changePopOpen = function () {
+//   if (this.$store.state.mobilePopOpen === true) return true
+//   return false
+// }
 
 // 是否为交易大厅界面
 root.computed.isTradingHall = function () {
@@ -375,19 +389,20 @@ root.computed.isTradingHall = function () {
 
 // 用户类型，如果是手机用户，为0，如果是邮箱用户，为1
 root.computed.userType = function () {
-  return this.$store.state.authMessage && this.$store.state.authMessage.province === 'mobile' ? 0 : 1
+  return this.$store.state.authState && this.$store.state.authState.registerType === 'mobile' ? 1 : 0
 }
 
 // 邮箱
 root.computed.userName = function () {
   if (this.userType === 0) {
-    return this.$globalFunc.formatUserName(this.$store.state.authMessage.mobile)
+    return this.$globalFunc.formatUserName(this.$store.state.authState.number)
   }
-  if (!this.$store.state.authMessage.email) {
+  if (!this.$store.state.authState.number) {
     return '****@****'
   }
-  return this.$globalFunc.formatUserName(this.$store.state.authMessage.email)
+  return this.$globalFunc.formatUserName(this.$store.state.authState.number)
 }
+
 root.computed.lang = function () {
   // 返回语言
   return this.$store.state.lang
@@ -457,13 +472,33 @@ root.watch.redPoint = function (newValue, oldValue) {
     this.noticeInterval = setInterval(() => {
       this.getNoticeRedPoint()
     }, 600000)
-  }
+  }2
 }
 
 
 /*------------------------------- 方法 --------------------------------*/
 
 root.methods = {}
+
+// 获取用户的绑定信息
+root.methods.getAuthState = function () {
+  if (!this.$store.state.authState) {
+    this.$http.send('GET_AUTH_STATE')
+      .then(({data}) => {
+        typeof data === 'string' && (data = JSON.parse(data))
+        if (!data) return
+        // this.userName = this.$globalFunc.formatUserName(data.data.number)
+        // this.flag = data.data.memeber
+        // this.authType = data.data.idType
+        console.log(this.authType)
+        this.$store.commit('SET_AUTH_STATE', data.data)
+        // console.log('authdata',this.$store.state.authState)
+      }).catch((err) => {
+      console.log('err', err)
+    });
+    return
+  }
+}
 
 //跳转到行情页面
 root.methods.goToIndexHomeMarket = function () {
@@ -472,7 +507,7 @@ root.methods.goToIndexHomeMarket = function () {
 
 //跳转到币币交易页面
 root.methods.goToTradingHall = function () {
-  window.location.replace(this.$store.state.domain_url + 'index/tradingHall?symbol=JADE_USDT');
+  window.location.replace(this.$store.state.domain_url + 'index/tradingHall?symbol=KK_USDT');
 }
 //跳转到挖矿报名页面
 root.methods.goToOfficialQuantitativeRegistration = function () {
@@ -493,6 +528,10 @@ root.methods.goToAssembleARegiment = function () {
 //跳转到我的钱包页面
 root.methods.goToMyWallet = function () {
   window.location.replace(this.$store.state.domain_url + 'index/asset/myWallet');
+}
+//跳转到法币账户页面
+root.methods.goToLegalCurrency = function () {
+  window.location.replace(this.$store.state.domain_url + 'index/asset/rechargeAndWithdrawals');
 }
 //跳转到财务记录页面
 root.methods.goToRechargeRecord = function () {
@@ -526,7 +565,17 @@ root.methods.goToSecurityLog = function () {
 root.methods.goToRecommend = function () {
   window.location.replace(this.$store.state.domain_url + 'index/personal/Recommend/PcRecommend');
 }
-//跳转退出登录
+//跳转登录页面
+root.methods.goToLogin = function () {
+  window.location.replace(this.$store.state.domain_url + 'index/sign/login');
+}
+//跳转注册页面
+root.methods.goToRegister = function () {
+  window.location.replace(this.$store.state.domain_url + 'index/register');
+}
+
+
+//跳转退出登录PaymentSet
 root.methods.goOutRegain = function () {
   this.$http.send('LOGIN_OFF',
     {
@@ -534,36 +583,12 @@ root.methods.goOutRegain = function () {
       params: {},
       callBack: this.re_login_off_callback
     }
-  )
-}
-
-
-//是否是会员get (query:{})
-root.methods.getCheck= function () {
-
-  this.$http.send('GET_CHECK', {
-    bind: this,
-    urlFragment: this.userId,
-    // query:{
-    //   gname: this.gname
-    // },
-    callBack: this.re_getCheck,
-    errorHandler: this.error_getCheck
+  ).then(({data}) => {
+    this.$store.commit('LOGIN_OUT');
+    window.location.reload();
   })
 }
 
-root.methods.re_getCheck = function (data) {
-  //检测data数据是JSON字符串转换JS字符串
-  typeof data === 'string' && (data = JSON.parse(data))
-
-  this.data = data.data
-  this.$store.commit('IS_VIP', data.data || {});
-  console.log('是否是会员get-----',this.data)
-}
-
-root.methods.error_getCheck = function (err) {
-  console.log("this.err=====",err)
-}
 root.methods.reFresh  = function () {
   if (this.$route.name == 'home') {
     this.$router.go(0)
@@ -742,21 +767,23 @@ root.methods.changeLanguage = function (lang) {
   this.getNoticeRedPoint()
 }
 // 登出
-root.methods.loginOff = function () {
-  this.$http.send('LOGIN_OFF',
-    {
-      bind: this,
-      params: {},
-      callBack: this.re_login_off_callback
-    }
-  )
-}
+// root.methods.loginOff = function () {
+//   this.$http.send('LOGIN_OFF',
+//     {
+//       bind: this,
+//       callBack: this.re_login_off_callback
+//     }
+//   )
+// }
 // 登出回调
-root.methods.re_login_off_callback = function (data) {
+root.methods.re_login_off_callback = function ({data}) {
   // 清除cookie
-  this.$cookies.remove("popShow");
+  // this.$cookies.remove("popShow");
+  alert('123123123');
   this.$store.commit('LOGIN_OUT');
   window.location.reload();
+  // this.$router.push('index/sign/login')
+  // window.location.replace(this.$store.state.domain_url + 'index/sign/login');
 }
 
 

@@ -76,7 +76,12 @@
     </div>
   </div>
   <!-- 分页插件 start  v-if="maxPage > 1" -->
-  <BasePageBar v-if="maxPage > 1" :maxPage='maxPage'
+<!--  <BasePageBar v-if="maxPage > 1" :maxPage='maxPage'-->
+<!--               :selectIndex="selectIndex"-->
+<!--               :clickChangePage="clickChangePage"-->
+<!--               :currentDisplay=2-->
+<!--               :initDisplay=2></BasePageBar>-->
+  <BasePageBar v-if="maxPage > 1 && list.length != 0" :maxPage='maxPage'
                :selectIndex="selectIndex"
                :clickChangePage="clickChangePage"
                :currentDisplay=2

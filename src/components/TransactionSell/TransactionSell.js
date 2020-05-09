@@ -20,8 +20,8 @@ root.data = function () {
     aKeyUserName: false,
 
     // 获取本页页面数据
-    offset: 0,
-    maxResults: 2,
+    page: 0,
+    maxResults: 10,
 
     // 页面数据显示
     pendingList: [],
@@ -179,27 +179,28 @@ root.computed.USDTAvailable = function () {
 
 // 判断用户是否实名认证
 root.computed.identityVerification = function () {
-  return this.$store.state.authState.identity
+  if(this.$store.state.authState.idType =='PASSPORT')return true
+  return false
 }
 
 // 判断用户是否绑定手机号
 root.computed.bindSms = function () {
-  return this.$store.state.authState.sms
+  return this.$store.state.authState.mobile
 }
 
 // 判断用户是否绑定邮箱
 root.computed.bindMail = function () {
-  return this.$store.state.authState.mail
+  return this.$store.state.authState.email
 }
 
 //判断用户是否绑定谷歌
 root.computed.bindChrome = function () {
-  return this.$store.state.authState.ga
+  return this.$store.state.authState.gaAuth
 }
 
 // 判断用户是否绑定银行卡
 root.computed.bindBankCard = function () {
-  return this.$store.state.authState.method
+  return this.$store.state.authState.payInfo
 }
 
 // socket推过来的值
@@ -393,7 +394,7 @@ root.methods.getPageList = function () {
   this.loading = true
   this.$http.send('GET_LIST_OF_LISTS', {
     query: {
-      offset: this.offset,
+      page: this.selectIndex,
       maxResults: this.maxResults,
       side: 'BUY',
       // status: 'BUY',
@@ -406,10 +407,10 @@ root.methods.getPageList = function () {
     this.pageListAjaxLoading = true
     this.checkLoading()
     // this.pendingList = data.dataMap.orders
-    this.pendingList = data.data
+    this.pendingList = data.data.list
     console.log('this.pendingList====',this.pendingList)
     // this.maxPage = Math.ceil(this.accDiv(data.data,this.maxResults))
-    this.maxPage = this.maxResults
+    this.maxPage = data.data.totalPage
     // console.log(this.maxPage)
 
   }).catch((err) => {
@@ -647,42 +648,42 @@ root.methods.clickToSellSelf = function (item) {
   // //   return
   // // }
   // sss屏蔽
-  // // 是否登录
-  // if (!this.isLogin) {
-  //   window.location.replace(this.$store.state.domain_url + 'index/sign/login?ani=1&toUrl=c2c_url');
-  //   return
-  // }
-  //
-  // // 没有身份认证 并 没有绑定手机或谷歌必须绑定邮箱 并 没有绑定银行卡
-  // if((!this.identityVerification) && (!((this.bindChrome||this.bindSms) && this.bindMail)) && (!this.bindBankCard)) {
-  //   this.setPopWindowContentForJoin()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有身份认证
-  // if(!this.identityVerification) {
-  //   this.setPopWindowContentForVerification()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有绑定手机或者谷歌
-  // if(!this.bindSms&&!this.bindChrome) {
-  //   this.setPopWindowContentForBindMobile()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有绑定邮箱
-  // if(!this.bindMail) {
-  //   this.setPopWindowContentForBindMail()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有绑定银行卡
-  // if(!this.bindBankCard) {
-  //   this.setPopWindowContentForBindBankCard()
-  //   this.popWindowOpen = true
-  //   return
-  // }
+  // 是否登录
+  if (!this.isLogin) {
+    window.location.replace(this.$store.state.domain_url + 'index/sign/login?ani=1&toUrl=c2c_url');
+    return
+  }
+
+  // 没有身份认证 并 没有绑定手机或谷歌必须绑定邮箱 并 没有绑定银行卡
+  if((!this.identityVerification) && (!((this.bindChrome||this.bindSms) && this.bindMail)) && (!this.bindBankCard)) {
+    this.setPopWindowContentForJoin()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有身份认证
+  if(!this.identityVerification) {
+    this.setPopWindowContentForVerification()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有绑定手机或者谷歌
+  if(!this.bindSms&&!this.bindChrome) {
+    this.setPopWindowContentForBindMobile()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有绑定邮箱
+  if(!this.bindMail) {
+    this.setPopWindowContentForBindMail()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有绑定银行卡
+  if(!this.bindBankCard) {
+    this.setPopWindowContentForBindBankCard()
+    this.popWindowOpen = true
+    return
+  }
   // sss屏蔽结束
 
   if(this.userCanNotTradeInfo){
@@ -705,41 +706,41 @@ root.methods.clickToSellSelf = function (item) {
 // 点击卖出按钮
 root.methods.clickToConfirmSell = function () {
   // sss屏蔽
-  // // 是否登录
-  // if (!this.isLogin) {
-  //   window.location.replace(this.$store.state.domain_url + 'index/sign/login?ani=1&toUrl=c2c_url');
-  //   return
-  // }
-  // // 没有身份认证 并 没有绑定手机或没有绑定邮箱 并 没有绑定银行卡
-  // if ((!this.identityVerification) && (!((this.bindChrome || this.bindSms) && this.bindMail)) && (!this.bindBankCard)) {
-  //   this.setPopWindowContentForJoin()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有身份认证
-  // if (!this.identityVerification) {
-  //   this.setPopWindowContentForVerification()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有绑定手机或者谷歌
-  // if (!this.bindSms && !this.bindChrome) {
-  //   this.setPopWindowContentForBindMobile()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有绑定邮箱
-  // if (!this.bindMail) {
-  //   this.setPopWindowContentForBindMail()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有绑定银行卡
-  // if (!this.bindBankCard) {
-  //   this.setPopWindowContentForBindBankCard()
-  //   this.popWindowOpen = true
-  //   return
-  // }
+  // 是否登录
+  if (!this.isLogin) {
+    window.location.replace(this.$store.state.domain_url + 'index/sign/login?ani=1&toUrl=c2c_url');
+    return
+  }
+  // 没有身份认证 并 没有绑定手机或没有绑定邮箱 并 没有绑定银行卡
+  if ((!this.identityVerification) && (!((this.bindChrome || this.bindSms) && this.bindMail)) && (!this.bindBankCard)) {
+    this.setPopWindowContentForJoin()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有身份认证
+  if (!this.identityVerification) {
+    this.setPopWindowContentForVerification()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有绑定手机或者谷歌
+  if (!this.bindSms && !this.bindChrome) {
+    this.setPopWindowContentForBindMobile()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有绑定邮箱
+  if (!this.bindMail) {
+    this.setPopWindowContentForBindMail()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有绑定银行卡
+  if (!this.bindBankCard) {
+    this.setPopWindowContentForBindBankCard()
+    this.popWindowOpen = true
+    return
+  }
   // sss屏蔽结束
   if(this.inputNum==''&&this.value=='选项2'){
     this.popOpen = true
@@ -1014,7 +1015,8 @@ root.methods.setPopWindowContentForJoin = function () {
 
 // 设置点击弹窗按钮方法 --- 参与OTC交易需要满足以下条件
 root.methods.popWindowClickBtnForJoin = function () {
-  window.location.replace(this.$store.state.domain_url + 'index/personal/auth/authentication');
+  // window.location.replace(this.$store.state.domain_url + 'index/personal/auth/authentication');
+  window.location.replace(this.$store.state.domain_url + 'index/personal/securityCenter/');
 }
 // 设置点击弹窗关闭按钮方法 --- 参与OTC交易需要满足以下条件
 root.methods.popWindowCloseForJoin = function () {
@@ -1024,7 +1026,7 @@ root.methods.popWindowCloseForJoin = function () {
 // 设置弹窗样式 --- 参与OTC交易需要实名认证
 root.methods.setPopWindowContentForVerification = function () {
   this.popWindowTitle= '身份认证';
-  this.popWindowContent= ['法币交易前请先进行身份认证并绑定本人手机号才能够进行交易，您尚未完成实名认证，不能进行法币交易，请先完成实名认证。'];
+  this.popWindowContent= ['法币交易前请先进行身份认证才能够进行交易，您尚未完成实名认证，不能进行法币交易，请先完成实名认证。'];
   this.popWindowBtnText = this.isMobile && '去app认证' || '去认证';
   this.popWindowContentCenter = true;
   this.popWindowContentAllCenter = false;
@@ -1117,9 +1119,9 @@ root.methods.clickChangePage = function (page) {
     return
   }
   this.selectIndex = page;
-  this.offset = (page-1)*this.maxResults
-  if(this.offset<0){
-    this.offset = 0
+  this.page = (page-1)*this.maxResults
+  if(this.page<0){
+    this.page = 0
   }
   this.loading = true
   this.getPageList()

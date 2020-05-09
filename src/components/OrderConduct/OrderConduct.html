@@ -61,6 +61,11 @@
             <span v-if="item.status == 2">已支付</span>
             <span v-if="item.status == 3">已完成</span>
             <span v-if="item.status == 4">已取消</span>
+            <span v-if="item.status == 5">申诉中</span>
+            <span v-if="item.status == 6">放币中</span>
+            <span v-if="item.status == 7">超时关闭</span>
+            <span v-if="item.status == 8">申诉处理完成</span>
+            <span v-if="item.status == 9">申诉取消</span>
           </div>
           <div class="create_time">
             {{$globalFunc.formatDateUitl(item.createdAt, 'YYYY-MM-DD hh:mm:ss')}}
@@ -77,6 +82,21 @@
 <!--          <button class="cannel_time_btn border_radius disabled" v-if="item.type == 'BUY' && item.status != '2'">-->
           <button class="cannel_time_btn border_radius disabled" v-if="item.sellerId != userId && item.status == '2'">
             处理中
+          </button>
+          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '7'">
+            联系客服处理
+          </button>
+          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '5'">
+            申诉中
+          </button>
+          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '6'">
+            放币中
+          </button>
+          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '8'">
+            申诉处理完成
+          </button>
+          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '9'">
+            申诉取消
           </button>
           <!-- 买单确认收付款 end -->
         </div>

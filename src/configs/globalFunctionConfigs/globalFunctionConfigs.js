@@ -3,6 +3,56 @@ const func = {}
 func.testFunc = function () {
   console.warn('test!')
 }
+// 判断邮箱
+func.testEmail = function (src) {
+  // var src = src.trim();
+  if (/^[_a-zA-Z0-9-\+]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9]+)*(\.[a-zA-Z]{2,})$/.test(src)) {
+    return true
+  }
+  // if (/^[_a-zA-Z0-9-\\+]+(\.[_a-zA-Z0-9-]+)*@[\.0-9A-z]+((.com)|(.net)|(.com.cn)|(.cn)|(.COM)|(.NET)|(.COM.CN)|(.CN))+$/.test(src)) {
+  //   return true [_a-zA-Z\@\.]
+  // }
+  return false
+}
+
+// 判断手机号或者邮箱
+func.emailOrMobile = function (src) {
+  if (this.testMobile(src)) {
+    return 1
+  }
+  // TODO 正则有点儿问题，进行修改
+  // if (/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(src)) {
+  //   return 2
+  // }
+  if (this.testEmail(src)) {
+    return 2
+  }
+  return 0
+}
+
+// 判断手机号
+func.testMobile = function (mobile) {
+  console.log("testMobile",mobile);
+  if(/[_a-zA-Z\@\.\u4E00-\u9FFF]/.test(mobile))return false//如果有特殊字符，非法
+  return true
+  if (/^\d{11}$/.test(mobile)) return true
+  return false
+}
+
+// 格式化用户名
+func.formatUserName = function (src) {
+  if(!src)return ''
+  let userNameType = func.emailOrMobile(src)
+  // 如果是手机号
+  if (userNameType === 1) {
+    return `${src.slice(0, 3)}****${src.slice(7, 11)}`
+  }
+  // 如果是邮箱
+  let emailArr = src.split('@')
+  let first = emailArr[0]
+  first.length > 2 && (first = `${first.slice(0, 2)}****`)
+  return `${first}@${emailArr[1]}`
+}
 
 // 判断是否全是数字
 func.testNumber = function (number) {
