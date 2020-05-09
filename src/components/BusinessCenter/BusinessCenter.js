@@ -129,7 +129,7 @@ root.computed.currencyChange = function () {
 // 用户USDT的可用余额
 root.computed.USDTAvailable = function () {
   let USDTAccount = this.accounts.find(v => v.currency == "USDT") || {}
-  console.log('USDTAccount', USDTAccount)
+  // console.log('USDTAccount', USDTAccount)
 
   return USDTAccount.available || 0
 }

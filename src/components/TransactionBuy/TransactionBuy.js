@@ -128,7 +128,9 @@ root.data = function () {
     value: '选项1',
     isBuyItem: false,
     // 显示银行卡信息
-    pay_info:''
+    pay_info:'',
+
+    accounts:[]//账户余额
   }
 };
 root.created = function () {
@@ -180,6 +182,10 @@ root.computed.userId = function () {
 	return this.$store.state.authState.userId;
 }
 
+root.computed.currencyChange = function () {
+  return this.$store.state.currencyChange
+}
+
 // 用户USDT的可用余额
 root.computed.USDTAvailable = function () {
   let USDTAccount = this.$store.state.currency.get("USDT") || {}
@@ -217,7 +223,11 @@ root.computed.result_socket = function () {
 }
 
 root.watch = {}
-
+// 监听vuex中的变化
+root.watch.currencyChange = function (newVal, oldVal) {
+  this.accounts = [...this.$store.state.currency.values()]
+  // console.log('this.USDTAvailable-=-=-=-=-=-=-=-=-=',this.USDTAvailable);
+}
 root.watch.result_socket = function (newValue, oldValue) {
   let user_id = newValue.data.userId;
   let operation = newValue.data.operation;
