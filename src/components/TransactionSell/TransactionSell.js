@@ -20,8 +20,8 @@ root.data = function () {
     aKeyUserName: false,
 
     // 获取本页页面数据
-    offset: 0,
-    maxResults: 200,
+    page: 0,
+    maxResults: 10,
 
     // 页面数据显示
     pendingList: [],
@@ -381,7 +381,7 @@ root.methods.getPageList = function () {
   this.loading = true
   this.$http.send('GET_LIST_OF_LISTS', {
     query: {
-      offset: this.offset,
+      page: this.selectIndex,
       maxResults: this.maxResults,
       side: 'BUY',
       // status: 'BUY',
@@ -394,10 +394,10 @@ root.methods.getPageList = function () {
     this.pageListAjaxLoading = true
     this.checkLoading()
     // this.pendingList = data.dataMap.orders
-    this.pendingList = data.data
+    this.pendingList = data.data.list
     console.log('this.pendingList====',this.pendingList)
     // this.maxPage = Math.ceil(this.accDiv(data.data,this.maxResults))
-    // this.maxPage = this.maxResults
+    this.maxPage = data.data.totalPage
     // console.log(this.maxPage)
 
   }).catch((err) => {
@@ -1105,9 +1105,9 @@ root.methods.clickChangePage = function (page) {
     return
   }
   this.selectIndex = page;
-  this.offset = (page-1)*this.maxResults
-  if(this.offset<0){
-    this.offset = 0
+  this.page = (page-1)*this.maxResults
+  if(this.page<0){
+    this.page = 0
   }
   this.loading = true
   this.getPageList()
