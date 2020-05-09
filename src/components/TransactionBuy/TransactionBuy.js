@@ -887,8 +887,8 @@ root.methods.setPopWindowContentForJoin = function () {
 
 // 设置点击弹窗按钮方法 --- 参与OTC交易需要满足以下条件
 root.methods.popWindowClickBtnForJoin = function () {
-  // window.location.replace(this.$store.state.domain_url + 'index/personal/auth/authentication');
-  window.location.replace(this.$store.state.domain_url + 'index/personal/securityCenter/');
+  window.location.replace(this.$store.state.domain_url + 'index/personal/auth/authentication');
+  // window.location.replace(this.$store.state.domain_url + 'index/personal/securityCenter/');
 }
 // 设置点击弹窗关闭按钮方法 --- 参与OTC交易需要满足以下条件
 root.methods.popWindowCloseForJoin = function () {
@@ -913,6 +913,7 @@ root.methods.popWindowClickBtnForVerification = function () {
     window.location.replace(this.$store.state.download_app);
   } else {
     window.location.replace(this.$store.state.domain_url + 'index/personal/auth/authenticate');
+    // window.location.replace(this.$store.state.domain_url + 'index/personal/securityCenter/');
   }
 }
 // 设置点击弹窗关闭按钮方法 --- 参与OTC交易需要实名认证
@@ -934,7 +935,7 @@ root.methods.setPopWindowContentForBindMobile = function () {
 
 // 设置点击弹窗按钮方法 --- 参与OTC交易需要绑定手机号
 root.methods.popWindowClickBtnForBindMobile = function () {
-  window.location.replace(this.$store.state.domain_url + 'index/personal/securityCenter/bindMobile');
+  window.location.replace(this.$store.state.domain_url + 'index/personal/securityCenter/');
 }
 // 设置点击弹窗关闭按钮方法 --- 参与OTC交易需要绑定手机号
 root.methods.popWindowCloseForBindMobile = function () {
@@ -955,7 +956,7 @@ root.methods.setPopWindowContentForBindMail = function () {
 
 // 设置点击弹窗按钮方法 --- 参与OTC交易需要绑定手机号
 root.methods.popWindowClickBtnForBindMail = function () {
-  window.location.replace(this.$store.state.domain_url + 'index/personal/securityCenter/bindEmail');
+  window.location.replace(this.$store.state.domain_url + 'index/personal/securityCenter/');
 }
 // 设置点击弹窗关闭按钮方法 --- 参与OTC交易需要绑定手机号
 root.methods.popWindowCloseForBindMail = function () {
