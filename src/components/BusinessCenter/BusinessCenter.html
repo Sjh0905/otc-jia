@@ -103,6 +103,28 @@
            </button>
         </div>
       </div>
+
+      <div class="business-header-item pay_type flex-center flex-between fee-rate-item">
+        <div class="business-header-item-title text_light_dark"></div>
+        <div class="business-header-item-input pay_type flex-between fee-rate-item-content">
+          <div class="fee-rate-box flex-between">
+            <div class="fee-rate-left">手续费：</div>
+            <div class="fee-rate-right">{{buyFee > 0 ? buyFee : '--'}} USDT</div>
+          </div>
+          <div class="fee-rate-box flex-between">
+            <div class="fee-rate-left">实际到账：</div>
+            <div class="fee-rate-right">{{buyActuallyArrived > 0 ? buyActuallyArrived : '--'}} USDT</div>
+          </div>
+        </div>
+        <div class="fee-rate-img-box" @mouseenter="openRateTips('buy')" @mouseleave="closeRateTips('buy')">
+          <img class="fee-rate-img" src="./assets/fee_tips_icon.png"/>
+        </div>
+        <div class="fee-tips-box fee-tips-box-buy">
+          <div>1.手续费：商家买单收取挂单数量的千分之一，在成交后扣除；</div>
+          <div>2.实际到账数量为：成交数量减去手续费后的余额；</div>
+          <div>3.手续费收取：每成交一笔，按实际成交的千分之一收取。</div>
+        </div>
+      </div>
     </div>
     <!-- 买入 end -->
 
@@ -195,6 +217,30 @@
            </button>
         </div>
       </div>
+
+      <div class="business-header-item pay_type flex-center flex-between fee-rate-item">
+        <div class="business-header-item-title text_light_dark"></div>
+        <div class="business-header-item-input pay_type flex-between fee-rate-item-content">
+          <div class="fee-rate-box flex-between">
+            <div class="fee-rate-left">手续费：</div>
+            <div class="fee-rate-right">{{sellFee > 0 ? sellFee : '--'}} USDT</div>
+          </div>
+          <div class="fee-rate-box flex-between">
+            <div class="fee-rate-left">实际售卖：</div>
+            <div class="fee-rate-right">{{sellActualSale > 0 ? sellActualSale : '--'}} USDT</div>
+          </div>
+        </div>
+        <div class="fee-rate-img-box" @mouseenter="openRateTips('sell')" @mouseleave="closeRateTips('sell')">
+          <img class="fee-rate-img" src="./assets/fee_tips_icon.png"/>
+        </div>
+        <div class="fee-tips-box fee-tips-box-sell">
+          <div>1.手续费：商家卖单收取挂单数量的千分之一，在挂单时直接冻结；</div>
+          <div>2.实际可售卖数量为：挂单数量减去手续费后的余额；</div>
+          <div>3.手续费收取：每成交一笔，按实际成交的千分之一收取；</div>
+          <div>4.手续费返还：商家撤单后未成交数量的手续费返还至法币账户。</div>
+        </div>
+      </div>
+
     </div>
     <!-- 卖出 end -->
   </div>

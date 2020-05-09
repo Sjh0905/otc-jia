@@ -104,7 +104,13 @@ root.data = function () {
 
     payType:1,// 银行卡 1 支付宝 2  微信 3
 
-    accounts:[]
+    accounts:[],
+
+    feeRate:0,//手续费费率
+    buyFee:0,//买入手续费
+    buyActuallyArrived:0,//买入实际到账
+    sellFee:0,//卖出手续费
+    sellActualSale:0,//实际售卖
   }
 }
 root.created = function () {
@@ -168,7 +174,30 @@ root.provide = function () {
 
 
 root.watch = {}
-// 监听vuex中的变化
+root.watch.buyInputNum = function (newVal, oldVal) {
+  // console.log('newVal',newVal,'oldVal',oldVal);
+  if(newVal == ''){
+    this.buyFee = 0;
+    this.buyActuallyArrived = 0
+    return
+  }
+  if(newVal != oldVal && this.feeRate > 0 && this.buyInputNum > 0){
+    this.buyFee = this.accMul(this.feeRate, this.buyInputNum)
+    this.buyActuallyArrived = this.accMinus(this.buyInputNum,this.buyFee)
+  }
+}
+root.watch.sellInputNum = function (newVal, oldVal) {
+  // console.log('newVal',newVal,'oldVal',oldVal);
+  if(newVal == ''){
+    this.sellFee = 0;
+    this.sellActualSale = 0
+    return
+  }
+  if(newVal != oldVal && this.feeRate > 0 && this.sellInputNum > 0){
+    this.sellFee = this.accMul(this.feeRate, this.sellInputNum)
+    this.sellActualSale = this.accMinus(this.sellInputNum,this.sellFee)
+  }
+}
 root.watch.currencyChange = function (newVal, oldVal) {
   this.accounts = [...this.$store.state.currency.values()]
 }
@@ -919,6 +948,7 @@ root.methods.getSystemArgs = function () {
     this.inputMinNum = USDTCurrenciesConf1.min > 0 ? USDTCurrenciesConf1.min : this.inputMinNum;
     this.inputMaxNum = USDTCurrenciesConf1.max > 0 ? USDTCurrenciesConf1.max : this.inputMaxNum;
 
+    this.feeRate = USDTCurrenciesConf1.feeRate || 0
     // this.loading = false;
   }).catch((err) => {
     // this.popOpen = true;
@@ -1134,6 +1164,14 @@ root.methods.getUserAuthInfo = function () {
     .catch(err => {
 
     })
+}
+
+root.methods.closeRateTips= function (type) {
+  $(".fee-tips-box-"+type).attr("style","display:none");
+}
+
+root.methods.openRateTips = function (type) {
+  $(".fee-tips-box-"+type).attr("style","display:block");
 }
 
 

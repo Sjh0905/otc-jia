@@ -120,7 +120,7 @@
 
 .business-header-list {
   margin-top: 12px;
-  min-height: 288px;
+  min-height: 260px;
 }
 
 .business-header-item {
@@ -131,7 +131,7 @@
   margin-top: 5px;
 }
 .business-header-item.margin_top{
-  margin-top: 15px;
+  margin-top: 10px;
 }
 .business-header-item-input.pay_type{
   height: 30px;
@@ -243,7 +243,53 @@
   background: #EF5656;
   border: 1px solid #EF5656;
 }
+.fee-rate-item{
+  position: relative;
 
+}
+.fee-rate-item-content{
+  margin-left: 22px;
+}
+.fee-rate-box{
+  margin-top: 15px;
+  font-size:13px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#0D0E23;
+  line-height:18px;
+}
+.fee-rate-right{
+  color: #3576F5;
+}
+.fee-rate-img-box{
+  height: 11px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+.fee-rate-img{
+  width: 14px;
+}
+.fee-tips-box{
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  right: 0;
+  top: 41px;
+  width: 68%;
+  /*height: 200px;*/
+  /*background-color: #6FBF48;*/
+
+  background:#FFFFFF;
+  box-shadow:0px 0px 16px 0px rgba(0,0,0,0.1);
+  border-radius:1px;
+
+  padding: 20px;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:#0D0E23;
+  line-height:17px;
+}
 .market_table_body{
   position: relative;
   min-height: 150px;
