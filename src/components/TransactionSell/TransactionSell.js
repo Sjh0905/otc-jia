@@ -133,7 +133,9 @@ root.data = function () {
     value: '选项1',
     isSellItem: false,
     // 显示银行卡信息
-    pay_info:''
+    pay_info:'',
+
+    accounts:[]//账户余额
   }
 };
 root.created = function () {
@@ -146,6 +148,8 @@ root.created = function () {
   this.getPageList()
 
   // console.log(this.$store.state.authState)
+
+  this.getAccount()
 };
 
 root.computed = {}
@@ -162,10 +166,14 @@ root.computed.isLogin = function () {
 root.computed.userId = function () {
   return this.$store.state.authState.userId;
 }
-
+root.computed.currencyChange = function () {
+  return this.$store.state.currencyChange
+}
 // 用户USDT的可用余额
 root.computed.USDTAvailable = function () {
-  let USDTAccount = this.$store.state.currency.get("USDT") || {}
+  let USDTAccount = this.accounts.find(v => v.currency == "USDT") || {}
+  // console.log('USDTAccount', USDTAccount)
+
   return USDTAccount.available || 0
 }
 
@@ -201,7 +209,11 @@ root.computed.result_socket = function () {
 }
 
 root.watch = {}
-
+// 监听vuex中的变化
+root.watch.currencyChange = function (newVal, oldVal) {
+  this.accounts = [...this.$store.state.currency.values()]
+  // console.log('this.USDTAvailable-=-=-=-=-=-=-=-=-=',this.USDTAvailable);
+}
 root.watch.result_socket = function (newValue, oldValue) {
   let user_id = newValue.data.userId;
   let operation = newValue.data.operation;
@@ -290,8 +302,8 @@ root.methods.inputNumbers = function (val) {
   }
 }
 
-// 获取用户的资产
-root.methods.getAccount = function () {
+// 获取用户的资产,此函数在本文件重复，故屏蔽一个
+/*root.methods.getAccount = function () {
   this.$http.send('ACCOUNTS', {
     // query: {
     //   currency: 'USDT'
@@ -306,7 +318,7 @@ root.methods.getAccount = function () {
     console.log('err', err)
   });
   return
-}
+}*/
 
 // 获取用户的出售权限
 root.methods.getUserCanTrade = function () {
@@ -1014,7 +1026,7 @@ root.methods.popWindowCloseForJoin = function () {
 // 设置弹窗样式 --- 参与OTC交易需要实名认证
 root.methods.setPopWindowContentForVerification = function () {
   this.popWindowTitle= '身份认证';
-  this.popWindowContent= ['法币交易前请先进行身份认证并绑定本人手机号才能够进行交易，您尚未完成实名认证，不能进行法币交易，请先完成实名认证。'];
+  this.popWindowContent= ['法币交易前请先进行身份认证才能够进行交易，您尚未完成实名认证，不能进行法币交易，请先完成实名认证。'];
   this.popWindowBtnText = this.isMobile && '去app认证' || '去认证';
   this.popWindowContentCenter = true;
   this.popWindowContentAllCenter = false;
