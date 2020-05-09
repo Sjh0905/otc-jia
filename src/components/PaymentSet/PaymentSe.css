@@ -323,7 +323,8 @@
 }
 
 .bank-card-name {
-  margin-right: 80px;
+  width: 100px;
+  margin-right: 60px;
 }
 
 .bank-label-blue {
