@@ -635,42 +635,42 @@ root.methods.clickToSellSelf = function (item) {
   // //   return
   // // }
   // sss屏蔽
-  // // 是否登录
-  // if (!this.isLogin) {
-  //   window.location.replace(this.$store.state.domain_url + 'index/sign/login?ani=1&toUrl=c2c_url');
-  //   return
-  // }
-  //
-  // // 没有身份认证 并 没有绑定手机或谷歌必须绑定邮箱 并 没有绑定银行卡
-  // if((!this.identityVerification) && (!((this.bindChrome||this.bindSms) && this.bindMail)) && (!this.bindBankCard)) {
-  //   this.setPopWindowContentForJoin()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有身份认证
-  // if(!this.identityVerification) {
-  //   this.setPopWindowContentForVerification()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有绑定手机或者谷歌
-  // if(!this.bindSms&&!this.bindChrome) {
-  //   this.setPopWindowContentForBindMobile()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有绑定邮箱
-  // if(!this.bindMail) {
-  //   this.setPopWindowContentForBindMail()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有绑定银行卡
-  // if(!this.bindBankCard) {
-  //   this.setPopWindowContentForBindBankCard()
-  //   this.popWindowOpen = true
-  //   return
-  // }
+  // 是否登录
+  if (!this.isLogin) {
+    window.location.replace(this.$store.state.domain_url + 'index/sign/login?ani=1&toUrl=c2c_url');
+    return
+  }
+
+  // 没有身份认证 并 没有绑定手机或谷歌必须绑定邮箱 并 没有绑定银行卡
+  if((!this.identityVerification) && (!((this.bindChrome||this.bindSms) && this.bindMail)) && (!this.bindBankCard)) {
+    this.setPopWindowContentForJoin()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有身份认证
+  if(!this.identityVerification) {
+    this.setPopWindowContentForVerification()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有绑定手机或者谷歌
+  if(!this.bindSms&&!this.bindChrome) {
+    this.setPopWindowContentForBindMobile()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有绑定邮箱
+  if(!this.bindMail) {
+    this.setPopWindowContentForBindMail()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有绑定银行卡
+  if(!this.bindBankCard) {
+    this.setPopWindowContentForBindBankCard()
+    this.popWindowOpen = true
+    return
+  }
   // sss屏蔽结束
 
   if(this.userCanNotTradeInfo){
@@ -693,41 +693,41 @@ root.methods.clickToSellSelf = function (item) {
 // 点击卖出按钮
 root.methods.clickToConfirmSell = function () {
   // sss屏蔽
-  // // 是否登录
-  // if (!this.isLogin) {
-  //   window.location.replace(this.$store.state.domain_url + 'index/sign/login?ani=1&toUrl=c2c_url');
-  //   return
-  // }
-  // // 没有身份认证 并 没有绑定手机或没有绑定邮箱 并 没有绑定银行卡
-  // if ((!this.identityVerification) && (!((this.bindChrome || this.bindSms) && this.bindMail)) && (!this.bindBankCard)) {
-  //   this.setPopWindowContentForJoin()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有身份认证
-  // if (!this.identityVerification) {
-  //   this.setPopWindowContentForVerification()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有绑定手机或者谷歌
-  // if (!this.bindSms && !this.bindChrome) {
-  //   this.setPopWindowContentForBindMobile()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有绑定邮箱
-  // if (!this.bindMail) {
-  //   this.setPopWindowContentForBindMail()
-  //   this.popWindowOpen = true
-  //   return
-  // }
-  // // 没有绑定银行卡
-  // if (!this.bindBankCard) {
-  //   this.setPopWindowContentForBindBankCard()
-  //   this.popWindowOpen = true
-  //   return
-  // }
+  // 是否登录
+  if (!this.isLogin) {
+    window.location.replace(this.$store.state.domain_url + 'index/sign/login?ani=1&toUrl=c2c_url');
+    return
+  }
+  // 没有身份认证 并 没有绑定手机或没有绑定邮箱 并 没有绑定银行卡
+  if ((!this.identityVerification) && (!((this.bindChrome || this.bindSms) && this.bindMail)) && (!this.bindBankCard)) {
+    this.setPopWindowContentForJoin()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有身份认证
+  if (!this.identityVerification) {
+    this.setPopWindowContentForVerification()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有绑定手机或者谷歌
+  if (!this.bindSms && !this.bindChrome) {
+    this.setPopWindowContentForBindMobile()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有绑定邮箱
+  if (!this.bindMail) {
+    this.setPopWindowContentForBindMail()
+    this.popWindowOpen = true
+    return
+  }
+  // 没有绑定银行卡
+  if (!this.bindBankCard) {
+    this.setPopWindowContentForBindBankCard()
+    this.popWindowOpen = true
+    return
+  }
   // sss屏蔽结束
   if(this.inputNum==''&&this.value=='选项2'){
     this.popOpen = true
