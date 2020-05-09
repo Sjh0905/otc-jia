@@ -29,17 +29,22 @@ root.data = function () {
     buyInputPrice: '',
     buyInputNum: '',
     buyInputMoney: '',
-    buyInputMinNum: 10,
-    buyInputMaxNum: 20000,
+    buyInputMinNum: '',
+    buyInputMaxNum: '',
     buyInputMethod: '',
 
     // 卖出表单控制
     sellInputPrice: '',
     sellInputNum: '',
     sellInputMoney: '',
-    sellInputMinNum: 10,
-    sellInputMaxNum: 20000,
+    sellInputMinNum: '',
+    sellInputMaxNum: '',
     sellInputMethod: '',
+
+
+    //数量限制
+    inputMinNum:1,
+    inputMaxNum:200000000,
 
     // 商家usdt余额
     balanceNum: 0,
@@ -106,7 +111,8 @@ root.created = function () {
   // 临时loading
 
   // 获取顶部信息
-  // this.postBusinessBaseInfo()
+  // this.postBusinessBaseInfo
+  this.getSystemArgs();
 
   // 获取账户余额信息
   this.getAccount()
@@ -330,16 +336,16 @@ root.methods.blurBuyInputNum = function (e) {
 }
 // 商家购买的数量的input框后的验证
 root.methods.testBuyInputNum = function () {
-  if (parseFloat(this.buyInputNum) > 30000) {
+  /*if (parseFloat(this.buyInputNum) > 30000) {
     this.popOpen = true
     this.popType = 0
     this.popText = '买入数量最大30000'
     return false
-  }
-  if (this.buyInputMinNum && parseFloat(this.buyInputNum) < parseFloat(this.buyInputMinNum)) {
+  }*/
+  if (this.inputMinNum && parseFloat(this.buyInputNum) < parseFloat(this.inputMinNum)) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '买入数量不能小于单笔最小购买数量'
+    this.popText = '买入数量不能小于' + this.inputMinNum
     return false
   }
   return true
@@ -352,16 +358,16 @@ root.methods.blurSellInputNum = function (e) {
 }
 // 商家卖出的数量的input框后的验证
 root.methods.testSellInputNum = function () {
-  if (parseFloat(this.sellInputNum) > 30000) {
+  /*if (parseFloat(this.sellInputNum) > 30000) {
     this.popOpen = true
     this.popType = 0
     this.popText = '卖出数量最大30000'
     return false
-  }
-  if (this.sellInputMinNum && parseFloat(this.sellInputNum) < parseFloat(this.sellInputMinNum)) {
+  }*/
+  if (this.inputMinNum && parseFloat(this.sellInputNum) < parseFloat(this.inputMinNum)) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '卖出数量不能小于单笔最小卖出数量'
+    this.popText = '卖出数量不能小于'  + this.inputMinNum
     return false
   }
   return true
@@ -402,10 +408,10 @@ root.methods.blurBuyInputMinNum = function (e) {
 }
 // 商家买入的单笔最小购买数量
 root.methods.testBuyInputMinNum = function () {
-  if (parseFloat(this.buyInputMinNum) < 10) {
+  if (parseFloat(this.buyInputMinNum) < this.inputMinNum) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '单笔最小购买数量为10'
+    this.popText = '单笔最小购买数量为'+ this.inputMinNum
     return false
   }
   return true
@@ -416,47 +422,47 @@ root.methods.blurBuyInputMaxNum = function (e) {
   this.BLUR(e)
   this.testBuyInputMaxNum()
 }
-// 商家买入的单笔最小购买数量
+// 商家买入的单笔最大购买数量
 root.methods.testBuyInputMaxNum = function () {
-  if (parseFloat(this.buyInputMaxNum) > 20000) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '单笔最大购买数量为20000'
-    return false
-  }
+  // if (parseFloat(this.buyInputMaxNum) > this.inputMaxNum) {
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = '单笔最大购买数量为' + this.inputMaxNum
+  //   return false
+  // }
   return true
 }
 
-// blur商家卖出的单笔最小购买数量
+// blur商家卖出的单笔最小出售数量
 root.methods.blurSellInputMinNum = function (e) {
   this.BLUR(e)
   this.testSellInputMinNum()
 }
-// 商家卖出的单笔最小购买数量
+// 商家卖出的单笔最小出售数量
 root.methods.testSellInputMinNum = function () {
-  if (parseFloat(this.sellInputMinNum) < 10) {
+  if (parseFloat(this.sellInputMinNum) < this.inputMinNum) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '单笔最小卖出数量为10'
+    this.popText = '单笔最小卖出数量为' + this.inputMinNum
     return false
   }
 
   return true
 }
 
-// blur商家卖出的单笔最大购买数量
+// blur商家卖出的单笔最大出售数量
 root.methods.blurSellInputMaxNum = function (e) {
   this.BLUR(e)
   this.testSellInputMaxNum()
 }
-// 商家卖出的单笔最小购买数量
+// 商家卖出的单笔最大出售数量
 root.methods.testSellInputMaxNum = function () {
-  if (parseFloat(this.sellInputMaxNum) > 20000) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '单笔最大卖出数量为20000'
-    return false
-  }
+  // if (parseFloat(this.sellInputMaxNum) > this.inputMaxNum) {
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = '单笔最大卖出数量为' + this.inputMaxNum
+  //   return false
+  // }
   return true
 }
 
@@ -517,7 +523,7 @@ root.methods.goToBuy = function () {
   if (!this.buyInputMinNum) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '请填单笔最小购买数量'
+    this.popText = '请填入单笔最小购买数量'
     return
   }
   if (!this.testBuyInputMinNum()) {
@@ -526,7 +532,7 @@ root.methods.goToBuy = function () {
   if (!this.buyInputMaxNum) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '请填单笔最大购买数量'
+    this.popText = '请填入单笔最大购买数量'
     return
   }
   if (!this.testBuyInputMaxNum()) {
@@ -535,7 +541,7 @@ root.methods.goToBuy = function () {
   if (parseFloat(this.buyInputMinNum) > parseFloat(this.buyInputMaxNum)) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '单笔最小购买数量大于单笔最大购买数量'
+    this.popText = '单笔最小购买数量不能大于单笔最大购买数量'
     return
   }
 
@@ -599,7 +605,7 @@ root.methods.goToSell = function () {
   if (!this.sellInputMinNum) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '请填单笔最小卖出数量'
+    this.popText = '请填入单笔最小卖出数量'
     return
   }
   if (!this.testSellInputMinNum()) {
@@ -608,7 +614,7 @@ root.methods.goToSell = function () {
   if (!this.sellInputMaxNum) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '请填单笔最大卖出数量'
+    this.popText = '请填入单笔最大卖出数量'
     return
   }
   if (!this.testSellInputMaxNum()) {
@@ -617,7 +623,7 @@ root.methods.goToSell = function () {
   if (parseFloat(this.sellInputMinNum) > parseFloat(this.sellInputMaxNum)) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '单笔最小卖出数量大于单笔最大卖出数量'
+    this.popText = '单笔最小卖出数量不能大于单笔最大卖出数量'
     return
   }
   // // 判断支付方式
@@ -901,6 +907,23 @@ root.methods.getAccount = function () {
       console.log('err', err)
     });
   return
+}
+
+// 获取配置信息
+root.methods.getSystemArgs = function () {
+  this.$http.send('GET_SYSTEM_ARGS').then(({data}) => {
+    console.log(data.data,"获取配置信息");
+    let currenciesConf1 = data.data && data.data.currenciesConf1 || {};
+    let USDTCurrenciesConf1 = currenciesConf1.USDT || {};
+
+    this.inputMinNum = USDTCurrenciesConf1.min > 0 ? USDTCurrenciesConf1.min : this.inputMinNum;
+    this.inputMaxNum = USDTCurrenciesConf1.max > 0 ? USDTCurrenciesConf1.max : this.inputMaxNum;
+
+    // this.loading = false;
+  }).catch((err) => {
+    // this.popOpen = true;
+    // this.popText = '请稍后重试';
+  });
 }
 
 // 获取顶部信息
