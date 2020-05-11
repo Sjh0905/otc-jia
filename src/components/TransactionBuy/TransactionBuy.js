@@ -307,10 +307,10 @@ root.methods.inputNumbers = function (val) {
   let value = val.replace(/[^0-9.]/g, '').replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
 
   if (value.toString().split(".")[1]) {
-    if (value.toString().split(".")[1].length < 7) {
+    if (value.toString().split(".")[1].length < 5) {
       return value
     } else {
-      return this.toFixed(value, 6)
+      return this.toFixed(value, 4)
     }
   } else {
     return value
@@ -522,7 +522,7 @@ root.methods.bindInputCNY = async function () {
   if (this.buyItem.fixedPrice === 0) {
     return
   }
-  this.inputNum = this.toFixed(this.accDiv(this.inputCNY, this.buyItem.fixedPrice), 6)
+  this.inputNum = this.toFixed(this.accDiv(this.inputCNY, this.buyItem.fixedPrice), 4)
 }
 
 // 点击买入按钮

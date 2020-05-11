@@ -454,7 +454,7 @@ root.methods.bindInputCNY = function () {
   if (this.sellItem.fixedPrice === 0) {
     return
   }
-  this.inputNum = this.toFixed(this.accDiv(this.inputCNY, this.sellItem.fixedPrice), 6)
+  this.inputNum = this.toFixed(this.accDiv(this.inputCNY, this.sellItem.fixedPrice), 4)
 }
 
 
