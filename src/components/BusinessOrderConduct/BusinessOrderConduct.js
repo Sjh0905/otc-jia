@@ -196,8 +196,9 @@ root.methods.submitCancelPosterOrder = function () {
     .then(({data}) => {
       typeof data === 'string' && (data = JSON.parse(data))
       this.cancelBuyBoxFlag = true
+      this.ajaxFlag = false
 
-      if (data.result === 'FAIL' || data.code) {
+      if (data.result === 'FAIL' || data.code != 200) {
         // 1015 未找到相关广告单
         // 1033 用户正在下单无法撤单
         // 1036 存在未完成订单,无法下架

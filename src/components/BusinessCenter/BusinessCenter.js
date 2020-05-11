@@ -862,7 +862,7 @@ root.methods.submitToSell = function () {
   }) => {
     // console.log('dataa',data)
     typeof data === 'string' && (data = JSON.parse(data))
-    if (data.result === 'FAIL' || data.code) {
+    if (data.result === 'FAIL' || data.code != 200) {
 
       this.submitSellAjaxFlag = false
       switch (data.code) {

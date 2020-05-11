@@ -79,7 +79,7 @@
           <div class="submit-buy-item">
             <div class="submit-buy-item-left text_grey_8 strong">单号：</div>
             <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
-              <span class="margin_right">{{itemContainer.advertNo}}</span>
+              <span class="text_dark margin_right">{{itemContainer.advertNo}}</span>
               <!--<span class="text_absolute">USDT</span>-->
             </div>
           </div>
@@ -103,7 +103,7 @@
           <div class="submit-buy-item margin_top">
             <div class="submit-buy-item-left text_grey_8 strong">数量：</div>
             <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
-              <span class="margin_right">{{toFixed(itemContainer.volume,2)}}</span>
+              <span class="text_dark margin_right">{{toFixed(itemContainer.volume,2)}}</span>
               <span class="text_absolute">USDT</span>
             </div>
           </div>
@@ -119,7 +119,7 @@
           <div class="submit-buy-item margin_top">
             <div class="submit-buy-item-left text_grey_8 strong">已成交：</div>
             <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
-              <span class="margin_right">{{toFixed(itemContainer.tradingVolume,2)}}</span>
+              <span class="text_dark margin_right">{{toFixed(itemContainer.tradingVolume,2)}}</span>
               <span class="text_absolute">USDT</span>
             </div>
           </div>
@@ -157,7 +157,7 @@
 
           <div class="submit-buy-item margin_top">
             <div class="submit-buy-item-left text_grey_8 strong">支付方式：</div>
-            <div class="submit-buy-item-right">
+            <div class="text_dark submit-buy-item-right">
 <!--              <img class="submit-buy-item-right-img-zfb" src="../../assets/c2c_center_buy/bank_icon.png" alt="">-->
               银行卡
               <!--<span class="text_red">（须本人账户支付）</span>-->
@@ -172,9 +172,9 @@
           <!--</div>-->
         </div>
         <div class="submit-btn-box">
-          <div class="submit-btn border_radius" :class="itemContainer.postersType==='SELL_ORDER'?'text_red submit-sell-cancel':'text_green submit-btn-cancel'" @click="closeCancelBox">取消</div>
+          <div class="submit-btn border_radius" :class="itemContainer.side==='SELL'?'text_red submit-sell-cancel':'text_green submit-btn-cancel'" @click="closeCancelBox">取消</div>
 
-          <div class="submit-btn border_radius text_white" :class="itemContainer.postersType==='SELL_ORDER'?'submit-sell-confirm':'submit-btn-confirm'" @click="submitCancelPosterOrder()">{{ajaxFlag===true?'撤单中':'确定撤单'}}</div>
+          <div class="submit-btn border_radius text_white" :class="itemContainer.side==='SELL'?'submit-sell-confirm':'submit-btn-confirm'" @click="submitCancelPosterOrder()">{{ajaxFlag===true?'撤单中':'确定撤单'}}</div>
         </div>
       </div>
     </div>
