@@ -291,10 +291,10 @@ root.methods.inputNumbers = function (val) {
   let value = val.replace(/[^0-9.]/g, '').replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
 
   if(value.toString().split(".")[1]){
-    if(value.toString().split(".")[1].length < 7){
+    if(value.toString().split(".")[1].length < 5){
       return value
     } else {
-      return this.toFixed(value,6)
+      return this.toFixed(value,4)
     }
   }
   else{
