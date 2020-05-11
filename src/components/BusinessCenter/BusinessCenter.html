@@ -53,14 +53,14 @@
           </div>
         </div>
         <div class="business-header-item flex-center flex-between">
-          <div class="business-header-item-title text_light_dark">单笔最小购买数量 </div>
+          <div class="business-header-item-title text_light_dark">单笔最小 </div>
           <div class="business-header-item-input buy input_border">
             <input class="business-input" type="text" v-model="buyInputMinNum" @input="changeBuyInputMinNum" @focus="FOCUS($event)" @blur="blurBuyInputMinNum($event)">
             <div class="business-redon">USDT</div>
           </div>
         </div>
         <div class="business-header-item flex-center flex-between">
-          <div class="business-header-item-title text_light_dark">单笔最大购买数量 </div>
+          <div class="business-header-item-title text_light_dark">单笔最大 </div>
           <div class="business-header-item-input buy input_border">
             <input class="business-input" type="text" v-model="buyInputMaxNum" @input="changeBuyInputMaxNum" @focus="FOCUS($event)" @blur="blurBuyInputMaxNum($event)">
             <div class="business-redon">USDT</div>
@@ -80,10 +80,10 @@
             <!--银行卡-->
             <div class="business-header-item-checkbox-item" @click="changeBuyCheckboxBankPay">
 <!--              <BaseSimpleRadio :select="buyCheckboxBankPay"></BaseSimpleRadio>-->
-              <span class="business-header-item-checkbox-item-text">银行卡</span>
+              <span class="business-header-item-checkbox-item-text">{{(defaultBank.bankName || '银行卡') + '（' + defaultBank.hiddenBankNumber + '）'}}</span>
             </div>
 
-            <span class="text_light_dark">（须本人账户支付）</span>
+            <!--<span class="text_light_dark">（须本人账户支付）</span>-->
           </div>
         </div>
       </div>
@@ -167,14 +167,14 @@
           </div>
         </div>
         <div class="business-header-item flex-center flex-between">
-          <div class="business-header-item-title text_light_dark">单笔最小卖出数量 </div>
+          <div class="business-header-item-title text_light_dark">单笔最小 </div>
           <div class="business-header-item-input input_border">
             <input class="business-input" type="text" v-model="sellInputMinNum" @input="changeSellInputMinNum" @focus="FOCUS($event)" @blur="blurSellInputMinNum($event)">
             <div class="business-redon">USDT</div>
           </div>
         </div>
         <div class="business-header-item flex-center flex-between">
-          <div class="business-header-item-title text_light_dark">单笔最大卖出数量 </div>
+          <div class="business-header-item-title text_light_dark">单笔最大 </div>
           <div class="business-header-item-input input_border">
             <input class="business-input" type="text" v-model="sellInputMaxNum" @input="changeSellInputMaxNum"  @focus="FOCUS($event)" @blur="blurSellInputMaxNum($event)">
             <div class="business-redon">USDT</div>
@@ -194,10 +194,10 @@
             <!--银行卡-->
             <div class="business-header-item-checkbox-item" @click="changeSellCheckboxBankPay">
 <!--              <BaseSimpleRadio :select="sellCheckboxBankPay"></BaseSimpleRadio>-->
-              <span class="business-header-item-checkbox-item-text">银行卡</span>
+              <span class="business-header-item-checkbox-item-text">{{(defaultBank.bankName || '银行卡') + '（' + defaultBank.hiddenBankNumber + '）'}}</span>
             </div>
 
-            <span class="text_light_dark">（须本人账户收款）</span>
+            <!--<span class="text_light_dark">（须本人账户收款）</span>-->
           </div>
         </div>
       </div>
@@ -395,8 +395,8 @@
           <div class="submit-buy-item-left text_grey_8 strong">支付方式：</div>
           <div class="submit-buy-item-right">
 <!--            <img class="submit-buy-item-right-img-zfb" src="../../assets/c2c_center_buy/bank_icon.png" alt="">-->
-            {{bankName}}银行卡bankName
-            <span class="text_red">（须本人账户支付）</span>
+            {{(defaultBank.bankName || '银行卡') + '（' + defaultBank.hiddenBankNumber + '）'}}
+            <!--<span class="text_red">（须本人账户支付）</span>-->
           </div>
         </div>
 
@@ -480,8 +480,8 @@
           <div class="submit-buy-item-left text_grey_8 strong">支付方式：</div>
           <div class="submit-buy-item-right">
 <!--            <img class="submit-buy-item-right-img-zfb" src="../../assets/c2c_center_buy/bank_icon.png" alt="">-->
-            {{bankName}}
-            <span class="text_red">（须本人账户收款）</span>
+            {{(defaultBank.bankName || '银行卡') + '（' + defaultBank.hiddenBankNumber + '）'}}
+            <!--<span class="text_red">（须本人账户收款）</span>-->
           </div>
         </div>
 
