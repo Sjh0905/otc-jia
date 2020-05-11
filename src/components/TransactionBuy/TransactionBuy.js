@@ -802,6 +802,11 @@ root.methods.clickConfirmBtn = function () {
           this.popType = 0
           this.popText = '余额不足'
           break;
+        case 1055:
+          this.popOpen = true
+          this.popType = 0
+          this.popText = '用户身份信息不完整，无法交易'
+          break;
         case 9:
           this.popOpen = true
           this.popType = 0
