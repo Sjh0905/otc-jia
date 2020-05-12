@@ -171,7 +171,7 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
 				this.list = [];
 				return;
 			};
-			this.GET_ORDER_CONDUCT()
+			// this.GET_ORDER_CONDUCT()
 			// this.maxPage = datas.page.totalPages;
 			// this.selectIndex = datas.page.pageIndex;
 		}
