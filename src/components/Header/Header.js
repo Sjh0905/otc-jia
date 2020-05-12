@@ -247,7 +247,8 @@ root.data = function () {
 root.created = function () {
   // 获取小红点
   if (this.isLogin) {
-    this.getNoticeRedPoint()
+    // this.getNoticeRedPoint()
+    // this.getAuthState()
   }
   // if (!this.isLogin) {
   //   this.$store.commit('changeNoticeRedPoint', false);
@@ -266,7 +267,7 @@ root.created = function () {
 
   this.getAuthState()
 
-  this.$eventBus.listen(this, 'CHECK_IS_VIP', this.getCheck);
+  // this.$eventBus.listen(this, 'CHECK_IS_VIP', this.getCheck);
 
 }
 
@@ -490,7 +491,6 @@ root.methods.getAuthState = function () {
         // this.userName = this.$globalFunc.formatUserName(data.data.number)
         // this.flag = data.data.memeber
         // this.authType = data.data.idType
-        console.log(this.authType)
         this.$store.commit('SET_AUTH_STATE', data.data)
         // console.log('authdata',this.$store.state.authState)
       }).catch((err) => {
@@ -1111,17 +1111,22 @@ root.methods.GET_NOTICE = function () {
       languageId: this.languageId,
       columnId:this.$route.query.columnId
     },
-    callBack: this.RE_GET_NOTICE
+
+  }).then(({data}) => {
+    typeof data === 'string' && (data = JSON.parse(data))
+    this.noticeList = data;
+  }).catch((err) => {
+    console.log('err', err)
   });
 }
 
-// 渲染通告列表
-root.methods.RE_GET_NOTICE = function (res) {
-  this.noticelength = res.length;
-  console.log(res)
-  this.noticeList = res;
-  // console.log(this.noticeList)
-}
+// // 渲染通告列表
+// root.methods.RE_GET_NOTICE = function (res) {
+//   this.noticelength = res.length;
+//   console.log(res)
+//   this.noticeList = res;
+//   console.log(this.noticeList)
+// }
 
 //公告跳转zendesk
 root.methods.goNotice = function (res) {

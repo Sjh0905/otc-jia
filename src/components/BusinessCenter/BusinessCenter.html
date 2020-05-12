@@ -53,14 +53,14 @@
           </div>
         </div>
         <div class="business-header-item flex-center flex-between">
-          <div class="business-header-item-title text_light_dark">单笔最小购买数量 </div>
+          <div class="business-header-item-title text_light_dark">单笔最小 </div>
           <div class="business-header-item-input buy input_border">
             <input class="business-input" type="text" v-model="buyInputMinNum" @input="changeBuyInputMinNum" @focus="FOCUS($event)" @blur="blurBuyInputMinNum($event)">
             <div class="business-redon">USDT</div>
           </div>
         </div>
         <div class="business-header-item flex-center flex-between">
-          <div class="business-header-item-title text_light_dark">单笔最大购买数量 </div>
+          <div class="business-header-item-title text_light_dark">单笔最大 </div>
           <div class="business-header-item-input buy input_border">
             <input class="business-input" type="text" v-model="buyInputMaxNum" @input="changeBuyInputMaxNum" @focus="FOCUS($event)" @blur="blurBuyInputMaxNum($event)">
             <div class="business-redon">USDT</div>
@@ -80,10 +80,11 @@
             <!--银行卡-->
             <div class="business-header-item-checkbox-item" @click="changeBuyCheckboxBankPay">
 <!--              <BaseSimpleRadio :select="buyCheckboxBankPay"></BaseSimpleRadio>-->
-              <span class="business-header-item-checkbox-item-text">银行卡</span>
+              <!--<span class="business-header-item-checkbox-item-text">{{(defaultBank.bankName || '银行卡') + '（' + defaultBank.hiddenBankNumber + '）'}}</span>-->
+              <span class="business-header-item-checkbox-item-text">{{(defaultBank.bankName || '银行卡')}}</span>
             </div>
 
-            <span class="text_light_dark">（须本人账户支付）</span>
+            <!--<span class="text_light_dark">（须本人账户支付）</span>-->
           </div>
         </div>
       </div>
@@ -167,14 +168,14 @@
           </div>
         </div>
         <div class="business-header-item flex-center flex-between">
-          <div class="business-header-item-title text_light_dark">单笔最小卖出数量 </div>
+          <div class="business-header-item-title text_light_dark">单笔最小 </div>
           <div class="business-header-item-input input_border">
             <input class="business-input" type="text" v-model="sellInputMinNum" @input="changeSellInputMinNum" @focus="FOCUS($event)" @blur="blurSellInputMinNum($event)">
             <div class="business-redon">USDT</div>
           </div>
         </div>
         <div class="business-header-item flex-center flex-between">
-          <div class="business-header-item-title text_light_dark">单笔最大卖出数量 </div>
+          <div class="business-header-item-title text_light_dark">单笔最大 </div>
           <div class="business-header-item-input input_border">
             <input class="business-input" type="text" v-model="sellInputMaxNum" @input="changeSellInputMaxNum"  @focus="FOCUS($event)" @blur="blurSellInputMaxNum($event)">
             <div class="business-redon">USDT</div>
@@ -194,10 +195,11 @@
             <!--银行卡-->
             <div class="business-header-item-checkbox-item" @click="changeSellCheckboxBankPay">
 <!--              <BaseSimpleRadio :select="sellCheckboxBankPay"></BaseSimpleRadio>-->
-              <span class="business-header-item-checkbox-item-text">银行卡</span>
+              <!--<span class="business-header-item-checkbox-item-text">{{(defaultBank.bankName || '银行卡') + '（' + defaultBank.hiddenBankNumber + '）'}}</span>-->
+              <span class="business-header-item-checkbox-item-text">{{(defaultBank.bankName || '银行卡')}}</span>
             </div>
 
-            <span class="text_light_dark">（须本人账户收款）</span>
+            <!--<span class="text_light_dark">（须本人账户收款）</span>-->
           </div>
         </div>
       </div>
@@ -333,7 +335,7 @@
   <!--确认购买弹框-->
   <div v-if="submitBuyBoxFlag" class="submit-buy-window">
     <div class="submit-buy-box border_radius">
-      <div class="submit-buy-title strong text_dark" >确定买入</div>
+      <div class="submit-buy-title strong" >确定买入</div>
       <div class="submit-buy-list">
 <!--        <div class="submit-buy-item">-->
 <!--          <div class="submit-buy-item-left text_grey_8 strong">价格设置：</div>-->
@@ -355,7 +357,7 @@
           <div class="submit-buy-item-left text_grey_8 strong">价格：</div>
           <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
             <span class="text_green margin_right">{{buyInputPrice}}</span>
-            <span class="text_absolute text_grey_8">CNY</span>
+            <span class="text_absolute">CNY</span>
           </div>
         </div>
 
@@ -363,7 +365,7 @@
           <div class="submit-buy-item-left text_grey_8 strong">数量：</div>
           <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
             <span class="text_dark margin_right">{{buyInputNum}}</span>
-            <span class="text_absolute text_grey_8">USDT</span>
+            <span class="text_absolute">USDT</span>
           </div>
         </div>
 
@@ -371,23 +373,23 @@
           <div class="submit-buy-item-left text_grey_8 strong">金额：</div>
           <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
             <span class="text_green margin_right">{{buyInputMoney}}</span>
-            <span class="text_absolute text_grey_8">CNY</span>
+            <span class="text_absolute">CNY</span>
           </div>
         </div>
 
         <div class="submit-buy-item margin_top">
-          <div class="submit-buy-item-left text_grey_8 strong">单笔最小买入数量：</div>
+          <div class="submit-buy-item-left text_grey_8 strong">单笔最小：</div>
           <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
             <span class="text_dark margin_right">{{buyInputMinNum}}</span>
-            <span class="text_absolute text_grey_8">USDT</span>
+            <span class="text_absolute">USDT</span>
           </div>
         </div>
 
         <div class="submit-buy-item margin_top">
-          <div class="submit-buy-item-left text_grey_8 strong">单笔最大买入数量：</div>
+          <div class="submit-buy-item-left text_grey_8 strong">单笔最大：</div>
           <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
             <span class="text_dark margin_right">{{buyInputMaxNum}}</span>
-            <span class="text_absolute text_grey_8">USDT</span>
+            <span class="text_absolute">USDT</span>
           </div>
         </div>
 
@@ -395,8 +397,9 @@
           <div class="submit-buy-item-left text_grey_8 strong">支付方式：</div>
           <div class="submit-buy-item-right">
 <!--            <img class="submit-buy-item-right-img-zfb" src="../../assets/c2c_center_buy/bank_icon.png" alt="">-->
-            {{bankName}}银行卡bankName
-            <span class="text_red">（须本人账户支付）</span>
+            {{(defaultBank.bankName || '银行卡')}}
+            <!--{{(defaultBank.bankName || '银行卡') + '（' + defaultBank.hiddenBankNumber + '）'}}-->
+            <!--<span class="text_red">（须本人账户支付）</span>-->
           </div>
         </div>
 
@@ -418,7 +421,7 @@
   <!--确认删除弹框-->
   <div v-if="submitSellBoxFlag" class="submit-buy-window">
     <div class="submit-buy-box border_radius">
-      <div class="submit-buy-title strong text_dark" >确定卖出</div>
+      <div class="submit-buy-title strong" >确定卖出</div>
       <div class="submit-buy-list">
 <!--        <div class="submit-buy-item">-->
 <!--          <div class="submit-buy-item-left text_grey_8 strong">价格设置：</div>-->
@@ -440,7 +443,7 @@
           <div class="submit-buy-item-left text_grey_8 strong">价格：</div>
           <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
             <span class="text_red margin_right">{{sellInputPrice}}</span>
-            <span class="text_absolute text_grey_8">CNY</span>
+            <span class="text_absolute ">CNY</span>
           </div>
         </div>
 
@@ -448,7 +451,7 @@
           <div class="submit-buy-item-left text_grey_8 strong">数量：</div>
           <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
             <span class="text_dark margin_right">{{sellInputNum}}</span>
-            <span class="text_absolute text_grey_8">USDT</span>
+            <span class="text_absolute ">USDT</span>
           </div>
         </div>
 
@@ -456,23 +459,23 @@
           <div class="submit-buy-item-left text_grey_8 strong">金额：</div>
           <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
             <span class="text_red margin_right">{{sellInputMoney}}</span>
-            <span class="text_absolute text_grey_8">CNY</span>
+            <span class="text_absolute ">CNY</span>
           </div>
         </div>
 
         <div class="submit-buy-item margin_top">
-          <div class="submit-buy-item-left text_grey_8 strong">单笔最小卖出数量：</div>
+          <div class="submit-buy-item-left text_grey_8 strong">单笔最小：</div>
           <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
             <span class="text_dark margin_right">{{sellInputMinNum}}</span>
-            <span class="text_absolute text_grey_8">USDT</span>
+            <span class="text_absolute ">USDT</span>
           </div>
         </div>
 
         <div class="submit-buy-item margin_top">
-          <div class="submit-buy-item-left text_grey_8 strong">单笔最大卖出数量：</div>
+          <div class="submit-buy-item-left text_grey_8 strong">单笔最大：</div>
           <div class="submit-buy-item-right border_radius submit-buy-item-right-border">
             <span class="text_dark margin_right">{{sellInputMaxNum}}</span>
-            <span class="text_absolute text_grey_8">USDT</span>
+            <span class="text_absolute ">USDT</span>
           </div>
         </div>
 
@@ -480,8 +483,9 @@
           <div class="submit-buy-item-left text_grey_8 strong">支付方式：</div>
           <div class="submit-buy-item-right">
 <!--            <img class="submit-buy-item-right-img-zfb" src="../../assets/c2c_center_buy/bank_icon.png" alt="">-->
-            {{bankName}}
-            <span class="text_red">（须本人账户收款）</span>
+            {{(defaultBank.bankName || '银行卡')}}
+            <!--{{(defaultBank.bankName || '银行卡') + '（' + defaultBank.hiddenBankNumber + '）'}}-->
+            <!--<span class="text_red">（须本人账户收款）</span>-->
           </div>
         </div>
 

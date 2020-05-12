@@ -939,7 +939,7 @@ root.methods.popWindowCloseForVerification = function () {
 // 设置弹窗样式 --- 参与OTC交易需要绑定手机号
 root.methods.setPopWindowContentForBindMobile = function () {
   this.popWindowTitle = '安全认证';
-  this.popWindowContent = ['法币交易前请先进行手机认证或者谷歌认证。'];
+  this.popWindowContent = ['法币交易前请先进行绑定手机或绑定谷歌。'];
   this.popWindowBtnText = '去绑定';
   this.popWindowContentCenter = true;
   this.popWindowContentAllCenter = false;
