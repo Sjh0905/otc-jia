@@ -88,11 +88,11 @@ root.computed.identity = function () {
 }
 // 认证状态-ga
 root.computed.bindGa = function () {
-  return this.$store.state.authState && this.$store.state.authState.ga
+  return this.$store.state.authState && this.$store.state.authState.gaAuth
 }
 // 认证状态-mobile
 root.computed.isBindMobile = function () {
-  return this.$store.state.authState && this.$store.state.authState.sms
+  return this.$store.state.authState && this.$store.state.authState.mobile
 }
 // 判断是否是手机
 root.computed.isMobile = function () {
@@ -130,7 +130,7 @@ root.created = function () {
 	this.GET_ORDER_CONDUCT();
 
 	// 获取认证状态
-	this.GET_AUTH_STATE();
+	// this.GET_AUTH_STATE();
 
 	// 订单页签默认选中1
 	this.$eventBus.notify({key: 'SET_ORDER_TAB'}, 1);
@@ -661,7 +661,7 @@ root.methods.CLOSE_GA_SMS_DIALOG = function () {
 root.methods.GET_AUTH_STATE = function () {
 	this.$http.send('GET_AUTH_STATE').then(({data}) => {
 		typeof data === 'string' && (data = JSON.parse(data));
-		let res = data.dataMap;
+		let res = data;
 		this.identity_type = data;
 		if (res.result == 'SUCCESS' && ((res.sms || res.ga) && res.email)) {
 			this.identity = true;
@@ -729,7 +729,7 @@ root.methods.goToBind = function () {
 }
 // 获取认证状态
 root.methods.getAuthState = function () {
-  if (this.$store.state.authState) {
+  if (!this.$store.state.authState) {
     // this.authStateReady = true
     // if (this.bindMobile) {
     //   this.picked = 'bindMobile'
