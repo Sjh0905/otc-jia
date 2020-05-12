@@ -104,6 +104,7 @@ root.watch = {};
 root.watch.result_socket = function (newValue, oldValue) {
 	let user_id = newValue.data.userId;
 	if (user_id != this.userId) return;
+	console.info('newValue.key===========',newValue.key)
 	if (newValue.data.result == 0 && (newValue.key == 'confirmationPay' || newValue.key == 'confirmationReceivables' || newValue.key == 'c2corder' || newValue.key == 'cancelOrder')) {
 		// this.popOpen = true;
 		// this.popType = 1;
@@ -171,8 +172,8 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
 				return;
 			};
 			this.GET_ORDER_CONDUCT()
-			this.maxPage = datas.page.totalPages;
-			this.selectIndex = datas.page.pageIndex;
+			// this.maxPage = datas.page.totalPages;
+			// this.selectIndex = datas.page.pageIndex;
 		}
 		if (data.code == 1) {
 			window.location.reload();
@@ -233,7 +234,7 @@ root.methods.COMFIRM_PAYMENT = function () {
 			this.show_dialog = false;
 			this.show_buy_dialog = false;
 			// // 重新渲染列表
-			this.GET_ORDER_CONDUCT();
+			// this.GET_ORDER_CONDUCT();
 			this.$router.push({name: 'OrderDetails', query: {'type': '1','orderId': this.order_detail.id, 'orderType':this.order_detail.type}});
 		}
 		if (code == 'FAIL') {
@@ -661,15 +662,16 @@ root.methods.CLOSE_GA_SMS_DIALOG = function () {
 root.methods.GET_AUTH_STATE = function () {
 	this.$http.send('GET_AUTH_STATE').then(({data}) => {
 		typeof data === 'string' && (data = JSON.parse(data));
-		let res = data;
+		let res = data.data;
+		// this.identity_type = data;
 		this.identity_type = data;
-		if (res.result == 'SUCCESS' && ((res.sms || res.ga) && res.email)) {
+		if (res.idType == 'PASSPORT' && ((res.mobile || res.gaAuth) && res.email)) {
 			this.identity = true;
 		}
 		// 两者都验证了
-		this.bindGA = res.ga;
-		this.bindMobile = res.sms;
-		this.bindEmail = res.mail;
+		this.bindGA = res.gaAuth;
+		this.bindMobile = res.mobile;
+		this.bindEmail = res.email;
 		this.bindMobile && (this.picked = 'bindMobile');
 		this.bindGA && (this.picked = 'bindGA');
 		if (this.bindGA && this.bindMobile) {

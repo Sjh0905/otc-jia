@@ -872,7 +872,7 @@ root.methods.clickConfirmBtn = function () {
         case 1:
           window.location.reload();
           break;
-        case 2:
+        case 1057:
           this.popOpen = true
           this.popType = 0
           this.popText = '24H内超过3笔取消订单将禁止1天OTC交易'
@@ -917,7 +917,7 @@ root.methods.clickConfirmBtn = function () {
           this.popType = 0
           this.popText = '有一个订单未完成，暂停继续下单，完成后恢复'
           break;
-        case 9:
+        case 1057:
           this.popOpen = true
           this.popType = 0
           this.popText = '24H内超过3笔取消订单将禁止1天OTC交易'

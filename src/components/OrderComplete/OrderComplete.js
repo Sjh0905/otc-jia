@@ -6,7 +6,10 @@ root.data = function () {
     	loading: true,
 		// 分页
 		maxPage: 1,
+    offset:1,
 		selectIndex: 1,
+    loadingMoreShow:false,
+    showLoadingMore:false,
 		// 列表
 		list: [],
 
@@ -41,25 +44,48 @@ root.methods = {};
 root.methods.GET_ORDER_CONDUCT = function (search) {
 	this.$http.send('GET_LIST_ORDERS', {
 		query: {
-			offset: this.selectIndex,
-			maxResults: 10,
+			offset: this.offset,
+			maxResults: 3,
 			// status: 'COMPLETE', //  “PROCESSING”进行中, “COMPLETE”已完成, “CANCEL”已取消
 			status: 3, //   1进行中, 3已完成, 4已取消
 			ctcOrderId: search || '',
 		}
 	}).then(({data}) => {
 		if (data.code == 200) {
+      typeof data === 'string' && (data = JSON.parse(data))
 			this.loading = false;
-			// let datas = data.dataMap.ctcOrders;
-			let datas = data.data
-      console.info('data=========sss',this.datas)
-			this.list = datas;
-			if (this.list[0] == null) {
-				this.list = [];
-				return;
-			};
-			this.maxPage = datas.page.totalPages;
-			this.selectIndex = datas.page.pageIndex;
+
+
+
+      this.list.push(...data.data)
+      //
+      //
+      if (data.data.length < this.pageSize) {
+        this.showLoadingMore = false
+      }
+      //
+      //
+      this.offset = this.offset + 1
+      // this.pageSize = this.pageSize + 1
+      //
+      // this.loading = false
+      this.loadingMoreIng = false
+
+
+
+
+
+
+			// // let datas = data.dataMap.ctcOrders;
+			// let datas = data.data
+      // console.info('data=========sss',this.datas)
+			// this.list = datas;
+			// if (this.list[0] == null) {
+			// 	this.list = [];
+			// 	return;
+			// };
+			// this.maxPage = datas.page.totalPages;
+			// this.selectIndex = datas.page.pageIndex;
 		}
 		if (data.code == 1) {
 			window.location.reload();
@@ -74,6 +100,12 @@ root.methods.clickChangePage = function (page) {
 	// 切换页码
 	this.GET_ORDER_CONDUCT();
 
+}
+
+// 点击加载更多
+root.methods.clickLoadingMore = function () {
+  // this.loadingMoreIng = true
+  this.GET_ORDER_CONDUCT()
 }
 // 跳转详情
 root.methods.GO_DETAIL = function (id, orderType) {
