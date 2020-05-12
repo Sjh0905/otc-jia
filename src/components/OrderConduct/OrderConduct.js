@@ -88,11 +88,11 @@ root.computed.identity = function () {
 }
 // 认证状态-ga
 root.computed.bindGa = function () {
-  return this.$store.state.authState && this.$store.state.authState.ga
+  return this.$store.state.authState && this.$store.state.authState.gaAuth
 }
 // 认证状态-mobile
 root.computed.isBindMobile = function () {
-  return this.$store.state.authState && this.$store.state.authState.sms
+  return this.$store.state.authState && this.$store.state.authState.mobile
 }
 // 判断是否是手机
 root.computed.isMobile = function () {
@@ -104,6 +104,7 @@ root.watch = {};
 root.watch.result_socket = function (newValue, oldValue) {
 	let user_id = newValue.data.userId;
 	if (user_id != this.userId) return;
+	console.info('newValue.key===========',newValue.key)
 	if (newValue.data.result == 0 && (newValue.key == 'confirmationPay' || newValue.key == 'confirmationReceivables' || newValue.key == 'c2corder' || newValue.key == 'cancelOrder')) {
 		// this.popOpen = true;
 		// this.popType = 1;
@@ -130,7 +131,7 @@ root.created = function () {
 	this.GET_ORDER_CONDUCT();
 
 	// 获取认证状态
-	this.GET_AUTH_STATE();
+	// this.GET_AUTH_STATE();
 
 	// 订单页签默认选中1
 	this.$eventBus.notify({key: 'SET_ORDER_TAB'}, 1);
@@ -170,9 +171,9 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
 				this.list = [];
 				return;
 			};
-			this.GET_ORDER_CONDUCT()
-			this.maxPage = datas.page.totalPages;
-			this.selectIndex = datas.page.pageIndex;
+			// this.GET_ORDER_CONDUCT()
+			// this.maxPage = datas.page.totalPages;
+			// this.selectIndex = datas.page.pageIndex;
 		}
 		if (data.code == 1) {
 			window.location.reload();
@@ -233,7 +234,7 @@ root.methods.COMFIRM_PAYMENT = function () {
 			this.show_dialog = false;
 			this.show_buy_dialog = false;
 			// // 重新渲染列表
-			this.GET_ORDER_CONDUCT();
+			// this.GET_ORDER_CONDUCT();
 			this.$router.push({name: 'OrderDetails', query: {'type': '1','orderId': this.order_detail.id, 'orderType':this.order_detail.type}});
 		}
 		if (code == 'FAIL') {
@@ -661,15 +662,16 @@ root.methods.CLOSE_GA_SMS_DIALOG = function () {
 root.methods.GET_AUTH_STATE = function () {
 	this.$http.send('GET_AUTH_STATE').then(({data}) => {
 		typeof data === 'string' && (data = JSON.parse(data));
-		let res = data.dataMap;
+		let res = data.data;
+		// this.identity_type = data;
 		this.identity_type = data;
-		if (res.result == 'SUCCESS' && ((res.sms || res.ga) && res.email)) {
+		if (res.idType == 'PASSPORT' && ((res.mobile || res.gaAuth) && res.email)) {
 			this.identity = true;
 		}
 		// 两者都验证了
-		this.bindGA = res.ga;
-		this.bindMobile = res.sms;
-		this.bindEmail = res.mail;
+		this.bindGA = res.gaAuth;
+		this.bindMobile = res.mobile;
+		this.bindEmail = res.email;
 		this.bindMobile && (this.picked = 'bindMobile');
 		this.bindGA && (this.picked = 'bindGA');
 		if (this.bindGA && this.bindMobile) {
@@ -729,7 +731,7 @@ root.methods.goToBind = function () {
 }
 // 获取认证状态
 root.methods.getAuthState = function () {
-  if (this.$store.state.authState) {
+  if (!this.$store.state.authState) {
     // this.authStateReady = true
     // if (this.bindMobile) {
     //   this.picked = 'bindMobile'

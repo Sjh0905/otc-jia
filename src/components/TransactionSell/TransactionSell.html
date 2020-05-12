@@ -130,7 +130,7 @@
          <!--  成交单数-->
           <div class="type text_dark14">{{item.cmpOrder}}</div>
         <!--  成交率-->
-          <div class="price text_dark14">{{toFixed((item.succOrder / item.cmpOrder),2)}}%</div>
+          <div class="price text_dark14">{{toFixed(((item.succOrder / item.cmpOrder)*100),2)}}%</div>
 <!--          <div class="price text_dark14"></div>-->
         <!--  单价-->
           <div class="unit text_green14">{{toFixed(item.fixedPrice,2)}}</div>

@@ -34,6 +34,17 @@ module.exports = {
       //   //   '^/c2c': 'c2c'
       //   // }
       // },
+      '/apis': {
+        // target: 'https://valuepay.easybtc.io/',
+        target: 'http://www.2020-ex.com',
+        changeOrigin: true,
+        pathRewrite: {//TODO:连接测试用这个
+          '^/apis': ''
+        },
+        // pathRewrite: {//TODO:连接生产用这个
+        //   '^/c2c': 'c2c'
+        // }
+      },
     },
 
     // Various Dev Server settings

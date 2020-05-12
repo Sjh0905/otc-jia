@@ -148,7 +148,7 @@
 
 
 
-// import logo from '../../assets/download-icon.png'
+import logo from '../../assets/download-icon.png'
 import func from "../../configs/globalFunctionConfigs/globalFunctionConfigs";
 
 const root = {}
@@ -159,7 +159,7 @@ root.name = 'Header'
 root.components = {
   'IndexHeaderAssts': resolve => require(['../IndexHeaderAssts/IndexHeaderAssts'], resolve),
   // 'Loading': resolve => require(['../vue/Loading'], resolve),
-  // 'Qrcode': resolve => require(['qrcode-vue'], resolve),
+  'Qrcode': resolve => require(['qrcode-vue'], resolve),
   // 'PopupPrompt': resolve => require(['../vue/PopupPrompt'], resolve),
 }
 
@@ -199,10 +199,10 @@ root.data = function () {
     activeVal:true,
     // 字体切换
     jttext:'',
-    // logo: logo,
-    // size: 124,
-    // bgColor: '#fff',
-    // fgColor: '#000',
+    logo: logo,
+    size: 124,
+    bgColor: '#fff',
+    fgColor: '#000',
     value: '',
     // downloadShow: true,
     noticeList: [],
@@ -247,7 +247,8 @@ root.data = function () {
 root.created = function () {
   // 获取小红点
   if (this.isLogin) {
-    this.getNoticeRedPoint()
+    // this.getNoticeRedPoint()
+    // this.getAuthState()
   }
   // if (!this.isLogin) {
   //   this.$store.commit('changeNoticeRedPoint', false);
@@ -266,7 +267,7 @@ root.created = function () {
 
   this.getAuthState()
 
-  this.$eventBus.listen(this, 'CHECK_IS_VIP', this.getCheck);
+  // this.$eventBus.listen(this, 'CHECK_IS_VIP', this.getCheck);
 
 }
 
@@ -490,7 +491,6 @@ root.methods.getAuthState = function () {
         // this.userName = this.$globalFunc.formatUserName(data.data.number)
         // this.flag = data.data.memeber
         // this.authType = data.data.idType
-        console.log(this.authType)
         this.$store.commit('SET_AUTH_STATE', data.data)
         // console.log('authdata',this.$store.state.authState)
       }).catch((err) => {
@@ -1111,29 +1111,36 @@ root.methods.GET_NOTICE = function () {
       languageId: this.languageId,
       columnId:this.$route.query.columnId
     },
-    callBack: this.RE_GET_NOTICE
+
+  }).then((data) => {
+    typeof data === 'string' && (data = JSON.parse(data))
+    this.noticeList = data.data;
+  }).catch((err) => {
+    console.log('err', err)
   });
 }
 
-// 渲染通告列表
-root.methods.RE_GET_NOTICE = function (res) {
-  this.noticelength = res.length;
-  console.log(res)
-  this.noticeList = res;
-  // console.log(this.noticeList)
-}
+// // 渲染通告列表
+// root.methods.RE_GET_NOTICE = function (res) {
+//   this.noticelength = res.length;
+//   console.log(res)
+//   this.noticeList = res;
+//   console.log(this.noticeList)
+// }
 
 //公告跳转zendesk
 root.methods.goNotice = function (res) {
   // window.open(res)
-  // console.log(res)
-  this.$router.push({path: '/index/notice/noticeDetail', query: {columnId:'0' , id: res}})
+  console.info(res)
+  // this.$router.push({path: '/index/notice/noticeDetail',  query: {columnId:'0' , id: res}})
+  window.location.reload(this.$store.state.domain_url+ 'index/notice/noticeDetail?columnId=0&id='+res)
 }
 
 root.methods.goToNoticeCenter = function (id) {
-  if(this.$route.name  == 'notice') {
-    this.$eventBus.notify({key: 'GET_NOTICE_LIST'},id);
-  }
+  // if(this.$route.name  == 'notice') {
+  //   this.$eventBus.notify({key: 'GET_NOTICE_LIST'},id);
+  // }
+  window.location.reload(this.$store.state.domain_url+'index/notice?columnId=' + id)
   // this.$router.push({name: 'notice', query: {columnId: id}})
 }
 //

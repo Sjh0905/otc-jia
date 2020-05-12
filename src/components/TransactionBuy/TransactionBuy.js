@@ -767,7 +767,7 @@ root.methods.clickConfirmBtn = function () {
         case 1:
           window.location.reload();
           break;
-        case 2:
+        case 1057:
           this.popOpen = true
           this.popType = 0
           this.popText = '24H内超过3笔取消订单将禁止1天OTC交易'
@@ -807,7 +807,7 @@ root.methods.clickConfirmBtn = function () {
           this.popType = 0
           this.popText = '用户身份信息不完整，无法交易'
           break;
-        case 9:
+        case 1057:
           this.popOpen = true
           this.popType = 0
           this.popText = '24H内超过3笔取消订单将禁止1天OTC交易'
@@ -939,7 +939,7 @@ root.methods.popWindowCloseForVerification = function () {
 // 设置弹窗样式 --- 参与OTC交易需要绑定手机号
 root.methods.setPopWindowContentForBindMobile = function () {
   this.popWindowTitle = '安全认证';
-  this.popWindowContent = ['法币交易前请先进行手机认证或者谷歌认证。'];
+  this.popWindowContent = ['法币交易前请先进行绑定手机或绑定谷歌。'];
   this.popWindowBtnText = '去绑定';
   this.popWindowContentCenter = true;
   this.popWindowContentAllCenter = false;

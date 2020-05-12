@@ -828,12 +828,12 @@ root.methods.GET_AUTH_STATE = function () {
 		let res = data.data;
     this.$store.commit('SET_AUTH_STATE', data.data)
 		this.identity_type = res;
-		if (res.result == 'SUCCESS' && ((res.sms || res.ga) && res.email)) {
+		if (res.idType == 'PASSPORT') {
 			this.identity = true;
 		}
 		// 两者都验证了
-		this.bindGA = res.ga;
-		this.bindMobile = res.sms;
+		this.bindGA = res.gaAuth;
+		this.bindMobile = res.mobile;
 		this.bindMobile && (this.picked = 'bindMobile');
 		this.bindGA && (this.picked = 'bindGA');
 		if (this.bindGA && this.bindMobile) {

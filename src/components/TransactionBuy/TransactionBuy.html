@@ -137,7 +137,7 @@
           </div>
           <div class="type text_dark14">{{item.cmpOrder}}</div>
 <!--          <div class="price text_dark14">{{toFixed(accMul(item.rate,100),2)}}%</div>-->
-          <div class="price text_dark14">{{toFixed((item.succOrder / item.cmpOrder),2)}}%</div>
+          <div class="price text_dark14">{{toFixed(((item.succOrder / item.cmpOrder)*100),2)}}%</div>
           <div class="unit text_green14">{{toFixed(item.fixedPrice,2)}}</div>
           <div class="amount text_dark14">{{toFixed(item.visiableVolume,4)}}</div>
 <!--          <div class="money">{{toFixed(accMul(item.amount,item.price),2)}}</div>-->

@@ -147,4 +147,6 @@ address.GET_DASH_BUTTON={url: urlHead + '/accounts/userPayInfo', method: 'get', 
 // 退出登录
 address.LOGIN_OFF = {url: urlHead+'/user/signout', method: 'post'} //登出
 
+
+address.POST_NOTICE_LIST = {url: '/apis/user/findNoticeList', method: 'post'}
 export default address
