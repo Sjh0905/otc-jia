@@ -427,6 +427,14 @@
 }
 .auth-state-header {
   width: 400px;
+  line-height: 60px;
+  justify-content: space-between;
+}
+
+.auth-state-header img {
+  width: 16px;
+  float: right;
+  margin-top: 22px;
 }
 .auth-state-article {
   /*padding: 20px;*/

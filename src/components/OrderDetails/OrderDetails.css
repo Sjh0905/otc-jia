@@ -305,7 +305,10 @@
 	height: 15px;
 	line-height: 15px;
 	padding: 1px 5px;
-	color: #fff;
+	color: #3576F5;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
 	border-color: #fff;
 	position: absolute;
 	right: 0;

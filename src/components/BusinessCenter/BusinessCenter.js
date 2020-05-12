@@ -161,11 +161,11 @@ root.computed.identity = function () {
 }
 // 认证状态-ga
 root.computed.bindGa = function () {
-  return this.$store.state.authState && this.$store.state.authState.ga
+  return this.$store.state.authState && this.$store.state.authState.gaAuth
 }
 // 认证状态-mobile
 root.computed.bindMobile = function () {
-  return this.$store.state.authState && this.$store.state.authState.sms
+  return this.$store.state.authState && this.$store.state.authState.mobile
 }
 // 判断是否是手机
 root.computed.isMobile = function () {
@@ -571,9 +571,9 @@ root.methods.changeSellInputMaxNum = function () {
 
 
 root.methods.goToBuy = function () {
-  // if (!this.openAuthStatePopupWindow()) {
-  //   return
-  // }
+  if (!this.openAuthStatePopupWindow()) {
+    return
+  }
   if (!this.buyInputPrice) {
     this.popOpen = true
     this.popType = 0
@@ -653,9 +653,9 @@ root.methods.goToBuy = function () {
 }
 
 root.methods.goToSell = function () {
-  // if (!this.openAuthStatePopupWindow()) {
-  //   return
-  // }
+  if (!this.openAuthStatePopupWindow()) {
+    return
+  }
   if (!this.sellInputPrice) {
     this.popOpen = true
     this.popType = 0
@@ -1243,6 +1243,10 @@ root.methods.closeRateTips= function (type) {
 
 root.methods.openRateTips = function (type) {
   $(".fee-tips-box-"+type).attr("style","display:block");
+}
+
+root.methods.closePopWindow = function () {
+  this.authStatePopupWindow = false
 }
 
 
