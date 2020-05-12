@@ -771,13 +771,13 @@ root.methods.confirmReleaseBank = function () {
       typeof data === 'string' && (data = JSON.parse(data))
       // console.warn('删除银行卡信息', data)
       if (data) {
-        data.code && data.code== 200 && this.openPop('删除银行卡成功',1)
+        data.code && data.code== 200 && this.openPop('解绑银行卡成功',1)
         await this.getBankList()
         this.closeAllPromptWindow()
 
       }
       if (!data) {
-        this.openPop('删除失败，可能有未完成的订单或挂单', 0)
+        this.openPop('解绑银行卡失败，可能有未完成的订单或挂单', 0)
       }
       this.deleteBankIng = false
       this.defaultList = data.data

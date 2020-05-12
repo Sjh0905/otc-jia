@@ -137,7 +137,7 @@ root.methods.APPLY_SUBMIT = function () {
         break;
       case 1043://保证金扣除失败
         self.popOpen = true;
-        self.popText = "保证金扣除失败";
+        self.popText = "保证金不足";
         break;
 			case 1044://用户未实名
 				self.popOpen = true;
