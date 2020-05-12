@@ -497,7 +497,7 @@ root.methods.COMPLETE_BTN = function () {
 			}
 			if (code == 500) {
 				this.popOpen = true;
-				this.popText = '订单操作中中，无法取消';
+				this.popText = '订单操作中，无法取消';
         return;
 			}
 			if (code == 1032) {
@@ -550,7 +550,7 @@ root.methods.COMFIRM_RECEIVED = function () {
       }
       if (code == 500) {
         this.popOpen = true;
-        this.popText = '订单操作中中，无法取消';
+        this.popText = '订单操作中，无法取消';
         return;
       }
       if (code == 1032) {

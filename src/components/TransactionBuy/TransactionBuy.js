@@ -307,10 +307,10 @@ root.methods.inputNumbers = function (val) {
   let value = val.replace(/[^0-9.]/g, '').replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
 
   if (value.toString().split(".")[1]) {
-    if (value.toString().split(".")[1].length < 7) {
+    if (value.toString().split(".")[1].length < 5) {
       return value
     } else {
-      return this.toFixed(value, 6)
+      return this.toFixed(value, 4)
     }
   } else {
     return value
@@ -522,7 +522,7 @@ root.methods.bindInputCNY = async function () {
   if (this.buyItem.fixedPrice === 0) {
     return
   }
-  this.inputNum = this.toFixed(this.accDiv(this.inputCNY, this.buyItem.fixedPrice), 6)
+  this.inputNum = this.toFixed(this.accDiv(this.inputCNY, this.buyItem.fixedPrice), 4)
 }
 
 // 点击买入按钮
@@ -802,6 +802,11 @@ root.methods.clickConfirmBtn = function () {
           this.popType = 0
           this.popText = '余额不足'
           break;
+        case 1055:
+          this.popOpen = true
+          this.popType = 0
+          this.popText = '用户身份信息不完整，无法交易'
+          break;
         case 9:
           this.popOpen = true
           this.popType = 0
@@ -935,7 +940,7 @@ root.methods.popWindowCloseForVerification = function () {
 root.methods.setPopWindowContentForBindMobile = function () {
   this.popWindowTitle = '安全认证';
   this.popWindowContent = ['法币交易前请先进行手机认证或者谷歌认证。'];
-  this.popWindowBtnText = '去认证';
+  this.popWindowBtnText = '去绑定';
   this.popWindowContentCenter = true;
   this.popWindowContentAllCenter = false;
   this.clickToastBtn = this.popWindowClickBtnForBindMobile
