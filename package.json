@@ -19,6 +19,7 @@
     "jquery": "3.2.1",
     "npm": "^6.4.0",
     "vue": "^2.5.2",
+    "qrcode-vue": "1.0.4",
     "vue-event-bus-use-map": "^1.0.0",
     "vue-global-function": "^1.0.0",
     "vue-i18n": "^8.0.0",
