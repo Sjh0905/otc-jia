@@ -25,7 +25,7 @@ root.data = function () {
     authStatePopupType: 1, // 提示绑定状态弹窗 1为身份认证，2为谷歌或者手机认证
     authStatePopupWindow: false, // 提示绑定状态弹窗
 
-    // 买入表单控制
+    // 购买表单控制
     buyInputPrice: '',
     buyInputNum: '',
     buyInputMoney: '',
@@ -33,7 +33,7 @@ root.data = function () {
     buyInputMaxNum: '',
     buyInputMethod: '',
 
-    // 卖出表单控制
+    // 出售表单控制
     sellInputPrice: '',
     sellInputNum: '',
     sellInputMoney: '',
@@ -51,9 +51,9 @@ root.data = function () {
 
     // c2c手续费
     ctcFee: 0,
-    // 买入参考价
+    // 购买参考价
     lowestBuyPrice: 0,
-    // 卖出参考价
+    // 出售参考价
     lowestSellPrice: 0,
 
     // 获取部分市场挂单
@@ -107,9 +107,9 @@ root.data = function () {
     accounts:[],
 
     feeRate:0,//手续费费率
-    buyFee:0,//买入手续费
-    buyActuallyArrived:0,//买入实际到账
-    sellFee:0,//卖出手续费
+    buyFee:0,//购买手续费
+    buyActuallyArrived:0,//购买实际到账
+    sellFee:0,//出售手续费
     sellActualSale:0,//实际售卖
 
     defaultBank:{}//默认银行卡
@@ -225,7 +225,7 @@ root.watch.result_socket = function (newValue, oldValue) {
     this.popType = 1
     this.popText = '下单成功'
     if (newValue.data.postersType === 'BUY') {
-      // 关闭买入弹框
+      // 关闭购买弹框
       this.submitBuyBoxFlag = false;
       this.buyInputPrice = ''
       this.buyInputNum = ''
@@ -233,7 +233,7 @@ root.watch.result_socket = function (newValue, oldValue) {
       this.submitBuyAjaxFlag = false
     }
     if (newValue.data.postersType === 'SELL') {
-      // 关闭卖出弹框
+      // 关闭出售弹框
       this.submitSellBoxFlag = false;
       this.sellInputPrice = ''
       this.sellInputNum = ''
@@ -286,23 +286,23 @@ root.methods.goToRecharge = function () {
   window.location.replace(this.$store.state.domain_url + 'index/asset/rechargeAndWithdrawals');
 }
 
-// 买入多选选择是否用支付宝
+// 购买多选选择是否用支付宝
 root.methods.changeBuyCheckboxAliPay = function () {
   this.buyCheckboxAliPay = !this.buyCheckboxAliPay
 }
-// 买入多选选择是否用银行卡
+// 购买多选选择是否用银行卡
 root.methods.changeBuyCheckboxBankPay = function () {
   this.buyCheckboxBankPay = !this.buyCheckboxBankPay
 }
-// 卖出多选选择是否用支付宝
+// 出售多选选择是否用支付宝
 root.methods.changeSellCheckboxAliPay = function () {
   this.sellCheckboxAliPay = !this.sellCheckboxAliPay
 }
-// 卖出多选选择是否用银行卡
+// 出售多选选择是否用银行卡
 root.methods.changeSellCheckboxBankPay = function () {
   this.sellCheckboxBankPay = !this.sellCheckboxBankPay
 }
-// 根据买入数量修改买入金额
+// 根据购买数量修改购买金额
 root.methods.changeBuyInputPrice = function () {
   this.buyInputPrice = this.inputNumbers(this.buyInputPrice)
   this.buyInputNum = this.inputNumbers(this.buyInputNum)
@@ -310,14 +310,14 @@ root.methods.changeBuyInputPrice = function () {
     this.buyInputMoney = this.toFixed(this.accMul(this.buyInputPrice, this.buyInputNum), 2);
   }
 }
-// 根据买入金额修改买入数量
+// 根据购买金额修改购买数量
 root.methods.changeBuyInputNum = function () {
   this.buyInputMoney = this.inputNumbers(this.buyInputMoney)
   if (this.buyInputPrice && this.buyInputPrice != 0 && this.buyInputMoney) {
     this.buyInputNum = this.toFixed(this.accDiv(this.buyInputMoney, this.buyInputPrice), 2);
   }
 }
-// 根据卖出数量修改卖出金额
+// 根据修改出售金额
 root.methods.changeSellInputPrice = function () {
   this.sellInputPrice = this.inputNumbers(this.sellInputPrice)
   this.sellInputNum = this.inputNumbers(this.sellInputNum)
@@ -325,7 +325,7 @@ root.methods.changeSellInputPrice = function () {
     this.sellInputMoney = this.toFixed(this.accMul(this.sellInputPrice, this.sellInputNum), 2);
   }
 }
-// 根据卖出金额修改卖出数量
+// 根据出售金额修改
 root.methods.changeSellInputNum = function () {
   this.sellInputMoney = this.inputNumbers(this.sellInputMoney)
   if (this.sellInputPrice && this.sellInputPrice != 0 && this.sellInputMoney) {
@@ -348,12 +348,12 @@ root.methods.testBuyInputPrice = function () {
   return true
 }
 
-// blur商家卖出的价格的input框后的验证
+// blur商家出售的价格的input框后的验证
 root.methods.blurSellInputPrice = function (e) {
   this.BLUR(e)
   this.testSellInputPrice()
 }
-// 商家卖出的价格的input框后的验证
+// 商家出售的价格的input框后的验证
 root.methods.testSellInputPrice = function () {
   // if(this.sellInputPrice > this.accMul(this.lowestSellPrice,1.2) || this.InputPrice < this.accMul(this.lowestSellPrice,0.8)) {
   //   this.popOpen = true
@@ -373,47 +373,47 @@ root.methods.testBuyInputNum = function () {
   /*if (parseFloat(this.buyInputNum) > 30000) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '买入数量最大30000'
+    this.popText = '购买数量最大30000'
     return false
   }*/
   if (this.inputMinNum && parseFloat(this.buyInputNum) < parseFloat(this.inputMinNum)) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '买入数量不能小于' + this.inputMinNum
+    this.popText = '购买数量不能小于' + this.inputMinNum
     return false
   }
   return true
 }
 
-// blur商家卖出的数量的input框后的验证
+// blur商家出售的数量的input框后的验证
 root.methods.blurSellInputNum = function (e) {
   this.BLUR(e)
   this.testSellInputNum()
 }
-// 商家卖出的数量的input框后的验证
+// 商家出售的数量的input框后的验证
 root.methods.testSellInputNum = function () {
   /*if (parseFloat(this.sellInputNum) > 30000) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '卖出数量最大30000'
+    this.popText = '最大30000'
     return false
   }*/
   if (this.inputMinNum && parseFloat(this.sellInputNum) < parseFloat(this.inputMinNum)) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '卖出数量不能小于'  + this.inputMinNum
+    this.popText = '不能小于'  + this.inputMinNum
     return false
   }
   return true
 }
 
-// blur商家买入的金额的input框后验证数量
+// blur商家购买的金额的input框后验证数量
 root.methods.blurBuyInputMoney = function (e) {
   this.BLUR(e)
   this.testBuyInputMoney()
 }
 
-// 商家买入的金额的input框后的验证
+// 商家购买的金额的input框后的验证
 root.methods.testBuyInputMoney = function () {
   if (this.buyInputPrice && this.buyInputPrice != 0 && this.buyInputMoney) {
     this.buyInputNum = this.toFixed(this.accDiv(this.buyInputMoney, this.buyInputPrice), 2);
@@ -421,13 +421,13 @@ root.methods.testBuyInputMoney = function () {
   }
 }
 
-// blur商家卖出的金额的input框后验证数量
+// blur商家出售的金额的input框后验证数量
 root.methods.blurSellInputMoney = function (e) {
   this.BLUR(e)
   this.testSellInputMoney()
 }
 
-// 商家卖出的金额的input框后的验证
+// 商家出售的金额的input框后的验证
 root.methods.testSellInputMoney = function () {
   if (this.sellInputPrice && this.sellInputPrice != 0 && this.sellInputMoney) {
     this.sellInputNum = this.toFixed(this.accDiv(this.sellInputMoney, this.sellInputPrice), 2);
@@ -435,28 +435,40 @@ root.methods.testSellInputMoney = function () {
   }
 }
 
-// blur商家买入的单笔最小购买数量
+// blur商家购买的单笔最小购买数量
 root.methods.blurBuyInputMinNum = function (e) {
   this.BLUR(e)
   this.testBuyInputMinNum()
 }
-// 商家买入的单笔最小购买数量
+// 商家购买的单笔最小购买数量
 root.methods.testBuyInputMinNum = function () {
   if (parseFloat(this.buyInputMinNum) < this.inputMinNum) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '单笔最小购买数量为'+ this.inputMinNum
+    this.popText = '单笔最小购买不能小于'+ this.inputMinNum
+    return false
+  }
+  if ((this.buyInputMinNum && this.buyInputNum) && parseFloat(this.buyInputNum) < parseFloat(this.buyInputMinNum)) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '单笔最小购买不能大于挂单数量'
+    return false
+  }
+  if ((this.buyInputMinNum && this.buyInputMaxNum) && parseFloat(this.buyInputMinNum) > this.buyInputMaxNum) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '单笔最小购买不能大于单笔最大购买数量'
     return false
   }
   return true
 }
 
-// blur商家买入的单笔最大购买数量
+// blur商家购买的单笔最大购买数量
 root.methods.blurBuyInputMaxNum = function (e) {
   this.BLUR(e)
   this.testBuyInputMaxNum()
 }
-// 商家买入的单笔最大购买数量
+// 商家购买的单笔最大购买数量
 root.methods.testBuyInputMaxNum = function () {
   // if (parseFloat(this.buyInputMaxNum) > this.inputMaxNum) {
   //   this.popOpen = true
@@ -464,39 +476,75 @@ root.methods.testBuyInputMaxNum = function () {
   //   this.popText = '单笔最大购买数量为' + this.inputMaxNum
   //   return false
   // }
+  if ((this.buyInputMinNum && this.buyInputMaxNum) && parseFloat(this.buyInputMinNum) > this.buyInputMaxNum) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '单笔最大购买不能小于单笔最小购买数量'
+    return false
+  }
+  if ((this.buyInputMaxNum && this.buyInputNum) && parseFloat(this.buyInputNum) < parseFloat(this.buyInputMaxNum)) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '单笔最大购买不能大于挂单数量'
+    return false
+  }
   return true
 }
 
-// blur商家卖出的单笔最小出售数量
+// blur商家出售的单笔最小出售数量
 root.methods.blurSellInputMinNum = function (e) {
   this.BLUR(e)
   this.testSellInputMinNum()
 }
-// 商家卖出的单笔最小出售数量
+// 商家出售的单笔最小出售数量
 root.methods.testSellInputMinNum = function () {
   if (parseFloat(this.sellInputMinNum) < this.inputMinNum) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '单笔最小卖出数量为' + this.inputMinNum
+    this.popText = '单笔最小出售不能小于' + this.inputMinNum
+    return false
+  }
+  if ((this.sellInputMinNum && this.sellInputNum) && parseFloat(this.sellInputNum) < parseFloat(this.sellInputMinNum)) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '单笔最小出售不能大于挂单数量'
+    return false
+  }
+  if ((this.sellInputMinNum && this.sellInputMaxNum) && parseFloat(this.sellInputMinNum) > this.sellInputMaxNum) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '单笔最小出售不能大于单笔最大出售数量'
     return false
   }
 
   return true
 }
 
-// blur商家卖出的单笔最大出售数量
+// blur商家出售的单笔最大出售数量
 root.methods.blurSellInputMaxNum = function (e) {
   this.BLUR(e)
   this.testSellInputMaxNum()
 }
-// 商家卖出的单笔最大出售数量
+// 商家出售的单笔最大出售数量
 root.methods.testSellInputMaxNum = function () {
   // if (parseFloat(this.sellInputMaxNum) > this.inputMaxNum) {
   //   this.popOpen = true
   //   this.popType = 0
-  //   this.popText = '单笔最大卖出数量为' + this.inputMaxNum
+  //   this.popText = '单笔最大为' + this.inputMaxNum
   //   return false
   // }
+  if ((this.sellInputMinNum && this.sellInputMaxNum) && parseFloat(this.sellInputMinNum) > this.sellInputMaxNum) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '单笔最大出售不能小于单笔最小出售数量'
+    return false
+  }
+  if ((this.sellInputMaxNum && this.sellInputNum) && parseFloat(this.sellInputNum) < parseFloat(this.sellInputMaxNum)) {
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '单笔最大出售不能大于挂单数量'
+    return false
+  }
   return true
 }
 
@@ -510,12 +558,12 @@ root.methods.changeBuyInputMaxNum = function () {
   this.buyInputMaxNum = this.inputNumbers(this.buyInputMaxNum)
 }
 
-// input时检测最小卖出数量
+// input时检测最小
 root.methods.changeSellInputMinNum = function () {
   this.sellInputMinNum = this.inputNumbers(this.sellInputMinNum)
 }
 
-// input时检测最大卖出数量
+// input时检测最大
 root.methods.changeSellInputMaxNum = function () {
   this.sellInputMaxNum = this.inputNumbers(this.sellInputMaxNum)
 }
@@ -529,7 +577,7 @@ root.methods.goToBuy = function () {
   if (!this.buyInputPrice) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '请填入买入价格'
+    this.popText = '请填入购买价格'
     return
   }
   if (!this.testBuyInputPrice()) {
@@ -538,7 +586,7 @@ root.methods.goToBuy = function () {
   if (!this.buyInputNum) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '请填入买入数量'
+    this.popText = '请填入购买数量'
     return
   }
   if (!this.testBuyInputNum()) {
@@ -547,7 +595,7 @@ root.methods.goToBuy = function () {
   if (!this.buyInputMoney) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '请填入买入金额'
+    this.popText = '请填入购买金额'
     return
   }
   if (!this.testBuyInputMoney()) {
@@ -572,12 +620,12 @@ root.methods.goToBuy = function () {
   if (!this.testBuyInputMaxNum()) {
     return
   }
-  if (parseFloat(this.buyInputMinNum) > parseFloat(this.buyInputMaxNum)) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '单笔最小购买数量不能大于单笔最大购买数量'
-    return
-  }
+  // if (parseFloat(this.buyInputMinNum) > parseFloat(this.buyInputMaxNum)) {
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = '单笔最小购买不能大于单笔最大购买数量'
+  //   return
+  // }
 
   // // 判断支付方式
   // let payType = '';
@@ -611,7 +659,7 @@ root.methods.goToSell = function () {
   if (!this.sellInputPrice) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '请填入卖出价格'
+    this.popText = '请填入出售价格'
     return
   }
   if (!this.testSellInputPrice()) {
@@ -620,7 +668,7 @@ root.methods.goToSell = function () {
   if (!this.sellInputNum) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '请填入卖出数量'
+    this.popText = '请填入出售数量'
     return
   }
   if (!this.testSellInputNum()) {
@@ -629,7 +677,7 @@ root.methods.goToSell = function () {
   if (!this.sellInputMoney) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '请填入卖出金额'
+    this.popText = '请填入出售金额'
     return
   }
   if (!this.testSellInputMoney()) {
@@ -639,7 +687,7 @@ root.methods.goToSell = function () {
   if (!this.sellInputMinNum) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '请填入单笔最小卖出数量'
+    this.popText = '请填入单笔最小出售数量'
     return
   }
   if (!this.testSellInputMinNum()) {
@@ -648,18 +696,18 @@ root.methods.goToSell = function () {
   if (!this.sellInputMaxNum) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '请填入单笔最大卖出数量'
+    this.popText = '请填入单笔最大出售数量'
     return
   }
   if (!this.testSellInputMaxNum()) {
     return
   }
-  if (parseFloat(this.sellInputMinNum) > parseFloat(this.sellInputMaxNum)) {
-    this.popOpen = true
-    this.popType = 0
-    this.popText = '单笔最小卖出数量不能大于单笔最大卖出数量'
-    return
-  }
+  // if (parseFloat(this.sellInputMinNum) > parseFloat(this.sellInputMaxNum)) {
+  //   this.popOpen = true
+  //   this.popType = 0
+  //   this.popText = '单笔最小不能大于单笔最大'
+  //   return
+  // }
   // // 判断支付方式
   // let payType = '';
   // if(this.sellCheckboxAliPay && this.sellCheckboxBankPay) {
@@ -704,7 +752,7 @@ root.methods.submitToBuy = function () {
   //todo:生成定时器
   // this.st = setTimeout(()=>{
   //todo:改变状态,和watch监听里边一致
-  // 关闭买入弹框
+  // 关闭购买弹框
   // this.submitBuyBoxFlag = false;
   // this.buyInputPrice = ''
   // this.buyInputNum = ''
@@ -817,7 +865,7 @@ root.methods.submitToSell = function () {
   //todo:生成定时器
   // this.st = setTimeout(()=>{
   //todo:改变状态,和watch监听里边一致
-  // 关闭卖出弹框
+  // 关闭出售弹框
   // this.submitSellBoxFlag = false;
   // this.sellInputPrice = ''
   // this.sellInputNum = ''
