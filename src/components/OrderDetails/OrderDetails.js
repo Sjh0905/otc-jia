@@ -98,6 +98,7 @@ root.created = function () {
 	this.GET_AUTH_STATE();
 	// this.GET_ORDER_DETAIL()
 	// console.log(this.pay_info,'用户名信息')
+  this.$eventBus.listen('CPMPLETE_BTN',this.COMPLETE_BTN)
 };
 
 root.components = {

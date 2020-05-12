@@ -102,22 +102,22 @@ root.computed.isMobile = function () {
 root.watch = {};
 
 root.watch.result_socket = function (newValue, oldValue) {
-	let user_id = newValue.data.userId;
-	if (user_id != this.userId) return;
-	console.info('newValue.key===========',newValue.key)
-	if (newValue.data.result == 0 && (newValue.key == 'confirmationPay' || newValue.key == 'confirmationReceivables' || newValue.key == 'c2corder' || newValue.key == 'cancelOrder')) {
-		// this.popOpen = true;
-		// this.popType = 1;
+	// let user_id = newValue.data.userId;
+	// if (user_id != this.userId) return;
+	// console.info('newValue.key===========',newValue.key)
+	// if (newValue.data.result == 0 && (newValue.key == 'confirmationPay' || newValue.key == 'confirmationReceivables' || newValue.key == 'c2corder' || newValue.key == 'cancelOrder')) {
+	// 	// this.popOpen = true;
+	// 	// this.popType = 1;
+  // //   	this.popText = newValue.data.message;
+  //   	// 已收/付款
+  //   	this.paying = true;
+	// 	// 重新渲染列表
+	// 	this.GET_ORDER_CONDUCT();
+	// }
+	// if (newValue.data.result == 1) {
+	// 	this.popOpen = true;
   //   	this.popText = newValue.data.message;
-    	// 已收/付款
-    	this.paying = true;
-		// 重新渲染列表
-		this.GET_ORDER_CONDUCT();
-	}
-	if (newValue.data.result == 1) {
-		this.popOpen = true;
-    	this.popText = newValue.data.message;
-	}
+	// }
 
 }
 
@@ -125,7 +125,7 @@ root.props = {};
 
 root.created = function () {
 	// 获取搜索内容
-	this.$eventBus.listen(this, 'SEARCH_ORDER', this.GET_ORDER_CONDUCT);
+	// this.$eventBus.listen(this, 'SEARCH_ORDER', this.GET_ORDER_CONDUCT);
 
 	// 获取订单列表
 	this.GET_ORDER_CONDUCT();
@@ -171,6 +171,7 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
 				this.list = [];
 				return;
 			};
+			this.$eventBus.notify('CPMPLETE_BTN')
 			// this.GET_ORDER_CONDUCT()
 			// this.maxPage = datas.page.totalPages;
 			// this.selectIndex = datas.page.pageIndex;
