@@ -828,7 +828,7 @@ root.methods.GET_AUTH_STATE = function () {
 		let res = data.data;
     this.$store.commit('SET_AUTH_STATE', data.data)
 		this.identity_type = res;
-		if (res.idType == 'PASSPORT') {
+		if (res.idType != 'NONE') {
 			this.identity = true;
 		}
 		// 两者都验证了

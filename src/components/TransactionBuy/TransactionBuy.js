@@ -194,7 +194,7 @@ root.computed.USDTAvailable = function () {
 
 // 判断用户是否实名认证
 root.computed.identityVerification = function () {
-  if(this.$store.state.authState.idType =='PASSPORT')return true
+  if(this.$store.state.authState.idType !='NONE')return true
   return false
 }
 

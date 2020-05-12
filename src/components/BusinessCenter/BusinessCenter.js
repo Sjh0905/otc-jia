@@ -156,7 +156,7 @@ root.computed.result_socket = function () {
 }
 // 认证状态-实名认证
 root.computed.identity = function () {
-  if(this.$store.state.authState.idType =='PASSPORT')return true
+  if(this.$store.state.authState.idType !='NONE')return true
   return false
 }
 // 认证状态-ga
