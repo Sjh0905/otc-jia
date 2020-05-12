@@ -94,12 +94,12 @@
 }
 
 .business-header-buy {
-  width: 44%;
+  width: 45%;
   min-height: 200px;
 }
 
 .business-header-sell {
-  width: 44%;
+  width: 45%;
   min-height: 200px;
 }
 
@@ -161,7 +161,7 @@
   /*margin-left: 5px;*/
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #6B7DA2;
+  color: #0D0E23;
 }
 .text_light_dark{
   /*opacity: 0.5;*/
@@ -171,7 +171,7 @@
 }
 
 .business-header-item-title {
-  width: 30%;
+  width: 27%;
   /*opacity: 0.5;*/
   font-family: PingFangSC-Regular;
   font-size: 14px;
@@ -275,7 +275,7 @@
   z-index: 1000;
   right: 0;
   top: 41px;
-  width: 68%;
+  width: 70%;
   /*height: 200px;*/
   /*background-color: #6FBF48;*/
 
@@ -522,7 +522,7 @@
 }
 
 .submit-buy-box {
-  width: 750px;
+  width: 550px;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -535,10 +535,12 @@
   line-height: 68px;
   font-size: 16px;
   text-align: center;
+  color: #172A4D;
 }
 
 .submit-buy-list {
-  padding: 0 160px;
+  padding: 0 90px;
+  padding-left: 50px;
 }
 
 .submit-buy-item {
@@ -563,6 +565,7 @@
   height: 32px;
   font-size: 14px;
   position: relative;
+  color: #0D0E23;
 }
 
 
@@ -580,7 +583,7 @@
 }
 
 .submit-buy-item-right-border {
-  border: 1px solid #ccc;
+  border: 1px solid #E0E1F4;
 
   padding-left: 14px;
 }
@@ -591,6 +594,7 @@
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
+  color: #A2B5D9;
 }
 
 .submit-buy-item-right-img-zfb {
@@ -602,7 +606,7 @@
   height: 80px;
   display: flex;
   justify-content: space-between;
-  padding: 0 220px;
+  padding: 0 140px;
   align-items: center;
 }
 

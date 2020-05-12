@@ -37,7 +37,7 @@
           {{$globalFunc.accFixed(item.price,2)}}
         </div>
         <div class="amount">
-          {{$globalFunc.accFixed(item.amount,6)}}
+          {{$globalFunc.accFixed(item.amount,4)}}
         </div>
         <div class="money" :class="item.sellerId == userId ? 'sell' : 'buy'">
           {{item.totalAmount}}

@@ -111,6 +111,8 @@ root.data = function () {
     buyActuallyArrived:0,//买入实际到账
     sellFee:0,//卖出手续费
     sellActualSale:0,//实际售卖
+
+    defaultBank:{}//默认银行卡
   }
 }
 root.created = function () {
@@ -119,6 +121,8 @@ root.created = function () {
   // 获取顶部信息
   // this.postBusinessBaseInfo
   this.getSystemArgs();
+
+  this.getBankList();
 
   // 获取账户余额信息
   this.getAccount()
@@ -204,7 +208,7 @@ root.watch.currencyChange = function (newVal, oldVal) {
 }
 
 root.watch.result_socket = function (newValue, oldValue) {
-  let user_id = newValue.data.userId;
+ /* let user_id = newValue.data.userId;
   if (user_id != this.userId || newValue.key != 'createPostersOrder') return;
   console.log('watchSocket', newValue)
   if (newValue.data.result == 0) {
@@ -243,7 +247,7 @@ root.watch.result_socket = function (newValue, oldValue) {
     this.popOpen = true;
     this.popType = 0
     this.popText = newValue.data.message;
-  }
+  }*/
 }
 
 
@@ -858,7 +862,7 @@ root.methods.submitToSell = function () {
   }) => {
     // console.log('dataa',data)
     typeof data === 'string' && (data = JSON.parse(data))
-    if (data.result === 'FAIL' || data.code) {
+    if (data.result === 'FAIL' || data.code != 200) {
 
       this.submitSellAjaxFlag = false
       switch (data.code) {
@@ -942,7 +946,7 @@ root.methods.getAccount = function () {
 // 获取配置信息
 root.methods.getSystemArgs = function () {
   this.$http.send('GET_SYSTEM_ARGS').then(({data}) => {
-    console.log(data.data,"获取配置信息");
+    // console.log(data.data,"获取配置信息");
     let currenciesConf1 = data.data && data.data.currenciesConf1 || {};
     let USDTCurrenciesConf1 = currenciesConf1.USDT || {};
 
@@ -955,6 +959,24 @@ root.methods.getSystemArgs = function () {
     // this.popOpen = true;
     // this.popText = '请稍后重试';
   });
+}
+
+// 获取银行列表
+root.methods.getBankList = function () {
+  return this.$http.send('GET_BANK')
+    .then(({data}) => {
+      // console.log(data)
+      typeof data === 'string' && (data = JSON.parse(data))
+      let bankList = data.data || []
+      this.defaultBank = bankList.find(v=>{
+        v.hiddenBankNumber = v.bankNumber && v.bankNumber.slice(v.bankNumber.length-4 || 0)
+        return v.isShow
+      }) || {}
+      console.log('获取银行列表', this.defaultBank)
+    })
+    .catch(err => {
+      // console.warn('获取银行列表出错', err)
+    })
 }
 
 // 获取顶部信息

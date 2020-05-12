@@ -291,10 +291,10 @@ root.methods.inputNumbers = function (val) {
   let value = val.replace(/[^0-9.]/g, '').replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
 
   if(value.toString().split(".")[1]){
-    if(value.toString().split(".")[1].length < 7){
+    if(value.toString().split(".")[1].length < 5){
       return value
     } else {
-      return this.toFixed(value,6)
+      return this.toFixed(value,4)
     }
   }
   else{
@@ -454,7 +454,7 @@ root.methods.bindInputCNY = function () {
   if (this.sellItem.fixedPrice === 0) {
     return
   }
-  this.inputNum = this.toFixed(this.accDiv(this.inputCNY, this.sellItem.fixedPrice), 6)
+  this.inputNum = this.toFixed(this.accDiv(this.inputCNY, this.sellItem.fixedPrice), 4)
 }
 
 
@@ -891,6 +891,11 @@ root.methods.clickConfirmBtn = function () {
           this.popOpen = true
           this.popType = 0
           this.popText = '账户余额不足'
+          break;
+        case 1055:
+          this.popOpen = true
+          this.popType = 0
+          this.popText = '用户身份信息不完整，无法交易'
           break;
         case 1020:
           this.popOpen = true
