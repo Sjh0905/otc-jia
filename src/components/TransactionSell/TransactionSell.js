@@ -768,7 +768,7 @@ root.methods.clickToConfirmSell = function () {
   if(this.inputCNY*1 > this.sellItem.maxAmount*1*this.sellItem.fixedPrice) {
     this.popOpen = true
     this.popType = 0
-    this.popText = '超出最大下单金额' + this.sellItem.maxAmount*this.sellItem.fixedPrice
+    this.popText = '超出最大下单金额' + this.$globalFunc.accFixed((this.sellItem.maxAmount * this.sellItem.fixedPrice),2)
     return
   }
   if(this.inputNum*1 > this.sellItem.amount*1) {
