@@ -42,7 +42,7 @@
   margin: 0 auto;
   position: absolute;
   left: 50%;
-  top: 59%;
+  top: 50%;
   transform: translateY(-50%) translateX(-50%);
   display: flex;
   display: -moz-flex;

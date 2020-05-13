@@ -142,7 +142,8 @@
 										<span class="card_qrcode cursor" @click="SHOW_RECEIPT_CODE(item.url)"></span>
 									</div>
 									<div class="card_item" v-show="item.type == 'BANKCARD'">
-										卡号: <font ref="card_num" v-if="detail_type == 2 || detail_type == 3">{{changeBankCard(item.cardNumber)}}</font>
+<!--										卡号: <font ref="card_num" v-if="detail_type == 2 || detail_type == 3">{{changeBankCard(item.cardNumber)}}</font>-->
+										卡号: <font ref="card_num" v-if="detail_type == 2 || detail_type == 3">{{(item.cardNumber)}}</font>
 										<font ref="card_num" v-else>{{item.cardNumber}}</font>
 										<span class="copy_btn border_radius" @click="COPY('card_num')">复制</span>
 									</div>
