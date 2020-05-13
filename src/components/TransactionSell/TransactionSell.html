@@ -167,7 +167,7 @@
       <!-- table tbody end -->
     </div>
     <!-- 分页插件 start  v-if="maxPage > 1" -->
-    <BasePageBar v-if="maxPage > 1 && pendingList.length != 0" :maxPage='maxPage'
+    <BasePageBar v-if="maxPage > 1 && pendingList.length != 0 && !loading" :maxPage='maxPage'
                  :selectIndex="selectIndex"
                  :clickChangePage="clickChangePage"
                  :currentDisplay=2
@@ -513,72 +513,72 @@
 
 
     <!-- 谷歌/短信验证 start -->
-    <div class="ga_sms_container box_shadow" v-if="verificationToastOpen">
-      <div class="ga_sms_bg"></div>
-      <div class="ga_sms_body">
-        <img src="../../assets/c2c_common/popup_close_btn.png" alt="" class="sell-toast-box-close">
-        <!--选择-->
-        <div class="flex unit-input-container pick-one-type" v-if="showPicker">
-          <div>
-            <input type="radio" name="identify-type" id="ga" value="bindGA" v-model="picked">
-            <label for="ga">谷歌认证</label>
-          </div>
-          <div>
-            <input type="radio" name="identify-type" id="bindMobile" value="bindMobile" v-model="picked">
-            <label for="bindMobile">手机认证</label>
-          </div>
-        </div>
-        <!--<div class="unit-input-interval"></div>-->
+<!--    <div class="ga_sms_container box_shadow" v-if="verificationToastOpen">-->
+<!--      <div class="ga_sms_bg"></div>-->
+<!--      <div class="ga_sms_body">-->
+<!--        <img src="../../assets/c2c_common/popup_close_btn.png" alt="" class="sell-toast-box-close">-->
+<!--        &lt;!&ndash;选择&ndash;&gt;-->
+<!--        <div class="flex unit-input-container pick-one-type" v-if="showPicker">-->
+<!--          <div>-->
+<!--            <input type="radio" name="identify-type" id="ga" value="bindGA" v-model="picked">-->
+<!--            <label for="ga">谷歌认证</label>-->
+<!--          </div>-->
+<!--          <div>-->
+<!--            <input type="radio" name="identify-type" id="bindMobile" value="bindMobile" v-model="picked">-->
+<!--            <label for="bindMobile">手机认证</label>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;<div class="unit-input-interval"></div>&ndash;&gt;-->
 
-        <!--谷歌验证码-->
-        <div class="flex unit-input-container container-ga" v-if="picked==='bindGA'"
-             :class="{'wrong-msg':GACodeWA!==''}"
-        >
-		    <span class="flex-center unit-input-container-title">
-		      <img src="../../assets/c2c_form_icon/google.png" alt="">
-		    </span>
-          <input type="text" placeholder='请输入谷歌验证码' class="unit-input input-ga"
-                 v-model="GACode"
-          <!--@blur="testGACode"-->
-          >
-        </div>
-        <div class="unit-input-interval txt-red" v-if="picked==='bindGA'">
-          <span v-if="GACodeWA!==''">{{GACodeWA}}</span>
-        </div>
+<!--        &lt;!&ndash;谷歌验证码&ndash;&gt;-->
+<!--        <div class="flex unit-input-container container-ga" v-if="picked==='bindGA'"-->
+<!--             :class="{'wrong-msg':GACodeWA!==''}"-->
+<!--        >-->
+<!--		    <span class="flex-center unit-input-container-title">-->
+<!--		      <img src="../../assets/c2c_form_icon/google.png" alt="">-->
+<!--		    </span>-->
+<!--          <input type="text" placeholder='请输入谷歌验证码' class="unit-input input-ga"-->
+<!--                 v-model="GACode"-->
+<!--          @blur="testGACode"-->
+<!--          >-->
+<!--        </div>-->
+<!--        <div class="unit-input-interval txt-red" v-if="picked==='bindGA'">-->
+<!--          <span v-if="GACodeWA!==''">{{GACodeWA}}</span>-->
+<!--        </div>-->
 
-        <!--手机验证码-->
-        <div class="flex unit-input-container double-input-container" v-if="picked==='bindMobile'"
-             :class="{'wrong-msg':verificationCodeWA!==''}"
-        >
-		    <span class="flex-center unit-input-container-title">
-		      <img src="../../assets/c2c_form_icon/mobile.png" alt="">
-		    </span>
-          <input type="text" placeholder='请输入手机验证码'
-                 class="unit-input input-mobile" v-model="verificationCode"
-          <!--@blur="testVerificationCode"-->
-          >
-          <span class="flex-center btn_blue" v-if="!getVerificationCode"
-          <!--@click="click_getVerificationCode"-->
-          >{{$t("signPageResetPassword.achieve")}}</span>
-          <span class="flex-center identifying-code-button-close btn_grey"
-                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>
-        </div>
-        <div class="unit-input-interval txt-red" v-if="picked==='bindMobile'">
-          <span v-if="verificationCodeWA!==''">{{verificationCodeWA}}</span>
-        </div>
+<!--        &lt;!&ndash;手机验证码&ndash;&gt;-->
+<!--        <div class="flex unit-input-container double-input-container" v-if="picked==='bindMobile'"-->
+<!--             :class="{'wrong-msg':verificationCodeWA!==''}"-->
+<!--        >-->
+<!--		    <span class="flex-center unit-input-container-title">-->
+<!--		      <img src="../../assets/c2c_form_icon/mobile.png" alt="">-->
+<!--		    </span>-->
+<!--          <input type="text" placeholder='请输入手机验证码'-->
+<!--                 class="unit-input input-mobile" v-model="verificationCode"-->
+<!--          @blur="testVerificationCode"-->
+<!--          >-->
+<!--          <span class="flex-center btn_blue" v-if="!getVerificationCode"-->
+<!--          @click="click_getVerificationCode"-->
+<!--          >{{$t("signPageResetPassword.achieve")}}</span>-->
+<!--          <span class="flex-center identifying-code-button-close btn_grey"-->
+<!--                v-if="getVerificationCode">{{getVerificationCodeCountdown}}</span>-->
+<!--        </div>-->
+<!--        <div class="unit-input-interval txt-red" v-if="picked==='bindMobile'">-->
+<!--          <span v-if="verificationCodeWA!==''">{{verificationCodeWA}}</span>-->
+<!--        </div>-->
 
 
-        <!--确定-->
-        <div class="unit-input-container container-button">
-          <button class="set-button btn_blue" v-if="!sending"
-          <!--@click="click_send"-->
-          >
-          {{$t("signPageResetPassword.confirm")}}
-          </button>
-          <button class="set-button btn_grey" v-if="sending" disabled>{{$t('coinBaby.Locking')}}</button>
-        </div>
-      </div>
-    </div>
+<!--        &lt;!&ndash;确定&ndash;&gt;-->
+<!--        <div class="unit-input-container container-button">-->
+<!--          <button class="set-button btn_blue" v-if="!sending"-->
+<!--          @click="click_send"-->
+<!--          >-->
+<!--          {{$t("signPageResetPassword.confirm")}}-->
+<!--          </button>-->
+<!--          <button class="set-button btn_grey" v-if="sending" disabled>{{$t('coinBaby.Locking')}}</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
     <!-- 谷歌/短信验证 end -->
 
     <!--socket超时 弹框提示 begin-->

@@ -168,11 +168,12 @@
       <!-- table tbody end -->
     </div>
     <!-- 分页插件 start  v-if="maxPage > 1" -->
-    <BasePageBar v-if="maxPage > 1 && pendingList.length != 0" :maxPage='maxPage'
+    <BasePageBar v-if="maxPage > 1 && pendingList.length != 0 && !loading" :maxPage='maxPage'
                  :selectIndex="selectIndex"
                  :clickChangePage="clickChangePage"
                  :currentDisplay=2
-                 :initDisplay=2></BasePageBar>
+                 :initDisplay=2>
+    </BasePageBar>
     <!-- 分页插件 end -->
 
 

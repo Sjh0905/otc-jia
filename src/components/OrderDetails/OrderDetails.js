@@ -199,10 +199,10 @@ root.methods.GO_HISTORY = function () {
 }
 
 // 银行卡显示后四位
-root.methods.changeBankCard = function (card) {
-  let number = card.slice(15)
-  return `**** **** **** *** ${number}`
-}
+// root.methods.changeBankCard = function (card) {
+//   let number = card.slice(15)
+//   return `**** **** **** *** ${number}`
+// }
 // 姓名只显示姓
 root.methods.changeName = function (name) {
 	if (!name) return '';

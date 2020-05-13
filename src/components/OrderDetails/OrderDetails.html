@@ -2,7 +2,7 @@
 
 	<div class="order_container border_radius min-width box1">
 		<div class="order_title"><span class="imgs"><img src="../../assets/c2c_transaction/USDT.png" alt=""></span>
-      <span class="cursor go_history go_history1 ">购买USDT</span>  <span class="numbers" >
+      <span class="go_history go_history1 ">购买USDT</span>  <span class="numbers" >
         单号:	{{ctc_order.orderNo}}
       </span></div>
 		<Loading v-show="loading" />
@@ -148,7 +148,8 @@
                     <span class="card_qrcode cursor" @click="SHOW_RECEIPT_CODE(item.url)"></span>
                   </div>
                   <div class="card_item">
-                    卡号: <font ref="card_num" v-if="detail_type == 2 || detail_type == 3">{{changeBankCard(pay_info.bankNumber)}}</font>
+<!--                    卡号: <font ref="card_num" v-if="detail_type == 2 || detail_type == 3">{{changeBankCard(pay_info.bankNumber)}}</font>-->
+                    卡号: <font ref="card_num" v-if="detail_type == 2 || detail_type == 3">{{(pay_info.bankNumber)}}</font>
                     <font ref="card_num" v-else>{{pay_info.bankNumber}}</font>
                     <span class="copy_btn border_radius" @click="COPY('card_num')">复制</span>
                   </div>
