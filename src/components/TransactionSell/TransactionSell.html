@@ -125,7 +125,7 @@
       <div class="business_order_table_tr flex-center flex-between" v-else v-for="(item,index) in pendingList" :key="index">
         <div class="order text_dark14 flex-row">
           <div style="height:70px;position: relative">
-<!--            <div :class="'yansebj'+Math.round(Math.random()*3)">{{item.nickName.substring(0,1)}}</div>-->
+            <div :class="'yansebj'+Math.round(Math.random()*3)">{{(item.nickname).substring(0,1)}}</div>
             <div style="width: 52px;position: absolute;bottom: -1px;background: #fff;height: 1px;"></div>
           </div>
           <div class="nameColor">
