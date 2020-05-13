@@ -834,6 +834,11 @@ root.methods.submitToBuy = function () {
           this.popType = 0
           this.popText = '请设置默认收款账号'
           break;
+        case 1049://请设置默认收款账号
+          this.popOpen = true
+          this.popType = 0
+          this.popText = '可用余额不足'
+          break;
       }
       return
     }
@@ -943,6 +948,11 @@ root.methods.submitToSell = function () {
           this.popOpen = true
           this.popType = 0
           this.popText = '请设置默认收款账号'
+          break;
+        case 1049://请设置默认收款账号
+          this.popOpen = true
+          this.popType = 0
+          this.popText = '可用余额不足'
           break;
       }
       return

@@ -7,6 +7,7 @@ root.data = function () {
 		// 分页
 		maxPage: 1,
 		selectIndex: 1,
+		page: 1,
 		// 列表
 		list: [],
 
@@ -59,7 +60,10 @@ root.data = function () {
 			authStatePopupType: 1,// 提示绑定状态弹窗 1为身份认证，2为谷歌或者手机认证
 			authStatePopupWindow: false, // 提示绑定状态弹窗
 			// 用户数据
-			user_info:{}
+			user_info:{},
+
+    loadingMoreShow:false,
+    showLoadingMore:true,
 
 	}
 };
@@ -154,7 +158,7 @@ root.methods.CLOSE_DIALOG = function () {
 root.methods.GET_ORDER_CONDUCT = function (search) {
 	this.$http.send('GET_LIST_ORDERS', {
     query: {
-			offset: this.selectIndex,
+			page: this.page,
 			maxResults: 10,
 			// status: 'PROCESSING', //  “PROCESSING”进行中, “COMPLETE”已完成, “CANCEL”已取消
 			status: 1, //  1进行中, 3已完成, 4已取消 ，0 全部
@@ -162,20 +166,33 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
 		}
 	}).then(({data}) => {
 		// console.log(data,'aaa')
-		if (data.code == 200) {
-			this.loading = false;
-			// let datas = data.dataMap.ctcOrders;
-			let datas = data.data
-			this.list = datas;
-			if (this.list[0] == null) {
-				this.list = [];
-				return;
-			};
-			this.$eventBus.notify('CPMPLETE_BTN')
-			// this.GET_ORDER_CONDUCT()
-			// this.maxPage = datas.page.totalPages;
-			// this.selectIndex = datas.page.pageIndex;
-		}
+    typeof data === 'string' && (data = JSON.parse(data))
+    this.loading = false;
+
+    if (data.code == 200) {
+      this.list.push(...data.data)
+      if (data.data.length < 10) {
+        this.showLoadingMore = false
+      }
+      this.page = this.page + 1
+
+      this.loadingMoreIng = false
+      // this.$eventBus.notify('CPMPLETE_BTN')
+    }
+		// if (data.code == 200) {
+		// 	this.loading = false;
+		// 	// let datas = data.dataMap.ctcOrders;
+		// 	let datas = data.data
+		// 	this.list = datas;
+		// 	if (this.list[0] == null) {
+		// 		this.list = [];
+		// 		return;
+		// 	};
+		// 	this.$eventBus.notify('CPMPLETE_BTN')
+		// 	// this.GET_ORDER_CONDUCT()
+		// 	// this.maxPage = datas.page.totalPages;
+		// 	// this.selectIndex = datas.page.pageIndex;
+		// }
 		if (data.code == 1) {
 			window.location.reload();
 		}

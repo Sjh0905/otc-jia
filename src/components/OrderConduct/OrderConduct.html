@@ -105,8 +105,16 @@
 
         <div v-if="list.length == 0 && !loading" class="pending-body-no-pending-box">
           <img class="pending-body-no-pending-img" src="../../assets/c2c_transaction/no_pending_notice_img.png" alt="">
-          <div class="pending-body-no-pending-text">暂无挂单</div>
+          <div class="pending-body-no-pending-text">暂无订单</div>
         </div>
+
+      <!-- 加载更多 如果loading结束、已经登录、获取的数据超过了limit，则显示 begin -->
+      <div v-if="showLoadingMore && list.length != 0 && !loading">
+        <li class="loading-more">
+          <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">加载更多</span>
+          <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>
+        </li>
+      </div>
     </div>
   </div>
 
@@ -115,12 +123,15 @@
   <!-- 提示弹框 end -->
 
   <!-- 分页插件 start  v-if="maxPage > 1" -->
-  <BasePageBar v-if="maxPage > 1" :maxPage='maxPage'
-               :selectIndex="selectIndex"
-               :clickChangePage="clickChangePage"
-               :currentDisplay=2
-               :initDisplay=2></BasePageBar>
+<!--  <BasePageBar v-if="maxPage > 1" :maxPage='maxPage'-->
+<!--               :selectIndex="selectIndex"-->
+<!--               :clickChangePage="clickChangePage"-->
+<!--               :currentDisplay=2-->
+<!--               :initDisplay=2></BasePageBar>-->
   <!-- 分页插件 end -->
+
+
+
 
   <!-- 确认付款，取消，提示 start -->
   <PopupWindow :open="show_dialog" :close="CLOSE_DIALOG">
