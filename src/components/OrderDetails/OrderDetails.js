@@ -139,42 +139,42 @@ root.computed.result_socket = function () {
 root.watch = {};
 
 // 在进行中界面，如果倒计时结束了，还没有完成收付款，需要跳到取消页面
-root.watch.serverTime = function (newValue, oldValue) {
-	let end = !!this.ctc_order.expireTime2 ? this.ctc_order.expireTime2 : this.ctc_order.updatedAt;
-	if (this.detail_type == 1 && end <= newValue) {
-		this.GO_DETAIL_TYPE(4);
-	}
-}
+// root.watch.serverTime = function (newValue, oldValue) {
+// 	let end = !!this.ctc_order.expireTime2 ? this.ctc_order.expireTime2 : this.ctc_order.updatedAt;
+// 	if (this.detail_type == 1 && end <= newValue) {
+// 		this.GO_DETAIL_TYPE(4);
+// 	}
+// }
 
-root.watch.result_socket = function (newValue, oldValue) {
-	let user_id = newValue.data.userId;
-	let order_id = newValue.data.orderId;
-
-	if (user_id != this.userId || order_id != this.ctcOrderId) return;
-
-	if (newValue.data.result == 0 && (newValue.key == 'confirmationPay' || newValue.key == 'confirmationReceivables') || (newValue.key == 'cancelOrder')) {
-
-    	if (newValue.key == 'confirmationPay') {
-    		this.paying = true;
-    		this.GO_DETAIL_TYPE(1);
-    	};
-    	if (newValue.key == 'confirmationReceivables') {
-    		this.paying = true;
-    		this.GO_DETAIL_TYPE(2);
-    	}
-
-    	// 是否撤单
-    	if (newValue.key == 'cancelOrder') {
-    		this.canneling = true;
-    		this.GO_DETAIL_TYPE(3);
-    	}
-	}
-	if (newValue.data.result == 1) {
-		this.popOpen = true;
-    	this.popText = newValue.data.message;
-	}
-
-}
+// root.watch.result_socket = function (newValue, oldValue) {
+// 	let user_id = newValue.data.userId;
+// 	let order_id = newValue.data.orderId;
+//
+// 	if (user_id != this.userId || order_id != this.ctcOrderId) return;
+//
+// 	if (newValue.data.result == 0 && (newValue.key == 'confirmationPay' || newValue.key == 'confirmationReceivables') || (newValue.key == 'cancelOrder')) {
+//
+//     	if (newValue.key == 'confirmationPay') {
+//     		this.paying = true;
+//     		this.GO_DETAIL_TYPE(1);
+//     	};
+//     	if (newValue.key == 'confirmationReceivables') {
+//     		this.paying = true;
+//     		this.GO_DETAIL_TYPE(2);
+//     	}
+//
+//     	// 是否撤单
+//     	if (newValue.key == 'cancelOrder') {
+//     		this.canneling = true;
+//     		this.GO_DETAIL_TYPE(3);
+//     	}
+// 	}
+// 	if (newValue.data.result == 1) {
+// 		this.popOpen = true;
+//     	this.popText = newValue.data.message;
+// 	}
+//
+// }
 
 
 root.mounted = function () {
@@ -183,6 +183,32 @@ root.mounted = function () {
 }
 
 root.methods = {};
+
+// 认证状态
+root.methods.GET_AUTH_STATE = function () {
+  this.$http.send('GET_AUTH_STATE').then(({data}) => {
+    typeof data === 'string' && (data = JSON.parse(data));
+    let res = data.data;
+    this.$store.commit('SET_AUTH_STATE', data.data)
+    this.identity_type = res;
+    if (res.idType != 'NONE') {
+      this.identity = true;
+    }
+    // 两者都验证了
+    this.bindGA = res.gaAuth;
+    this.bindMobile = res.mobile;
+    this.bindMobile && (this.picked = 'bindMobile');
+    this.bindGA && (this.picked = 'bindGA');
+    if (this.bindGA && this.bindMobile) {
+      this.showPicker = true;
+    }
+
+    this.loading = false
+  }).catch((err) => {
+
+  })
+}
+
 // 跳转不同详情页
 root.methods.GO_DETAIL_TYPE = function (type) {
 	let host = window.location;
@@ -277,8 +303,6 @@ root.methods.USER_PAY_INFO = function (ctc_order) {
 
 	});
 }
-
-
 
 // 获取订单详情
 root.methods.GET_ORDER_DETAIL = function () {
@@ -447,7 +471,7 @@ root.methods.initTimes = function (now, end) {
         startTime: now,
         lastTime: end
 	  	})
-	} else {
+	}else if(this.ctc_order.status != 3){
 		new Countdown(document.getElementById('times'), {
 		    format: '<span style="margin-left: 2px; color: #ED7265;">mm</span> 分 <span style="margin-left: 2px; color: #ED7265;">ss</span> 秒',
         startTime: now,
@@ -586,267 +610,243 @@ root.methods.GO_ORDER_COMPELETE = function () {
 // 谷歌验证那一堆代码 start
 
 // 检测验证码
-root.methods.testVerificationCode = function () {
-  if (this.picked !== 'bindMobile') {
-    this.verificationCodeWA = ''
-    return true
-  }
-  if (this.verificationCode === '') {
-    this.verificationCodeWA = ''
-    return false
-  }
-  this.verificationCodeWA = ''
-  return true
-}
+// root.methods.testVerificationCode = function () {
+//   if (this.picked !== 'bindMobile') {
+//     this.verificationCodeWA = ''
+//     return true
+//   }
+//   if (this.verificationCode === '') {
+//     this.verificationCodeWA = ''
+//     return false
+//   }
+//   this.verificationCodeWA = ''
+//   return true
+// }
 
 // 检测谷歌验证码
-root.methods.testGACode = function () {
-  if (this.picked !== 'bindGA') {
-    this.GACodeWA = ''
-    return true
-  }
-  if (this.GACode === '') {
-    this.GACodeWA = ''
-    return false
-  }
-  this.GACodeWA = ''
-  return true
-
-}
+// root.methods.testGACode = function () {
+//   if (this.picked !== 'bindGA') {
+//     this.GACodeWA = ''
+//     return true
+//   }
+//   if (this.GACode === '') {
+//     this.GACodeWA = ''
+//     return false
+//   }
+//   this.GACodeWA = ''
+//   return true
+//
+// }
 
 // 点击发送
-root.methods.click_send = function () {
-  let canSend = true;
-
-  if (this.verificationCode === '' && this.picked === 'bindMobile') {
-    this.verificationCodeWA = '请输入验证码'
-    canSend = false
-  }
-  if (!this.clickVerificationCodeButton && this.picked === 'bindMobile') {
-    this.verificationCodeWA = '请输入验证码'
-    canSend = false
-  }
-  if (this.GACode === '' && this.picked === 'bindGA') {
-    this.GACodeWA = '请输入验证码'
-    canSend = false
-  }
-
-
-  if (!canSend) {
-    // console.log("不能发送！")
-    return
-  }
-
-  let pickedType = ''
-  if (this.picked === 'bindMobile') {
-    pickedType = 'mobile'
-  }
-  if (this.picked === 'bindGA') {
-    pickedType = 'ga'
-  }
-
-  let code = ''
-  this.picked === 'bindGA' && (code = this.GACode)
-  this.picked === 'bindMobile' && (code = this.verificationCode)
-  // console.log('emailemial', this.$route.query.email)
-
-  this.sending = true;
-
-  // let params
-
-  // console.log(code,'code')
-
-  if (pickedType === 'mobile') {
-
-    this.$http.send('COMMEN_AUTH_FORCTC', {
-		query: {
-			"type": pickedType,
-  			"code": code,
-  			"purpose":"Confirm",
-			"id": this.ctc_order.id
-		}
-	}).then(({data}) => {
-		let code = data.code;
-			this.sending = false;
-		if (code == 200) {
-			this.show_buy_sell_btn = false;
-			this.show_ga_sms_dialog = false;
-			// 跳到已完成界面
-			this.GO_ORDER_COMPELETE();
-			return;
-		}
-		if (code) {
-			let self = this;
-			this.popOpen = true;
-	    	switch (code) {
-	    		case 1:
-	    			self.popText = '用户未登录';
-	    			break;
-	    		case 3:
-	    			self.popText = '系统繁忙';
-	    			break;
-	    		case 5:
-	    			self.popText = '验证码过期/错误';
-	    			break;
-	    		default:
-	    			break;
-	    	}
-		}
-	}).catch((err) => {
-		this.sending = false;
-		this.popOpen = true;
-    	this.popText = '系统繁忙，请稍后重试';
-	});
-    return
-  }
-
-  this.$http.send('COMMEN_AUTH_FORCTC', {
-		params: {
-			"type": pickedType,
-  			"code": code,
-  			"purpose":"Confirm",
-			"id": this.ctc_order.id
-		}
-	}).then(({data}) => {
-		let code = data.code;
-			this.sending = false;
-		if (code == 200) {
-			this.show_buy_sell_btn = false;
-			this.show_ga_sms_dialog = false;
-			// 跳到已完成界面
-			this.GO_ORDER_COMPELETE();
-		}
-		if (code > 0) {
-			let self = this;
-			this.popOpen = true;
-			switch (code) {
-	    		case 1:
-	    			self.popText = '用户未登录';
-	    			break;
-	    		case 3:
-	    			self.popText = '系统繁忙';
-	    			break;
-	    		case 5:
-	    			self.popText = '验证码过期/错误';
-	    			break;
-	    		default:
-	    			break;
-	    	}
-		}
-	}).catch((err) => {
-		this.sending = false;
-		this.popOpen = true;
-    	this.popText = '系统繁忙，请稍后重试';
-	});
-
-}
+// root.methods.click_send = function () {
+//   let canSend = true;
+//
+//   if (this.verificationCode === '' && this.picked === 'bindMobile') {
+//     this.verificationCodeWA = '请输入验证码'
+//     canSend = false
+//   }
+//   if (!this.clickVerificationCodeButton && this.picked === 'bindMobile') {
+//     this.verificationCodeWA = '请输入验证码'
+//     canSend = false
+//   }
+//   if (this.GACode === '' && this.picked === 'bindGA') {
+//     this.GACodeWA = '请输入验证码'
+//     canSend = false
+//   }
+//
+//
+//   if (!canSend) {
+//     // console.log("不能发送！")
+//     return
+//   }
+//
+//   let pickedType = ''
+//   if (this.picked === 'bindMobile') {
+//     pickedType = 'mobile'
+//   }
+//   if (this.picked === 'bindGA') {
+//     pickedType = 'ga'
+//   }
+//
+//   let code = ''
+//   this.picked === 'bindGA' && (code = this.GACode)
+//   this.picked === 'bindMobile' && (code = this.verificationCode)
+//   // console.log('emailemial', this.$route.query.email)
+//
+//   this.sending = true;
+//
+//   // let params
+//
+//   // console.log(code,'code')
+//
+//   if (pickedType === 'mobile') {
+//
+//     this.$http.send('COMMEN_AUTH_FORCTC', {
+// 		query: {
+// 			"type": pickedType,
+//   			"code": code,
+//   			"purpose":"Confirm",
+// 			"id": this.ctc_order.id
+// 		}
+// 	}).then(({data}) => {
+// 		let code = data.code;
+// 			this.sending = false;
+// 		if (code == 200) {
+// 			this.show_buy_sell_btn = false;
+// 			this.show_ga_sms_dialog = false;
+// 			// 跳到已完成界面
+// 			this.GO_ORDER_COMPELETE();
+// 			return;
+// 		}
+// 		if (code) {
+// 			let self = this;
+// 			this.popOpen = true;
+// 	    	switch (code) {
+// 	    		case 1:
+// 	    			self.popText = '用户未登录';
+// 	    			break;
+// 	    		case 3:
+// 	    			self.popText = '系统繁忙';
+// 	    			break;
+// 	    		case 5:
+// 	    			self.popText = '验证码过期/错误';
+// 	    			break;
+// 	    		default:
+// 	    			break;
+// 	    	}
+// 		}
+// 	}).catch((err) => {
+// 		this.sending = false;
+// 		this.popOpen = true;
+//     	this.popText = '系统繁忙，请稍后重试';
+// 	});
+//     return
+//   }
+//
+//   this.$http.send('COMMEN_AUTH_FORCTC', {
+// 		params: {
+// 			"type": pickedType,
+//   			"code": code,
+//   			"purpose":"Confirm",
+// 			"id": this.ctc_order.id
+// 		}
+// 	}).then(({data}) => {
+// 		let code = data.code;
+// 			this.sending = false;
+// 		if (code == 200) {
+// 			this.show_buy_sell_btn = false;
+// 			this.show_ga_sms_dialog = false;
+// 			// 跳到已完成界面
+// 			this.GO_ORDER_COMPELETE();
+// 		}
+// 		if (code > 0) {
+// 			let self = this;
+// 			this.popOpen = true;
+// 			switch (code) {
+// 	    		case 1:
+// 	    			self.popText = '用户未登录';
+// 	    			break;
+// 	    		case 3:
+// 	    			self.popText = '系统繁忙';
+// 	    			break;
+// 	    		case 5:
+// 	    			self.popText = '验证码过期/错误';
+// 	    			break;
+// 	    		default:
+// 	    			break;
+// 	    	}
+// 		}
+// 	}).catch((err) => {
+// 		this.sending = false;
+// 		this.popOpen = true;
+//     	this.popText = '系统繁忙，请稍后重试';
+// 	});
+//
+// }
 
 // 检测验证码
-root.methods.testVerificationCode = function () {
-  if (this.picked !== 'bindMobile') {
-    this.verificationCodeWA = ''
-    return true
-  }
-  if (this.verificationCode === '') {
-    this.verificationCodeWA = ''
-    return false
-  }
-  this.verificationCodeWA = ''
-  return true
-}
+// root.methods.testVerificationCode = function () {
+//   if (this.picked !== 'bindMobile') {
+//     this.verificationCodeWA = ''
+//     return true
+//   }
+//   if (this.verificationCode === '') {
+//     this.verificationCodeWA = ''
+//     return false
+//   }
+//   this.verificationCodeWA = ''
+//   return true
+// }
 
 
 // 检测谷歌验证码
-root.methods.testGACode = function () {
-  if (this.picked !== 'bindGA') {
-    this.GACodeWA = ''
-    return true
-  }
-  if (this.GACode === '') {
-    this.GACodeWA = ''
-    return false
-  }
-  this.GACodeWA = ''
-  return true
-
-}
+// root.methods.testGACode = function () {
+//   if (this.picked !== 'bindGA') {
+//     this.GACodeWA = ''
+//     return true
+//   }
+//   if (this.GACode === '') {
+//     this.GACodeWA = ''
+//     return false
+//   }
+//   this.GACodeWA = ''
+//   return true
+//
+// }
 
 // 点击发送验证码
-root.methods.click_getVerificationCode = function () {
+// root.methods.click_getVerificationCode = function () {
+//
+//   this.clickVerificationCodeButton = true
+//
+//
+//   this.getVerificationCode = true
+//   this.clickVerificationCodeButton = true
+//   this.verificationCodeWA = ''
+//
+//   this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+//
+//   this.$http.send('ORDER_MAIL_CODE', {
+//   	params: {
+// 		type: "mobile",
+// 		mun: "",
+// 		purpose:"Confirm"
+// 	}
+//   }).then(({data}) => {
+//   	if (data.errorCode == 0) {
+//   		this.getVerificationCodeInterval = setInterval(() => {
+// 	    this.getVerificationCodeCountdown--
+// 	    if (this.getVerificationCodeCountdown <= 0) {
+// 	      this.getVerificationCode = false
+// 	      this.getVerificationCodeCountdown = 60
+// 	      clearInterval(this.getVerificationCodeInterval)
+// 	    }
+// 	  }, 1000)
+//   	}
+//   	data.errorCode === 1 && (this.verificationCodeWA = '用户未登录')
+//     data.errorCode === 2 && (this.verificationCodeWA = '过于频繁')
+//     data.errorCode === 3 && (this.verificationCodeWA = '手机验证码发送异常')
+//     data.errorCode === 4 && (this.verificationCodeWA = '过于频繁')
+//     data.errorCode === 100 && (this.verificationCodeWA = '过于频繁被锁定')
+//   }).catch((err) => {
+// 		this.getVerificationCode = false
+// 		this.getVerificationCodeCountdown = 60
+// 		this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+//   })
+//
+// }
 
-  this.clickVerificationCodeButton = true
-
-
-  this.getVerificationCode = true
-  this.clickVerificationCodeButton = true
-  this.verificationCodeWA = ''
-
-  this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
-
-  this.$http.send('ORDER_MAIL_CODE', {
-  	params: {
-		type: "mobile",
-		mun: "",
-		purpose:"Confirm"
-	}
-  }).then(({data}) => {
-  	if (data.errorCode == 0) {
-  		this.getVerificationCodeInterval = setInterval(() => {
-	    this.getVerificationCodeCountdown--
-	    if (this.getVerificationCodeCountdown <= 0) {
-	      this.getVerificationCode = false
-	      this.getVerificationCodeCountdown = 60
-	      clearInterval(this.getVerificationCodeInterval)
-	    }
-	  }, 1000)
-  	}
-  	data.errorCode === 1 && (this.verificationCodeWA = '用户未登录')
-    data.errorCode === 2 && (this.verificationCodeWA = '过于频繁')
-    data.errorCode === 3 && (this.verificationCodeWA = '手机验证码发送异常')
-    data.errorCode === 4 && (this.verificationCodeWA = '过于频繁')
-    data.errorCode === 100 && (this.verificationCodeWA = '过于频繁被锁定')
-  }).catch((err) => {
-		this.getVerificationCode = false
-		this.getVerificationCodeCountdown = 60
-		this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
-  })
-
-}
-
-root.methods.re_getVerificationCode = function (data) {
-  if (typeof data === 'string') data = JSON.parse(data)
-}
+// root.methods.re_getVerificationCode = function (data) {
+//   if (typeof data === 'string') data = JSON.parse(data)
+// }
 
 // 关闭验证框
-root.methods.CLOSE_GA_SMS_DIALOG = function () {
-	this.show_ga_sms_dialog = false;
-	this.show_mail = false;
-}
+// root.methods.CLOSE_GA_SMS_DIALOG = function () {
+// 	this.show_ga_sms_dialog = false;
+// 	this.show_mail = false;
+// }
 
-// 认证状态
-root.methods.GET_AUTH_STATE = function () {
-	this.$http.send('GET_AUTH_STATE').then(({data}) => {
-		typeof data === 'string' && (data = JSON.parse(data));
-		let res = data.data;
-    this.$store.commit('SET_AUTH_STATE', data.data)
-		this.identity_type = res;
-		if (res.idType != 'NONE') {
-			this.identity = true;
-		}
-		// 两者都验证了
-		this.bindGA = res.gaAuth;
-		this.bindMobile = res.mobile;
-		this.bindMobile && (this.picked = 'bindMobile');
-		this.bindGA && (this.picked = 'bindGA');
-		if (this.bindGA && this.bindMobile) {
-			this.showPicker = true;
-		}
-
-		this.loading = false
-	}).catch((err) => {
-
-	})
-}
 
 // 谷歌验证那一堆东西 end
 
@@ -854,79 +854,79 @@ root.methods.GET_AUTH_STATE = function () {
 // 邮箱认证那一堆东西 start
 
 // 获取邮箱验证码
-root.methods.GET_MAIL_CODE = function () {
-
-	this.$http.send('ORDER_MAIL_CODE',{
-		params: {
-			type: "email",
-			mun: "",
-			purpose:"Confirm"
-		}
-	}).then(({data}) => {
-		if (data.errorCode == 0) {
-			this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
-			this.getVerificationCodeInterval = setInterval(() => {
-			this.getMailCodeCountdown--
-			this.getMailCode = true;
-			this.sendingEmail = true;
-			if (this.getMailCodeCountdown <= 0) {
-					this.getMailCode = false;
-					this.getMailCodeCountdown = 60
-					clearInterval(this.getVerificationCodeInterval)
-				}
-			}, 1000)
-		}
-	}).catch((err) => {
-		this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval);
-		this.getMailCode = false;
-		this.getMailCodeCountdown = 60;
-	})
-}
+// root.methods.GET_MAIL_CODE = function () {
+//
+// 	this.$http.send('ORDER_MAIL_CODE',{
+// 		params: {
+// 			type: "email",
+// 			mun: "",
+// 			purpose:"Confirm"
+// 		}
+// 	}).then(({data}) => {
+// 		if (data.errorCode == 0) {
+// 			this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval)
+// 			this.getVerificationCodeInterval = setInterval(() => {
+// 			this.getMailCodeCountdown--
+// 			this.getMailCode = true;
+// 			this.sendingEmail = true;
+// 			if (this.getMailCodeCountdown <= 0) {
+// 					this.getMailCode = false;
+// 					this.getMailCodeCountdown = 60
+// 					clearInterval(this.getVerificationCodeInterval)
+// 				}
+// 			}, 1000)
+// 		}
+// 	}).catch((err) => {
+// 		this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval);
+// 		this.getMailCode = false;
+// 		this.getMailCodeCountdown = 60;
+// 	})
+// }
 
 // 验证邮箱验证码
-root.methods.VALID_EMAIL = function () {
-
-	if (!this.mailCode) {
-		this.mailCodeWA = '请输入验证码';
-		return;
-	}
-
-	if (!this.sendingEmail) {
-		this.mailCodeWA = '请先获取验证码';
-		return;
-	}
-
-	this.$http.send('COMMEN_AUTH_FORCTC',{
-		params: {
-			"type": 'email',
-			"code": this.mailCode,
-			"purpose":"Confirm",
-			"id": this.ctc_order.id
-		}
-	}).then(({data}) => {
-		let error = data.errorCode;
-		if (error > 0) {
-			this.INIT_EMAIL();
-			this.mailCodeWA = '请输入正确验证码';
-			return;
-		}
-		this.INIT_EMAIL();
-		this.show_mail = false;
-		this.show_ga_sms_dialog = true;
-		// 关闭弹框
-		this.CLOSE_DIALOG();
-	}).catch((err) => {
-
-	})
-}
+// root.methods.VALID_EMAIL = function () {
+//
+// 	if (!this.mailCode) {
+// 		this.mailCodeWA = '请输入验证码';
+// 		return;
+// 	}
+//
+// 	if (!this.sendingEmail) {
+// 		this.mailCodeWA = '请先获取验证码';
+// 		return;
+// 	}
+//
+// 	this.$http.send('COMMEN_AUTH_FORCTC',{
+// 		params: {
+// 			"type": 'email',
+// 			"code": this.mailCode,
+// 			"purpose":"Confirm",
+// 			"id": this.ctc_order.id
+// 		}
+// 	}).then(({data}) => {
+// 		let error = data.errorCode;
+// 		if (error > 0) {
+// 			this.INIT_EMAIL();
+// 			this.mailCodeWA = '请输入正确验证码';
+// 			return;
+// 		}
+// 		this.INIT_EMAIL();
+// 		this.show_mail = false;
+// 		this.show_ga_sms_dialog = true;
+// 		// 关闭弹框
+// 		this.CLOSE_DIALOG();
+// 	}).catch((err) => {
+//
+// 	})
+// }
 
 // 初始化邮箱信息
-root.methods.INIT_EMAIL = function () {
-	this.sending = false;
-	this.getMailCode = false;
-    this.getMailCodeCountdown = 60;
-    this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval);
-}
+// root.methods.INIT_EMAIL = function () {
+// 	this.sending = false;
+// 	this.getMailCode = false;
+//     this.getMailCodeCountdown = 60;
+//     this.getVerificationCodeInterval && clearInterval(this.getVerificationCodeInterval);
+// }
 
 // 邮箱认证那一堆东西 end
 

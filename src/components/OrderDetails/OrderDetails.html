@@ -213,13 +213,14 @@
 <!--                <em class="order_status" v-if="(detail_type != 1 || detail_type != 4) && ctc_order.status == 1">已取消</em>-->
 <!--                <span v-if="(detail_type != 1 || detail_type != 4) && ctc_order.status == 1">代付款</span>-->
 
-                <span class="clock" v-if="detail_type <= 4"></span>
+                <span class="clock" v-if="(detail_type <= 4)"></span>
 
                 <!-- 倒计时 start -->
 
 
                 <span v-if="(detail_type != 1 || detail_type != 4) && !paying && ctc_order.status == 1">剩余</span>
-                <span id="times" v-if="(detail_type == 1 || detail_type == 4)&& !paying && ctc_order.status != 3"></span>
+                <span id="times" v-if="(detail_type == 1 || detail_type == 4) && !paying && ctc_order.status != 3 "></span>
+<!--                <span id="times" v-if="ctc_order.status != 2 "></span>-->
                 <!-- 倒计时 end -->
 
 

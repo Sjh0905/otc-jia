@@ -177,7 +177,7 @@ root.methods.GET_ORDER_CONDUCT = function (search) {
       this.page = this.page + 1
 
       this.loadingMoreIng = false
-      // this.$eventBus.notify('CPMPLETE_BTN')
+      this.$eventBus.notify('CPMPLETE_BTN')
     }
 		// if (data.code == 200) {
 		// 	this.loading = false;
