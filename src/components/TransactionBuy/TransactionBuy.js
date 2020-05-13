@@ -847,6 +847,11 @@ root.methods.clickConfirmBtn = function () {
           this.popType = 0
           this.popText = '由于广告被广告方修改,该广告已失效,请刷新重试'
           break;
+        case 501:
+          this.popOpen = true
+          this.popType = 0
+          this.popText = '广告信息变更，请刷新重试'
+          break;
         default:
           this.popOpen = true
           this.popType = 0
