@@ -79,7 +79,7 @@
   <!-- 分页插件 end -->
 
   <!-- 加载更多 如果loading结束、已经登录、获取的数据超过了limit，则显示 begin -->
-  <template v-if="showLoadingMore">
+  <template v-if="showLoadingMore && !loading">
     <li class="loading-more">
       <span class="text_blue pointer" v-if="!loadingMoreShow" @click="clickLoadingMore">加载更多</span>
       <span class="text_blue" v-else>{{$t('orderPageHistoricalEntrustment.close_11')}}</span>

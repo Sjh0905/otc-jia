@@ -6,10 +6,10 @@ root.data = function () {
     	loading: true,
 		// 分页
 		maxPage: 1,
-    offset:1,
+    page:1,
 		selectIndex: 1,
     loadingMoreShow:false,
-    showLoadingMore:false,
+    showLoadingMore:true,
 		// 列表
 		list: [],
 
@@ -44,28 +44,27 @@ root.methods = {};
 root.methods.GET_ORDER_CONDUCT = function (search) {
 	this.$http.send('GET_LIST_ORDERS', {
 		query: {
-			offset: this.offset,
-			maxResults: 3,
+			page: this.page,
+			maxResults: 10,
 			// status: 'COMPLETE', //  “PROCESSING”进行中, “COMPLETE”已完成, “CANCEL”已取消
 			status: 3, //   1进行中, 3已完成, 4已取消
 			ctcOrderId: search || '',
 		}
 	}).then(({data}) => {
+    typeof data === 'string' && (data = JSON.parse(data))
+    this.loading = false;
+
 		if (data.code == 200) {
-      typeof data === 'string' && (data = JSON.parse(data))
-			this.loading = false;
-
-
 
       this.list.push(...data.data)
       //
       //
-      if (data.data.length < this.pageSize) {
+      if (data.data.length < 10) {
         this.showLoadingMore = false
       }
       //
       //
-      this.offset = this.offset + 1
+      this.page = this.page + 1
       // this.pageSize = this.pageSize + 1
       //
       // this.loading = false
