@@ -96,7 +96,7 @@ root.data = function () {
 root.created = function () {
 	// 获取认证状态
 	this.GET_AUTH_STATE();
-	// this.GET_ORDER_DETAIL()
+	this.GET_ORDER_DETAIL()
 	// console.log(this.pay_info,'用户名信息')
   this.$eventBus.listen('CPMPLETE_BTN',this.COMPLETE_BTN)
 };
@@ -311,6 +311,7 @@ root.methods.GET_ORDER_DETAIL = function () {
 			this.user_info = !!datas.user && datas.user || {}
 			// this.pay_info = (datas.userType == 1 || datas.userType == 4 )  ? (datas.userPayInfoList || []) : (datas.businessPayInfoList || []);
 			this.pay_info = datas.userPayment
+      console.info(this.pay_info)
 			// 判断用户支付方式有无变化 买入时候需要判断
 			// datas.userType == 1 && this.USER_PAY_INFO(this.ctc_order);
 

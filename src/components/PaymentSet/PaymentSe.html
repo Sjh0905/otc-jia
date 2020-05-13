@@ -883,6 +883,7 @@
     <PopupWindow :open="authStatePopupWindow" :close="closeAuthStatePopupWindow">
       <div slot="header" class="auth-state-header">
         安全提示
+        <img src="../../assets/PopupWindowCancelled.png" alt="" class="pointer" @click="closeAuthStatePopupWindow">
       </div>
       <div slot="article" class="auth-state-article">
         <template v-if="authStatePopupType==1">

@@ -791,7 +791,7 @@ root.methods.confirmReleaseBank = function () {
 
 // 点击添加银行卡支付
 root.methods.clickAddBankPay = function () {
-  // if (!this.openAuthStatePopupWindow()) return
+  if (!this.openAuthStatePopupWindow()) return
 
   this.bindBankPopupWindowOpen = true
   this.bindBankPopupWindowStep = 1
@@ -805,7 +805,7 @@ root.methods.clickAddBankPay = function () {
 
 // 点击修改银行卡支付
 root.methods.clickModifyBankPay = async function (item) {
-  // if (!this.openAuthStatePopupWindow()) return
+  if (!this.openAuthStatePopupWindow()) return
   this.bindBankPopupWindowOpen = true
   console.log('item=======',item)
   this.bindBankPopupWindowStep = 1
@@ -1185,6 +1185,7 @@ root.methods.beginVerify = function (type) {
   this.GACode = ''
   this.verifyType = type
   this.secondVerifyOpen = true
+  this.bindBankPopupWindowOpen = false
   this.click_send()
 }
 

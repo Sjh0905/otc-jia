@@ -110,7 +110,7 @@
 <!--                  <span v-if="item.type == 'ALIPAY'">支付宝:</span>-->
 <!--                </div>-->
                 <!-- <div class="border_radius" :class="item.type == 'BANKCARD' ? 'card' : 'alipay'"> -->
-                <div class="border_radius card" :class="pay_info.bankStyle == 1 ? 'blue' : (pay_info.bankStyle == 2 ? 'green' : 'yellow')">
+                <div class="border_radius card" :class="pay_info.bankType == 1 ? 'blue' : (pay_info.bankType == 2 ? 'green' : 'yellow')">
 <!--                  <div class="card_item" v-show="item.type == 'BANKCARD'">-->
                   <div class="card_item">
                     <span v-if="ctc_order.sellerId != userId">卖家姓名: </span>

@@ -38,6 +38,11 @@ root.computed = {};
 root.computed.isMobile = function () {
   return this.$store.state.isMobile
 }
+// 认证状态-实名认证
+root.computed.identity = function () {
+  if(this.$store.state.authState.idType !='NONE')return true
+  return false
+}
 // 判断路由显示
 // root.computed.isRoute = function(){
 // 		 let route=this.$route.redirectedFrom
@@ -53,6 +58,7 @@ root.methods.GET_USER_AUTH_INFO = function () {
 		let auth_info = data.data;
 		this.auth_info = auth_info;
 
+    this.$store.commit('SET_AUTH_STATE', data.data)
 		// for (let item in auth_info.BOND) {
 		// 	this.key_amount.name = item;
 		// 	this.key_amount.value = auth_info.BOND[item];
@@ -63,6 +69,7 @@ root.methods.GET_USER_AUTH_INFO = function () {
 		if (auth_info.audits == 2) {
 			this.$router.push({name: 'BusinessCenter'});
 		}
+
 	}).catch((err) => {
 		// this.popOpen = true;
 		// this.popText = '请稍后重试';
