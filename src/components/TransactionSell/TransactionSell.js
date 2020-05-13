@@ -947,6 +947,11 @@ root.methods.clickConfirmBtn = function () {
           this.popType = 0
           this.popText = '用户被禁用'
           break;
+        case 501:
+          this.popOpen = true
+          this.popType = 0
+          this.popText = '广告信息变更，请刷新重试'
+          break;
         default:
           this.popOpen = true
           this.popType = 0
