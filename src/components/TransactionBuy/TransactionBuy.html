@@ -2,53 +2,56 @@
 
 <div class="TransactionBuy">
 
- <div class="usdtprice" >
-    <div class="usdtprice2">
-        <span class="usdtpriceaaa1">一键买币</span>
-        <!-- <span class="usdtpriceaaa2"> 7.02 CNY/USDT</span> -->
-        <span class="usdtpriceaaa3">小额快速交易，0手续费</span>
-      </div>
-    <div>
 
-   <div class="buymoney02">
-     <el-select v-model="value" placeholder="请选择" class="buymoney03">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-     <!-- <div class="buytt">购买金额</div> -->
-     <div class="buywrite" v-if="value=='选项1'">
-       <div class="buywrite01">
-         <input class="inputbuyje" placeholder="请输入购买金额"  @input="abindInputCNY" v-model="inputCNY" type="text" />
-         <!-- <input class="buy-toast-item-input border_radius text_green strong" @input="bindInputCNY" v-model="inputCNY" type="text"> -->
-       </div>
-       <div class="buywrite02">
-         CNY
-       </div>
-     </div>
-     <div class="buywrite" v-if="value=='选项2'">
-        <div class="buywrite01">
-          <!-- <input class="buy-toast-item-input border_radius strong" @input="bindInputNum" v-model="inputNum" type="text"> -->
-          <input class="inputbuyje"  placeholder="请输入购买数量" @input="abindInputNum" v-model="inputNum" type="text"/>
-        </div>
-        <div class="buywrite02">
-          USDT
-        </div>
-   </div>
+<!--  sss屏蔽开始5.13-->
+<!-- <div class="usdtprice" >-->
+<!--    <div class="usdtprice2">-->
+<!--        <span class="usdtpriceaaa1">一键买币</span>-->
+<!--        &lt;!&ndash; <span class="usdtpriceaaa2"> 7.02 CNY/USDT</span> &ndash;&gt;-->
+<!--        <span class="usdtpriceaaa3">小额快速交易，0手续费</span>-->
+<!--      </div>-->
+<!--    <div>-->
 
-   </div>
-   <button class="buutton" @click="aKeyToBuy(); clickToConfirmBuy()">
-     <img class="imgs" src="../../assets/c2c_form_icon/bolt.png" alt="">
-    购买USDT
-   </button>
-  </div>
-   <!-- <div class="buutton">
-       购买USDT
-   </div> -->
- </div>
+<!--   <div class="buymoney02">-->
+<!--     <el-select v-model="value" placeholder="请选择" class="buymoney03">-->
+<!--        <el-option-->
+<!--          v-for="item in options"-->
+<!--          :key="item.value"-->
+<!--          :label="item.label"-->
+<!--          :value="item.value">-->
+<!--        </el-option>-->
+<!--      </el-select>-->
+<!--     &lt;!&ndash; <div class="buytt">购买金额</div> &ndash;&gt;-->
+<!--     <div class="buywrite" v-if="value=='选项1'">-->
+<!--       <div class="buywrite01">-->
+<!--         <input class="inputbuyje" placeholder="请输入购买金额"  @input="abindInputCNY" v-model="inputCNY" type="text" />-->
+<!--         &lt;!&ndash; <input class="buy-toast-item-input border_radius text_green strong" @input="bindInputCNY" v-model="inputCNY" type="text"> &ndash;&gt;-->
+<!--       </div>-->
+<!--       <div class="buywrite02">-->
+<!--         CNY-->
+<!--       </div>-->
+<!--     </div>-->
+<!--     <div class="buywrite" v-if="value=='选项2'">-->
+<!--        <div class="buywrite01">-->
+<!--          &lt;!&ndash; <input class="buy-toast-item-input border_radius strong" @input="bindInputNum" v-model="inputNum" type="text"> &ndash;&gt;-->
+<!--          <input class="inputbuyje"  placeholder="请输入购买数量" @input="abindInputNum" v-model="inputNum" type="text"/>-->
+<!--        </div>-->
+<!--        <div class="buywrite02">-->
+<!--          USDT-->
+<!--        </div>-->
+<!--   </div>-->
+
+<!--   </div>-->
+<!--   <button class="buutton" @click="aKeyToBuy(); clickToConfirmBuy()">-->
+<!--     <img class="imgs" src="../../assets/c2c_form_icon/bolt.png" alt="">-->
+<!--    购买USDT-->
+<!--   </button>-->
+<!--  </div>-->
+<!--   &lt;!&ndash; <div class="buutton">-->
+<!--       购买USDT-->
+<!--   </div> &ndash;&gt;-->
+<!-- </div>-->
+  <!--  sss屏蔽结束5.13-->
 
 
 <!--  一键卖币-->
