@@ -2,7 +2,9 @@
 
 	<div class="order_container border_radius min-width box1">
 		<div class="order_title"><span class="imgs"><img src="../../assets/c2c_transaction/USDT.png" alt=""></span>
-      <span class="go_history go_history1 ">购买USDT</span>  <span class="numbers" >
+      <span class="go_history go_history1" v-if="ctc_order.sellerId == userId">出售USDT</span>
+      <span class="go_history go_history1" v-if="ctc_order.sellerId != userId">购买USDT</span>
+      <span class="numbers" >
         单号:	{{ctc_order.orderNo}}
       </span></div>
 		<Loading v-show="loading" />
