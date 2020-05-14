@@ -86,13 +86,23 @@
 }
 .create_time{
   width: 20%;
-  text-align: right;
+  /*text-align: right;*/
 }
 .cannel_time{
-  width: 18%;
-  text-align: center;
+  width: 21%;
+  /*text-align: center;*/
   position: relative;
 }
+
+.tax {
+  /*padding-right: 20px;*/
+  text-align: right;
+}
+.cannel_time_btnSpan {
+  display:inline-block;
+  padding: 10px 10px;
+}
+
 .cannel_time_btn{
   /* position: absolute; */
   /* display: block; */

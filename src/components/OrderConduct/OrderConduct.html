@@ -23,10 +23,11 @@
         <div class="create_time">
           时间
         </div>
+        <div class="cannel_time tax">
+          操作
+        </div>
       </div>
-      <div class="cannel_time">
-        操作
-      </div>
+
     </div>
     <div class="order_conduct_tbody">
       <Loading v-if="loading" />
@@ -70,36 +71,44 @@
           <div class="create_time">
             {{$globalFunc.formatDateUitl(item.createdAt, 'YYYY-MM-DD hh:mm:ss')}}
           </div>
+
+
+          <div class="cannel_time tax">
+            <!--            <button class="cannel_time_btn border_radius" v-if="item.sellerId == userId && (item.status == '1'||item.status == '2')" @click="COMFIRM_BTN(item)">-->
+            <button class="cannel_time_btn border_radius" v-if="item.sellerId == userId && (item.status == '1'||item.status == '2')">
+              <!--              确认已收款-->
+              查看详情
+            </button>
+            <!--            <button class="cannel_time_btn border_radius" v-if="item.sellerId != userId && item.status == '1'" @click="COMFIRM_BTN(item)">-->
+            <button class="cannel_time_btn border_radius" v-if="item.sellerId != userId && item.status == '1'">
+              <!--              确认已付款-->
+              查看详情
+            </button>
+            <!-- 买单确认收付款 start -->
+            <!--          <button class="cannel_time_btn border_radius disabled" v-if="item.type == 'BUY' && item.status != '2'">-->
+            <button class="cannel_time_btn border_radius disabled" v-if="item.sellerId != userId && item.status == '2'">
+              处理中
+            </button>
+            <button class="cannel_time_btn border_radius disabled" v-if="item.status == '7'">
+              联系客服处理
+            </button>
+            <button class="cannel_time_btn border_radius disabled" v-if="item.status == '5'">
+              申诉中
+            </button>
+            <button class="cannel_time_btn border_radius disabled" v-if="item.status == '6'">
+              放币中
+            </button>
+            <button class="cannel_time_btn border_radius disabled" v-if="item.status == '8'">
+              申诉处理完成
+            </button>
+            <button class="cannel_time_btn border_radius disabled" v-if="item.status == '9'">
+              申诉取消
+            </button>
+            <!-- 买单确认收付款 end -->
           </div>
-        <div class="cannel_time">
-          <button class="cannel_time_btn border_radius" v-if="item.sellerId == userId && (item.status == '1'||item.status == '2')" @click="COMFIRM_BTN(item)">
-            确认已收款
-          </button>
-          <button class="cannel_time_btn border_radius" v-if="item.sellerId != userId && item.status == '1'" @click="COMFIRM_BTN(item)">
-            确认已付款
-          </button>
-          <!-- 买单确认收付款 start -->
-<!--          <button class="cannel_time_btn border_radius disabled" v-if="item.type == 'BUY' && item.status != '2'">-->
-          <button class="cannel_time_btn border_radius disabled" v-if="item.sellerId != userId && item.status == '2'">
-            处理中
-          </button>
-          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '7'">
-            联系客服处理
-          </button>
-          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '5'">
-            申诉中
-          </button>
-          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '6'">
-            放币中
-          </button>
-          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '8'">
-            申诉处理完成
-          </button>
-          <button class="cannel_time_btn border_radius disabled" v-if="item.status == '9'">
-            申诉取消
-          </button>
-          <!-- 买单确认收付款 end -->
-        </div>
+          </div>
+
+
       </div>
 
 
