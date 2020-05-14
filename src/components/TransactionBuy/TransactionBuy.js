@@ -167,7 +167,9 @@ root.computed.isMobile = function () {
 // }
 // 判断是否登录
 root.computed.isLogin = function () {
-  return this.$store.state.isLogin;
+  if (this.$store.state.authState.userId !== '') return true
+  return false
+  // return this.$store.state.isLogin;
 }
 // 订单id
 root.computed.ctcOrderId = function () {

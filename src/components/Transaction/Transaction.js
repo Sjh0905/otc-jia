@@ -60,7 +60,9 @@ root.computed.buyOrSell = function () {
 }
 
 root.computed.isLogin = function () {
-  return this.$store.state.isLogin;
+  if (this.$store.state.authState.userId !== '') return true
+  return false
+  // return this.$store.state.isLogin;
 }
 
 // 用户USDT的可用余额
