@@ -7,7 +7,7 @@ root.data = function () {
 		// 支付数量和币种
 		key_amount: {},
 		// 同意商家认证协议
-		agree: false,
+		agree: true,
 		// 用户认证信息
 		auth_info: {},
 		// dialog
@@ -91,11 +91,6 @@ root.methods.getSystemArgs = function () {
 // 确认同意协议
 root.methods.changeAgreement = function () {
   this.agree = !this.agree
-  // if (this.auth_info.audits == 0) {
-  //   this.agree = true
-  // }else {
-  //   this.agree = !this.agree
-  // }
 }
 // 提交申请
 root.methods.APPLY_SUBMIT = function () {
