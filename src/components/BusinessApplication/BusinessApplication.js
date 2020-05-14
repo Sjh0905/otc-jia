@@ -91,6 +91,11 @@ root.methods.getSystemArgs = function () {
 // 确认同意协议
 root.methods.changeAgreement = function () {
   this.agree = !this.agree
+  // if (this.auth_info.audits == 0) {
+  //   this.agree = true
+  // }else {
+  //   this.agree = !this.agree
+  // }
 }
 // 提交申请
 root.methods.APPLY_SUBMIT = function () {
@@ -121,6 +126,7 @@ root.methods.APPLY_SUBMIT = function () {
 	    return false;
 	}
 
+
 	this.$http.send('APPLY_BUSINESS', {
 		params: {
 			// currency: this.currency == 1 && this.key_amount.name,
@@ -131,6 +137,8 @@ root.methods.APPLY_SUBMIT = function () {
 		// console.log(data);
 		let self = this;
 		let err = data.code;
+
+
 		let notice = ['请先登录账号','请先完成实名认证','请先绑定手机号或谷歌','请先绑定银行卡', '商家的可用余额小于保证金金额', '提交成功'];
 		switch (err) {
 			// case 1:

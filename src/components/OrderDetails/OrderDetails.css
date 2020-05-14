@@ -339,16 +339,21 @@
   border: 1px solid #E7EBEE;
   border-radius: 2px;
   padding: 27px;
-  padding-bottom: 10px;
+  /*padding-bottom: 10px;*/
   margin-left: -37px;
   color: #172A4D;
 }
 .order_times{
 	float: left;
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 }
+
 .order_times font{
 	color: #ED7265;
+}
+
+.noDiv {
+  margin-bottom: 15px;
 }
 .fontsz{
   font-size: 18px;

@@ -87,7 +87,7 @@
             <!-- 买单确认收付款 start -->
             <!--          <button class="cannel_time_btn border_radius disabled" v-if="item.type == 'BUY' && item.status != '2'">-->
             <button class="cannel_time_btn border_radius disabled" v-if="item.sellerId != userId && item.status == '2'">
-              处理中
+              商家处理中
             </button>
             <button class="cannel_time_btn border_radius disabled" v-if="item.status == '7'">
               联系客服处理
