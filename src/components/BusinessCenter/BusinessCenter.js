@@ -189,6 +189,7 @@ root.watch.buyInputNum = function (newVal, oldVal) {
   if(newVal != oldVal && this.feeRate > 0 && this.buyInputNum > 0){
     this.buyFee = this.accMul(this.feeRate, this.buyInputNum)
     this.buyActuallyArrived = this.accMinus(this.buyInputNum,this.buyFee)
+    this.buyActuallyArrived = this.buyInputNum
   }
 }
 root.watch.sellInputNum = function (newVal, oldVal) {
@@ -200,7 +201,13 @@ root.watch.sellInputNum = function (newVal, oldVal) {
   }
   if(newVal != oldVal && this.feeRate > 0 && this.sellInputNum > 0){
     this.sellFee = this.accMul(this.feeRate, this.sellInputNum)
-    this.sellActualSale = this.accMinus(this.sellInputNum,this.sellFee)
+    if(this.accMinus(this.accAdd(this.sellInputNum,this.sellFee),this.USDTAvailable) > 0){
+      this.popOpen = true
+      this.popType = 0
+      this.popText = '可用余额不足'
+      return
+    }
+    this.sellActualSale = this.sellInputNum
   }
 }
 root.watch.currencyChange = function (newVal, oldVal) {
@@ -361,6 +368,13 @@ root.methods.testSellInputPrice = function () {
   //   this.popText = '价格不允许超过时价20%或低于时价20%，请重新输入正确价格'
   //   return false
   // }
+  if(this.accMinus(this.accAdd(this.sellInputNum,this.sellFee),this.USDTAvailable) > 0){
+    this.popOpen = true
+    this.popType = 0
+    this.popText = '可用余额不足'
+    return false
+  }
+
   return true
 }
 // blur商家购买的数量的input框后的验证
