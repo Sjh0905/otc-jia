@@ -188,8 +188,8 @@ root.watch.buyInputNum = function (newVal, oldVal) {
   }
   if(newVal != oldVal && this.feeRate > 0 && this.buyInputNum > 0){
     this.buyFee = this.accMul(this.feeRate, this.buyInputNum)
-    // this.buyActuallyArrived = this.accMinus(this.buyInputNum,this.buyFee)
-    this.buyActuallyArrived = this.buyInputNum
+    this.buyActuallyArrived = this.accMinus(this.buyInputNum,this.buyFee)
+    // this.buyActuallyArrived = this.buyInputNum
   }
 }
 root.watch.sellInputNum = function (newVal, oldVal) {
