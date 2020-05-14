@@ -160,7 +160,9 @@ root.computed.isMobile = function () {
 }
 
 root.computed.isLogin = function () {
-  return this.$store.state.isLogin;
+  if (this.$store.state.authState.userId !== '') return true
+  return false
+  // return this.$store.state.isLogin;
 }
 
 root.computed.userId = function () {

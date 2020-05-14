@@ -246,10 +246,10 @@ root.data = function () {
 
 root.created = function () {
   // 获取小红点
-  if (this.isLogin) {
+  // if (this.isLogin) {
     // this.getNoticeRedPoint()
     // this.getAuthState()
-  }
+  // }
   // if (!this.isLogin) {
   //   this.$store.commit('changeNoticeRedPoint', false);
   // }
@@ -367,7 +367,9 @@ root.computed.mobileHeaderTitle = function () {
 
 // 是否登录
 root.computed.isLogin = function () {
-  if (this.$store.state.isLogin) return true
+  // if (this.$store.state.isLogin) return true
+  // return false
+  if (this.$store.state.authState.userId !== '') return true
   return false
 }
 
