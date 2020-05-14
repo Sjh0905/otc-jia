@@ -190,7 +190,7 @@ root.watch.buyInputNum = function (newVal, oldVal) {
     this.buyFee = this.accMul(this.feeRate, this.buyInputNum)
     this.buyActuallyArrived = this.accMinus(this.buyInputNum,this.buyFee)
     // this.buyActuallyArrived = this.buyInputNum
-  }s
+  }
 }
 root.watch.sellInputNum = function (newVal, oldVal) {
   // console.log('newVal',newVal,'oldVal',oldVal);
