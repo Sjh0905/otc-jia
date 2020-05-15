@@ -77,7 +77,10 @@
         <!--</span>-->
           <BaseCheckBox :agreement="agree" :changeAgreement='changeAgreement'/>
           <div class="bussiness_agree_to_pay" @click="changeAgreement">同意缴纳商家保证金{{key_amount.value}}{{key_amount.name}}</div>，且同意
-          <router-link to="/index/MerchantsProtocol" class="text_yellow">《商家认证协议》</router-link>
+         <span>
+           <a href="https://www.2020.exchange/index/notice/noticeDetail?columnId=4&id=100690" class="text_yellow">《商家认证协议》</a>
+         </span>
+<!--          <router-link to="/index/MerchantsProtocol" class="text_yellow">《商家认证协议》</router-link>-->
           <!-- <span class="text_yellow">《商家认证协议》。</span> -->
         </div>
       </div>
@@ -86,7 +89,7 @@
         提交申请
       </div>
       <div class="bussiness_small4 btn_blue_disabled" v-if="auth_info.audits == 0">
-        审核中
+        待审核
       </div>
 
       <!--<div class="bussiness_small4 btn_blue" @click="APPLY_SUBMIT" v-if="!APPLY_SUBMIT">提交申请</div>-->

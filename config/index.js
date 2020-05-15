@@ -13,7 +13,8 @@ module.exports = {
     proxyTable: {
       '/otc': {
         // target: 'https://valuepay.easybtc.io/',
-        target: 'http://otc.2020-ex.com',
+        // target: 'http://otc.2020-ex.com',
+        target: 'https://otc.2020.exchange',
         // target: 'http://10.113.8.21:8010',
         changeOrigin: true,
         // pathRewrite: {//TODO:连接测试用这个
@@ -36,7 +37,8 @@ module.exports = {
       // },
       '/apis': {
         // target: 'https://valuepay.easybtc.io/',
-        target: 'http://www.2020-ex.com',
+        // target: 'http://www.2020-ex.com',
+        target: 'https://www.2020.exchange',
         changeOrigin: true,
         pathRewrite: {//TODO:连接测试用这个
           '^/apis': ''

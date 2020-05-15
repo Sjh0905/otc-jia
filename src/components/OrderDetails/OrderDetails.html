@@ -2,7 +2,9 @@
 
 	<div class="order_container border_radius min-width box1">
 		<div class="order_title"><span class="imgs"><img src="../../assets/c2c_transaction/USDT.png" alt=""></span>
-      <span class="go_history go_history1 ">购买USDT</span>  <span class="numbers" >
+      <span class="go_history go_history1" v-if="ctc_order.sellerId == userId">出售USDT</span>
+      <span class="go_history go_history1" v-if="ctc_order.sellerId != userId">购买USDT</span>
+      <span class="numbers" >
         单号:	{{ctc_order.orderNo}}
       </span></div>
 		<Loading v-show="loading" />
@@ -182,11 +184,13 @@
               </div> -->
             </div>
           </div>
-          <div class="no_btc_eth_tips">
+          <div class="no_btc_eth_tips" >
 <!--            付款时请备注付款码，请不要备注比特币、以太坊、BTC、ETH、USDT、数字货币、区块链等敏感词汇，否则银行卡会有被冻结风险，请谨慎操作。-->
-            <p>1.请使用手机银行或网上银行给卖家进行转账，账完成后，请点击“确认已付款”，收款后卖家会放币；</p>
-            <p>2.转账时请不要备注类似：比特币、以太坊、数字货币、BTC、ETH、USDT等信息，否则银行卡有被冻结的风险；</p>
-            <p>3.未转账付款给卖家之前，请勿点击“确认已付款”，未付款之前，恶意点击，遭到投诉，平台将冻结账户处理。</p>
+            <div class="noDiv" v-if="(detail_type == 1 || detail_type == 4) && paying==false && ctc_order.status == 1 && ctc_order.sellerId != userId">
+              <p>1.请使用手机银行或网上银行给卖家进行转账，账完成后，请点击“确认已付款”，收款后卖家会放币；</p>
+              <p>2.转账时请不要备注类似：比特币、以太坊、数字货币、BTC、ETH、USDT等信息，否则银行卡有被冻结的风险；</p>
+              <p>3.未转账付款给卖家之前，请勿点击“确认已付款”，未付款之前，恶意点击，遭到投诉，平台将冻结账户处理。</p>
+            </div>
             <div class="order_tips">
               <div class="order_times">
                 <!-- 收付款详情界面 start -->

@@ -7,7 +7,7 @@ root.data = function () {
 		// 支付数量和币种
 		key_amount: {},
 		// 同意商家认证协议
-		agree: false,
+		agree: true,
 		// 用户认证信息
 		auth_info: {},
 		// dialog
@@ -121,6 +121,7 @@ root.methods.APPLY_SUBMIT = function () {
 	    return false;
 	}
 
+
 	this.$http.send('APPLY_BUSINESS', {
 		params: {
 			// currency: this.currency == 1 && this.key_amount.name,
@@ -131,6 +132,8 @@ root.methods.APPLY_SUBMIT = function () {
 		// console.log(data);
 		let self = this;
 		let err = data.code;
+
+
 		let notice = ['请先登录账号','请先完成实名认证','请先绑定手机号或谷歌','请先绑定银行卡', '商家的可用余额小于保证金金额', '提交成功'];
 		switch (err) {
 			// case 1:

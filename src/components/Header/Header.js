@@ -592,9 +592,11 @@ root.methods.goOutRegain = function () {
 }
 
 root.methods.reFresh  = function () {
-  if (this.$route.name == 'home') {
-    this.$router.go(0)
-  }
+  // if (this.$route.name == 'home') {
+  //   this.$router.go(0)
+  // }
+  window.location.replace(this.$store.state.domain_url + 'index/home')
+
 }
 
 
@@ -1135,14 +1137,14 @@ root.methods.goNotice = function (res) {
   // window.open(res)
   console.info(res)
   // this.$router.push({path: '/index/notice/noticeDetail',  query: {columnId:'0' , id: res}})
-  window.location.reload(this.$store.state.domain_url+ 'index/notice/noticeDetail?columnId=0&id='+res)
+  window.location.replace(this.$store.state.domain_url + 'index/notice/noticeDetail?columnId=0&id='+res)
 }
 
 root.methods.goToNoticeCenter = function (id) {
   // if(this.$route.name  == 'notice') {
   //   this.$eventBus.notify({key: 'GET_NOTICE_LIST'},id);
   // }
-  window.location.reload(this.$store.state.domain_url+'index/notice?columnId=' + id)
+  window.location.replace(this.$store.state.domain_url+'index/notice?columnId=' + id)
   // this.$router.push({name: 'notice', query: {columnId: id}})
 }
 //
