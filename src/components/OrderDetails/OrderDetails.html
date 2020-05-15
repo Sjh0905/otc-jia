@@ -364,12 +364,15 @@
           </div>
           <div class="user_info_item flex">
             <div class="user_info_item_label">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额：</div>
-            <div class="user_info_item_detail">{{$globalFunc.accFixed(ctc_order.amount * ctc_order.price,2)}} CNY</div>
+<!--            <div class="user_info_item_detail">{{$globalFunc.accFixed(ctc_order.amount * ctc_order.price,2)}} CNY</div>-->
+            <div class="user_info_item_detail">{{ctc_order.totalAmount}}  CNY</div>
           </div>
           <div class="user_info_item flex">
             <div class="user_info_item_label">{{ctc_order.sellerId == userId ? '买家姓名:' : '卖家姓名:'}}</div>
 <!--            <div class="user_info_item_detail">{{ctc_order.sellerId == userId?user_info.name:pay_info[0].userName}}</div>-->
-            <div class="user_info_item_detail">{{pay_info.userName}}</div>
+<!--            <div class="user_info_item_detail">{{pay_info.userName}}</div>-->
+            <div class="user_info_item_detail" v-if="ctc_order.sellerId == userId">{{ctc_order.buyName}}</div>
+            <div class="user_info_item_detail" v-if="ctc_order.sellerId != userId">{{ctc_order.sellName}}</div>
           </div>
         </div>
         <div class="user_notice" v-if="ctc_order.sellerId != userId">
