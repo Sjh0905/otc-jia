@@ -81,7 +81,7 @@ root.methods.getSystemArgs = function () {
 		console.log(data,"获取配置信息");
 		let securityDeposit = data.data || {};
         this.key_amount.name = securityDeposit.marginCurrency || "TT";
-        this.key_amount.value = securityDeposit.marginAmount || 2020;
+        this.key_amount.value = (securityDeposit.marginAmount == 0 ? 0: securityDeposit.marginAmount)|| '--';
 		this.loading = false;
 	}).catch((err) => {
 		// this.popOpen = true;
