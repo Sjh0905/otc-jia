@@ -1,6 +1,6 @@
 let fileName = process.env.fileName
 if (!fileName) {
-  console.warn('请输入名为 fileName 的变量，如 fileName=xxx ');
+  // console.warn('请输入名为 fileName 的变量，如 fileName=xxx ');
   return
 }
 let basePath = './src/components'
@@ -78,7 +78,7 @@ async function go() {
       if (!ans) continue
     }
 
-    console.warn(`开始创建文件${fileName}.${v.postfix}！`);
+    // console.warn(`开始创建文件${fileName}.${v.postfix}！`);
     fs.writeFile(`${path}/${fileName}.${v.postfix}`, v.content(fileName), function(err) {
       if (err) {
         return console.error(err);

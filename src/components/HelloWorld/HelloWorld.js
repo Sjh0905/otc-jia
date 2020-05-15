@@ -43,7 +43,7 @@ root.methods = {}
 
 root.methods.aNetwork = function () {
   this.$http.send('TEST_A_COOKIES').then(({data}) => {
-    console.warn('a 请求返回的结果', data)
+    // console.warn('a 请求返回的结果', data)
 
   }).catch((err) => {
     console.warn('a 请求出错', err)
@@ -52,7 +52,7 @@ root.methods.aNetwork = function () {
 
 root.methods.bNetwork = function () {
   this.$http.send('TEST_B_COOKIES').then(({data}) => {
-    console.warn('b 请求返回的结果', data)
+    // console.warn('b 请求返回的结果', data)
 
   }).catch((err) => {
     console.warn('b 请求出错', err)

@@ -1151,7 +1151,7 @@ root.methods.GET_NOTICE = function () {
 //公告跳转zendesk
 root.methods.goNotice = function (res) {
   // window.open(res)
-  console.info(res)
+  // console.info(res)
   // this.$router.push({path: '/index/notice/noticeDetail',  query: {columnId:'0' , id: res}})
   window.location.replace(this.$store.state.domain_url + 'index/notice/noticeDetail?columnId=0&id='+res)
 }

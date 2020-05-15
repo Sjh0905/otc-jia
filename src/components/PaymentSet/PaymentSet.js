@@ -180,7 +180,7 @@ root.computed.removeDefaultBankCardList = function () {
   let newArr = this.bankList.slice(0).filter(v => {
     return v.isShow === true
   })
-  console.info('newArr=====',newArr)
+  // console.info('newArr=====',newArr)
   return newArr
   // return [
   //   // {
@@ -624,7 +624,7 @@ root.methods.getBankList = function () {
     .then(({data}) => {
       // console.log(data)
       typeof data === 'string' && (data = JSON.parse(data))
-      console.warn('获取银行列表', data)
+      // console.warn('获取银行列表', data)
       this.defaultList = data.data
 
       this.bankSelectListReady = true
@@ -853,12 +853,12 @@ root.methods.addBankPay = function (method, code) {
     'method': method,
     'code': code,
   }))
-  console.info('formData======',formData)
+  // console.info('formData======',formData)
 
   this.$http.sendFile('ADD_PAYMENT_INFO', formData)
     .then(async ({data}) => {
       typeof data === 'string' && (data = JSON.parse(data))
-      console.warn('绑定银行卡', data)
+      // console.warn('绑定银行卡', data)
       if (data.code) {
         let message = ''
         switch (data.code) {
