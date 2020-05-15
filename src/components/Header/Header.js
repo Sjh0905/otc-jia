@@ -365,13 +365,26 @@ root.computed.mobileHeaderTitle = function () {
   return this.$store.state.mobileHeaderTitle;
 }
 
-// 是否登录
+// // 是否登录
+// root.computed.isLogin = function () {
+//   // if (this.$store.state.isLogin) return true
+//   // return false
+//   if (this.$store.state.authState.userId !== '') return true
+//   return false
+// }
+
 root.computed.isLogin = function () {
-  // if (this.$store.state.isLogin) return true
-  // return false
+  return this.$store.state.isLogin;
   if (this.$store.state.authState.userId !== '') return true
   return false
+
+  // 是否登录
+  // if (!this.isLogin) {
+  //   window.location.replace(this.$store.state.domain_url + 'index/sign/login?symbol=ETH_USDT');
+  //   return
+  // }
 }
+
 
 // // 是否显示右侧菜单
 // root.computed.changePopOpen = function () {
@@ -587,7 +600,8 @@ root.methods.goOutRegain = function () {
     }
   ).then(({data}) => {
     this.$store.commit('LOGIN_OUT');
-    window.location.reload();
+    // window.location.reload();
+    window.location.replace(this.$store.state.domain_url + 'index/sign/login')
   })
 }
 
@@ -786,6 +800,8 @@ root.methods.re_login_off_callback = function ({data}) {
   alert('123123123');
   this.$store.commit('LOGIN_OUT');
   window.location.reload();
+  window.location.replace(this.$store.state.domain_url + 'index/sign/login')
+
   // this.$router.push('index/sign/login')
   // window.location.replace(this.$store.state.domain_url + 'index/sign/login');
 }

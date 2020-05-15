@@ -367,6 +367,10 @@ root.methods.getAuthState = function () {
         if (!data) return
 
         this.$store.commit('SET_AUTH_STATE', data.data)
+
+        // if (data.code == 401) {
+        //   this.$store.commit('LOGIN_OUT',this.isLogin = false);
+        // }
       }).catch((err) => {
         console.log('err', err)
       });
