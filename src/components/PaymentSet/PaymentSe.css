@@ -556,6 +556,11 @@
   box-sizing: border-box;
 }
 
+.input-item-input-container >>> .dropdown-menu {
+  max-height: 320px !important;
+  overflow:scroll !important;
+}
+
 .input-item-input-container >>> .dropdown-toggle .vs__selected-options {
   height: 40px;
   padding: 0;
