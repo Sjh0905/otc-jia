@@ -189,6 +189,8 @@ root.data = function () {
     languageFlag: 'language-img-china',
     notice_tips: this.$store.state.lang == 'CH' ? 'TwentyTwenty 上线IOST，送币活动火热开启！活动期间注册、充值IOST送IOST,数量有限，先到先得！交易前50名更有IOST奖励，最高4万IOST！' : 'TwentyTwenty  lists IOST, get IOST bonus now! Register during the event, make a deposit, will get IOST bonus! Whoever comes first will get the bonus, until all are given out. Top 50 members with high IOST transaction volume will get up-to 40,000 IOST!',
     noticeInterval: '',
+    //获取认证状态定时器
+    authStateInterval: null,
     // 语言按钮切换
     jtval:false,
     // 钱包按钮切换
@@ -268,6 +270,11 @@ root.created = function () {
   this.getAuthState()
 
   // this.$eventBus.listen(this, 'CHECK_IS_VIP', this.getCheck);
+
+  this.authStateInterval && clearInterval(this.authStateInterval)
+  this.authStateInterval = setInterval(() => {
+    this.getAuthState();
+  }, 5000)
 
 }
 
@@ -488,7 +495,7 @@ root.watch.redPoint = function (newValue, oldValue) {
     this.noticeInterval = setInterval(() => {
       this.getNoticeRedPoint()
     }, 600000)
-  }2
+  }
 }
 
 
@@ -498,11 +505,17 @@ root.methods = {}
 
 // 获取用户的绑定信息
 root.methods.getAuthState = function () {
-  if (!this.$store.state.authState) {
+  // if (!this.$store.state.authState) {
     this.$http.send('GET_AUTH_STATE')
       .then(({data}) => {
         typeof data === 'string' && (data = JSON.parse(data))
-        if (!data) return
+        if (!data || data.code == 401){
+          // console.log('在检测~~~~~~~~~~~~~~~~~~~~~~~~~~~~~已经退出登录');
+          // window.location.reload();
+          this.$store.commit('SET_AUTH_STATE', {})
+          return
+        }
+        // console.log("之前的信息是",this.$store.state.authState && this.$store.state.authState.userId,"新的信息是",data.data.userId);
         // this.userName = this.$globalFunc.formatUserName(data.data.number)
         // this.flag = data.data.memeber
         // this.authType = data.data.idType
@@ -512,7 +525,7 @@ root.methods.getAuthState = function () {
       console.log('err', err)
     });
     return
-  }
+  // }
 }
 
 //跳转到行情页面
