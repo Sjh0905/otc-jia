@@ -363,7 +363,7 @@ root.methods.getAuthState = function () {
       .then(({data}) => {
         typeof data === 'string' && (data = JSON.parse(data))
 
-        console.log('authdata',data.data)
+        // console.log('authdata',data.data)
         if (!data) return
         this.$store.commit('SET_AUTH_STATE', data.data)
         // console.log('authdata',this.$store.state.authState)
@@ -404,13 +404,13 @@ root.methods.getPageList = function () {
     }
   }).then(({data}) => {
     typeof res === 'string' && (res = JSON.parse(res))
-    console.log('data', data)
+    // console.log('data', data)
     // this.loading = false
     this.pageListAjaxLoading = true
     this.checkLoading()
     // this.pendingList = data.dataMap.orders
     this.pendingList = data.data.list
-    console.log('this.pendingList====',this.pendingList)
+    // console.log('this.pendingList====',this.pendingList)
     // this.maxPage = Math.ceil(this.accDiv(data.data,this.maxResults))
     this.maxPage = data.data.totalPage
     // console.log(this.maxPage)
@@ -825,7 +825,7 @@ root.methods.clickConfirmBtn = function () {
     this.sellCommitToastOpen = false
     this.submitBtnAjaxFlag = false;
 
-    console.log('进入定时器，已经超过4s，状态帮你改为',this.submitBtnAjaxFlag,new Date());
+    // console.log('进入定时器，已经超过4s，状态帮你改为',this.submitBtnAjaxFlag,new Date());
 
     //回调函数
     this.refreshPageFunc = ()=>{

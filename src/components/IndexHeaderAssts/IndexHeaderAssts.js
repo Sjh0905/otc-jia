@@ -244,7 +244,7 @@ root.methods.getAccounts = function () {
 root.methods.re_getAccount = function (data) {
   typeof (data) === 'string' && (data = JSON.parse(data))
   if (!data || !data.accounts) {
-    console.warn("拿回了奇怪的东西！", data)
+    // console.warn("拿回了奇怪的东西！", data)
     return
   }
   this.$store.commit('CHANGE_ACCOUNT', data.accounts)

@@ -51,7 +51,7 @@ root.created = function () {
 
 	this.getAuthState()
 
-	console.log('bbbb')
+	// console.log('bbbb')
 };
 
 root.methods = {};

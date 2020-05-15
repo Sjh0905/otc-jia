@@ -319,7 +319,7 @@ root.methods.GET_ORDER_DETAIL = function () {
 		if (data.code == 200) {
 			this.loading = false;
 
-			console.log('datas=====',datas,this.detail_type)
+			// console.log('datas=====',datas,this.detail_type)
       //
 			// this.appealTime = datas.appealTime;
 			// this.appeal = datas.ctcOrder.appeal;
@@ -327,7 +327,7 @@ root.methods.GET_ORDER_DETAIL = function () {
 			// this.userType = datas.userType;
       //
 
-			console.log('rrrrrrrrrrr 88888888',datas.order)
+			// console.log('rrrrrrrrrrr 88888888',datas.order)
 
 
 			this.ctc_order = datas.order;
@@ -335,7 +335,7 @@ root.methods.GET_ORDER_DETAIL = function () {
 			this.user_info = !!datas.user && datas.user || {}
 			// this.pay_info = (datas.userType == 1 || datas.userType == 4 )  ? (datas.userPayInfoList || []) : (datas.businessPayInfoList || []);
 			this.pay_info = datas.userPayment || []
-      console.info(this.pay_info)
+      // console.info(this.pay_info)
 			// 判断用户支付方式有无变化 买入时候需要判断
 			// datas.userType == 1 && this.USER_PAY_INFO(this.ctc_order);
 
@@ -380,7 +380,7 @@ root.methods.GET_ORDER_DETAIL = function () {
 			let end = this.ctc_order.limitTime;
 			// let end = !!this.ctc_order.expireTime2 ? this.ctc_order.expireTime2 : this.ctc_order.updatedAt;
       // (this.detail_type == 1 || this.detail_type == 4) && this.initTimes(this.serverTime, end);
-      console.log('this.serverTime==============',data.time);
+      // console.log('this.serverTime==============',data.time);
       this.detail_type == 1  && this.initTimes(data.time, end);
       this.detail_type == 4 && this.initTimes(data.time, end);
 		}
@@ -465,7 +465,7 @@ root.methods.CLOSE_DIALOG = function () {
 root.methods.initTimes = function (now, end) {
 	// 买单和卖单都显示15分钟，但是如果是卖单，且开始结束时差大于一小时的时候，且客户已付款，需要显示出小时
 	if (this.ctc_order.sellerId == this.userId && (Number(end) - Number(now) > 3600000)) {
-  console.info('ooooooooo=====',document.getElementById('times'))
+  // console.info('ooooooooo=====',document.getElementById('times'))
 		new Countdown(document.getElementById('times'), {
 		    format: '<span style="margin-left: 2px; color: #ED7265;">hh</span> 时 <span style="margin-left: 2px; color: #ED7265;">mm</span> 分 <span style="margin-left: 2px; color: #ED7265;">ss</span> 秒',
         startTime: now,
