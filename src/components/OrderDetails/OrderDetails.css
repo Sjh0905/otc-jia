@@ -46,7 +46,7 @@
 .order_title small {
 	line-height: 40px;
 	font-size: 14px;
-	color: #C43E4E;
+	color: #3576F5;
 }
 
 /*.go_history:hover{*/
@@ -163,7 +163,7 @@
 .copy_btn{
 	padding: 2px 5px;
 	/*border: 1px solid #C43E4E;*/
-	color: #C43E4E;
+	color: #3576F5;
 	margin-left: 10px;
 	cursor: pointer;
 	font-size: 12px;
@@ -380,12 +380,12 @@
 }
 .order_cannel{
 	margin-right: 20px;
-	border: 1px solid #C43E4E;
-	color: #C43E4E;
+	border: 1px solid #3576F5;
+	color: #3576F5;
 }
 .order_complete{
-	border: 1px solid #C43E4E;
-	background: #C43E4E;
+	border: 1px solid #3576F5;
+	background: #3576F5;
 	color: #fff;
 }
 
@@ -681,13 +681,13 @@
 .card_item_item{
 	display: inline-block;
 	width: 80%;
-	padding-left: 40px;
+	/*padding-left: 40px;*/
 }
 .card_item_p{
 	display: inline-block;
 	/* width: 10%; */
 	/* height: 100%; */
-	position: absolute
+	/*position: absolute*/
 }
 
 /*验证码发送中*/
@@ -714,7 +714,7 @@
 }
 .iten_color2{
   font-size: 18px;
-  color: #C43E4E;
+  color: #3576F5;
   padding-left: 6px;
 }
 .fz{
@@ -744,14 +744,14 @@
   margin-left: 80%;
   margin-top: -34px;
   text-align: center;
-  background: #C43E4E;
+  background: #3576F5;
   cursor: pointer;
   border-radius: 2px;
 }
 
 .quxiao{
   font-size: 14px;
-  color: #C43E4E;
+  color: #3576F5;
   margin-left: 94%;
   margin-top: 16px;
   cursor: pointer;
