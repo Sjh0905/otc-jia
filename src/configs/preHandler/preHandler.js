@@ -3,23 +3,27 @@ import wss from '../../../static/js/Wsocekt'
 export default async function ($http, $store, $cookie, $i18n) {
 
 	// 检测登录状态
-	// async function checkLogin () {
-	// 	await $http.send('CHECK_LOGIN').then(({data}) => {
-	// 		typeof(data) === 'string' && (data = JSON.stringify(data));
-	// 		if (data.errorCode == 0) {
-	// 			let res = data.dataMap.userProfile;
-	// 			// commit 个人信息
-	// 			$store.commit('SET_AUTH_MESSAGE', res);
-	// 			// commit socket
-	// 			let socket = data.dataMap.socket;
-	// 			$store.commit('SET_AUTH_SOCKET', socket);
-	// 			// 初始化socekt
-	// 			INIT_SOCKET(socket);
-	// 		}
-	// 	}).catch((err)=>{
-	// 		console.log(err)
-	// 	})
-	// }
+	async function checkLogin () {
+		await $http.send('GET_USER_AUTH_INFO').then(({data}) => {
+			typeof(data) === 'string' && (data = JSON.stringify(data));
+			if(data.code != 401){
+        let res = data.data;
+        $store.commit('SET_AUTH_STATE', res);
+      }
+			// if (data.errorCode == 0) {
+				// let res = data.dataMap.userProfile;
+				// commit 个人信息
+
+				// commit socket
+				// let socket = data.dataMap.socket;
+				// $store.commit('SET_AUTH_SOCKET', socket);
+				// 初始化socekt
+				// INIT_SOCKET(socket);
+			// }
+		}).catch((err)=>{
+			console.log(err)
+		})
+	}
 
 	// 连接socket
 	// function INIT_SOCKET (socket) {
@@ -50,7 +54,7 @@ export default async function ($http, $store, $cookie, $i18n) {
 	}
 
 
-	await Promise.all([getServerTime()]).then(res => {
+	await Promise.all([checkLogin()]).then(res => {
     	// console.warn('')
   	})
   // await Promise.all([checkLogin(), getServerTime()]).then(res => {

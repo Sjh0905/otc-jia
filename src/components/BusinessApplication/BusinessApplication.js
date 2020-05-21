@@ -78,7 +78,7 @@ root.methods.GET_USER_AUTH_INFO = function () {
 // 获取配置信息
 root.methods.getSystemArgs = function () {
 	this.$http.send('GET_SYSTEM_ARGS').then(({data}) => {
-		console.log(data,"获取配置信息");
+		// console.log(data,"获取配置信息");
 		let securityDeposit = data.data || {};
         this.key_amount.name = securityDeposit.marginCurrency || "TT";
         this.key_amount.value = (securityDeposit.marginAmount == 0 ? 0: securityDeposit.marginAmount)|| '--';

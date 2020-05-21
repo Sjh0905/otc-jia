@@ -189,6 +189,8 @@ root.data = function () {
     languageFlag: 'language-img-china',
     notice_tips: this.$store.state.lang == 'CH' ? 'TwentyTwenty 上线IOST，送币活动火热开启！活动期间注册、充值IOST送IOST,数量有限，先到先得！交易前50名更有IOST奖励，最高4万IOST！' : 'TwentyTwenty  lists IOST, get IOST bonus now! Register during the event, make a deposit, will get IOST bonus! Whoever comes first will get the bonus, until all are given out. Top 50 members with high IOST transaction volume will get up-to 40,000 IOST!',
     noticeInterval: '',
+    //获取认证状态定时器
+    authStateInterval: null,
     // 语言按钮切换
     jtval:false,
     // 钱包按钮切换
@@ -268,6 +270,11 @@ root.created = function () {
   this.getAuthState()
 
   // this.$eventBus.listen(this, 'CHECK_IS_VIP', this.getCheck);
+
+  this.authStateInterval && clearInterval(this.authStateInterval)
+  this.authStateInterval = setInterval(() => {
+    this.getAuthState();
+  }, 5000)
 
 }
 
@@ -365,13 +372,26 @@ root.computed.mobileHeaderTitle = function () {
   return this.$store.state.mobileHeaderTitle;
 }
 
-// 是否登录
+// // 是否登录
+// root.computed.isLogin = function () {
+//   // if (this.$store.state.isLogin) return true
+//   // return false
+//   if (this.$store.state.authState.userId !== '') return true
+//   return false
+// }
+
 root.computed.isLogin = function () {
-  // if (this.$store.state.isLogin) return true
-  // return false
+  return this.$store.state.isLogin;
   if (this.$store.state.authState.userId !== '') return true
   return false
+
+  // 是否登录
+  // if (!this.isLogin) {
+  //   window.location.replace(this.$store.state.domain_url + 'index/sign/login?symbol=ETH_USDT');
+  //   return
+  // }
 }
+
 
 // // 是否显示右侧菜单
 // root.computed.changePopOpen = function () {
@@ -475,7 +495,7 @@ root.watch.redPoint = function (newValue, oldValue) {
     this.noticeInterval = setInterval(() => {
       this.getNoticeRedPoint()
     }, 600000)
-  }2
+  }
 }
 
 
@@ -485,11 +505,17 @@ root.methods = {}
 
 // 获取用户的绑定信息
 root.methods.getAuthState = function () {
-  if (!this.$store.state.authState) {
+  // if (!this.$store.state.authState) {
     this.$http.send('GET_AUTH_STATE')
       .then(({data}) => {
         typeof data === 'string' && (data = JSON.parse(data))
-        if (!data) return
+        if (!data || data.code == 401){
+          // console.log('在检测~~~~~~~~~~~~~~~~~~~~~~~~~~~~~已经退出登录');
+          // window.location.reload();
+          this.$store.commit('SET_AUTH_STATE', {})
+          return
+        }
+        // console.log("之前的信息是",this.$store.state.authState && this.$store.state.authState.userId,"新的信息是",data.data.userId);
         // this.userName = this.$globalFunc.formatUserName(data.data.number)
         // this.flag = data.data.memeber
         // this.authType = data.data.idType
@@ -499,7 +525,7 @@ root.methods.getAuthState = function () {
       console.log('err', err)
     });
     return
-  }
+  // }
 }
 
 //跳转到行情页面
@@ -587,7 +613,8 @@ root.methods.goOutRegain = function () {
     }
   ).then(({data}) => {
     this.$store.commit('LOGIN_OUT');
-    window.location.reload();
+    // window.location.reload();
+    window.location.replace(this.$store.state.domain_url + 'index/sign/login')
   })
 }
 
@@ -786,6 +813,8 @@ root.methods.re_login_off_callback = function ({data}) {
   alert('123123123');
   this.$store.commit('LOGIN_OUT');
   window.location.reload();
+  window.location.replace(this.$store.state.domain_url + 'index/sign/login')
+
   // this.$router.push('index/sign/login')
   // window.location.replace(this.$store.state.domain_url + 'index/sign/login');
 }
@@ -1135,7 +1164,7 @@ root.methods.GET_NOTICE = function () {
 //公告跳转zendesk
 root.methods.goNotice = function (res) {
   // window.open(res)
-  console.info(res)
+  // console.info(res)
   // this.$router.push({path: '/index/notice/noticeDetail',  query: {columnId:'0' , id: res}})
   window.location.replace(this.$store.state.domain_url + 'index/notice/noticeDetail?columnId=0&id='+res)
 }

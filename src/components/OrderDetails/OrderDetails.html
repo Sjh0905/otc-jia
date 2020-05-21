@@ -115,21 +115,22 @@
                 <div class="border_radius card" :class="pay_info.bankType == 1 ? 'blue' : (pay_info.bankType == 2 ? 'green' : 'yellow')">
 <!--                  <div class="card_item" v-show="item.type == 'BANKCARD'">-->
                   <div class="card_item">
-                    <span v-if="ctc_order.sellerId != userId">卖家姓名: </span>
-                    <span v-if="ctc_order.sellerId == userId">姓名: </span>
+                    <span>{{ctc_order.sellerId == userId ? '买家姓名:' : '卖家姓名:'}} </span>
+<!--                    <span v-if="ctc_order.sellerId == userId">姓名: </span>-->
                     <font ref="name">
-                      <span v-if="detail_type == 2 || detail_type == 3">{{pay_info.userName}}</span>
+<!--                      <span v-if="detail_type == 2 || detail_type == 3">{{pay_info.userName}}</span>-->
+                      <span v-if="detail_type == 2 || detail_type == 3">{{ctc_order.sellerId == userId ? ctc_order.buyName : ctc_order.sellName}}</span>
 <!--                      <span v-else>{{changeName(pay_info.userName)}}</span>-->
-                      <span v-else>{{(pay_info.userName)}}</span>
+                      <span v-else>{{ctc_order.sellerId == userId ? ctc_order.buyName : ctc_order.sellName}}</span>
                     </font>
                     <span class="copy_btn border_radius" @click="COPY('name')">复制</span>
                   </div>
-                  <div class="card_item" v-show="pay_info.type == 'ALIPAY'">
-                    账号姓名: <font ref="alipay_name">{{pay_info.userName}}</font>
-                    <span class="copy_btn border_radius" @click="COPY('alipay_name')">复制</span>
-                  </div>
+<!--                  <div class="card_item" v-show="pay_info.type == 'ALIPAY'">-->
+<!--                    账号姓名: <font ref="alipay_name">{{pay_info.userName}}</font>-->
+<!--                    <span class="copy_btn border_radius" @click="COPY('alipay_name')">复制</span>-->
+<!--                  </div>-->
                   <div class="card_item">
-                    银行: <font ref="card">{{pay_info.bankName}}</font>
+                    收款银行: <font ref="card">{{pay_info.bankName}}</font>
                     <span class="copy_btn border_radius" @click="COPY('card')">复制</span>
                   </div>
 <!--                  <div class="card_item" v-show="pay_info.type == 'ALIPAY'">-->
@@ -137,7 +138,7 @@
 <!--                    <span class="copy_btn border_radius" @click="COPY('alipay')">复制</span>-->
 <!--                  </div>-->
                   <div class="card_item">
-                    <p  class="card_item_p">支行:</p>
+                    <p  class="card_item_p">收款支行:</p>
                     <div ref="address" class="card_item_item">{{pay_info.bankAddress}}</div>
                     <!-- <font ref="address">
                      {{item.bankAddr}}
@@ -151,7 +152,7 @@
                   </div>
                   <div class="card_item">
 <!--                    卡号: <font ref="card_num" v-if="detail_type == 2 || detail_type == 3">{{changeBankCard(pay_info.bankNumber)}}</font>-->
-                    卡号: <font ref="card_num" v-if="detail_type == 2 || detail_type == 3">{{(pay_info.bankNumber)}}</font>
+                    收款卡号: <font ref="card_num" v-if="detail_type == 2 || detail_type == 3">{{(pay_info.bankNumber)}}</font>
                     <font ref="card_num" v-else>{{pay_info.bankNumber}}</font>
                     <span class="copy_btn border_radius" @click="COPY('card_num')">复制</span>
                   </div>
@@ -364,12 +365,15 @@
           </div>
           <div class="user_info_item flex">
             <div class="user_info_item_label">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额：</div>
-            <div class="user_info_item_detail">{{$globalFunc.accFixed(ctc_order.amount * ctc_order.price,2)}} CNY</div>
+<!--            <div class="user_info_item_detail">{{$globalFunc.accFixed(ctc_order.amount * ctc_order.price,2)}} CNY</div>-->
+            <div class="user_info_item_detail">{{ctc_order.totalAmount}}  CNY</div>
           </div>
           <div class="user_info_item flex">
             <div class="user_info_item_label">{{ctc_order.sellerId == userId ? '买家姓名:' : '卖家姓名:'}}</div>
 <!--            <div class="user_info_item_detail">{{ctc_order.sellerId == userId?user_info.name:pay_info[0].userName}}</div>-->
-            <div class="user_info_item_detail">{{pay_info.userName}}</div>
+<!--            <div class="user_info_item_detail">{{pay_info.userName}}</div>-->
+            <div class="user_info_item_detail" v-if="ctc_order.sellerId == userId">{{ctc_order.buyName}}</div>
+            <div class="user_info_item_detail" v-if="ctc_order.sellerId != userId">{{ctc_order.sellName}}</div>
           </div>
         </div>
         <div class="user_notice" v-if="ctc_order.sellerId != userId">

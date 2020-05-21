@@ -171,8 +171,8 @@
             <div class="user_info_item_detail">{{$globalFunc.accFixed(order_detail.amount * order_detail.price,2)}} CNY</div>
           </div>
           <div class="user_info_item flex">
-            <div class="user_info_item_label">{{order_detail.sellerId == userId ? '卖家姓名' : '卖家姓名'}}：</div>
-            <div class="user_info_item_detail">{{user_info.userName}}</div>
+            <div class="user_info_item_label">{{order_detail.sellerId == userId ? '买家姓名' : '卖家姓名'}}：</div>
+            <div class="user_info_item_detail">{{order_detail.sellerId == userId ? order_detail.buyName : order_detail.sellName}}</div>
           </div>
         </div>
         <div class="user_notice">

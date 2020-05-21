@@ -285,7 +285,7 @@ root.methods.GET_ORDER_DETAIL = function () {
 			payId: byId,
 		}
 	}).then(({data}) => {
-    console.log('hahahahah000000000',data)
+    // console.log('hahahahah000000000',data)
     this.pay_info= data
 
 	}).catch((err) => {
@@ -367,6 +367,10 @@ root.methods.getAuthState = function () {
         if (!data) return
 
         this.$store.commit('SET_AUTH_STATE', data.data)
+
+        // if (data.code == 401) {
+        //   this.$store.commit('LOGIN_OUT',this.isLogin = false);
+        // }
       }).catch((err) => {
         console.log('err', err)
       });
@@ -414,7 +418,7 @@ root.methods.getPageList = function () {
     this.pendingList = data.data.list
     // this.maxPage = Math.ceil(this.accDiv(this.pendingList.length, this.maxResults))
     this.maxPage = data.data.totalPage
-    console.info('this.maxPage=========ooooo',this.maxPage)
+    // console.info('this.maxPage=========ooooo',this.maxPage)
 
   }).catch((err) => {
     console.log('err', err)
@@ -441,7 +445,7 @@ root.methods.aKeyToBuy = function (item) {
   }).then(({
     data
   }) => {
-    console.log(data,'aaa')
+    // console.log(data,'aaa')
     // this.loading = false
     // this.pageListAjaxLoading = true
     // this.checkLoading()
@@ -592,7 +596,7 @@ root.methods.clickToBuy = function (item) {
 
   this.buyToastOpen = true;
   this.buyItem = item
-  console.log('小',item)
+  // console.log('小',item)
   this.GET_ORDER_DETAIL()
 }
 
@@ -719,7 +723,7 @@ root.methods.clickConfirmBtn = function () {
     this.buyCommitToastOpen = false
     this.submitBtnAjaxFlag = false;
 
-    console.log('进入定时器，已经超过4s，状态帮你改为', this.submitBtnAjaxFlag, new Date());
+    // console.log('进入定时器，已经超过4s，状态帮你改为', this.submitBtnAjaxFlag, new Date());
 
     //回调函数
     this.refreshPageFunc = () => {
@@ -740,7 +744,7 @@ root.methods.clickConfirmBtn = function () {
   }).then(({
     data
   }) => {
-    console.log(data, "aaa啊啊")
+    // console.log(data, "aaa啊啊")
     if (data.code) {
       this.submitBtnAjaxFlag = false;
 

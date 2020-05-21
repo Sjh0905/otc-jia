@@ -34,7 +34,7 @@ fileTypeArr.forEach(fileType => {
 
 
     if (fs.existsSync(newPath)) {
-      console.warn(`${newPath}文件重复，请手动操作!`);
+      // console.warn(`${newPath}文件重复，请手动操作!`);
       return
     }
     fs.rename(oldPath, newPath, (err) => {
