@@ -547,9 +547,9 @@ root.methods.goToOfficialQuantitativeDetails = function () {
   window.location.replace(this.$store.state.domain_url + 'index/officialQuantitativeDetails');
 }
 
-//跳转到挖矿详情页面
+//跳转到百宝箱详情页面
 root.methods.goToRecord = function () {
-  window.location.replace(this.$store.state.domain_url + 'index/LuckyDraw/Record');
+  window.location.replace(this.$store.state.domain_url + 'index/LuckyDraw/Forecast');
 }
 //跳转到拼团详情页面
 root.methods.goToTransactionBuy = function () {
