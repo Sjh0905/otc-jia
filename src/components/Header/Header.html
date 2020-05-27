@@ -744,14 +744,14 @@
                 <!--                </li>-->
                 <!--                &lt;!&ndash;资产 end&ndash;&gt;-->
 
-                <!--活动 begin-->
+                <!--挖矿 begin-->
                 <li class="navigation-item-container flex"  @mouseenter="enterActive()" @mouseleave="leaveActive()">
 
                   <div
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected text_blue"
                   >
-                    <span class="langfont-active">{{$t('活动')}}</span>
+                    <span class="langfont-active">{{$t('挖矿')}}</span>
                     <div class="language-jt-down" :class="activeVal?'language-jt-down':'language-jt-up'"></div>
                   </div>
                   <!--隐藏的标签 begin-->
@@ -785,7 +785,40 @@
                   </ul>
                   <!--隐藏的标签 end-->
                 </li>
+                <!--挖矿 end-->
+
+                <!--活动 begin-->
+                <li class="navigation-item-container flex"  @mouseenter="enterTreasure()" @mouseleave="leaveTreasure()">
+
+                  <div
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected text_blue"
+                  >
+                    <span class="langfont-treasure">{{$t('活动')}}</span>
+                    <div class="language-jt-down" :class="chest?'language-jt-down':'language-jt-up'"></div>
+                  </div>
+                  <!--隐藏的标签 begin-->
+                  <ul class="flex navigation-item-hidden-list"
+                      :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',
+                    'navigation-item-hidden-list-black':isBlack}"
+                  >
+
+                    <!-- sss 量化报名-->
+                    <li class="navigation-item-hidden-list-item">
+                      <div
+                        @click="goToRecord"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                        <!--KK交易挖矿活动-->
+                        {{$t('百日庆之百宝箱')}}
+                      </div>
+                    </li>
+
+                  </ul>
+                  <!--隐藏的标签 end-->
+                </li>
                 <!--活动 end-->
+
 
                 <!--sss拼团 begin-->
                 <li class="navigation-item-container flex">

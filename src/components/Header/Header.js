@@ -199,6 +199,7 @@ root.data = function () {
     orderVal:false,
     // 活动
     activeVal:true,
+    chest:true,
     // 字体切换
     jttext:'',
     logo: logo,
@@ -544,6 +545,11 @@ root.methods.goToOfficialQuantitativeRegistration = function () {
 //跳转到挖矿详情页面
 root.methods.goToOfficialQuantitativeDetails = function () {
   window.location.replace(this.$store.state.domain_url + 'index/officialQuantitativeDetails');
+}
+
+//跳转到挖矿详情页面
+root.methods.goToRecord = function () {
+  window.location.replace(this.$store.state.domain_url + 'index/LuckyDraw/Record');
 }
 //跳转到拼团详情页面
 root.methods.goToTransactionBuy = function () {
@@ -958,6 +964,16 @@ root.methods.leaveActive = function () {
   this.activeVal = true;
 }
 
+// 百宝鼠标移入
+root.methods.enterTreasure = function () {
+  $(".langfont-treasure").attr("style","color: #fff;");
+  this.chest = false;
+}
+
+root.methods.leaveTreasure = function () {
+  $(".langfont-treasure").attr("style","color: (255, 255, 255, 0.8);");
+  this.chest = true;
+}
 // 钱包鼠标移入
 root.methods.enterMoney = function () {
   $(".langfont-money").attr("style","color: #fff;");
