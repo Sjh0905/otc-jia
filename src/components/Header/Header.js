@@ -553,7 +553,7 @@ root.methods.goToRecord = function () {
 }
 //跳转到区块恋页面
 root.methods.goToBlockChain = function () {
-  window.location.replace(this.$store.state.domain_url + '/index/financialFund/fundProducts');
+  window.location.replace(this.$store.state.domain_url + 'index/financialFund/fundProducts');
 }
 //跳转到拼团详情页面
 root.methods.goToTransactionBuy = function () {
