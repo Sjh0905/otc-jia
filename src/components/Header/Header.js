@@ -559,6 +559,10 @@ root.methods.goToTransactionBuy = function () {
 root.methods.goToAssembleARegiment = function () {
   window.location.replace(this.$store.state.domain_url + 'index/assembleARegiment');
 }
+//跳转到镜像交易页面
+root.methods.goToFollowTrade = function () {
+  window.location.replace(this.$store.state.domain_url + 'index/followTrade');
+}
 //跳转到我的钱包页面
 root.methods.goToMyWallet = function () {
   window.location.replace(this.$store.state.domain_url + 'index/asset/myWallet');
