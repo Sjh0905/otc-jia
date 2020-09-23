@@ -795,6 +795,7 @@
                     active-class="navigation-item-router-selected text_blue"
                   >
                     <span class="langfont-treasure">{{$t('活动')}}</span>
+                    <img src="../../assets/hot_icon.png" alt="" class="hot-icon">
                     <div class="language-jt-down" :class="chest?'language-jt-down':'language-jt-up'"></div>
                   </div>
                   <!--隐藏的标签 begin-->
@@ -803,7 +804,7 @@
                     'navigation-item-hidden-list-black':isBlack}"
                   >
 
-                    <!-- sss 量化报名-->
+                    <!--区块恋-->
                     <li class="navigation-item-hidden-list-item">
                       <div
                         @click="goToRecord"
@@ -813,7 +814,16 @@
                         {{$t('百日庆之百宝箱')}}
                       </div>
                     </li>
-
+                    <!-- 区块恋报名-->
+                    <li class="navigation-item-hidden-list-item">
+                      <div
+                        @click="goToBlockChain"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                        <!--区块恋活动-->
+                        {{$t('区块恋')}}
+                      </div>
+                    </li>
                   </ul>
                   <!--隐藏的标签 end-->
                 </li>
