@@ -9,6 +9,7 @@ store.state.lang = 'CH'
 // 跳转域名
 // store.state.domain_url = 'http://www.2020.exchange/';
 store.state.domain_url = process.env.DOMAIN || 'https://www.2020.exchange/'
+store.state.gotocontract_url = process.env.GOTOCONTRACT || 'https://futures.2020.exchange/'
 // store.state.domain_url = process.env.DOMAIN || 'http://sss.2020.exchange:8085/'
 
 

@@ -611,30 +611,19 @@
                     {{$t('法币交易')}}
                     <!--                  <div class="language-jt-down"></div>-->
                   </div>
-                <!--                  &lt;!&ndash; 隐藏的标签 begin&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                <ul class="flex navigation-item-hidden-list"&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                    :class="{'navigation-item-hidden-list-black':isBlack}"&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                >&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                  <li class="navigation-item-hidden-list-item">&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                    <router-link&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                      :to="{name:''}"&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                      class="navigation-item-hidden-list-item-router"&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                      active-class="item_selected">&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                      C2C交易&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                    </router-link>&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                  </li>&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                  <li class="navigation-item-hidden-list-item">&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                    <div&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                      @click="GO_OTC"&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                      class="navigation-item-hidden-list-item-router"&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                      active-class="item_selected"&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                    >&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                      OTC交易&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                    </div>&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                  </li>&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                </ul>&ndash;&gt;-->
-                <!--                  &lt;!&ndash; 隐藏的标签 end &ndash;&gt;-->
-                                </li>
+                </li>
+                <!--                &lt;!&ndash; 合约交易 &ndash;&gt;-->
+                <li class="navigation-item-container flex">
+                  <!--                合约交易-->
+                  <div
+                    @click="goToContract"
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected item_selected text_blue"
+                  >
+                    {{$t('合约交易')}}
+                    <!--                  <div class="language-jt-down"></div>-->
+                  </div>
+                </li>
                 <!--                &lt;!&ndash;                 法币交易 begin&ndash;&gt;-->
                 <!--                &lt;!&ndash;              <li class="navigation-item-container flex">&ndash;&gt;-->
                 <!--                &lt;!&ndash;                <router-link&ndash;&gt;-->

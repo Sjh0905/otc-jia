@@ -563,6 +563,10 @@ root.methods.goToTransactionBuy = function () {
 root.methods.goToAssembleARegiment = function () {
   window.location.replace(this.$store.state.domain_url + 'index/assembleARegiment');
 }
+//跳转到合约交易页面
+root.methods.goToContract = function () {
+  window.location.replace(this.$store.state.gotocontract_url + 'index/tradingHall?symbol=BTC_USDT');
+}
 //跳转到镜像交易页面
 root.methods.goToFollowTrade = function () {
   window.location.replace(this.$store.state.domain_url + 'index/followTrade');
