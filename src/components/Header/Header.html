@@ -800,7 +800,7 @@
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         <!--KK交易挖矿活动-->
-                        {{$t('百日庆之百宝箱')}}
+                        百宝箱
                       </div>
                     </li>
                     <!-- 区块恋报名-->
@@ -810,7 +810,7 @@
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         <!--区块恋活动-->
-                        {{$t('区块恋')}}
+                        区块安
                       </div>
                     </li>
                   </ul>
@@ -906,6 +906,17 @@
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         {{$t('法币账户')}}
+                      </div>
+                    </li>
+
+                    <!-- 法币账户 end-->
+
+                    <!--  法币账户  begin-->
+                    <li class="navigation-item-hidden-list-item">
+                      <div @click="goToContractAsset"
+                           class="navigation-item-hidden-list-item-router"
+                           active-class="item_selected">
+                        {{$t('合约账户')}}
                       </div>
                     </li>
 
@@ -1031,6 +1042,14 @@
                       >
                         {{$t('法币订单')}}
                       </router-link>
+                    </li>
+                    <li class="navigation-item-hidden-list-item">
+                      <div
+                        @click="goToContractOrders"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                        {{$t('合约订单')}}
+                      </div>
                     </li>
                   </ul>
                   <!--隐藏的标签 end-->
