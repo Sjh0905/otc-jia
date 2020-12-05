@@ -194,9 +194,9 @@ root.data = function () {
     // 语言按钮切换
     jtval:false,
     // 钱包按钮切换
-    moneyVal:false,
+    moneyVal:true,
     // 订单按钮切换
-    orderVal:false,
+    orderVal:true,
     // 活动
     activeVal:true,
     chest:true,
