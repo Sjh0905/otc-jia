@@ -37,8 +37,8 @@ module.exports = {
       // },
       '/apis': {
         // target: 'https://valuepay.easybtc.io/',
-        // target: 'http://www.2020-ex.com',
-        target: 'https://www.2020.exchange',
+        target: 'http://www.2020-ex.com',
+        // target: 'https://www.2020.exchange',
         changeOrigin: true,
         pathRewrite: {//TODO:连接测试用这个
           '^/apis': ''

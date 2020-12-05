@@ -579,6 +579,16 @@ root.methods.goToMyWallet = function () {
 root.methods.goToLegalCurrency = function () {
   window.location.replace(this.$store.state.domain_url + 'index/asset/rechargeAndWithdrawals');
 }
+//跳转到合约账户页面
+root.methods.goToContractAsset = function () {
+  window.location.replace(this.$store.state.domain_url + 'index/asset/contractRecord/warehousePosition');
+}
+//跳转到合约订单页面
+root.methods.goToContractOrders = function () {
+  window.location.replace(this.$store.state.gotocontract_url + 'index/order/currentEntrust');
+}
+
+
 //跳转到财务记录页面
 root.methods.goToRechargeRecord = function () {
   window.location.replace(this.$store.state.domain_url + 'index/asset/record/rechargeRecord');

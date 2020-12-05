@@ -598,7 +598,18 @@
                 </li>
 
                 <!--合约交易 begin-->
-
+                <!--                &lt;!&ndash; 合约交易 &ndash;&gt;-->
+                <li class="navigation-item-container flex">
+                  <!--                合约交易-->
+                  <div
+                    @click="goToContract"
+                    class="navigation-item-router flex"
+                    active-class="navigation-item-router-selected item_selected text_blue"
+                  >
+                    {{$t('合约交易')}}
+                    <!--                  <div class="language-jt-down"></div>-->
+                  </div>
+                </li>
 
                 <!--                &lt;!&ndash; 法币交易 &ndash;&gt;-->
                 <li class="navigation-item-container flex">
@@ -609,18 +620,6 @@
                     active-class="navigation-item-router-selected item_selected text_blue"
                   >
                     {{$t('法币交易')}}
-                    <!--                  <div class="language-jt-down"></div>-->
-                  </div>
-                </li>
-                <!--                &lt;!&ndash; 合约交易 &ndash;&gt;-->
-                <li class="navigation-item-container flex">
-                  <!--                合约交易-->
-                  <div
-                    @click="goToContract"
-                    class="navigation-item-router flex"
-                    active-class="navigation-item-router-selected item_selected text_blue"
-                  >
-                    {{$t('合约交易')}}
                     <!--                  <div class="language-jt-down"></div>-->
                   </div>
                 </li>
@@ -691,7 +690,7 @@
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         <!--KK交易挖矿活动-->
-                        {{$t('百日庆之百宝箱')}}
+                        百宝箱
                       </div>
                     </li>
                     <!-- 区块恋报名-->
@@ -701,7 +700,7 @@
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         <!--区块恋活动-->
-                        {{$t('区块恋')}}
+                        区块安
                       </div>
                     </li>
                   </ul>
@@ -791,6 +790,15 @@
                       </div>
                     </li>
 
+                    <!--  合约账户  begin-->
+                    <li class="navigation-item-hidden-list-item">
+                      <div @click="goToContractAsset"
+                           class="navigation-item-hidden-list-item-router"
+                           active-class="item_selected">
+                        {{$t('合约账户')}}
+                      </div>
+                    </li>
+                    <!-- 合约账户 end-->
                     <!--  法币账户  begin-->
                     <li class="navigation-item-hidden-list-item">
                       <div @click="goToLegalCurrency"
@@ -801,6 +809,8 @@
                     </li>
 
                     <!-- 法币账户 end-->
+
+
 
                     <!--                    币币账户 暂时屏蔽 bebgin-->
                     <!--                    <li class="navigation-item-hidden-list-item">-->
@@ -912,6 +922,14 @@
                         class="navigation-item-hidden-list-item-router"
                         active-class="item_selected">
                         {{$t('币币订单')}}
+                      </div>
+                    </li>
+                    <li class="navigation-item-hidden-list-item">
+                      <div
+                        @click="goToContractOrders"
+                        class="navigation-item-hidden-list-item-router"
+                        active-class="item_selected">
+                        {{$t('合约订单')}}
                       </div>
                     </li>
                     <li class="navigation-item-hidden-list-item">
