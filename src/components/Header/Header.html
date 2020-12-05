@@ -624,114 +624,6 @@
                     <!--                  <div class="language-jt-down"></div>-->
                   </div>
                 </li>
-                <!--                &lt;!&ndash;                 法币交易 begin&ndash;&gt;-->
-                <!--                &lt;!&ndash;              <li class="navigation-item-container flex">&ndash;&gt;-->
-                <!--                &lt;!&ndash;                <router-link&ndash;&gt;-->
-                <!--                &lt;!&ndash;                  :to="{name: 'tradingHall', query: {symbol: $store.state.symbol} }"&ndash;&gt;-->
-                <!--                &lt;!&ndash;                  class="navigation-item-router flex"&ndash;&gt;-->
-                <!--                &lt;!&ndash;                  active-class="navigation-item-router-selected "&ndash;&gt;-->
-                <!--                &lt;!&ndash;                >&ndash;&gt;-->
-                <!--                &lt;!&ndash;                  &lt;!&ndash;{{$t('currencyExchange')}}&ndash;&gt;&ndash;&gt;-->
-                <!--                &lt;!&ndash;                  法币交易&ndash;&gt;-->
-                <!--                &lt;!&ndash;                  <div class="language-jt-down"></div>&ndash;&gt;-->
-                <!--                &lt;!&ndash;                </router-link>&ndash;&gt;-->
-                <!--                &lt;!&ndash;隐藏的标签 法币交易 begin&ndash;&gt;-->
-                <!--                &lt;!&ndash;                隐藏的标签 end&ndash;&gt;-->
-                <!--                </li>-->
-
-                <!--                </li>-->
-                <!--                &lt;!&ndash;订单 begin&ndash;&gt;-->
-                <!--                <li class="navigation-item-container flex"  @mouseenter="enter()" @mouseleave="leave()">-->
-                <!--                  <router-link-->
-                <!--                    :to="{name:'currentEntrust'}"-->
-                <!--                    class="navigation-item-router flex"-->
-                <!--                    active-class="navigation-item-router-selected text_blue"-->
-                <!--                  >-->
-                <!--                    <span class="langfont">{{$t('order')}}</span>-->
-                <!--                    &lt;!&ndash;                  <div :class="jtval=='up'?'language-jt-up':'language-jt-down'"></div>&ndash;&gt;-->
-                <!--                    <div class="language-jt-down"></div>-->
-                <!--                  </router-link>-->
-
-                <!--                  &lt;!&ndash;隐藏的标签 begin&ndash;&gt;-->
-                <!--                  <ul class="flex navigation-item-hidden-list"-->
-                <!--                      :class="{'navigation-item-hidden-list-black':isBlack}"-->
-                <!--                  >-->
-                <!--                    <li class="navigation-item-hidden-list-item">-->
-                <!--                      <router-link-->
-                <!--                        :to="{name:'currentEntrust'}"-->
-                <!--                        class="navigation-item-hidden-list-item-router"-->
-                <!--                        active-class="item_selected">-->
-                <!--                        {{$t('currentEntrust')}}-->
-                <!--                      </router-link>-->
-                <!--                    </li>-->
-                <!--                    <li class="navigation-item-hidden-list-item">-->
-                <!--                      <router-link-->
-                <!--                        :to="{name:'historicalEntrust'}"-->
-                <!--                        class="navigation-item-hidden-list-item-router"-->
-                <!--                        active-class="item_selected text_red"-->
-                <!--                      >-->
-                <!--                        {{$t('historicalEntrust')}}-->
-                <!--                      </router-link>-->
-                <!--                    </li>-->
-                <!--                  </ul>-->
-                <!--                  &lt;!&ndash;隐藏的标签 end&ndash;&gt;-->
-                <!--                </li>-->
-                <!--订单 end-->
-
-                <!--资产 begin-->
-                <!--                <li class="navigation-item-container flex"  @mouseenter="enter()" @mouseleave="leave()">-->
-                <!--                  <router-link-->
-                <!--                    :to="{name: 'rechargeAndWithdrawals'}"-->
-                <!--                    class="navigation-item-router flex"-->
-                <!--                    active-class="navigation-item-router-selected text_blue"-->
-                <!--                  >-->
-                <!--                    <span class="langfont">{{$t('assets')}}</span>-->
-                <!--                    <div class="language-jt-down"></div>-->
-                <!--                  </router-link>-->
-                <!--                  &lt;!&ndash;隐藏的标签 begin&ndash;&gt;-->
-                <!--                  <ul class="flex navigation-item-hidden-list"-->
-                <!--                      :class="{'navigation-item-hidden-list-asset-en':lang!=='CH',-->
-                <!--                    'navigation-item-hidden-list-black':isBlack}"-->
-                <!--                  >-->
-                <!--                    <li class="navigation-item-hidden-list-item">-->
-                <!--                      <router-link-->
-                <!--                        :to="{name:'rechargeAndWithdrawals'}"-->
-                <!--                        class="navigation-item-hidden-list-item-router"-->
-                <!--                        active-class="item_selected">-->
-                <!--                        {{$t('recharge')}}-->
-                <!--                      </router-link>-->
-                <!--                    </li>-->
-                <!--                    <li class="navigation-item-hidden-list-item">-->
-                <!--                      <router-link-->
-                <!--                        :to="{name:'rechargeRecord'}"-->
-                <!--                        class="navigation-item-hidden-list-item-router"-->
-                <!--                        active-class="item_selected"-->
-                <!--                      >-->
-                <!--                        {{$t('rechargeRecord')}}-->
-                <!--                      </router-link>-->
-                <!--                    </li>-->
-                <!--                    <li class="navigation-item-hidden-list-item">-->
-                <!--                    <router-link-->
-                <!--                      :to="{name:'withdrawalsRecord'}"-->
-                <!--                      class="navigation-item-hidden-list-item-router"-->
-                <!--                      active-class="item_selected"-->
-                <!--                    >-->
-                <!--                      {{$t('withdrawalsRecord')}}-->
-                <!--                    </router-link>-->
-                <!--                  </li>-->
-                <!--                    <li class="navigation-item-hidden-list-item">-->
-                <!--                      <router-link-->
-                <!--                        :to="{name:'platformReward'}"-->
-                <!--                        class="navigation-item-hidden-list-item-router"-->
-                <!--                        active-class="item_selected"-->
-                <!--                      >-->
-                <!--                        {{$t('assetPage.platformReward')}}-->
-                <!--                      </router-link>-->
-                <!--                    </li>-->
-                <!--                  </ul>-->
-                <!--                  &lt;!&ndash;隐藏的标签 end&ndash;&gt;-->
-                <!--                </li>-->
-                <!--                &lt;!&ndash;资产 end&ndash;&gt;-->
 
                 <!--挖矿 begin-->
                 <li class="navigation-item-container flex"  @mouseenter="enterActive()" @mouseleave="leaveActive()">
@@ -784,7 +676,6 @@
                     active-class="navigation-item-router-selected text_blue"
                   >
                     <span class="langfont-treasure">{{$t('活动')}}</span>
-                    <img src="../../assets/hot_icon.png" alt="" class="hot-icon">
                     <div class="language-jt-down" :class="chest?'language-jt-down':'language-jt-up'"></div>
                   </div>
                   <!--隐藏的标签 begin-->
@@ -843,7 +734,7 @@
                     class="navigation-item-router flex"
                     active-class="navigation-item-router-selected"
                   >{{$t('镜像交易')}}
-                    <!--                                      {{$t('currencyQuotation')}}-->
+                    <span><img src="../../assets/hot_icon.png" alt="" class="hot-icon"></span>
                   </div>
                   <!--隐藏的标签 法币交易 begin-->
                   <!--隐藏的标签 end-->
