@@ -577,6 +577,7 @@ root.methods.goToFollowTrade = function () {
 root.methods.goToMyWallet = function () {
   window.location.replace(this.$store.state.domain_url + 'index/asset/myWallet');
 }
+
 //跳转到法币账户页面
 root.methods.goToLegalCurrency = function () {
   window.location.replace(this.$store.state.domain_url + 'index/asset/rechargeAndWithdrawals');
