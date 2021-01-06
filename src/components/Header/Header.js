@@ -221,6 +221,8 @@ root.data = function () {
     socket_price: {}, //总价格
 
 
+
+
     // targetHours : [3 , 6 , 9 , 12 , 15 , 18 , 21 , 0],
     targetHours : [3 , 6 , 9 , 12 , 15 , 18 , 21 , 0],
     targetMinutes : [0],
